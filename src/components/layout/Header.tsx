@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Search, Bell, User, Menu, X } from "lucide-react";
 import { navItems } from "@/data/mock";
 import { cn } from "@/lib/utils";
@@ -14,12 +15,14 @@ export function Header() {
     <header className="sticky top-0 z-50 w-full border-b border-border bg-card-bg/95 backdrop-blur supports-[backdrop-filter]:bg-card-bg/60">
       <div className="flex h-14 items-center px-4 lg:px-6">
         <Link href="/" className="flex items-center gap-2 mr-6">
-          <div className="flex items-center gap-1">
-            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">SS</span>
-            </div>
-            <span className="font-bold text-lg hidden sm:inline-block">SPORTSPHERE</span>
-          </div>
+          <Image
+            src="/logo.png"
+            alt="SportSphere Logo"
+            width={120}
+            height={40}
+            className="h-8 w-auto"
+            priority
+          />
         </Link>
 
         <nav className="hidden lg:flex items-center gap-1">
