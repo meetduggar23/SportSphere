@@ -1,95 +1,109 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
+import { Sparkles } from "lucide-react";
+import { Prediction } from "@/types";
+import { TeamLogo } from "@/components/ui/TeamLogo";
 
-export function AIPrediction() {
-  const [votes, setVotes] = useState({ home: 58, draw: 20, away: 22 });
-  const [totalVotes] = useState(4326);
-  const [selectedVote, setSelectedVote] = useState<string | null>(null);
+interface AIPredictionProps {
+  prediction: Prediction;
+}
 
-  const handleVote = (team: string) => {
-    if (selectedVote) return;
-    setSelectedVote(team);
-    setVotes((prev) => ({
-      ...prev,
-      [team === "home" ? "home" : team === "draw" ? "draw" : "away"]:
-        prev[team === "home" ? "home" : team === "draw" ? "draw" : "away"] + 1,
-    }));
+export function AIPrediction({ prediction }: AIPredictionProps) {
+  const [selected, setSelected] = useState<"home" | "draw" | "away" | null>(null);
+  const [votes, setVotes] = useState({
+    home: prediction.homeWin,
+    draw: prediction.draw,
+    away: prediction.awayWin,
+  });
+
+  const handleVote = (key: "home" | "draw" | "away") => {
+    if (selected) return;
+    setSelected(key);
+    setVotes((prev) => ({ ...prev, [key]: prev[key] + 1 }));
   };
 
+  const bars: { key: "home" | "draw" | "away"; label: string; color: string; bg: string }[] = [
+    { key: "home", label: prediction.homeTeam.shortName, color: "bg-blue-600", bg: "bg-blue-600" },
+    { key: "draw", label: "Draw", color: "bg-muted", bg: "bg-muted" },
+    { key: "away", label: prediction.awayTeam.shortName, color: "bg-red-600", bg: "bg-red-600" },
+  ];
+
   return (
-    <div className="bg-card-bg rounded-xl border border-border overflow-hidden">
-      <div className="p-4 border-b border-border">
-        <div className="flex items-center justify-between">
-          <h2 className="font-bold text-lg">AI Match Prediction</h2>
-          <button className="text-sm font-medium text-primary hover:text-primary/80 transition-colors">
-            See All
-          </button>
-        </div>
+    <div className="bg-card rounded-xl border border-border overflow-hidden">
+      <div className="p-4 border-b border-border flex items-center justify-between">
+        <h2 className="font-bold text-lg flex items-center gap-2">
+          <Sparkles className="h-4 w-4 text-primary" /> AI Prediction
+        </h2>
+        <Link href="/predictions" className="text-sm font-medium text-primary hover:text-primary-hover transition-colors">
+          See All
+        </Link>
       </div>
 
       <div className="p-4">
         <div className="text-center mb-4">
-          <p className="font-bold">Man City vs Arsenal</p>
-          <p className="text-xs text-muted mt-1">Premier League • Tomorrow, 9:00 PM</p>
+          <p className="font-bold">{prediction.homeTeam.shortName} vs {prediction.awayTeam.shortName}</p>
+          <p className="text-xs text-muted mt-1">{prediction.league} • {prediction.date}</p>
         </div>
 
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex flex-col items-center">
-            <span className="text-3xl mb-2">🔵</span>
-            <span className="text-sm font-medium">Man City</span>
+        <div className="flex items-center justify-between mb-4 gap-2">
+          <div className="flex flex-col items-center gap-2 flex-1">
+            <TeamLogo logo={prediction.homeTeam.logo} name={prediction.homeTeam.name} size="lg" />
+            <span className="text-xs font-medium text-center">{prediction.homeTeam.shortName}</span>
           </div>
           <div className="flex flex-col items-center">
-            <span className="text-xs text-muted">Draw</span>
+            <span className="text-xs text-muted">vs</span>
           </div>
-          <div className="flex flex-col items-center">
-            <span className="text-3xl mb-2">🔴</span>
-            <span className="text-sm font-medium">Arsenal</span>
-          </div>
-        </div>
-
-        <div className="flex gap-2 mb-4">
-          <div className="flex-1 text-center">
-            <p className="text-xl font-bold text-blue-600">{votes.home}%</p>
-            <div className="h-1.5 bg-muted/20 rounded-full mt-1 overflow-hidden">
-              <div className="h-full bg-blue-600 rounded-full" style={{ width: `${votes.home}%` }} />
-            </div>
-          </div>
-          <div className="flex-1 text-center">
-            <p className="text-xl font-bold text-muted">{votes.draw}%</p>
-            <div className="h-1.5 bg-muted/20 rounded-full mt-1 overflow-hidden">
-              <div className="h-full bg-muted rounded-full" style={{ width: `${votes.draw}%` }} />
-            </div>
-          </div>
-          <div className="flex-1 text-center">
-            <p className="text-xl font-bold text-red-600">{votes.away}%</p>
-            <div className="h-1.5 bg-muted/20 rounded-full mt-1 overflow-hidden">
-              <div className="h-full bg-red-600 rounded-full" style={{ width: `${votes.away}%` }} />
-            </div>
+          <div className="flex flex-col items-center gap-2 flex-1">
+            <TeamLogo logo={prediction.awayTeam.logo} name={prediction.awayTeam.name} size="lg" />
+            <span className="text-xs font-medium text-center">{prediction.awayTeam.shortName}</span>
           </div>
         </div>
 
-        <div className="text-center text-xs text-muted mb-4">
-          Who Will Win? • {totalVotes.toLocaleString()} Votes
+        <div className="grid grid-cols-3 gap-2 mb-3">
+          {bars.map((bar) => (
+            <div key={bar.key} className="text-center">
+              <p className="text-lg font-bold">{votes[bar.key]}%</p>
+              <p className="text-[10px] text-muted uppercase tracking-wide">{bar.label}</p>
+              <div className="h-1.5 bg-muted/20 rounded-full mt-1 overflow-hidden">
+                <div
+                  className={`h-full ${bar.bg} rounded-full transition-all duration-500`}
+                  style={{ width: `${votes[bar.key]}%` }}
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="flex items-center gap-2 justify-center mb-4">
+          <span className="text-xs text-muted">Confidence</span>
+          <div className="flex-1 max-w-[120px] h-1.5 bg-muted/20 rounded-full overflow-hidden">
+            <div
+              className="h-full bg-gradient-to-r from-green-500 to-emerald-400 rounded-full"
+              style={{ width: `${prediction.confidence}%` }}
+            />
+          </div>
+          <span className="text-xs font-bold text-green-600">{prediction.confidence}%</span>
         </div>
 
         <div className="flex gap-2">
           <button
             onClick={() => handleVote("home")}
-            disabled={!!selectedVote}
-            className={`flex-1 py-2 text-sm font-medium rounded-lg border transition-colors ${
-              selectedVote === "home"
+            disabled={!!selected}
+            className={`flex-1 py-2 text-xs font-semibold rounded-lg border transition-colors ${
+              selected === "home"
                 ? "bg-blue-600 text-white border-blue-600"
                 : "border-border hover:bg-muted/10"
             }`}
           >
-            Man City
+            {prediction.homeTeam.shortName}
           </button>
           <button
             onClick={() => handleVote("draw")}
-            disabled={!!selectedVote}
-            className={`flex-1 py-2 text-sm font-medium rounded-lg border transition-colors ${
-              selectedVote === "draw"
+            disabled={!!selected}
+            className={`flex-1 py-2 text-xs font-semibold rounded-lg border transition-colors ${
+              selected === "draw"
                 ? "bg-muted text-white border-muted"
                 : "border-border hover:bg-muted/10"
             }`}
@@ -98,14 +112,14 @@ export function AIPrediction() {
           </button>
           <button
             onClick={() => handleVote("away")}
-            disabled={!!selectedVote}
-            className={`flex-1 py-2 text-sm font-medium rounded-lg border transition-colors ${
-              selectedVote === "away"
+            disabled={!!selected}
+            className={`flex-1 py-2 text-xs font-semibold rounded-lg border transition-colors ${
+              selected === "away"
                 ? "bg-red-600 text-white border-red-600"
                 : "border-border hover:bg-muted/10"
             }`}
           >
-            Arsenal
+            {prediction.awayTeam.shortName}
           </button>
         </div>
       </div>

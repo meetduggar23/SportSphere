@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import "./globals.css";
@@ -24,13 +24,37 @@ export const metadata: Metadata = {
     "fantasy sports",
   ],
   icons: {
-    icon: "/logobrowser.png",
+    icon: [
+      { url: "/logobrowser.png", sizes: "any", type: "image/png" },
+    ],
+    apple: [
+      { url: "/logobrowser.png", sizes: "180x180", type: "image/png" },
+    ],
   },
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "SportSphere",
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
+  ],
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${inter.variable} h-full antialiased`} suppressHydrationWarning>
+      <head>
+        <link rel="icon" href="/logobrowser.png" type="image/png" />
+        <link rel="apple-touch-icon" href="/logobrowser.png" />
+      </head>
       <body className="min-h-full flex flex-col">
         <ThemeProvider>{children}</ThemeProvider>
       </body>

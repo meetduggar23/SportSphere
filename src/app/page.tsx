@@ -1,8 +1,8 @@
 "use client";
 
-import { Header } from "@/components/layout/Header";
-import { Sidebar } from "@/components/layout/Sidebar";
+import { AppShell } from "@/components/layout/AppShell";
 import { StatsCard } from "@/components/ui/StatsCard";
+import { SectionHeader } from "@/components/ui/SectionHeader";
 import { LiveMatchCard } from "@/components/sports/LiveMatchCard";
 import { NewsCard } from "@/components/sports/NewsCard";
 import { StandingsTable } from "@/components/sports/StandingsTable";
@@ -18,84 +18,63 @@ import {
   standings,
   trendingNow,
   topPlayers,
+  predictions,
 } from "@/data/mock";
-import { ArrowRight } from "lucide-react";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-background">
-      <Header />
+    <AppShell>
+      <div className="max-w-7xl mx-auto">
+        <div className="mb-6">
+          <h1 className="text-2xl md:text-3xl font-bold tracking-tight">
+            Good Evening, Meet! 👋
+          </h1>
+          <p className="text-muted text-sm mt-1">
+            Here&apos;s what&apos;s happening in the world of sports
+          </p>
+        </div>
 
-      <div className="flex">
-        <Sidebar />
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+          {statsCards.map((card, i) => (
+            <StatsCard key={i} card={card} />
+          ))}
+        </div>
 
-        <main className="flex-1 p-4 lg:p-6 overflow-x-hidden">
-          <div className="max-w-7xl mx-auto">
-            {/* Welcome Section */}
-            <div className="mb-6">
-              <h1 className="text-2xl font-bold">Good Evening, Meet! 👋</h1>
-              <p className="text-muted text-sm mt-1">
-                Here&apos;s what&apos;s happening in the world of sports
-              </p>
-            </div>
-
-            {/* Stats Cards */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-              {statsCards.map((card, i) => (
-                <StatsCard key={i} card={card} />
-              ))}
-            </div>
-
-            <div className="flex gap-6">
-              {/* Main Content */}
-              <div className="flex-1 min-w-0">
-                {/* Live Matches */}
-                <section className="mb-6">
-                  <div className="flex items-center justify-between mb-4">
-                    <h2 className="font-bold text-lg">Live Matches</h2>
-                    <button className="text-sm font-medium text-primary flex items-center gap-1 hover:text-primary/80 transition-colors">
-                      View All Live <ArrowRight className="h-4 w-4" />
-                    </button>
-                  </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                    {liveMatches.map((match) => (
-                      <LiveMatchCard key={match.id} match={match} />
-                    ))}
-                  </div>
-                </section>
-
-                {/* Top News */}
-                <section className="mb-6">
-                  <div className="flex items-center justify-between mb-4">
-                    <h2 className="font-bold text-lg">Top News</h2>
-                    <button className="text-sm font-medium text-primary flex items-center gap-1 hover:text-primary/80 transition-colors">
-                      View All News <ArrowRight className="h-4 w-4" />
-                    </button>
-                  </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                    {topNews.map((news) => (
-                      <NewsCard key={news.id} news={news} />
-                    ))}
-                  </div>
-                </section>
-
-                {/* Fixtures and Standings */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-                  <FixtureList fixtures={upcomingFixtures} />
-                  <StandingsTable standings={standings} />
-                </div>
+        <div className="flex gap-6">
+          <div className="flex-1 min-w-0 space-y-8">
+            <section>
+              <SectionHeader title="Live Matches" href="/live" linkLabel="View All Live" />
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {liveMatches.map((match) => (
+                  <LiveMatchCard key={match.id} match={match} />
+                ))}
               </div>
+            </section>
 
-              {/* Right Sidebar */}
-              <div className="hidden xl:block w-72 space-y-6">
-                <TrendingSidebar items={trendingNow} />
-                <TopPlayersSidebar players={topPlayers} />
-                <AIPrediction />
+            <section>
+              <SectionHeader title="Top News" href="/news" linkLabel="View All News" />
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {topNews.slice(0, 3).map((news) => (
+                  <NewsCard key={news.id} news={news} />
+                ))}
               </div>
-            </div>
+            </section>
+
+            <section>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <FixtureList fixtures={upcomingFixtures} />
+                <StandingsTable standings={standings} />
+              </div>
+            </section>
           </div>
-        </main>
+
+          <aside className="hidden xl:block w-80 shrink-0 space-y-6">
+            <TrendingSidebar items={trendingNow} />
+            <TopPlayersSidebar players={topPlayers.slice(0, 5)} />
+            <AIPrediction prediction={predictions[0]} />
+          </aside>
+        </div>
       </div>
-    </div>
+    </AppShell>
   );
 }

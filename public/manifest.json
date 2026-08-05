@@ -1,0 +1,17 @@
+{
+  "name": "SportSphere",
+  "short_name": "SportSphere",
+  "description": "AI-Powered Sports Platform",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0a0a0a",
+  "icons": [
+    {
+      "src": "/logobrowser.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

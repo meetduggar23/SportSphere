@@ -210,7 +210,7 @@ export interface TimelineEvent {
   icon?: string;
 }
 
-export interface Comment {
+export interface MatchComment {
   id: string;
   user: string;
   avatar: string;
