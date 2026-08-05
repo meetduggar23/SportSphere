@@ -18,7 +18,7 @@ export function StatsCard({ card }: StatsCardProps) {
   const Icon = iconMap[card.icon];
 
   return (
-    <div className="bg-card-bg rounded-xl border border-border p-4 hover:shadow-md transition-shadow">
+    <div className="bg-card rounded-xl border border-border p-4 hover:shadow-lg transition-shadow hover:-translate-y-0.5">
       <div className="flex items-start gap-3">
         <div className={`p-2.5 rounded-lg ${card.color}`}>
           {Icon && <Icon className="h-5 w-5" />}

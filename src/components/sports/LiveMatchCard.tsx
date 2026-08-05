@@ -1,59 +1,79 @@
 "use client";
 
+import Link from "next/link";
 import { MapPin } from "lucide-react";
-import { Match } from "@/types";
+import { Match, sportIcons } from "@/types";
+import { TeamLogo } from "@/components/ui/TeamLogo";
+import { LiveBadge } from "@/components/ui/LiveBadge";
+import { cn } from "@/lib/utils";
 
 interface LiveMatchCardProps {
   match: Match;
+  className?: string;
 }
 
-export function LiveMatchCard({ match }: LiveMatchCardProps) {
+export function LiveMatchCard({ match, className }: LiveMatchCardProps) {
+  const isLive = match.status === "live";
+  const isUpcoming = match.status === "upcoming";
+  const isFinished = match.status === "finished";
+
   return (
-    <div className="bg-card-bg rounded-xl border border-border p-4 hover:shadow-md transition-shadow min-w-[280px]">
+    <Link
+      href={`/match/${match.id}`}
+      className={cn(
+        "bg-card rounded-xl border border-border p-4 hover:shadow-lg hover:-translate-y-0.5 transition-all group block",
+        className
+      )}
+    >
       <div className="flex items-center justify-between mb-3">
-        <div className="flex items-center gap-2">
-          <span className="text-xs text-muted capitalize">{match.sport}</span>
-          <span className="text-xs text-muted">•</span>
-          <span className="text-xs text-muted">{match.league}</span>
+        <div className="flex items-center gap-2 min-w-0">
+          <span className="text-base">{sportIcons[match.sport]}</span>
+          <span className="text-xs text-muted truncate">{match.league}</span>
         </div>
-        <div className="flex items-center gap-2">
-          {match.status === "live" && (
-            <span className="flex items-center gap-1 text-xs font-medium text-red-500">
-              <span className="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse-live" />
-              LIVE
-            </span>
-          )}
-          <span className="text-xs text-muted">{match.time}</span>
-        </div>
+        {isLive && <LiveBadge />}
+        {isUpcoming && (
+          <span className="text-xs text-muted font-medium">{match.minute}</span>
+        )}
+        {isFinished && (
+          <span className="text-xs text-muted font-medium">{match.minute ?? "FT"}</span>
+        )}
       </div>
 
       <div className="space-y-2">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="text-lg">{match.homeTeam.logo}</span>
-            <span className="font-medium text-sm">{match.homeTeam.name}</span>
+        <div className="flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2 min-w-0">
+            <TeamLogo logo={match.homeTeam.logo} name={match.homeTeam.name} size="sm" />
+            <span className="font-medium text-sm truncate">{match.homeTeam.name}</span>
           </div>
-          <span className="font-bold text-lg">{match.homeScore}</span>
+          <span className={cn("font-bold text-lg shrink-0", isLive && "text-primary")}>
+            {match.homeScore}
+          </span>
         </div>
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="text-lg">{match.awayTeam.logo}</span>
-            <span className="font-medium text-sm">{match.awayTeam.name}</span>
+        <div className="flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2 min-w-0">
+            <TeamLogo logo={match.awayTeam.logo} name={match.awayTeam.name} size="sm" />
+            <span className="font-medium text-sm truncate">{match.awayTeam.name}</span>
           </div>
-          <span className="font-bold text-lg">{match.awayScore}</span>
+          <span className={cn("font-bold text-lg shrink-0", isLive && "text-primary")}>
+            {match.awayScore}
+          </span>
         </div>
       </div>
 
-      {match.details && (
-        <p className="text-xs text-muted mt-2 text-center">{match.details}</p>
+      {isLive && match.minute && (
+        <p className="text-xs font-semibold text-primary mt-3 text-center bg-primary/10 rounded-full py-1">
+          {match.minute}
+        </p>
       )}
+
+      {match.details && <p className="text-xs text-muted mt-2 text-center">{match.details}</p>}
 
       {match.venue && (
         <div className="flex items-center gap-1 mt-3 pt-3 border-t border-border">
-          <MapPin className="h-3 w-3 text-muted" />
+          <MapPin className="h-3 w-3 text-muted shrink-0" />
           <span className="text-xs text-muted truncate">{match.venue}</span>
         </div>
       )}
-    </div>
+    </Link>
   );
 }
