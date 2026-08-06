@@ -3,26 +3,20 @@ import { cn } from "@/lib/utils";
 
 interface LogoProps {
   className?: string;
-  showText?: boolean;
 }
 
-export function Logo({ className, showText = true }: LogoProps) {
+export function Logo({ className }: LogoProps) {
   return (
-    <Link href="/" className={cn("flex items-center gap-2 shrink-0", className)}>
+    <Link href="/" className={cn("flex items-center shrink-0", className)}>
       <img
         src="/logo.png"
         alt="SportSphere Logo"
         width={140}
         height={42}
-        className="h-9 w-auto object-contain"
+        className="h-12 w-auto object-contain"
         loading="eager"
         decoding="async"
       />
-      {showText && (
-        <span className="font-extrabold text-lg tracking-tight hidden sm:inline-block">
-          SPORT<span className="text-primary">SPHERE</span>
-        </span>
-      )}
     </Link>
   );
 }
