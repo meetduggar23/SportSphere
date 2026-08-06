@@ -15,6 +15,7 @@ import {
   SidebarNavItem,
   NavItem,
   Team,
+  MatchComment,
 } from "@/types";
 
 export const statsCards: StatsCard[] = [
@@ -492,7 +493,7 @@ export const matchStats: Record<string, MatchStats> = {
   },
 };
 
-export const matchComments: Comment[] = [
+export const matchComments: MatchComment[] = [
   { id: "c1", user: "Madridista_7", avatar: "https://api.dicebear.com/7.x/initials/svg?seed=M7", text: "RODRYGO!!! What a finish! Vamos! 🔥🔥🔥", time: "2m ago", likes: 156 },
   { id: "c2", user: "KaneBeyond", avatar: "https://api.dicebear.com/7.x/initials/svg?seed=KB", text: "Kane is inevitable. That penalty was ice cold.", time: "5m ago", likes: 89 },
   { id: "c3", user: "BernabeuDreams", avatar: "https://api.dicebear.com/7.x/initials/svg?seed=BD", text: "Bellingham is running the midfield tonight. Unreal composure.", time: "8m ago", likes: 210 },
@@ -532,3 +533,11 @@ export const fantasyPicks = [
   { id: "fp5", name: "Rúben Dias", team: "Man City", logo: "🔵", points: 98, price: "€6.2M", position: "DEF", suggested: false },
   { id: "fp6", name: "Alisson Becker", team: "Liverpool", logo: "🔴", points: 115, price: "€5.5M", position: "GK", suggested: false },
 ];
+
+export const footballMatches = allMatches.filter((m) => m.sport === "football" && (m.status === "live" || m.status === "upcoming"));
+export const footballNews = topNews.filter((n) => n.sport === "football");
+export const footballPlayers = topPlayers.filter((p) => p.sport === "football");
+export const cricketNews = topNews.filter((n) => n.sport === "cricket");
+export const basketballNews = topNews.filter((n) => n.sport === "basketball");
+export const f1News = topNews.filter((n) => n.sport === "f1");
+export const tennisNews = topNews.filter((n) => n.sport === "tennis");
