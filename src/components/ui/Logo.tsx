@@ -13,7 +13,7 @@ export function Logo({ className }: LogoProps) {
         alt="SportSphere Logo"
         width={140}
         height={42}
-        className="h-12 w-auto object-contain"
+        className="h-8 w-auto object-contain"
         loading="eager"
         decoding="async"
       />

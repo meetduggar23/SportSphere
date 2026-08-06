@@ -56,7 +56,7 @@ export function SearchBar() {
 
   return (
     <div ref={containerRef} className="relative">
-      <div className="flex items-center gap-2 px-3 py-2 rounded-xl border border-border bg-background/60 backdrop-blur w-56 lg:w-64 focus-within:border-primary/50 focus-within:ring-2 focus-within:ring-primary/15 transition-all">
+      <div className="flex h-9 items-center gap-2 rounded-full border border-border bg-background/60 px-3.5 backdrop-blur transition-all w-48 focus-within:border-primary/50 focus-within:ring-2 focus-within:ring-primary/15 lg:w-56 xl:w-60">
         <Search className="h-4 w-4 text-muted shrink-0" />
         <input
           type="text"

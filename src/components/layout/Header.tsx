@@ -29,127 +29,123 @@ export function Header() {
     return () => document.removeEventListener("mousedown", handler);
   }, []);
 
+  const navLink = (active: boolean) =>
+    cn(
+      "relative flex h-9 items-center text-sm font-medium whitespace-nowrap transition-colors duration-200",
+      "after:absolute after:inset-x-0 after:bottom-0 after:h-[2px] after:rounded-full after:bg-primary",
+      "after:origin-left after:scale-x-0 after:transition-transform after:duration-300 after:ease-out",
+      active ? "text-foreground after:scale-x-100" : "text-muted hover:text-foreground hover:after:scale-x-100"
+    );
+
   return (
-    <header className="sticky top-0 z-50 w-full">
-      <div className="mx-auto max-w-[1440px] px-4 lg:px-6 pt-3">
-        <div className="flex h-14 items-center gap-3 rounded-2xl border border-border bg-card/85 backdrop-blur-xl supports-[backdrop-filter]:bg-card/70 px-3 md:px-4 shadow-card">
-          <Logo className="mr-1 md:mr-3" />
+    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/70 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60">
+      <div className="mx-auto flex h-16 max-w-[1440px] items-center gap-6 px-4 lg:px-6 2xl:gap-8">
+        <Logo className="mr-1 shrink-0" />
 
-          <nav className="hidden lg:flex items-center gap-1 flex-1 overflow-hidden">
-            {navItems.map((item) => {
-              const isActive = pathname === item.href;
-              return (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  className={cn(
-                    "relative px-3 py-2 text-sm font-medium rounded-xl transition-all duration-200 whitespace-nowrap",
-                    isActive
-                      ? "text-foreground bg-primary/10"
-                      : "text-muted hover:text-foreground hover:bg-muted/10"
-                  )}
-                >
-                  {item.label}
-                </Link>
-              );
-            })}
-
-            <div ref={sportsRef} className="relative">
-              <button
-                onClick={() => setSportsOpen((o) => !o)}
-                aria-expanded={sportsOpen}
-                className={cn(
-                  "flex items-center gap-1 px-3 py-2 text-sm font-medium rounded-xl transition-all duration-200 whitespace-nowrap",
-                  sportsOpen ? "text-foreground bg-muted/10" : "text-muted hover:text-foreground hover:bg-muted/10"
-                )}
-              >
-                More Sports
-                <ChevronDown
-                  className={cn("h-3.5 w-3.5 transition-transform duration-200", sportsOpen && "rotate-180")}
-                />
-              </button>
-
-              {sportsOpen && (
-                <div className="absolute top-full left-0 mt-2 w-64 rounded-2xl border border-border bg-card p-2 shadow-pop animate-slide-up z-50">
-                  <div className="grid grid-cols-2 gap-1">
-                    {sportsConfig.map((sport) => {
-                      const Icon = sportIcons[sport.id];
-                      const href = sport.href;
-                      const isActive = pathname === href;
-                      return (
-                        <Link
-                          key={sport.id}
-                          href={href}
-                          onClick={() => setSportsOpen(false)}
-                          className={cn(
-                            "flex items-center gap-2.5 px-3 py-2.5 text-sm font-medium rounded-xl transition-all duration-200",
-                            isActive
-                              ? "text-primary bg-primary/10"
-                              : "text-muted hover:text-foreground hover:bg-muted/10"
-                          )}
-                        >
-                          {Icon && <Icon className="h-4 w-4 shrink-0" />}
-                          <span className="truncate">{sport.shortName}</span>
-                        </Link>
-                      );
-                    })}
-                  </div>
-                  <Link
-                    href="/sports"
-                    onClick={() => setSportsOpen(false)}
-                    className="mt-1 flex items-center justify-between px-3 py-2.5 text-sm font-semibold text-primary rounded-xl hover:bg-primary/10 transition-colors border-t border-border"
-                  >
-                    Browse All Sports <ChevronRight className="h-4 w-4" />
-                  </Link>
-                </div>
-              )}
-            </div>
-          </nav>
-
-          <div className="flex-1 lg:hidden" />
-
-          <div className="flex items-center gap-1 md:gap-1.5">
-            <div className="hidden md:block">
-              <SearchBar />
-            </div>
-
-            <button
-              onClick={toggleTheme}
-              className="p-2.5 rounded-xl hover:bg-muted/10 transition-colors"
-              title={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-            >
-              {theme === "dark" ? <Sun className="h-5 w-5 text-muted" /> : <Moon className="h-5 w-5 text-muted" />}
-            </button>
-
-            <button
-              className="relative p-2.5 rounded-xl hover:bg-muted/10 transition-colors"
-              title="Notifications"
-            >
-              <Bell className="h-5 w-5 text-muted" />
-              <span className="absolute top-2 right-2 w-2 h-2 bg-primary rounded-full ring-2 ring-card" />
-            </button>
-
-            <Link
-              href="/profile"
-              className="p-2.5 rounded-xl hover:bg-muted/10 transition-colors"
-              title="Profile"
-            >
-              <User className="h-5 w-5 text-muted" />
+        <nav className="hidden min-w-0 flex-1 items-center gap-6 2xl:gap-8 overflow-hidden lg:flex">
+          {navItems.map((item) => (
+            <Link key={item.label} href={item.href} className={navLink(pathname === item.href)}>
+              {item.label}
             </Link>
+          ))}
 
+          <div ref={sportsRef} className="relative">
             <button
-              className="lg:hidden p-2.5 rounded-xl hover:bg-muted/10 transition-colors"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              onClick={() => setSportsOpen((o) => !o)}
+              aria-expanded={sportsOpen}
+              className={cn(navLink(sportsOpen), "flex items-center gap-1.5")}
             >
-              {mobileMenuOpen ? <X className="h-5 w-5 text-muted" /> : <Menu className="h-5 w-5 text-muted" />}
+              More Sports
+              <ChevronDown
+                className={cn("h-3.5 w-3.5 transition-transform duration-300", sportsOpen && "rotate-180")}
+              />
             </button>
+
+            {sportsOpen && (
+              <div className="absolute left-0 top-full z-50 mt-3 w-72 animate-slide-up rounded-2xl border border-border bg-card p-2 shadow-pop">
+                <div className="grid grid-cols-2 gap-1">
+                  {sportsConfig.map((sport) => {
+                    const Icon = sportIcons[sport.id];
+                    const href = sport.href;
+                    const isActive = pathname === href;
+                    return (
+                      <Link
+                        key={sport.id}
+                        href={href}
+                        onClick={() => setSportsOpen(false)}
+                        className={cn(
+                          "flex items-center gap-2.5 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors duration-200",
+                          isActive
+                            ? "bg-primary/10 text-primary"
+                            : "text-muted hover:bg-muted/10 hover:text-foreground"
+                        )}
+                      >
+                        {Icon && <Icon className="h-4 w-4 shrink-0" />}
+                        <span className="truncate">{sport.shortName}</span>
+                      </Link>
+                    );
+                  })}
+                </div>
+                <Link
+                  href="/sports"
+                  onClick={() => setSportsOpen(false)}
+                  className="mt-1 flex items-center justify-between rounded-lg border-t border-border px-3 py-2.5 text-sm font-semibold text-primary transition-colors hover:bg-primary/10"
+                >
+                  Browse All Sports <ChevronRight className="h-4 w-4" />
+                </Link>
+              </div>
+            )}
           </div>
+        </nav>
+
+        <div className="flex-1 lg:hidden" />
+
+        <div className="flex items-center gap-1.5">
+          <div className="hidden md:block">
+            <SearchBar />
+          </div>
+
+          <button
+            onClick={toggleTheme}
+            className="flex h-9 w-9 items-center justify-center rounded-full text-muted transition-all duration-200 hover:bg-muted/10 hover:text-foreground"
+            title={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+          >
+            {theme === "dark" ? (
+              <Sun className="h-[18px] w-[18px] transition-transform duration-300 hover:rotate-45" />
+            ) : (
+              <Moon className="h-[18px] w-[18px] transition-transform duration-300 hover:scale-110" />
+            )}
+          </button>
+
+          <button
+            className="relative flex h-9 w-9 items-center justify-center rounded-full text-muted transition-all duration-200 hover:bg-muted/10 hover:text-foreground"
+            title="Notifications"
+          >
+            <Bell className="h-[18px] w-[18px]" />
+            <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-primary ring-2 ring-background" />
+          </button>
+
+          <Link
+            href="/profile"
+            className="flex h-9 w-9 items-center justify-center rounded-full text-muted transition-all duration-200 hover:bg-muted/10 hover:text-foreground"
+            title="Profile"
+          >
+            <User className="h-[18px] w-[18px]" />
+          </Link>
+
+          <button
+            className="flex h-9 w-9 items-center justify-center rounded-full text-muted transition-all duration-200 hover:bg-muted/10 hover:text-foreground lg:hidden"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            title="Menu"
+          >
+            {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
         </div>
       </div>
 
       {mobileMenuOpen && (
-        <div className="lg:hidden mx-4 mt-2 rounded-2xl border border-border bg-card p-4 shadow-pop animate-slide-up">
-          <div className="md:hidden mb-3">
+        <div className="mx-4 mt-3 animate-slide-up rounded-2xl border border-border bg-card p-3 shadow-pop lg:hidden">
+          <div className="mb-2 md:hidden">
             <SearchBar />
           </div>
           <nav className="flex flex-col gap-0.5">
@@ -160,10 +156,10 @@ export function Header() {
                   key={item.label}
                   href={item.href}
                   className={cn(
-                    "px-3 py-2.5 text-sm font-medium rounded-xl transition-colors",
+                    "rounded-lg px-3 py-2.5 text-sm font-medium transition-colors duration-200",
                     isActive
                       ? "bg-primary/10 text-primary"
-                      : "text-muted hover:text-foreground hover:bg-muted/10"
+                      : "text-muted hover:bg-muted/10 hover:text-foreground"
                   )}
                   onClick={() => setMobileMenuOpen(false)}
                 >
@@ -173,7 +169,7 @@ export function Header() {
             })}
             <Link
               href="/sports"
-              className="px-3 py-2.5 text-sm font-medium text-muted hover:text-foreground rounded-xl hover:bg-muted/10"
+              className="rounded-lg px-3 py-2.5 text-sm font-medium text-muted transition-colors duration-200 hover:bg-muted/10 hover:text-foreground"
               onClick={() => setMobileMenuOpen(false)}
             >
               All Sports

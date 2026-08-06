@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import {
   LayoutDashboard,
   Zap,
@@ -15,7 +16,6 @@ import {
   Sparkles,
   Settings,
   ChevronRight,
-  Flame,
 } from "lucide-react";
 import { sidebarNavItems, followedTeams } from "@/data/mock";
 import { sportsConfig } from "@/config/sports";
@@ -38,9 +38,14 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   settings: Settings,
 };
 
+const navGroups: { label: string; ids: string[] }[] = [
+  { label: "Menu", ids: ["overview", "live", "favorites", "teams", "calendar"] },
+  { label: "Explore", ids: ["standings", "news", "transfers", "videos", "ai"] },
+];
+
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
-    <h3 className="px-3 pt-5 pb-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-muted/70">
+    <h3 className="px-3 pb-2 pt-6 text-[10px] font-semibold uppercase tracking-[0.16em] text-muted/60">
       {children}
     </h3>
   );
@@ -48,113 +53,178 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
 
 export function Sidebar() {
   const pathname = usePathname();
+  const [moreOpen, setMoreOpen] = useState(false);
+  const isSportActive = sportsConfig.some((s) => pathname === s.href);
+
+  useEffect(() => {
+    if (isSportActive) setMoreOpen(true);
+  }, [isSportActive]);
+
+  const settingsItem = sidebarNavItems.find((i) => i.icon === "settings");
+  const SettingsIcon = settingsItem ? iconMap[settingsItem.icon] : null;
+  const settingsActive = settingsItem ? pathname === settingsItem.href : false;
 
   return (
-    <aside className="hidden lg:flex flex-col w-60 border-r border-border bg-card/40 backdrop-blur-xl h-[calc(100vh-76px)] sticky top-[76px] overflow-y-auto no-scrollbar">
-      <nav className="flex-1 px-3 pb-4">
-        <SectionLabel>Menu</SectionLabel>
-        <ul className="space-y-0.5">
-          {sidebarNavItems.map((item) => {
-            const Icon = iconMap[item.icon];
-            const isActive = pathname === item.href;
-            return (
-              <li key={item.label}>
-                <Link
-                  href={item.href}
-                  className={cn(
-                    "group relative flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-xl transition-all duration-200",
-                    isActive
-                      ? "text-primary bg-primary/10"
-                      : "text-muted hover:text-foreground hover:bg-muted/10"
-                  )}
-                >
-                  {isActive && (
-                    <span className="absolute left-0 top-1/2 -translate-y-1/2 h-5 w-1 rounded-full bg-primary" />
-                  )}
-                  {Icon && (
-                    <Icon
-                      className={cn(
-                        "h-4 w-4 shrink-0 transition-transform duration-200",
-                        !isActive && "group-hover:scale-110"
-                      )}
-                    />
-                  )}
-                  <span className="truncate">{item.label}</span>
-                  {item.badge && (
-                    <span className="ml-auto text-[10px] font-bold bg-primary text-white px-1.5 py-0.5 rounded-full shrink-0">
-                      {item.badge}
-                    </span>
-                  )}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
+    <aside className="sticky top-16 hidden h-[calc(100vh-64px)] w-[264px] shrink-0 flex-col overflow-y-auto border-r border-border no-scrollbar lg:flex">
+      <nav className="flex-1 px-3 pb-6">
+        {navGroups.map((group) => (
+          <div key={group.label}>
+            <SectionLabel>{group.label}</SectionLabel>
+            <ul className="space-y-1">
+              {sidebarNavItems
+                .filter((item) => group.ids.includes(item.icon))
+                .map((item) => {
+                  const Icon = iconMap[item.icon];
+                  const isActive = pathname === item.href;
+                  return (
+                    <li key={item.label}>
+                      <Link
+                        href={item.href}
+                        className={cn(
+                          "group relative flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-colors duration-200",
+                          isActive
+                            ? "font-medium text-foreground"
+                            : "text-muted hover:bg-muted/[0.06] hover:text-foreground"
+                        )}
+                      >
+                        {isActive && (
+                          <span className="absolute left-0 top-1/2 h-4 w-[3px] -translate-y-1/2 rounded-full bg-primary" />
+                        )}
+                        {Icon && (
+                          <Icon
+                            className={cn(
+                              "h-[18px] w-[18px] shrink-0 transition-transform duration-200",
+                              !isActive && "group-hover:scale-105"
+                            )}
+                          />
+                        )}
+                        <span className="truncate">{item.label}</span>
+                        {item.badge && (
+                          <span className="ml-auto shrink-0 rounded-full bg-primary/10 px-1.5 py-0.5 text-[10px] font-bold text-primary">
+                            {item.badge}
+                          </span>
+                        )}
+                      </Link>
+                    </li>
+                  );
+                })}
+            </ul>
+          </div>
+        ))}
 
-        <SectionLabel>
-          <span className="flex items-center gap-1.5">
-            <Flame className="h-3 w-3 text-primary" /> Cricket
-          </span>
-        </SectionLabel>
+        <SectionLabel>Cricket</SectionLabel>
         <CricketNav />
 
         <SectionLabel>More Sports</SectionLabel>
-        <ul className="space-y-0.5">
-          {sportsConfig
-            .filter((s) => s.id !== "cricket")
-            .map((sport) => {
-              const Icon = sportIcons[sport.id];
-              const isActive = pathname === sport.href;
-              return (
-                <li key={sport.id}>
-                  <Link
-                    href={sport.href}
-                    className={cn(
-                      "group flex items-center gap-3 px-3 py-2 text-sm rounded-xl transition-all duration-200",
-                      isActive
-                        ? "text-primary bg-primary/10 font-medium"
-                        : "text-muted hover:text-foreground hover:bg-muted/10"
-                    )}
-                  >
-                    {Icon && (
-                      <Icon
+        <div>
+          <button
+            type="button"
+            aria-expanded={moreOpen}
+            onClick={() => setMoreOpen((o) => !o)}
+            className={cn(
+              "flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-colors duration-200",
+              moreOpen || isSportActive
+                ? "text-foreground"
+                : "text-muted hover:bg-muted/[0.06] hover:text-foreground"
+            )}
+          >
+            <span className="truncate">All Sports</span>
+            <ChevronRight
+              className={cn(
+                "ml-auto h-4 w-4 shrink-0 text-muted transition-transform duration-300",
+                moreOpen && "rotate-90"
+              )}
+            />
+          </button>
+          <div
+            className={cn(
+              "grid transition-all duration-300 ease-in-out",
+              moreOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+            )}
+          >
+            <div className="overflow-hidden">
+              <ul className="space-y-0.5 pb-1 pt-1">
+                {sportsConfig.map((sport) => {
+                  const Icon = sportIcons[sport.id];
+                  const isActive = pathname === sport.href;
+                  return (
+                    <li key={sport.id}>
+                      <Link
+                        href={sport.href}
                         className={cn(
-                          "h-4 w-4 shrink-0 transition-transform duration-200",
-                          !isActive && "group-hover:scale-110"
+                          "group relative flex items-center gap-3 rounded-lg py-2 pl-6 pr-3 text-sm transition-colors duration-200",
+                          isActive
+                            ? "font-medium text-primary"
+                            : "text-muted hover:bg-muted/[0.06] hover:text-foreground"
                         )}
-                      />
-                    )}
-                    <span className="truncate">{sport.shortName}</span>
-                  </Link>
-                </li>
-              );
-            })}
-        </ul>
+                      >
+                        {isActive && (
+                          <span className="absolute left-2.5 top-1/2 h-3 w-[3px] -translate-y-1/2 rounded-full bg-primary" />
+                        )}
+                        {Icon && (
+                          <Icon
+                            className={cn(
+                              "h-[18px] w-[18px] shrink-0 transition-transform duration-200",
+                              !isActive && "group-hover:scale-105"
+                            )}
+                          />
+                        )}
+                        <span className="truncate">{sport.shortName}</span>
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          </div>
+        </div>
 
         <SectionLabel>Followed Teams</SectionLabel>
-        <ul className="space-y-0.5">
+        <ul className="space-y-1">
           {followedTeams.map((team) => (
             <li key={team.id}>
               <Link
                 href={`/team/${team.id}`}
-                className="group flex items-center gap-3 px-3 py-2 text-sm rounded-xl hover:bg-muted/10 transition-colors"
+                className="group flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors duration-200 hover:bg-muted/[0.06]"
               >
-                <TeamLogo logo={team.logo} name={team.name} size="sm" />
-                <div className="flex-1 min-w-0">
-                  <p className="font-medium truncate">{team.name}</p>
-                  <p className="text-xs text-muted">{team.sport}</p>
-                </div>
-                <ChevronRight className="h-4 w-4 text-muted opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200" />
+                <TeamLogo logo={team.logo} name={team.name} size="xs" />
+                <span className="flex-1 truncate font-medium">{team.name}</span>
+                <ChevronRight className="h-4 w-4 -translate-x-1 text-muted opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100" />
               </Link>
             </li>
           ))}
         </ul>
         <Link
           href="/my-teams"
-          className="mt-2 block w-full text-center text-sm font-medium text-primary hover:bg-primary/10 px-3 py-2 rounded-xl transition-colors"
+          className="mt-2 block rounded-lg px-3 py-2 text-center text-xs font-medium text-muted transition-colors duration-200 hover:text-primary"
         >
           Manage Teams
         </Link>
+
+        {settingsItem && SettingsIcon && (
+          <div className="mt-4 border-t border-border pt-3">
+            <Link
+              href={settingsItem.href}
+              className={cn(
+                "group relative flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-colors duration-200",
+                settingsActive
+                  ? "font-medium text-foreground"
+                  : "text-muted hover:bg-muted/[0.06] hover:text-foreground"
+              )}
+            >
+              {settingsActive && (
+                <span className="absolute left-0 top-1/2 h-4 w-[3px] -translate-y-1/2 rounded-full bg-primary" />
+              )}
+              <SettingsIcon
+                className={cn(
+                  "h-[18px] w-[18px] shrink-0 transition-transform duration-200",
+                  !settingsActive && "group-hover:scale-105"
+                )}
+              />
+              <span className="truncate">{settingsItem.label}</span>
+            </Link>
+          </div>
+        )}
       </nav>
     </aside>
   );

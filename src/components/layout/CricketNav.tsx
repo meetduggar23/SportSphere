@@ -21,18 +21,21 @@ export function CricketNav({ items = cricketNavItems }: CricketNavProps) {
     setOpenSection((current) => (current === label ? null : label));
 
   return (
-    <ul className="space-y-0.5">
+    <ul className="space-y-1">
       <li>
         <Link
           href="/cricket"
           className={cn(
-            "flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-xl transition-colors",
+            "group relative flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-colors duration-200",
             pathname === "/cricket"
-              ? "bg-primary/10 text-primary"
-              : "text-muted hover:text-foreground hover:bg-muted/10"
+              ? "font-medium text-foreground"
+              : "text-muted hover:bg-muted/[0.06] hover:text-foreground"
           )}
         >
-          <CricketIcon className="h-4 w-4 shrink-0" />
+          {pathname === "/cricket" && (
+            <span className="absolute left-0 top-1/2 h-4 w-[3px] -translate-y-1/2 rounded-full bg-primary" />
+          )}
+          <CricketIcon className="h-[18px] w-[18px] shrink-0" />
           <span className="truncate">Cricket</span>
         </Link>
       </li>
@@ -48,19 +51,19 @@ export function CricketNav({ items = cricketNavItems }: CricketNavProps) {
               aria-expanded={isOpen}
               onClick={() => toggleSection(section.label)}
               className={cn(
-                "flex w-full items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-xl transition-colors",
+                "flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-colors duration-200",
                 isOpen
-                  ? "text-foreground bg-muted/10"
+                  ? "text-foreground"
                   : hasActiveChild
-                    ? "text-primary"
-                    : "text-muted hover:text-foreground hover:bg-muted/10"
+                    ? "font-medium text-primary"
+                    : "text-muted hover:bg-muted/[0.06] hover:text-foreground"
               )}
             >
               <span className="truncate">{section.label}</span>
               <ChevronRight
                 className={cn(
                   "ml-auto h-4 w-4 shrink-0 text-muted transition-transform duration-300",
-                  isOpen && "rotate-90 text-foreground"
+                  isOpen && "rotate-90"
                 )}
               />
             </button>
@@ -81,12 +84,15 @@ export function CricketNav({ items = cricketNavItems }: CricketNavProps) {
                         <Link
                           href={child.href}
                           className={cn(
-                            "flex items-center gap-2 pl-10 pr-3 py-2 text-sm rounded-xl transition-colors",
+                            "relative flex items-center gap-2 rounded-lg py-2 pl-10 pr-3 text-sm transition-colors duration-200",
                             isActive
-                              ? "bg-primary/10 text-primary font-medium"
-                              : "text-muted hover:text-foreground hover:bg-muted/10"
+                              ? "font-medium text-primary"
+                              : "text-muted hover:bg-muted/[0.06] hover:text-foreground"
                           )}
                         >
+                          {isActive && (
+                            <span className="absolute left-6 top-1/2 h-3 w-[3px] -translate-y-1/2 rounded-full bg-primary" />
+                          )}
                           <span className="truncate">{child.label}</span>
                         </Link>
                       </li>
