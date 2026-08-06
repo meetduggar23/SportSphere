@@ -19,6 +19,7 @@ import {
 import { sidebarNavItems, followedTeams } from "@/data/mock";
 import { cn } from "@/lib/utils";
 import { TeamLogo } from "@/components/ui/TeamLogo";
+import { CricketNav } from "@/components/layout/CricketNav";
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   overview: LayoutDashboard,
@@ -67,6 +68,13 @@ export function Sidebar() {
             );
           })}
         </ul>
+
+        <div className="mt-4">
+          <h3 className="text-xs font-semibold text-muted uppercase tracking-wider mb-3 px-3">
+            Cricket
+          </h3>
+          <CricketNav />
+        </div>
       </nav>
 
       <div className="p-3 border-t border-border">

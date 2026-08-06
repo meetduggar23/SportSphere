@@ -254,3 +254,13 @@ export interface NavItem {
   label: string;
   href: string;
 }
+
+export interface SidebarSubMenuItem {
+  label: string;
+  href: string;
+}
+
+export interface SidebarGroupItem {
+  label: string;
+  children: SidebarSubMenuItem[];
+}
