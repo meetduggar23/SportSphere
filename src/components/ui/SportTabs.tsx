@@ -13,39 +13,40 @@ export function SportTabs({ tabs, active, onChange, className }: SportTabsProps)
   return (
     <div
       className={cn(
-        "flex gap-1 overflow-x-auto no-scrollbar rounded-xl bg-muted/10 p-1",
+        "flex gap-1 overflow-x-auto no-scrollbar rounded-2xl bg-muted/10 p-1.5 border border-border/60",
         className
       )}
       role="tablist"
     >
-      {tabs.map((tab) => (
-        <button
-          key={tab.value}
-          role="tab"
-          aria-selected={active === tab.value}
-          onClick={() => onChange(tab.value)}
-          className={cn(
-            "px-4 py-2 text-sm font-medium rounded-lg transition-all whitespace-nowrap",
-            active === tab.value
-              ? "bg-card shadow-sm text-foreground"
-              : "text-muted hover:text-foreground"
-          )}
-        >
-          {tab.label}
-          {tab.count !== undefined && (
-            <span
-              className={cn(
-                "ml-1.5 text-[10px] font-bold px-1.5 py-0.5 rounded-full",
-                active === tab.value
-                  ? "bg-primary text-white"
-                  : "bg-muted/20 text-muted"
-              )}
-            >
-              {tab.count}
-            </span>
-          )}
-        </button>
-      ))}
+      {tabs.map((tab) => {
+        const isActive = active === tab.value;
+        return (
+          <button
+            key={tab.value}
+            role="tab"
+            aria-selected={isActive}
+            onClick={() => onChange(tab.value)}
+            className={cn(
+              "px-4 py-2 text-sm font-medium rounded-xl transition-all duration-200 whitespace-nowrap",
+              isActive
+                ? "bg-card shadow-card text-foreground"
+                : "text-muted hover:text-foreground hover:bg-muted/10"
+            )}
+          >
+            {tab.label}
+            {tab.count !== undefined && (
+              <span
+                className={cn(
+                  "ml-1.5 text-[10px] font-bold px-1.5 py-0.5 rounded-full tabular-nums",
+                  isActive ? "bg-primary text-white" : "bg-muted/20 text-muted"
+                )}
+              >
+                {tab.count}
+              </span>
+            )}
+          </button>
+        );
+      })}
     </div>
   );
 }

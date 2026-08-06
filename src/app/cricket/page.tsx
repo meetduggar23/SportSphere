@@ -1,6 +1,7 @@
 "use client";
 
 import { SportPage } from "@/components/sports/SportPage";
+import { SportHero } from "@/components/sports/SportHero";
 import { SportIcon } from "@/components/ui/SportIcon";
 import {
   allMatches,
@@ -33,33 +34,16 @@ export default function CricketPage() {
       ]}
       competitions={["IPL 2024", "Border-Gavaskar Trophy", "World Cup 2023", "The Ashes", "T20 World Cup", "Champions Trophy"]}
       hero={
-        <div className="rounded-2xl border border-border bg-gradient-to-r from-green-500/10 via-emerald-500/5 to-transparent p-6 mb-6">
-          <div className="flex items-center gap-6 flex-wrap">
-            <div className="text-center">
-              <div className="w-16 h-16 rounded-full bg-card border border-border flex items-center justify-center text-2xl mb-2 mx-auto">
-                {teams.ind.logo}
-              </div>
-              <p className="text-sm font-bold">{teams.ind.shortName}</p>
-              <p className="text-xs text-muted">256/4</p>
-            </div>
-            <div className="text-center">
-              <p className="text-3xl font-extrabold text-green-600">vs</p>
-              <p className="text-xs text-muted mt-1">Day 2 • Test Match</p>
-            </div>
-            <div className="text-center">
-              <div className="w-16 h-16 rounded-full bg-card border border-border flex items-center justify-center text-2xl mb-2 mx-auto">
-                {teams.aus.logo}
-              </div>
-              <p className="text-sm font-bold">{teams.aus.shortName}</p>
-              <p className="text-xs text-muted">201 all out</p>
-            </div>
-            <div className="flex-1" />
-            <div className="text-right">
-              <p className="text-sm font-semibold text-green-600">🔥 Kohli 143*</p>
-              <p className="text-xs text-muted mt-1">India lead by 55 runs • MCG Melbourne</p>
-            </div>
-          </div>
-        </div>
+        <SportHero
+          sport="cricket"
+          kicker="Border-Gavaskar Trophy • Test Match"
+          live
+          ctaHref="/match/m2"
+          home={{ name: teams.ind.name, logo: teams.ind.logo, score: "256/4", sub: "Day 2" }}
+          away={{ name: teams.aus.name, logo: teams.aus.logo, score: "201", sub: "All out" }}
+          headline="Kohli 143* • India lead by 55 runs at the MCG"
+          venue="MCG, Melbourne"
+        />
       }
     />
   );

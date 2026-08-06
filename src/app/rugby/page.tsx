@@ -1,6 +1,7 @@
 "use client";
 
 import { SportPage } from "@/components/sports/SportPage";
+import { SportHero } from "@/components/sports/SportHero";
 import { SportIcon } from "@/components/ui/SportIcon";
 import { allMatches } from "@/data/mock";
 import { Player } from "@/types";
@@ -34,29 +35,15 @@ export default function RugbyPage() {
       players={rugbyPlayers}
       competitions={["Six Nations", "Rugby Championship", "World Cup", "Premiership", "Top 14"]}
       hero={
-        <div className="rounded-2xl border border-border bg-gradient-to-r from-teal-500/10 via-cyan-500/5 to-transparent p-6 mb-6">
-          <div className="flex items-center gap-6 flex-wrap">
-            <div className="text-center">
-              <div className="w-16 h-16 rounded-full bg-card border border-border flex items-center justify-center text-2xl mb-2 mx-auto">🏉</div>
-              <p className="text-sm font-bold">Ireland</p>
-              <p className="text-xs text-muted">Grand Slam</p>
-            </div>
-            <div className="text-center">
-              <p className="text-3xl font-extrabold text-teal-600">38-17</p>
-              <p className="text-xs text-muted mt-1">vs England</p>
-            </div>
-            <div className="text-center">
-              <div className="w-16 h-16 rounded-full bg-card border border-border flex items-center justify-center text-2xl mb-2 mx-auto">🏉</div>
-              <p className="text-sm font-bold">England</p>
-              <p className="text-xs text-muted">Six Nations</p>
-            </div>
-            <div className="flex-1" />
-            <div className="text-right">
-              <p className="text-sm font-semibold text-teal-600">🏉 Six Nations</p>
-              <p className="text-xs text-muted mt-1">Ireland clinch Grand Slam at Aviva Stadium</p>
-            </div>
-          </div>
-        </div>
+        <SportHero
+          sport="rugby"
+          kicker="Six Nations • Grand Slam"
+          ctaHref="/match/m9"
+          home={{ name: "Ireland", logo: "🏉", score: "38", sub: "Grand Slam Champions" }}
+          away={{ name: "England", logo: "🏉", score: "17", sub: "Six Nations" }}
+          headline="Ireland clinch the Grand Slam at Aviva Stadium"
+          venue="Aviva Stadium, Dublin"
+        />
       }
     />
   );

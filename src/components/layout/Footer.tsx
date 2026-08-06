@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 const socials = [
   {
@@ -62,26 +63,27 @@ const footerLinks = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-border bg-card mt-auto">
-      <div className="max-w-7xl mx-auto px-4 lg:px-6 py-12">
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
+    <footer className="relative mt-16 border-t border-border bg-card/50 backdrop-blur-xl overflow-hidden">
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
+      <div className="mx-auto max-w-7xl px-4 lg:px-8 py-14">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-10">
           <div className="col-span-2">
-            <h3 className="font-extrabold text-xl mb-3">
-              SPORT<span className="text-primary">SPHERE</span>
-            </h3>
-            <p className="text-sm text-muted max-w-xs">
-              The AI-powered sports ecosystem. Live scores, match centers, fantasy sports, and intelligent
-              insights for every major sport on the planet.
+            <Link href="/" className="inline-flex items-center gap-2">
+              <img src="/logo.png" alt="SportSphere Logo" className="h-9 w-auto object-contain" />
+            </Link>
+            <p className="text-sm text-muted max-w-xs mt-4 leading-relaxed">
+              The AI-powered sports ecosystem. Live scores, match centers, fantasy sports, and
+              intelligent insights for every major sport on the planet.
             </p>
-            <div className="flex gap-2 mt-4">
+            <div className="flex gap-2 mt-6">
               {socials.map((social) => (
                 <a
                   key={social.label}
                   href="#"
-                  className="p-2 rounded-lg border border-border hover:bg-muted/10 transition-colors"
+                  className="p-2.5 rounded-xl border border-border text-muted hover:text-foreground hover:border-primary/40 hover:bg-primary/5 hover:-translate-y-0.5 transition-all duration-200"
                   aria-label={social.label}
                 >
-                  <svg viewBox="0 0 24 24" className="h-4 w-4 text-muted fill-current" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" className="h-4 w-4 fill-current" aria-hidden="true">
                     <path d={social.path} />
                   </svg>
                 </a>
@@ -91,12 +93,16 @@ export function Footer() {
 
           {footerLinks.map((col) => (
             <div key={col.title}>
-              <h4 className="font-semibold text-sm mb-3">{col.title}</h4>
-              <ul className="space-y-2">
+              <h4 className="font-display font-semibold text-sm tracking-wide mb-4">{col.title}</h4>
+              <ul className="space-y-2.5">
                 {col.links.map((link) => (
                   <li key={link.label}>
-                    <Link href={link.href} className="text-sm text-muted hover:text-foreground transition-colors">
+                    <Link
+                      href={link.href}
+                      className="text-sm text-muted hover:text-foreground transition-colors inline-flex items-center gap-1 group"
+                    >
                       {link.label}
+                      <ArrowRight className="h-3 w-3 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 text-primary" />
                     </Link>
                   </li>
                 ))}
@@ -105,12 +111,13 @@ export function Footer() {
           ))}
         </div>
 
-        <div className="mt-10 pt-6 border-t border-border flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="mt-12 pt-6 border-t border-border flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-xs text-muted">
-            © {new Date().getFullYear()} SportSphere. All rights reserved. Not affiliated with any league or team.
+            © {new Date().getFullYear()} SportSphere. All rights reserved. Not affiliated with any
+            league or team.
           </p>
           <p className="text-xs text-muted">
-            Made with <span className="text-primary">♥</span> for sports fans worldwide
+            Crafted with <span className="text-primary">♥</span> for sports fans worldwide
           </p>
         </div>
       </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { MatchStats } from "@/types";
+import { cn } from "@/lib/utils";
 
 interface StatBarProps {
   label: string;
@@ -16,20 +17,28 @@ export function StatBar({ label, home, away, homeSuffix = "", awaySuffix = "" }:
 
   return (
     <div className="py-3">
-      <div className="flex items-center justify-between mb-1.5">
-        <span className="text-sm font-semibold w-16 text-right">
+      <div className="flex items-center justify-between mb-2">
+        <span className="text-sm font-semibold w-16 text-right tabular-nums">
           {home}
           {homeSuffix}
         </span>
-        <span className="text-xs text-muted font-medium uppercase tracking-wide">{label}</span>
-        <span className="text-sm font-semibold w-16">
+        <span className="text-[11px] text-muted font-semibold uppercase tracking-wide">
+          {label}
+        </span>
+        <span className="text-sm font-semibold w-16 tabular-nums">
           {away}
           {awaySuffix}
         </span>
       </div>
       <div className="flex gap-1">
-        <div className="h-1.5 rounded-full bg-blue-500/70 overflow-hidden" style={{ width: `${homePct}%` }} />
-        <div className="h-1.5 rounded-full bg-red-500/70 overflow-hidden" style={{ width: `${100 - homePct}%` }} />
+        <div
+          className="h-1.5 rounded-full bg-gradient-to-r from-primary to-orange-400 transition-all duration-500"
+          style={{ width: `${homePct}%` }}
+        />
+        <div
+          className="h-1.5 rounded-full bg-gradient-to-r from-sky-500 to-cyan-400 transition-all duration-500"
+          style={{ width: `${100 - homePct}%` }}
+        />
       </div>
     </div>
   );
@@ -58,14 +67,14 @@ export function MatchStatsCompare({ stats, homeName, awayName }: MatchStatsCompa
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-4 px-4">
-        <span className="text-sm font-bold truncate max-w-[120px]">{homeName}</span>
-        <span className="text-xs text-muted uppercase tracking-wide font-semibold">Stats</span>
-        <span className="text-sm font-bold truncate max-w-[120px]">{awayName}</span>
+      <div className="flex items-center justify-between mb-4 px-6 pt-2">
+        <span className="text-sm font-bold truncate max-w-[130px]">{homeName}</span>
+        <span className="text-[11px] text-muted uppercase tracking-wider font-semibold">Stats</span>
+        <span className="text-sm font-bold truncate max-w-[130px]">{awayName}</span>
       </div>
       <div className="divide-y divide-border">
         {rows.map((row) => (
-          <div key={row.label} className="px-4">
+          <div key={row.label} className="px-6">
             <StatBar
               label={row.label}
               home={row.home}
@@ -76,6 +85,23 @@ export function MatchStatsCompare({ stats, homeName, awayName }: MatchStatsCompa
           </div>
         ))}
       </div>
+    </div>
+  );
+}
+
+export function H2HSummary({ home, draw, away, className }: { home: number; draw: number; away: number; className?: string }) {
+  const total = home + draw + away || 1;
+  return (
+    <div className={cn("flex gap-1.5 h-2.5 rounded-full overflow-hidden", className)}>
+      <div
+        className="h-full bg-gradient-to-r from-primary to-orange-400 transition-all duration-500"
+        style={{ width: `${(home / total) * 100}%` }}
+      />
+      <div className="h-full bg-muted transition-all duration-500" style={{ width: `${(draw / total) * 100}%` }} />
+      <div
+        className="h-full bg-gradient-to-r from-sky-500 to-cyan-400 transition-all duration-500"
+        style={{ width: `${(away / total) * 100}%` }}
+      />
     </div>
   );
 }

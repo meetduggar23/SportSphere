@@ -56,7 +56,7 @@ export function SearchBar() {
 
   return (
     <div ref={containerRef} className="relative">
-      <div className="flex items-center gap-2 px-3 py-2 rounded-xl border border-border bg-background w-56 lg:w-64 focus-within:border-primary/50 focus-within:ring-2 focus-within:ring-primary/10 transition-all">
+      <div className="flex items-center gap-2 px-3 py-2 rounded-xl border border-border bg-background/60 backdrop-blur w-56 lg:w-64 focus-within:border-primary/50 focus-within:ring-2 focus-within:ring-primary/15 transition-all">
         <Search className="h-4 w-4 text-muted shrink-0" />
         <input
           type="text"
@@ -87,7 +87,7 @@ export function SearchBar() {
       </div>
 
       {open && (
-        <div className="absolute top-full left-0 right-0 mt-2 bg-card border border-border rounded-xl shadow-xl z-50 overflow-hidden animate-slide-up">
+        <div className="absolute top-full left-0 right-0 mt-2 bg-card border border-border rounded-2xl shadow-pop z-50 overflow-hidden animate-slide-up">
           {query ? (
             <div className="p-2">
               <p className="text-xs text-muted px-3 py-2 font-medium">Search for &quot;{query}&quot;</p>

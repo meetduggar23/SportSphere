@@ -26,7 +26,7 @@ export function CricketNav({ items = cricketNavItems }: CricketNavProps) {
         <Link
           href="/cricket"
           className={cn(
-            "flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors",
+            "flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-xl transition-colors",
             pathname === "/cricket"
               ? "bg-primary/10 text-primary"
               : "text-muted hover:text-foreground hover:bg-muted/10"
@@ -48,7 +48,7 @@ export function CricketNav({ items = cricketNavItems }: CricketNavProps) {
               aria-expanded={isOpen}
               onClick={() => toggleSection(section.label)}
               className={cn(
-                "flex w-full items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors",
+                "flex w-full items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-xl transition-colors",
                 isOpen
                   ? "text-foreground bg-muted/10"
                   : hasActiveChild
@@ -81,7 +81,7 @@ export function CricketNav({ items = cricketNavItems }: CricketNavProps) {
                         <Link
                           href={child.href}
                           className={cn(
-                            "flex items-center gap-2 pl-10 pr-3 py-2 text-sm rounded-lg transition-colors",
+                            "flex items-center gap-2 pl-10 pr-3 py-2 text-sm rounded-xl transition-colors",
                             isActive
                               ? "bg-primary/10 text-primary font-medium"
                               : "text-muted hover:text-foreground hover:bg-muted/10"

@@ -1,6 +1,7 @@
 "use client";
 
 import { SportPage } from "@/components/sports/SportPage";
+import { SportHero } from "@/components/sports/SportHero";
 import { SportIcon } from "@/components/ui/SportIcon";
 import { allMatches } from "@/data/mock";
 import { Player } from "@/types";
@@ -34,29 +35,15 @@ export default function AFLPage() {
       players={aflPlayers}
       competitions={["AFL", "AFLW", "Pre-Season", "Finals Series", "Grand Final"]}
       hero={
-        <div className="rounded-2xl border border-border bg-gradient-to-r from-yellow-600/10 via-red-600/5 to-transparent p-6 mb-6">
-          <div className="flex items-center gap-6 flex-wrap">
-            <div className="text-center">
-              <div className="w-16 h-16 rounded-full bg-card border border-border flex items-center justify-center text-2xl mb-2 mx-auto">🏉</div>
-              <p className="text-sm font-bold">Melbourne</p>
-              <p className="text-xs text-muted">1st • 56 pts</p>
-            </div>
-            <div className="text-center">
-              <p className="text-3xl font-extrabold text-yellow-600">Premiers</p>
-              <p className="text-xs text-muted mt-1">AFL 2024 Season</p>
-            </div>
-            <div className="text-center">
-              <div className="w-16 h-16 rounded-full bg-card border border-border flex items-center justify-center text-2xl mb-2 mx-auto">🏉</div>
-              <p className="text-sm font-bold">Port Adelaide</p>
-              <p className="text-xs text-muted">2nd • 52 pts</p>
-            </div>
-            <div className="flex-1" />
-            <div className="text-right">
-              <p className="text-sm font-semibold text-yellow-600">🏆 AFL Ladder</p>
-              <p className="text-xs text-muted mt-1">Melbourne leads the pack</p>
-            </div>
-          </div>
-        </div>
+        <SportHero
+          sport="afl"
+          kicker="AFL 2024 Season"
+          ctaHref="/match/m14"
+          home={{ name: "Melbourne", logo: "🏉", score: "1st", sub: "14W • 4L" }}
+          away={{ name: "Port Adelaide", logo: "🏉", score: "2nd", sub: "13W • 5L" }}
+          headline="Melbourne lead the AFL ladder heading into finals"
+          venue="MCG, Melbourne"
+        />
       }
     />
   );

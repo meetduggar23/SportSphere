@@ -12,17 +12,18 @@ interface FixtureListProps {
 
 export function FixtureList({ fixtures, title = "Upcoming Fixtures", href = "/calendar" }: FixtureListProps) {
   return (
-    <div className="bg-card rounded-xl border border-border overflow-hidden">
-      <div className="p-4 border-b border-border">
-        <div className="flex items-center justify-between">
-          <h2 className="font-bold text-lg">{title}</h2>
-          <Link
-            href={href}
-            className="text-sm font-medium text-primary hover:text-primary-hover px-3 py-1.5 rounded-lg transition-colors"
-          >
-            Full Calendar
-          </Link>
+    <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-card">
+      <div className="flex items-center justify-between px-6 py-5 border-b border-border">
+        <div>
+          <h2 className="font-display text-lg font-bold tracking-tight">{title}</h2>
+          <p className="text-xs text-muted mt-0.5">Mark your calendar</p>
         </div>
+        <Link
+          href={href}
+          className="text-sm font-semibold text-primary hover:text-primary-hover px-3 py-1.5 rounded-xl hover:bg-primary/10 transition-colors shrink-0"
+        >
+          Full Calendar
+        </Link>
       </div>
 
       <div className="divide-y divide-border">
@@ -30,46 +31,45 @@ export function FixtureList({ fixtures, title = "Upcoming Fixtures", href = "/ca
           <Link
             key={fixture.id}
             href={`/match/${fixture.id}`}
-            className="block p-4 hover:bg-muted/5 transition-colors"
+            className="group flex items-center gap-4 px-6 py-4 transition-colors hover:bg-card-hover"
           >
-            <div className="flex items-center justify-between mb-2">
-              <div className="flex items-center gap-2">
-                <span className="text-sm">{sportIcons[fixture.sport]}</span>
-                <span className="text-xs text-muted">{fixture.league}</span>
+            <div className="hidden sm:flex flex-col items-center w-14 shrink-0">
+              <span className="text-xs font-bold text-foreground tabular-nums">{fixture.time}</span>
+              <span className="text-[11px] text-muted">{fixture.dateTime}</span>
+            </div>
+
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2 mb-1.5">
+                <span className="text-xs">{sportIcons[fixture.sport]}</span>
+                <span className="text-[11px] font-semibold uppercase tracking-wider text-muted">
+                  {fixture.league}
+                </span>
                 {fixture.isLive && (
-                  <span className="flex items-center gap-1 text-xs font-bold text-red-500">
-                    <span className="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse-live" />
+                  <span className="flex items-center gap-1 text-[11px] font-bold text-red-500">
+                    <span className="relative flex h-1.5 w-1.5">
+                      <span className="absolute inline-flex h-full w-full rounded-full bg-red-500 animate-ping-dot" />
+                      <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-red-500" />
+                    </span>
                     LIVE
                   </span>
                 )}
               </div>
-              <div className="text-right">
-                <p className="text-xs text-muted">{fixture.dateTime}</p>
-                <p className="text-xs font-medium">{fixture.time}</p>
-              </div>
-            </div>
-
-            <div className="flex items-center justify-between gap-3">
-              <div className="flex items-center gap-3 min-w-0">
-                <div className="flex items-center gap-2 min-w-0">
-                  <TeamLogo logo={fixture.homeTeam.logo} name={fixture.homeTeam.name} size="sm" />
-                  <span className="font-medium text-sm truncate">{fixture.homeTeam.name}</span>
-                </div>
+              <div className="flex items-center gap-2.5">
+                <TeamLogo logo={fixture.homeTeam.logo} name={fixture.homeTeam.name} size="xs" />
+                <span className="font-medium text-sm truncate">{fixture.homeTeam.name}</span>
                 {fixture.awayTeam && (
                   <>
-                    <span className="text-xs text-muted px-1 shrink-0">vs</span>
-                    <div className="flex items-center gap-2 min-w-0">
-                      <span className="font-medium text-sm truncate">{fixture.awayTeam.name}</span>
-                      <TeamLogo logo={fixture.awayTeam.logo} name={fixture.awayTeam.name} size="sm" />
-                    </div>
+                    <span className="text-xs text-muted shrink-0">vs</span>
+                    <span className="font-medium text-sm truncate">{fixture.awayTeam.name}</span>
+                    <TeamLogo logo={fixture.awayTeam.logo} name={fixture.awayTeam.name} size="xs" />
                   </>
                 )}
               </div>
-              {fixture.awayTeam && (
-                <span className="text-xs text-muted font-medium shrink-0 hidden sm:inline">
-                  {fixture.title}
-                </span>
-              )}
+            </div>
+
+            <div className="text-right shrink-0">
+              <p className="text-xs font-semibold text-muted hidden md:block">{fixture.title}</p>
+              <p className="text-xs font-bold sm:hidden tabular-nums">{fixture.time}</p>
             </div>
           </Link>
         ))}

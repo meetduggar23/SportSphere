@@ -1,6 +1,7 @@
 "use client";
 
 import { SportPage } from "@/components/sports/SportPage";
+import { SportHero } from "@/components/sports/SportHero";
 import { SportIcon } from "@/components/ui/SportIcon";
 import { allMatches } from "@/data/mock";
 import { Player } from "@/types";
@@ -34,29 +35,15 @@ export default function BaseballPage() {
       players={baseballPlayers}
       competitions={["MLB", "World Series", "AL", "NL", "Minor Leagues"]}
       hero={
-        <div className="rounded-2xl border border-border bg-gradient-to-r from-indigo-500/10 via-blue-500/5 to-transparent p-6 mb-6">
-          <div className="flex items-center gap-6 flex-wrap">
-            <div className="text-center">
-              <div className="w-16 h-16 rounded-full bg-card border border-border flex items-center justify-center text-2xl mb-2 mx-auto">⚾</div>
-              <p className="text-sm font-bold">LA Dodgers</p>
-              <p className="text-xs text-muted">NL West Leaders</p>
-            </div>
-            <div className="text-center">
-              <p className="text-3xl font-extrabold text-indigo-600">9-3</p>
-              <p className="text-xs text-muted mt-1">vs Atlanta</p>
-            </div>
-            <div className="text-center">
-              <div className="w-16 h-16 rounded-full bg-card border border-border flex items-center justify-center text-2xl mb-2 mx-auto">⚾</div>
-              <p className="text-sm font-bold">Atlanta Braves</p>
-              <p className="text-xs text-muted">NL East Leaders</p>
-            </div>
-            <div className="flex-1" />
-            <div className="text-right">
-              <p className="text-sm font-semibold text-indigo-600">⚾ MLB Season</p>
-              <p className="text-xs text-muted mt-1">Race to the World Series</p>
-            </div>
-          </div>
-        </div>
+        <SportHero
+          sport="baseball"
+          kicker="MLB Regular Season"
+          ctaHref="/match/m10"
+          home={{ name: "LA Dodgers", logo: "⚾", score: "9", sub: "NL West Leaders" }}
+          away={{ name: "Atlanta Braves", logo: "⚾", score: "3", sub: "NL East Leaders" }}
+          headline="Dodgers surge as the race to the World Series heats up"
+          venue="Dodger Stadium"
+        />
       }
     />
   );

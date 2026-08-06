@@ -1,6 +1,7 @@
 "use client";
 
 import { SportPage } from "@/components/sports/SportPage";
+import { SportHero } from "@/components/sports/SportHero";
 import { SportIcon } from "@/components/ui/SportIcon";
 import {
   allMatches,
@@ -33,33 +34,16 @@ export default function BasketballPage() {
       ]}
       competitions={["NBA", "NBA Playoffs", "EuroLeague", "FIBA World Cup", "WNBA"]}
       hero={
-        <div className="rounded-2xl border border-border bg-gradient-to-r from-orange-500/10 via-amber-500/5 to-transparent p-6 mb-6">
-          <div className="flex items-center gap-6 flex-wrap">
-            <div className="text-center">
-              <div className="w-16 h-16 rounded-full bg-card border border-border flex items-center justify-center text-2xl mb-2 mx-auto">
-                {teams.bos.logo}
-              </div>
-              <p className="text-sm font-bold">{teams.bos.name}</p>
-              <p className="text-xs text-muted">78</p>
-            </div>
-            <div className="text-center">
-              <p className="text-3xl font-extrabold text-orange-600">Q3</p>
-              <p className="text-xs text-muted mt-1">Playoffs • Game 5</p>
-            </div>
-            <div className="text-center">
-              <div className="w-16 h-16 rounded-full bg-card border border-border flex items-center justify-center text-2xl mb-2 mx-auto">
-                {teams.mia.logo}
-              </div>
-              <p className="text-sm font-bold">{teams.mia.name}</p>
-              <p className="text-xs text-muted">65</p>
-            </div>
-            <div className="flex-1" />
-            <div className="text-right">
-              <p className="text-sm font-semibold text-orange-600">🔥 Celtics lead series 3-2</p>
-              <p className="text-xs text-muted mt-1">TD Garden, Boston</p>
-            </div>
-          </div>
-        </div>
+        <SportHero
+          sport="basketball"
+          kicker="NBA Playoffs • Game 5"
+          live
+          ctaHref="/match/m3"
+          home={{ name: teams.bos.name, logo: teams.bos.logo, score: 78, sub: "Series lead 3-2" }}
+          away={{ name: teams.mia.name, logo: teams.mia.logo, score: 65, sub: "Eastern Conference" }}
+          headline="Celtics take control at TD Garden"
+          venue="TD Garden, Boston"
+        />
       }
     />
   );

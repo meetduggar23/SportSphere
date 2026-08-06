@@ -1,6 +1,7 @@
 "use client";
 
 import { SportPage } from "@/components/sports/SportPage";
+import { SportHero } from "@/components/sports/SportHero";
 import { SportIcon } from "@/components/ui/SportIcon";
 import { allMatches } from "@/data/mock";
 import { Player } from "@/types";
@@ -34,29 +35,15 @@ export default function MMAPage() {
       players={mmaPlayers}
       competitions={["UFC", "PFL", "Bellator", "ONE Championship", "Fight Night"]}
       hero={
-        <div className="rounded-2xl border border-border bg-gradient-to-r from-red-500/10 via-pink-500/5 to-transparent p-6 mb-6">
-          <div className="flex items-center gap-6 flex-wrap">
-            <div className="text-center">
-              <div className="w-16 h-16 rounded-full bg-card border border-border flex items-center justify-center text-2xl mb-2 mx-auto">🥋</div>
-              <p className="text-sm font-bold">Makhachev</p>
-              <p className="text-xs text-muted">LHW Champion</p>
-            </div>
-            <div className="text-center">
-              <p className="text-3xl font-extrabold text-red-600">TKO 4</p>
-              <p className="text-xs text-muted mt-1">UFC 304</p>
-            </div>
-            <div className="text-center">
-              <div className="w-16 h-16 rounded-full bg-card border border-border flex items-center justify-center text-2xl mb-2 mx-auto">🥋</div>
-              <p className="text-sm font-bold">Moicano</p>
-              <p className="text-xs text-muted">Challenger</p>
-            </div>
-            <div className="flex-1" />
-            <div className="text-right">
-              <p className="text-sm font-semibold text-red-600">🥋 UFC Rankings</p>
-              <p className="text-xs text-muted mt-1">Makhachev cements dynasty</p>
-            </div>
-          </div>
-        </div>
+        <SportHero
+          sport="mma"
+          kicker="UFC 304 • Main Event"
+          ctaHref="/match/m12"
+          home={{ name: "Islam Makhachev", logo: "🥋", score: "TKO", sub: "Round 4" }}
+          away={{ name: "Renato Moicano", logo: "🥋", score: "—", sub: "Challenger" }}
+          headline="Makhachev cements his lightweight dynasty at UFC 304"
+          venue="Co-op Live, Manchester"
+        />
       }
     />
   );

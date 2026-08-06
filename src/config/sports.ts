@@ -151,3 +151,33 @@ export const allSports = sportsConfig;
 export function getSportConfig(id: string): SportConfig | undefined {
   return sportsConfig.find((s) => s.id === id);
 }
+
+export interface SportAccent {
+  accent: string;
+  soft: string;
+  gradient: string;
+}
+
+export const sportAccents: Record<string, SportAccent> = {
+  football: { accent: "#22c55e", soft: "rgba(34, 197, 94, 0.14)", gradient: "linear-gradient(135deg, rgba(34,197,94,0.22), rgba(16,185,129,0.06))" },
+  cricket: { accent: "#3b82f6", soft: "rgba(59, 130, 246, 0.14)", gradient: "linear-gradient(135deg, rgba(59,130,246,0.22), rgba(14,165,233,0.06))" },
+  basketball: { accent: "#f97316", soft: "rgba(249, 115, 22, 0.14)", gradient: "linear-gradient(135deg, rgba(249,115,22,0.22), rgba(251,146,60,0.06))" },
+  nba: { accent: "#a855f7", soft: "rgba(168, 85, 247, 0.14)", gradient: "linear-gradient(135deg, rgba(168,85,247,0.22), rgba(217,70,239,0.06))" },
+  f1: { accent: "#ef4444", soft: "rgba(239, 68, 68, 0.14)", gradient: "linear-gradient(135deg, rgba(239,68,68,0.22), rgba(244,63,94,0.06))" },
+  nfl: { accent: "#2563eb", soft: "rgba(37, 99, 235, 0.14)", gradient: "linear-gradient(135deg, rgba(37,99,235,0.22), rgba(59,130,246,0.06))" },
+  mma: { accent: "#f59e0b", soft: "rgba(245, 158, 11, 0.14)", gradient: "linear-gradient(135deg, rgba(245,158,11,0.22), rgba(251,191,36,0.06))" },
+  hockey: { accent: "#06b6d4", soft: "rgba(6, 182, 212, 0.14)", gradient: "linear-gradient(135deg, rgba(6,182,212,0.22), rgba(34,211,238,0.06))" },
+  rugby: { accent: "#14b8a6", soft: "rgba(20, 184, 166, 0.14)", gradient: "linear-gradient(135deg, rgba(20,184,166,0.22), rgba(45,212,191,0.06))" },
+  baseball: { accent: "#6366f1", soft: "rgba(99, 102, 241, 0.14)", gradient: "linear-gradient(135deg, rgba(99,102,241,0.22), rgba(129,140,248,0.06))" },
+  volleyball: { accent: "#eab308", soft: "rgba(234, 179, 8, 0.14)", gradient: "linear-gradient(135deg, rgba(234,179,8,0.22), rgba(250,204,21,0.06))" },
+  handball: { accent: "#0ea5e9", soft: "rgba(14, 165, 233, 0.14)", gradient: "linear-gradient(135deg, rgba(14,165,233,0.22), rgba(56,189,248,0.06))" },
+  afl: { accent: "#f43f5e", soft: "rgba(244, 63, 94, 0.14)", gradient: "linear-gradient(135deg, rgba(244,63,94,0.22), rgba(251,113,133,0.06))" },
+};
+
+export function getSportAccent(id: string): SportAccent {
+  return sportAccents[id] ?? {
+    accent: "#f97316",
+    soft: "rgba(249, 115, 22, 0.14)",
+    gradient: "linear-gradient(135deg, rgba(249,115,22,0.22), rgba(251,146,60,0.06))",
+  };
+}

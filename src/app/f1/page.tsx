@@ -1,6 +1,7 @@
 "use client";
 
 import { SportPage } from "@/components/sports/SportPage";
+import { SportHero } from "@/components/sports/SportHero";
 import { SportIcon } from "@/components/ui/SportIcon";
 import {
   allMatches,
@@ -40,33 +41,16 @@ export default function F1Page() {
       players={f1Drivers}
       competitions={["Formula 1", "F1 Sprint", "F2 Championship", "F1 Academy"]}
       hero={
-        <div className="rounded-2xl border border-border bg-gradient-to-r from-red-500/10 via-rose-500/5 to-transparent p-6 mb-6">
-          <div className="flex items-center gap-6 flex-wrap">
-            <div className="text-center">
-              <div className="w-16 h-16 rounded-full bg-card border border-border flex items-center justify-center text-2xl mb-2 mx-auto">
-                🟠
-              </div>
-              <p className="text-sm font-bold">L. Norris</p>
-              <p className="text-xs text-muted">P1</p>
-            </div>
-            <div className="text-center">
-              <p className="text-3xl font-extrabold text-red-600">45/63</p>
-              <p className="text-xs text-muted mt-1">Emilia Romagna GP</p>
-            </div>
-            <div className="text-center">
-              <div className="w-16 h-16 rounded-full bg-card border border-border flex items-center justify-center text-2xl mb-2 mx-auto">
-                🔵
-              </div>
-              <p className="text-sm font-bold">M. Verstappen</p>
-              <p className="text-xs text-muted">P2 • +1.2s</p>
-            </div>
-            <div className="flex-1" />
-            <div className="text-right">
-              <p className="text-sm font-semibold text-red-600">🏁 Norris leads at Imola</p>
-              <p className="text-xs text-muted mt-1">Verstappen closing fast on softs</p>
-            </div>
-          </div>
-        </div>
+        <SportHero
+          sport="f1"
+          kicker="Emilia Romagna Grand Prix • Race"
+          live
+          ctaHref="/match/m6"
+          home={{ name: "Lando Norris", logo: "🟠", score: "P1", sub: "McLaren" }}
+          away={{ name: "Max Verstappen", logo: "🔵", score: "P2", sub: "+1.2s" }}
+          headline="Norris leads at Imola as Verstappen closes on softs"
+          venue="Imola"
+        />
       }
     />
   );

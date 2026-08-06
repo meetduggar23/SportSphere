@@ -1,6 +1,7 @@
 "use client";
 
 import { SportPage } from "@/components/sports/SportPage";
+import { SportHero } from "@/components/sports/SportHero";
 import { SportIcon } from "@/components/ui/SportIcon";
 import { allMatches } from "@/data/mock";
 import { Match, Player } from "@/types";
@@ -50,29 +51,16 @@ export default function HandballPage() {
       players={handballPlayers}
       competitions={["IHF World Championship", "EHF Champions League", "Olympic Games", "European Championship", "World League"]}
       hero={
-        <div className="rounded-2xl border border-border bg-gradient-to-r from-blue-500/10 via-indigo-500/5 to-transparent p-6 mb-6">
-          <div className="flex items-center gap-6 flex-wrap">
-            <div className="text-center">
-              <div className="w-16 h-16 rounded-full bg-card border border-border flex items-center justify-center text-2xl mb-2 mx-auto">🤾</div>
-              <p className="text-sm font-bold">Denmark</p>
-              <p className="text-xs text-muted">1st • 16 pts</p>
-            </div>
-            <div className="text-center">
-              <p className="text-3xl font-extrabold text-blue-600">World</p>
-              <p className="text-xs text-muted mt-1">IHF Championship 2025</p>
-            </div>
-            <div className="text-center">
-              <div className="w-16 h-16 rounded-full bg-card border border-border flex items-center justify-center text-2xl mb-2 mx-auto">🤾</div>
-              <p className="text-sm font-bold">France</p>
-              <p className="text-xs text-muted">2nd • 12 pts</p>
-            </div>
-            <div className="flex-1" />
-            <div className="text-right">
-              <p className="text-sm font-semibold text-blue-600">🤾 IHF World Rankings</p>
-              <p className="text-xs text-muted mt-1">Denmark eye another title</p>
-            </div>
-          </div>
-        </div>
+        <SportHero
+          sport="handball"
+          kicker="IHF World Championship • Final"
+          live
+          ctaHref="/match/m13"
+          home={{ name: "Denmark", logo: "🤾", score: "24", sub: "1st • 16 pts" }}
+          away={{ name: "France", logo: "🤾", score: "22", sub: "2nd • 12 pts" }}
+          headline="Denmark eye another world title in Herning"
+          venue="Boxen, Herning"
+        />
       }
     />
   );

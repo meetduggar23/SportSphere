@@ -3,15 +3,16 @@ import { cn } from "@/lib/utils";
 interface TeamLogoProps {
   logo: string;
   name?: string;
-  size?: "sm" | "md" | "lg" | "xl";
+  size?: "xs" | "sm" | "md" | "lg" | "xl";
   className?: string;
 }
 
 const sizes = {
-  sm: "w-6 h-6 text-sm",
-  md: "w-9 h-9 text-base",
-  lg: "w-12 h-12 text-lg",
-  xl: "w-16 h-16 text-2xl",
+  xs: "w-5 h-5 text-xs",
+  sm: "w-7 h-7 text-sm",
+  md: "w-10 h-10 text-base",
+  lg: "w-14 h-14 text-lg",
+  xl: "w-20 h-20 text-2xl",
 };
 
 export function TeamLogo({ logo, name, size = "md", className }: TeamLogoProps) {
@@ -22,12 +23,12 @@ export function TeamLogo({ logo, name, size = "md", className }: TeamLogoProps) 
       <img
         src={logo}
         alt={name ?? "Team logo"}
-        width={64}
-        height={64}
+        width={96}
+        height={96}
         loading="lazy"
         decoding="async"
         className={cn(
-          "rounded-full object-cover bg-muted/10 border border-border shrink-0",
+          "rounded-full object-cover bg-muted/10 ring-1 ring-border shadow-card shrink-0",
           sizes[size],
           className
         )}
@@ -38,10 +39,11 @@ export function TeamLogo({ logo, name, size = "md", className }: TeamLogoProps) 
   return (
     <div
       className={cn(
-        "rounded-full bg-gradient-to-br from-primary/20 to-primary/10 border border-border flex items-center justify-center shrink-0",
+        "rounded-full bg-gradient-to-br from-primary/25 to-primary/5 ring-1 ring-primary/20 flex items-center justify-center shrink-0 select-none",
         sizes[size],
         className
       )}
+      aria-hidden
     >
       <span>{logo}</span>
     </div>

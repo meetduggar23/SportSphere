@@ -1,6 +1,7 @@
 "use client";
 
 import { SportPage } from "@/components/sports/SportPage";
+import { SportHero } from "@/components/sports/SportHero";
 import { SportIcon } from "@/components/ui/SportIcon";
 import { allMatches } from "@/data/mock";
 import { Player } from "@/types";
@@ -34,29 +35,14 @@ export default function NFLPage() {
       players={nflPlayers}
       competitions={["NFL", "Super Bowl", "NFC", "AFC", "College Football"]}
       hero={
-        <div className="rounded-2xl border border-border bg-gradient-to-r from-amber-700/10 via-orange-600/5 to-transparent p-6 mb-6">
-          <div className="flex items-center gap-6 flex-wrap">
-            <div className="text-center">
-              <div className="w-16 h-16 rounded-full bg-card border border-border flex items-center justify-center text-2xl mb-2 mx-auto">🏈</div>
-              <p className="text-sm font-bold">Kansas City</p>
-              <p className="text-xs text-muted">AFC Champions</p>
-            </div>
-            <div className="text-center">
-              <p className="text-3xl font-extrabold text-amber-700">38-35</p>
-              <p className="text-xs text-muted mt-1">Super Bowl LVIII</p>
-            </div>
-            <div className="text-center">
-              <div className="w-16 h-16 rounded-full bg-card border border-border flex items-center justify-center text-2xl mb-2 mx-auto">🏈</div>
-              <p className="text-sm font-bold">San Francisco</p>
-              <p className="text-xs text-muted">NFC Champions</p>
-            </div>
-            <div className="flex-1" />
-            <div className="text-right">
-              <p className="text-sm font-semibold text-amber-700">🏆 Back-to-Back!</p>
-              <p className="text-xs text-muted mt-1">Chiefs win Super Bowl in OT</p>
-            </div>
-          </div>
-        </div>
+        <SportHero
+          sport="nfl"
+          kicker="Super Bowl LVIII"
+          ctaHref="/match/m7"
+          home={{ name: "Kansas City Chiefs", logo: "🏈", score: "38", sub: "AFC Champions" }}
+          away={{ name: "San Francisco 49ers", logo: "🏈", score: "35", sub: "NFC Champions" }}
+          headline="Chiefs win Super Bowl in overtime — back-to-back!"
+        />
       }
     />
   );

@@ -1,6 +1,7 @@
 "use client";
 
 import { SportPage } from "@/components/sports/SportPage";
+import { SportHero } from "@/components/sports/SportHero";
 import { SportIcon } from "@/components/ui/SportIcon";
 import { allMatches } from "@/data/mock";
 import { Player } from "@/types";
@@ -34,29 +35,14 @@ export default function HockeyPage() {
       players={hockeyPlayers}
       competitions={["NHL", "Stanley Cup", "AHL", "IIHF", "World Juniors"]}
       hero={
-        <div className="rounded-2xl border border-border bg-gradient-to-r from-cyan-500/10 via-teal-500/5 to-transparent p-6 mb-6">
-          <div className="flex items-center gap-6 flex-wrap">
-            <div className="text-center">
-              <div className="w-16 h-16 rounded-full bg-card border border-border flex items-center justify-center text-2xl mb-2 mx-auto">🏒</div>
-              <p className="text-sm font-bold">Edmonton</p>
-              <p className="text-xs text-muted">1st • 106 pts</p>
-            </div>
-            <div className="text-center">
-              <p className="text-3xl font-extrabold text-cyan-600">Champs</p>
-              <p className="text-xs text-muted mt-1">Stanley Cup 2024</p>
-            </div>
-            <div className="text-center">
-              <div className="w-16 h-16 rounded-full bg-card border border-border flex items-center justify-center text-2xl mb-2 mx-auto">🏒</div>
-              <p className="text-sm font-bold">Florida</p>
-              <p className="text-xs text-muted">Finals</p>
-            </div>
-            <div className="flex-1" />
-            <div className="text-right">
-              <p className="text-sm font-semibold text-cyan-600">🏆 NHL Season</p>
-              <p className="text-xs text-muted mt-1">Oilers dominate the standings</p>
-            </div>
-          </div>
-        </div>
+        <SportHero
+          sport="hockey"
+          kicker="Stanley Cup Final 2024"
+          ctaHref="/match/m8"
+          home={{ name: "Edmonton Oilers", logo: "🏒", score: "4", sub: "1st • 106 pts" }}
+          away={{ name: "Florida Panthers", logo: "🏒", score: "3", sub: "Stanley Cup Finalists" }}
+          headline="Oilers lift the Stanley Cup after a seven-game classic"
+        />
       }
     />
   );
