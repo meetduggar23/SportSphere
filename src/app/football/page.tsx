@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { SportPage } from "@/components/sports/SportPage";
+import { SportIcon } from "@/components/ui/SportIcon";
 import { getLiveMatches, getFixtures, getStandings, getTopScorers } from "@/lib/api";
 import { Match, Fixture, Standing, Player } from "@/types";
 import { teams } from "@/data/mock";
@@ -49,7 +50,7 @@ export default function FootballPage() {
   return (
     <SportPage
       sport="football"
-      icon={<span className="text-xl">⚽</span>}
+      icon={<SportIcon sport="football" className="w-5 h-5" />}
       matches={matches}
       fixtures={fixtures}
       standings={standings}

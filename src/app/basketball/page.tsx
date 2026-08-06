@@ -1,6 +1,7 @@
 "use client";
 
 import { SportPage } from "@/components/sports/SportPage";
+import { SportIcon } from "@/components/ui/SportIcon";
 import {
   allMatches,
   upcomingFixtures,
@@ -14,7 +15,7 @@ export default function BasketballPage() {
   return (
     <SportPage
       sport="basketball"
-      icon={<span className="text-xl">🏀</span>}
+      icon={<SportIcon sport="basketball" className="w-5 h-5" />}
       matches={basketballMatches}
       fixtures={upcomingFixtures.filter((f) => f.sport === "basketball")}
       standings={[

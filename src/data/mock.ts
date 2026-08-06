@@ -377,6 +377,7 @@ export const navItems: NavItem[] = [
   { label: "Football", href: "/football" },
   { label: "Cricket", href: "/cricket" },
   { label: "Basketball", href: "/basketball" },
+  { label: "Tennis", href: "/tennis" },
   { label: "F1", href: "/f1" },
   { label: "News", href: "/news" },
   { label: "Standings", href: "/standings" },

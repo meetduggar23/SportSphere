@@ -1,6 +1,7 @@
 "use client";
 
 import { SportPage } from "@/components/sports/SportPage";
+import { SportIcon } from "@/components/ui/SportIcon";
 import {
   allMatches,
   tennisNews,
@@ -20,7 +21,7 @@ export default function TennisPage() {
   return (
     <SportPage
       sport="tennis"
-      icon={<span className="text-xl">🎾</span>}
+      icon={<SportIcon sport="tennis" className="w-5 h-5" />}
       matches={tennisMatches}
       fixtures={[
         { id: "t1", sport: "tennis", league: "Italian Open", title: "Final", homeTeam: { id: "sin", name: "J. Sinner", shortName: "SIN", logo: "🎾", sport: "tennis", country: "Italy" }, dateTime: "May 5", time: "4:00 PM" },

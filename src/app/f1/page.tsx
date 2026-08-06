@@ -1,6 +1,7 @@
 "use client";
 
 import { SportPage } from "@/components/sports/SportPage";
+import { SportIcon } from "@/components/ui/SportIcon";
 import {
   allMatches,
   f1News,
@@ -21,7 +22,7 @@ export default function F1Page() {
   return (
     <SportPage
       sport="f1"
-      icon={<span className="text-xl">🏎️</span>}
+      icon={<SportIcon sport="formula-1" className="w-5 h-5" />}
       matches={f1Matches}
       fixtures={[
         { id: "f1x", sport: "f1", league: "FIA Formula 1", title: "Race", homeTeam: { id: "imola", name: "Emilia Romagna GP", shortName: "IMO", logo: "🏁", sport: "f1", country: "Italy" }, dateTime: "Today", time: "3:00 PM" },
