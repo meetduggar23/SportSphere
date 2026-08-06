@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { News, sportIcons } from "@/types";
 import { cn } from "@/lib/utils";
@@ -32,12 +31,12 @@ export function NewsCard({ news, variant = "default", className }: NewsCardProps
       {variant === "default" ? (
         <>
           <div className="relative h-40 overflow-hidden">
-            <Image
+            <img
               src={news.image}
               alt={news.title}
-              fill
-              sizes="(max-width: 768px) 100vw, 400px"
-              className="object-cover group-hover:scale-105 transition-transform duration-500"
+              loading="lazy"
+              decoding="async"
+              className="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
             {news.isBreaking && (
@@ -65,12 +64,12 @@ export function NewsCard({ news, variant = "default", className }: NewsCardProps
       ) : (
         <>
           <div className="relative w-28 h-20 rounded-lg overflow-hidden shrink-0">
-            <Image
+            <img
               src={news.image}
               alt={news.title}
-              fill
-              sizes="112px"
-              className="object-cover"
+              loading="lazy"
+              decoding="async"
+              className="absolute inset-0 h-full w-full object-cover"
             />
           </div>
           <div className="min-w-0">

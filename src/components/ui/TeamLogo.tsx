@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 interface TeamLogoProps {
@@ -20,11 +19,13 @@ export function TeamLogo({ logo, name, size = "md", className }: TeamLogoProps) 
 
   if (isUrl) {
     return (
-      <Image
+      <img
         src={logo}
         alt={name ?? "Team logo"}
         width={64}
         height={64}
+        loading="lazy"
+        decoding="async"
         className={cn(
           "rounded-full object-cover bg-muted/10 border border-border shrink-0",
           sizes[size],
