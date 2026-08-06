@@ -12,9 +12,7 @@ import {
   VideoItem,
   TimelineEvent,
   MatchStats,
-  SidebarNavItem,
   NavItem,
-  SidebarGroupItem,
   Team,
   MatchComment,
 } from "@/types";
@@ -365,72 +363,6 @@ export const navItems: NavItem[] = [
   { label: "Standings", href: "/standings" },
   { label: "Fantasy", href: "/fantasy" },
   { label: "AI Insights", href: "/ai-insights" },
-];
-
-export const sidebarNavItems: SidebarNavItem[] = [
-  { label: "Overview", href: "/", icon: "overview" },
-  { label: "Live Scores", href: "/live", icon: "live" },
-  { label: "Favorites", href: "/favorites", icon: "favorites" },
-  { label: "My Teams", href: "/my-teams", icon: "teams" },
-  { label: "Calendar", href: "/calendar", icon: "calendar" },
-  { label: "Standings", href: "/standings", icon: "standings" },
-  { label: "News", href: "/news", icon: "news" },
-  { label: "Transfers", href: "/transfers", icon: "transfers" },
-  { label: "Videos", href: "/videos", icon: "videos" },
-  { label: "AI Insights", href: "/ai-insights", icon: "ai", badge: "NEW" },
-  { label: "Settings", href: "/settings", icon: "settings" },
-];
-
-export const cricketNavItems: SidebarGroupItem[] = [
-  {
-    label: "Live Scores",
-    children: [
-      { label: "Live Matches", href: "/cricket/live-matches" },
-      { label: "Live Scorecard", href: "/cricket/live-scorecard" },
-      { label: "Live Commentary", href: "/cricket/live-commentary" },
-    ],
-  },
-  {
-    label: "Schedules",
-    children: [
-      { label: "Today's Matches", href: "/cricket/schedules/today" },
-      { label: "Upcoming Matches", href: "/cricket/schedules/upcoming" },
-      { label: "Match Calendar", href: "/cricket/schedules/calendar" },
-    ],
-  },
-  {
-    label: "Matches",
-    children: [
-      { label: "Match Details", href: "/cricket/matches/details" },
-      { label: "Scorecard", href: "/cricket/matches/scorecard" },
-      { label: "Commentary", href: "/cricket/matches/commentary" },
-      { label: "Match Info", href: "/cricket/matches/info" },
-    ],
-  },
-  {
-    label: "Series",
-    children: [
-      { label: "Ongoing Series", href: "/cricket/series/ongoing" },
-      { label: "Upcoming Series", href: "/cricket/series/upcoming" },
-      { label: "Completed Series", href: "/cricket/series/completed" },
-    ],
-  },
-  {
-    label: "Teams",
-    children: [
-      { label: "Team List", href: "/cricket/teams" },
-      { label: "Team Details", href: "/cricket/teams/details" },
-      { label: "Squad", href: "/cricket/teams/squad" },
-    ],
-  },
-  {
-    label: "Players",
-    children: [
-      { label: "Player List", href: "/cricket/players" },
-      { label: "Player Profile", href: "/cricket/players/profile" },
-      { label: "Career Stats", href: "/cricket/players/stats" },
-    ],
-  },
 ];
 
 export const tournaments: Tournament[] = [

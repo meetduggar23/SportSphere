@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Bell, User, Menu, X, Moon, Sun, ChevronDown, ChevronRight } from "lucide-react";
 import { navItems } from "@/data/mock";
 import { sportsConfig } from "@/config/sports";
+import { allSportsSidebarOrder } from "@/config/sidebar";
 import { sportIcons } from "@/components/ui/icons/SportIcons";
 import { useTheme } from "@/providers/ThemeProvider";
 import { cn } from "@/lib/utils";
@@ -12,21 +13,51 @@ import { Logo } from "@/components/ui/Logo";
 import { SearchBar } from "@/components/layout/SearchBar";
 import { usePathname } from "next/navigation";
 
+const orderedSports = allSportsSidebarOrder
+  .map((id) => sportsConfig.find((s) => s.id === id))
+  .filter((s): s is (typeof sportsConfig)[number] => Boolean(s));
+
+const sportLabel = (id: string, shortName: string) =>
+  id === "formula-1" ? "Formula 1" : shortName;
+
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [sportsOpen, setSportsOpen] = useState(false);
+  const [sportsClosing, setSportsClosing] = useState(false);
   const { theme, toggleTheme } = useTheme();
   const pathname = usePathname();
   const sportsRef = useRef<HTMLDivElement>(null);
+  const sportsTimeout = useRef<number | null>(null);
+
+  const closeSports = () => {
+    setSportsClosing(true);
+    sportsTimeout.current = window.setTimeout(() => {
+      setSportsOpen(false);
+      setSportsClosing(false);
+    }, 200);
+  };
+
+  const toggleSports = () => {
+    if (sportsOpen) {
+      closeSports();
+    } else {
+      if (sportsTimeout.current) window.clearTimeout(sportsTimeout.current);
+      setSportsClosing(false);
+      setSportsOpen(true);
+    }
+  };
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (sportsRef.current && !sportsRef.current.contains(e.target as Node)) {
-        setSportsOpen(false);
+        closeSports();
       }
     };
     document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
+    return () => {
+      document.removeEventListener("mousedown", handler);
+      if (sportsTimeout.current) window.clearTimeout(sportsTimeout.current);
+    };
   }, []);
 
   const navLink = (active: boolean) =>
@@ -51,20 +82,27 @@ export function Header() {
 
           <div ref={sportsRef} className="relative">
             <button
-              onClick={() => setSportsOpen((o) => !o)}
+              onClick={toggleSports}
               aria-expanded={sportsOpen}
               className={cn(navLink(sportsOpen), "flex items-center gap-1.5")}
             >
-              More Sports
+              All Sports
               <ChevronDown
                 className={cn("h-3.5 w-3.5 transition-transform duration-300", sportsOpen && "rotate-180")}
               />
             </button>
 
             {sportsOpen && (
-              <div className="absolute left-0 top-full z-50 mt-3 w-72 animate-slide-up rounded-2xl border border-border bg-card p-2 shadow-pop">
-                <div className="grid grid-cols-2 gap-1">
-                  {sportsConfig.map((sport) => {
+              <div
+                className={cn(
+                  "absolute left-0 top-full z-50 mt-3 w-[24rem] origin-top rounded-2xl border border-border bg-card p-2 shadow-pop",
+                  "animate-slide-up transition-all duration-200 ease-out",
+                  "xl:w-[32rem] 2xl:w-[42rem]",
+                  sportsClosing && "pointer-events-none scale-95 opacity-0"
+                )}
+              >
+                <div className="grid grid-cols-2 gap-1 xl:grid-cols-3 2xl:grid-cols-4">
+                  {orderedSports.map((sport) => {
                     const Icon = sportIcons[sport.id];
                     const href = sport.href;
                     const isActive = pathname === href;
@@ -72,7 +110,7 @@ export function Header() {
                       <Link
                         key={sport.id}
                         href={href}
-                        onClick={() => setSportsOpen(false)}
+                        onClick={closeSports}
                         className={cn(
                           "flex items-center gap-2.5 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors duration-200",
                           isActive
@@ -81,14 +119,14 @@ export function Header() {
                         )}
                       >
                         {Icon && <Icon className="h-4 w-4 shrink-0" />}
-                        <span className="truncate">{sport.shortName}</span>
+                        <span className="truncate">{sportLabel(sport.id, sport.shortName)}</span>
                       </Link>
                     );
                   })}
                 </div>
                 <Link
                   href="/sports"
-                  onClick={() => setSportsOpen(false)}
+                  onClick={closeSports}
                   className="mt-1 flex items-center justify-between rounded-lg border-t border-border px-3 py-2.5 text-sm font-semibold text-primary transition-colors hover:bg-primary/10"
                 >
                   Browse All Sports <ChevronRight className="h-4 w-4" />
