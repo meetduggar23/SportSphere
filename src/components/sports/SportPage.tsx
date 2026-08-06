@@ -24,6 +24,7 @@ interface SportPageProps {
   players: Player[];
   competitions: string[];
   hero: React.ReactNode;
+  extra?: React.ReactNode;
 }
 
 const tabs = ["Live", "Fixtures", "Standings", "News", "Top Players"];
@@ -38,6 +39,7 @@ export function SportPage({
   players,
   competitions,
   hero,
+  extra,
 }: SportPageProps) {
   const [activeTab, setActiveTab] = useState("Live");
   const accent = getSportAccent(sport);
@@ -56,6 +58,8 @@ export function SportPage({
         />
 
         {hero}
+
+        {extra}
 
         <div className="flex flex-col gap-2 mb-8">
           <SportTabs

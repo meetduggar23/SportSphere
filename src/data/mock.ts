@@ -57,14 +57,35 @@ export const teams: Record<string, Team> = {
   ind: team("ind", "India", "IND", "/logos/cricket/india.png", "cricket", "India", { coach: "Rahul Dravid" }),
   aus: team("aus", "Australia", "AUS", "/logos/cricket/australia.png", "cricket", "Australia", { coach: "Andrew McDonald" }),
   eng: team("eng", "England", "ENG", "/logos/cricket/england.png", "cricket", "England", { coach: "Brendon McCullum" }),
-  mi: team("mi", "Mumbai Indians", "MI", "/logos/cricket/mumbai-indians.png", "cricket", "India", { city: "Mumbai" }),
-  csk: team("csk", "Chennai Super Kings", "CSK", "/logos/cricket/chennai-super-kings.png", "cricket", "India", { city: "Chennai" }),
-  rcb: team("rcb", "Royal Challengers", "RCB", "/logos/cricket/royal-challengers.png", "cricket", "India", { city: "Bengaluru" }),
+  mi: team("mi", "Mumbai Indians", "MI", "/logos/ipl/mi.jpg", "cricket", "India", { city: "Mumbai", founded: 2008, coach: "Mahela Jayawardene" }),
+  csk: team("csk", "Chennai Super Kings", "CSK", "/logos/ipl/csk.jpg", "cricket", "India", { city: "Chennai", founded: 2008, coach: "Stephen Fleming" }),
+  rcb: team("rcb", "Royal Challengers", "RCB", "/logos/ipl/rcb.jpg", "cricket", "India", { city: "Bengaluru", founded: 2008 }),
+  kkr: team("kkr", "Kolkata Knight Riders", "KKR", "/logos/ipl/kkr.png", "cricket", "India", { city: "Kolkata", founded: 2008, coach: "Chandrakant Pandit" }),
+  rr: team("rr", "Rajasthan Royals", "RR", "/logos/ipl/rr.jpg", "cricket", "India", { city: "Jaipur", founded: 2008 }),
+  gt: team("gt", "Gujarat Titans", "GT", "/logos/ipl/gt.jpg", "cricket", "India", { city: "Ahmedabad", founded: 2021 }),
+  srh: team("srh", "Sunrisers Hyderabad", "SRH", "/logos/ipl/srh.jpg", "cricket", "India", { city: "Hyderabad", founded: 2014 }),
+  pbks: team("pbks", "Punjab Kings", "PBKS", "/logos/ipl/pbks.jpg", "cricket", "India", { city: "Chandigarh", founded: 2008 }),
+  dc: team("dc", "Delhi Capitals", "DC", "/logos/ipl/dc.jpg", "cricket", "India", { city: "Delhi", founded: 2008 }),
+  lsg: team("lsg", "Lucknow Super Giants", "LSG", "/logos/ipl/lsg.jpg", "cricket", "India", { city: "Lucknow", founded: 2021 }),
+  ipl: team("ipl", "Indian Premier League", "IPL", "/logos/ipl/ipl.jpg", "cricket", "India"),
   bos: team("bos", "Celtics", "BOS", "https://api.dicebear.com/7.x/initials/svg?seed=BOS", "basketball", "USA", { city: "Boston", founded: 1946, stadium: "TD Garden", capacity: 19156 }),
   mia: team("mia", "Heat", "MIA", "https://api.dicebear.com/7.x/initials/svg?seed=MIA", "basketball", "USA", { city: "Miami", founded: 1988, stadium: "Kaseya Center", capacity: 19600 }),
   lal: team("lal", "Lakers", "LAL", "https://api.dicebear.com/7.x/initials/svg?seed=LAL", "basketball", "USA", { city: "Los Angeles", founded: 1947, stadium: "Crypto.com Arena", capacity: 18997 }),
   gsw: team("gsw", "Warriors", "GSW", "https://api.dicebear.com/7.x/initials/svg?seed=GSW", "basketball", "USA", { city: "San Francisco", founded: 1946, stadium: "Chase Center", capacity: 18064 }),
 };
+
+export const iplTeams: Team[] = [
+  teams.mi,
+  teams.csk,
+  teams.rcb,
+  teams.kkr,
+  teams.rr,
+  teams.gt,
+  teams.srh,
+  teams.pbks,
+  teams.dc,
+  teams.lsg,
+];
 
 export const liveMatches: Match[] = [
   {
@@ -332,6 +353,8 @@ export const followedTeams = [
   { id: "rm", name: "Real Madrid", sport: "Football", logo: teams.rm.logo },
   { id: "ind", name: "India", sport: "Cricket", logo: teams.ind.logo },
   { id: "mi", name: "Mumbai Indians", sport: "Cricket", logo: teams.mi.logo },
+  { id: "kkr", name: "Kolkata Knight Riders", sport: "Cricket", logo: teams.kkr.logo },
+  { id: "rcb", name: "Royal Challengers", sport: "Cricket", logo: teams.rcb.logo },
   { id: "lal", name: "Los Angeles Lakers", sport: "Basketball", logo: teams.lal.logo },
 ];
 
