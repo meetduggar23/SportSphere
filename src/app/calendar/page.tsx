@@ -20,7 +20,7 @@ const eventsByDay: Record<number, { time: string; title: string; sport: string }
   6: [{ time: "7:30 PM", title: "MI vs CSK", sport: "🏏" }],
   7: [{ time: "3:00 PM", title: "F1 Emilia Romagna GP", sport: "🏎️" }],
   12: [{ time: "10:15 PM", title: "El Clásico", sport: "⚽" }],
-  15: [{ time: "6:00 PM", title: "Indian Open Final", sport: "🎾" }],
+  15: [{ time: "6:00 PM", title: "IHF World Championship Final", sport: "🤾" }],
 };
 
 export default function CalendarPage() {

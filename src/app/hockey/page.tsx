@@ -14,11 +14,11 @@ const hockeyPlayers: Player[] = [
   { id: "hh4", name: "Leon Draisaitl", photo: "", team: "Edmonton Oilers", teamId: "", teamLogo: "🏒", position: "Center", sport: "hockey", nationality: "Germany", age: 28, stat: "108", statLabel: "Points", rating: 92 },
 ];
 
-export default function IceHockeyPage() {
+export default function HockeyPage() {
   return (
     <SportPage
       sport="hockey"
-      icon={<SportIcon sport="ice-hockey" className="w-5 h-5" />}
+      icon={<SportIcon sport="hockey" className="w-5 h-5" />}
       matches={hockeyMatches}
       fixtures={[
         { id: "nhl1", sport: "hockey", league: "NHL", title: "Game", homeTeam: { id: "edm", name: "Edmonton Oilers", shortName: "EDM", logo: "🏒", sport: "hockey", country: "Canada" }, dateTime: "Oct 12", time: "9:00 PM" },

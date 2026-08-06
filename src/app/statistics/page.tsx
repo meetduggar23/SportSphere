@@ -12,7 +12,6 @@ const tabs = [
   { label: "🏏 Cricket", value: "cricket" },
   { label: "🏀 Basketball", value: "basketball" },
   { label: "🏎️ F1", value: "f1" },
-  { label: "🎾 Tennis", value: "tennis" },
 ];
 
 const footballStats = [

@@ -36,12 +36,23 @@ export function BasketballIcon({ className }: IconProps) {
   );
 }
 
-export function TennisIcon({ className }: IconProps) {
+export function NBAIcon({ className }: IconProps) {
   return (
     <svg viewBox="0 0 24 24" fill="none" className={cn("w-6 h-6", className)}>
-      <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2"/>
-      <path d="M12 3C12 3 4.5 7.5 4.5 12C4.5 16.5 12 21 12 21" stroke="currentColor" strokeWidth="1.5" fill="currentColor" opacity="0.1"/>
-      <path d="M12 3C12 3 19.5 7.5 19.5 12C19.5 16.5 12 21 12 21" stroke="currentColor" strokeWidth="1.5" fill="currentColor" opacity="0.1"/>
+      <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.8"/>
+      <path d="M12 3V21M4.5 8.5L19.5 15.5M19.5 8.5L4.5 15.5" stroke="currentColor" strokeWidth="1"/>
+      <path d="M12 12L12.9 13.8L14.9 14.05L13.45 15.45L13.75 17.45L12 16.5L10.25 17.45L10.55 15.45L9.1 14.05L11.1 13.8L12 12Z" fill="currentColor"/>
+    </svg>
+  );
+}
+
+export function NFLIcon({ className }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" className={cn("w-6 h-6", className)}>
+      <ellipse cx="12" cy="12" rx="8" ry="5" stroke="currentColor" strokeWidth="1.5" transform="rotate(-15 12 12)"/>
+      <path d="M8 12H16M9 9.5L15 9.5M9 14.5L15 14.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+      <path d="M12 7V17" stroke="currentColor" strokeWidth="1.5"/>
+      <path d="M5.5 8.5L4 7M18.5 8.5L20 7M5.5 15.5L4 17M18.5 15.5L20 17" stroke="currentColor" strokeWidth="1" strokeLinecap="round" opacity="0.5"/>
     </svg>
   );
 }
@@ -60,15 +71,14 @@ export function F1Icon({ className }: IconProps) {
   );
 }
 
-export function MotoGPIcon({ className }: IconProps) {
+export function HandballIcon({ className }: IconProps) {
   return (
     <svg viewBox="0 0 24 24" fill="none" className={cn("w-6 h-6", className)}>
-      <circle cx="6" cy="17" r="4" stroke="currentColor" strokeWidth="1.5"/>
-      <circle cx="18" cy="17" r="4" stroke="currentColor" strokeWidth="1.5"/>
-      <path d="M6 13L9.5 5H13L15 10L18 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-      <path d="M6 13L9 10L13 10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-      <path d="M9.5 5L11 3H13L14 5" stroke="currentColor" strokeWidth="1" strokeLinecap="round"/>
-      <line x1="13" y1="10" x2="15" y2="10" stroke="currentColor" strokeWidth="2"/>
+      <circle cx="12" cy="12" r="8.5" stroke="currentColor" strokeWidth="1.8" fill="currentColor" opacity="0.1"/>
+      <path d="M12 3.5V20.5" stroke="currentColor" strokeWidth="1"/>
+      <path d="M5.5 8C5.5 8 3 10 3 12.5M18.5 8C18.5 8 21 10 21 12.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
+      <path d="M7 5.5C7 5.5 5 7 5.5 9M17 5.5C17 5.5 19 7 18.5 9" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" opacity="0.7"/>
+      <path d="M9.5 4.5L10.5 6.5M14.5 4.5L13.5 6.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" opacity="0.7"/>
     </svg>
   );
 }
@@ -85,13 +95,13 @@ export function BaseballIcon({ className }: IconProps) {
   );
 }
 
-export function AmericanFootballIcon({ className }: IconProps) {
+export function HockeyIcon({ className }: IconProps) {
   return (
     <svg viewBox="0 0 24 24" fill="none" className={cn("w-6 h-6", className)}>
-      <ellipse cx="12" cy="12" rx="8" ry="5" stroke="currentColor" strokeWidth="1.5" transform="rotate(-15 12 12)"/>
-      <path d="M8 12H16M9 9.5L15 9.5M9 14.5L15 14.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-      <path d="M12 7V17" stroke="currentColor" strokeWidth="1.5"/>
-      <path d="M5.5 8.5L4 7M18.5 8.5L20 7M5.5 15.5L4 17M18.5 15.5L20 17" stroke="currentColor" strokeWidth="1" strokeLinecap="round" opacity="0.5"/>
+      <rect x="3" y="14" width="18" height="3" rx="1.5" stroke="currentColor" strokeWidth="1.5" fill="currentColor" opacity="0.15"/>
+      <path d="M6 14V11L12 8L18 11V14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+      <circle cx="12" cy="13" r="1.5" fill="currentColor"/>
+      <path d="M8 8H16" stroke="currentColor" strokeWidth="1" strokeLinecap="round" opacity="0.5"/>
     </svg>
   );
 }
@@ -102,17 +112,6 @@ export function RugbyIcon({ className }: IconProps) {
       <ellipse cx="12" cy="12" rx="8" ry="5" stroke="currentColor" strokeWidth="1.5" transform="rotate(15 12 12)" fill="currentColor" opacity="0.1"/>
       <path d="M9 8.5L9 15.5M11 8.5L11 15.5M13 8.5L13 15.5M15 8.5L15 15.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
       <path d="M8 11H16" stroke="currentColor" strokeWidth="1"/>
-    </svg>
-  );
-}
-
-export function IceHockeyIcon({ className }: IconProps) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" className={cn("w-6 h-6", className)}>
-      <rect x="3" y="14" width="18" height="3" rx="1.5" stroke="currentColor" strokeWidth="1.5" fill="currentColor" opacity="0.15"/>
-      <path d="M6 14V11L12 8L18 11V14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-      <circle cx="12" cy="13" r="1.5" fill="currentColor"/>
-      <path d="M8 8H16" stroke="currentColor" strokeWidth="1" strokeLinecap="round" opacity="0.5"/>
     </svg>
   );
 }
@@ -130,7 +129,7 @@ export function VolleyballIcon({ className }: IconProps) {
   );
 }
 
-export function UFCMMAIcon({ className }: IconProps) {
+export function MMAIcon({ className }: IconProps) {
   return (
     <svg viewBox="0 0 24 24" fill="none" className={cn("w-6 h-6", className)}>
       <path d="M6 8C6 8 6 4 10 4C14 4 14 8 14 8V12C14 12 14 16 10 16C6 16 6 12 6 12V8Z" stroke="currentColor" strokeWidth="1.5" fill="currentColor" opacity="0.1"/>
@@ -142,32 +141,7 @@ export function UFCMMAIcon({ className }: IconProps) {
   );
 }
 
-export function BoxingIcon({ className }: IconProps) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" className={cn("w-6 h-6", className)}>
-      <path d="M7 6C7 6 5 6 5 8V12C5 15 8 17 12 17C16 17 19 15 19 12V8C19 6 17 6 17 6" stroke="currentColor" strokeWidth="1.5" fill="currentColor" opacity="0.1"/>
-      <path d="M7 8C7 8 7 5 10 5H14C17 5 17 8 17 8V12C17 15 14.5 16.5 12 16.5C9.5 16.5 7 15 7 12V8Z" stroke="currentColor" strokeWidth="1.5"/>
-      <path d="M5 9V12C5 12 3 12 3 14C3 16 5 16 5 16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-      <path d="M7 20H17" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-      <path d="M12 16.5V20" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-    </svg>
-  );
-}
-
-export function EsportsIcon({ className }: IconProps) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" className={cn("w-6 h-6", className)}>
-      <rect x="3" y="7" width="18" height="10" rx="3" stroke="currentColor" strokeWidth="1.5"/>
-      <circle cx="8" cy="12" r="1.5" fill="currentColor" opacity="0.3"/>
-      <circle cx="16" cy="12" r="1.5" fill="currentColor" opacity="0.3"/>
-      <path d="M10 12H14" stroke="currentColor" strokeWidth="1" strokeLinecap="round"/>
-      <path d="M12 10V14" stroke="currentColor" strokeWidth="1" strokeLinecap="round"/>
-      <path d="M7 7L9 4H15L17 7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-    </svg>
-  );
-}
-
-export function AFIcon({ className }: IconProps) {
+export function AFLIcon({ className }: IconProps) {
   return (
     <svg viewBox="0 0 24 24" fill="none" className={cn("w-6 h-6", className)}>
       <ellipse cx="12" cy="12" rx="9" ry="7" stroke="currentColor" strokeWidth="1.5" fill="currentColor" opacity="0.08"/>
@@ -183,16 +157,14 @@ export const sportIcons: Record<string, React.ComponentType<IconProps>> = {
   cricket: CricketIcon,
   football: FootballIcon,
   basketball: BasketballIcon,
-  tennis: TennisIcon,
+  nfl: NFLIcon,
   "formula-1": F1Icon,
-  motogp: MotoGPIcon,
+  handball: HandballIcon,
   baseball: BaseballIcon,
-  "american-football": AmericanFootballIcon,
+  hockey: HockeyIcon,
   rugby: RugbyIcon,
-  "ice-hockey": IceHockeyIcon,
   volleyball: VolleyballIcon,
-  "ufc-mma": UFCMMAIcon,
-  boxing: BoxingIcon,
-  esports: EsportsIcon,
-  afl: AFIcon,
+  mma: MMAIcon,
+  afl: AFLIcon,
+  nba: NBAIcon,
 };

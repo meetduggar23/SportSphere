@@ -198,20 +198,6 @@ export const allMatches: Match[] = [
     competition: "Matchday 34",
     date: "Yesterday",
   },
-  {
-    id: "m10",
-    sport: "tennis",
-    league: "Italian Open",
-    status: "live",
-    minute: "2nd Set",
-    homeTeam: { id: "djok", name: "N. Djokovic", shortName: "DJO", logo: "https://api.dicebear.com/7.x/initials/svg?seed=DJO", sport: "tennis", country: "Serbia" },
-    awayTeam: { id: "sin", name: "J. Sinner", shortName: "SIN", logo: "https://api.dicebear.com/7.x/initials/svg?seed=SIN", sport: "tennis", country: "Italy" },
-    homeScore: "6-4",
-    awayScore: "3-2",
-    venue: "Foro Italico, Rome",
-    competition: "Semi-Final",
-    date: "Today",
-  },
 ];
 
 export const upcomingFixtures: Fixture[] = [
@@ -254,15 +240,6 @@ export const upcomingFixtures: Fixture[] = [
     awayTeam: teams.ars,
     dateTime: "Tomorrow",
     time: "9:00 PM",
-  },
-  {
-    id: "f5",
-    sport: "tennis",
-    league: "Italian Open",
-    title: "Final",
-    homeTeam: { id: "sin", name: "J. Sinner", shortName: "SIN", logo: "https://api.dicebear.com/7.x/initials/svg?seed=SIN", sport: "tennis", country: "Italy" },
-    dateTime: "May 5",
-    time: "4:00 PM",
   },
 ];
 
@@ -313,18 +290,6 @@ export const topNews: News[] = [
     views: "980K",
   },
   {
-    id: "n5",
-    title: "Sinner stuns Djokovic in Rome semi-final thriller",
-    excerpt: "The Italian world No.2 produces a stunning comeback to reach his first Italian Open final.",
-    image: "https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?w=400&h=250&fit=crop",
-    sport: "tennis",
-    category: "TENNIS",
-    timeAgo: "5h ago",
-    isBreaking: true,
-    author: "Emma Wilson",
-    views: "720K",
-  },
-  {
     id: "n6",
     title: "Transfer round-up: Record summer window expected",
     excerpt: "Clubs prepare for a record-breaking transfer window as the market heats up.",
@@ -351,7 +316,6 @@ export const trendingNow: TrendingItem[] = [
   { id: "t2", rank: 2, title: "India vs Australia", subtitle: "Border-Gavaskar Trophy", logos: ["🔵", "🟡"], trend: "up" },
   { id: "t3", rank: 3, title: "Lakers vs Warriors", subtitle: "NBA Playoffs", logos: ["🟣", "🔵"], trend: "steady" },
   { id: "t4", rank: 4, title: "Max Verstappen", subtitle: "Emilia Romagna GP", logos: ["🏎️"], trend: "down" },
-  { id: "t5", rank: 5, title: "Jannik Sinner", subtitle: "Italian Open", logos: ["🎾"], trend: "up" },
 ];
 
 export const topPlayers: Player[] = [
@@ -359,7 +323,6 @@ export const topPlayers: Player[] = [
   { id: "p2", name: "Virat Kohli", photo: "https://images.unsplash.com/photo-1596728325488-58c87691e9af?w=200&h=200&fit=crop", team: "India", teamId: "ind", teamLogo: teams.ind.logo, position: "Batter", sport: "cricket", nationality: "India", age: 35, stat: "1324", statLabel: "Runs", marketValue: "₹150 Cr", rating: 92 },
   { id: "p3", name: "Luka Dončić", photo: "https://images.unsplash.com/photo-1546519638-68e109498ffc?w=200&h=200&fit=crop", team: "Lakers", teamId: "lal", teamLogo: teams.lal.logo, position: "Guard", sport: "basketball", nationality: "Slovenia", age: 25, stat: "28.7", statLabel: "PPG", marketValue: "$120M", rating: 94 },
   { id: "p4", name: "Kylian Mbappé", photo: "https://images.unsplash.com/photo-1596854407944-bf87f6fdd49e?w=200&h=200&fit=crop", team: "PSG", teamId: "", teamLogo: "🔵", position: "Forward", sport: "football", nationality: "France", age: 25, stat: "48", statLabel: "Goals", marketValue: "€180M", rating: 93 },
-  { id: "p5", name: "Jannik Sinner", photo: "https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?w=200&h=200&fit=crop", team: "ATP Tour", teamId: "", teamLogo: "🎾", position: "Singles", sport: "tennis", nationality: "Italy", age: 22, stat: "8920", statLabel: "ATP Points", marketValue: "$15M", rating: 95 },
   { id: "p6", name: "Jasprit Bumrah", photo: "https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=200&h=200&fit=crop", team: "India", teamId: "ind", teamLogo: teams.ind.logo, position: "Bowler", sport: "cricket", nationality: "India", age: 30, stat: "165", statLabel: "Wickets", marketValue: "₹120 Cr", rating: 93 },
   { id: "p7", name: "Stephen Curry", photo: "https://images.unsplash.com/photo-1574623452334-1e0ac2b3ccb4?w=200&h=200&fit=crop", team: "Warriors", teamId: "gsw", teamLogo: teams.gsw.logo, position: "Guard", sport: "basketball", nationality: "USA", age: 36, stat: "26.4", statLabel: "PPG", marketValue: "$50M", rating: 92 },
   { id: "p8", name: "Jude Bellingham", photo: "https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=200&h=200&fit=crop", team: "Real Madrid", teamId: "rm", teamLogo: teams.rm.logo, position: "Midfielder", sport: "football", nationality: "England", age: 20, stat: "22", statLabel: "Goals", marketValue: "€180M", rating: 89 },
@@ -378,7 +341,6 @@ export const navItems: NavItem[] = [
   { label: "Football", href: "/football" },
   { label: "Cricket", href: "/cricket" },
   { label: "Basketball", href: "/basketball" },
-  { label: "Tennis", href: "/tennis" },
   { label: "F1", href: "/f1" },
   { label: "News", href: "/news" },
   { label: "Standings", href: "/standings" },
@@ -458,9 +420,9 @@ export const tournaments: Tournament[] = [
   { id: "t3", name: "La Liga", sport: "football", country: "Spain", season: "2023-24", teams: 20, matches: 380, status: "active", format: "League" },
   { id: "t4", name: "Indian Premier League", sport: "cricket", country: "India", season: "2024", teams: 10, matches: 74, status: "active", format: "T20", prizePool: "₹100 Cr" },
   { id: "t5", name: "Border-Gavaskar Trophy", sport: "cricket", country: "Australia", season: "2023-24", teams: 2, matches: 5, status: "active", format: "Test Series" },
-  { id: "t6", name: "NBA Playoffs", sport: "basketball", country: "USA", season: "2023-24", teams: 16, matches: 105, status: "active", format: "Knockout" },
+  { id: "t6", name: "NBA Playoffs", sport: "nba", country: "USA", season: "2023-24", teams: 16, matches: 105, status: "active", format: "Knockout" },
   { id: "t7", name: "F1 World Championship", sport: "f1", country: "Global", season: "2024", teams: 10, matches: 24, status: "active", format: "Points System", prizePool: "$500M" },
-  { id: "t8", name: "Italian Open", sport: "tennis", country: "Italy", season: "2024", teams: 96, status: "active", format: "Masters 1000", prizePool: "$9.4M" },
+  { id: "t8", name: "IHF World Championship", sport: "handball", country: "Global", season: "2025", teams: 32, matches: 96, status: "active", format: "Knockout", prizePool: "€8M" },
 ];
 
 export const transfers: Transfer[] = [
@@ -517,7 +479,6 @@ export const videos: VideoItem[] = [
   { id: "v2", title: "Kohli's Masterclass: 143 vs Australia | Day 2 Highlights", thumbnail: "https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=400&h=250&fit=crop", duration: "08:12", views: "1.8M", sport: "cricket", category: "Highlights", date: "Today" },
   { id: "v3", title: "Lakers vs Warriors: Full Game 5 Highlights", thumbnail: "https://images.unsplash.com/photo-1546519638-68e109498ffc?w=400&h=250&fit=crop", duration: "15:47", views: "1.2M", sport: "basketball", category: "Game Recaps", date: "Yesterday" },
   { id: "v4", title: "Verstappen's Imola Qualifying Lap | Onboard", thumbnail: "https://images.unsplash.com/photo-1541889413-fce7e29015db?w=400&h=250&fit=crop", duration: "05:23", views: "890K", sport: "f1", category: "Onboard", date: "Yesterday" },
-  { id: "v5", title: "Sinner vs Djokovic: Match Point Thriller", thumbnail: "https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?w=400&h=250&fit=crop", duration: "03:45", views: "760K", sport: "tennis", category: "Highlights", date: "Today" },
 ];
 
 export const matchTimeline: TimelineEvent[] = [
@@ -566,7 +527,6 @@ export const recentSearches = [
 export const trendingSearches = [
   "Man City vs Arsenal",
   "F1 Imola",
-  "Sinner",
   "Mbappé transfer",
   "Champions League",
 ];
@@ -594,4 +554,3 @@ export const footballPlayers = topPlayers.filter((p) => p.sport === "football");
 export const cricketNews = topNews.filter((n) => n.sport === "cricket");
 export const basketballNews = topNews.filter((n) => n.sport === "basketball");
 export const f1News = topNews.filter((n) => n.sport === "f1");
-export const tennisNews = topNews.filter((n) => n.sport === "tennis");

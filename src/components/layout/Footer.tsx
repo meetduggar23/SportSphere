@@ -30,8 +30,10 @@ const footerLinks = [
       { label: "Football", href: "/football" },
       { label: "Cricket", href: "/cricket" },
       { label: "Basketball", href: "/basketball" },
+      { label: "NFL", href: "/nfl" },
+      { label: "Hockey", href: "/hockey" },
       { label: "Formula 1", href: "/f1" },
-      { label: "Tennis", href: "/tennis" },
+      { label: "NBA", href: "/nba" },
     ],
   },
   {

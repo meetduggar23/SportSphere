@@ -3,34 +3,30 @@ export type Sport =
   | "cricket"
   | "basketball"
   | "f1"
-  | "tennis"
+  | "nfl"
   | "baseball"
   | "hockey"
-  | "ufc"
-  | "boxing"
+  | "mma"
   | "rugby"
   | "volleyball"
-  | "esports"
-  | "motogp"
-  | "american_football"
-  | "afl";
+  | "handball"
+  | "afl"
+  | "nba";
 
 export const sportLabels: Record<Sport, string> = {
   football: "Football (Soccer)",
   cricket: "Cricket",
   basketball: "Basketball",
   f1: "Formula 1",
-  tennis: "Tennis",
+  nfl: "NFL",
   baseball: "Baseball",
-  hockey: "Ice Hockey",
-  ufc: "UFC / MMA",
-  boxing: "Boxing",
+  hockey: "Hockey",
+  mma: "MMA",
   rugby: "Rugby",
   volleyball: "Volleyball",
-  esports: "Esports",
-  motogp: "MotoGP",
-  american_football: "American Football",
+  handball: "Handball",
   afl: "Australian Rules Football",
+  nba: "NBA",
 };
 
 export const sportIcons: Record<Sport, string> = {
@@ -38,17 +34,15 @@ export const sportIcons: Record<Sport, string> = {
   cricket: "🏏",
   basketball: "🏀",
   f1: "🏎️",
-  tennis: "🎾",
+  nfl: "🏈",
   baseball: "⚾",
   hockey: "🏒",
-  ufc: "🥊",
-  boxing: "🥊",
+  mma: "🥋",
   rugby: "🏉",
   volleyball: "🏐",
-  esports: "🎮",
-  motogp: "🏍️",
-  american_football: "🏈",
+  handball: "🤾",
   afl: "🏉",
+  nba: "🏀",
 };
 
 export interface Team {

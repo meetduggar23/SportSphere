@@ -16,7 +16,6 @@ const categoryColors: Record<string, string> = {
   CRICKET: "bg-green-500/90",
   F1: "bg-red-500/90",
   NBA: "bg-orange-500/90",
-  TENNIS: "bg-yellow-500/90",
   TRANSFERS: "bg-purple-500/90",
 };
 
