@@ -57,7 +57,7 @@ export async function GET(request: Request) {
         return NextResponse.json(data);
       }
       case "players": {
-        const team = searchParams.get("team");
+        const team = searchParams.get("team") || "";
         const season = searchParams.get("season") || "2025";
         const data = await fetchAPI("/players", { team, season });
         return NextResponse.json(data);

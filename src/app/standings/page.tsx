@@ -5,31 +5,56 @@ import { AppShell } from "@/components/layout/AppShell";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { SportTabs } from "@/components/ui/SportTabs";
 import { StandingsTable } from "@/components/sports/StandingsTable";
-import { useState } from "react";
-import { standings, teams } from "@/data/mock";
+import { useEffect, useState } from "react";
+import { getStandings } from "@/lib/api";
+import { Standing } from "@/types";
 
-const cricketStandings = [
-  { position: 1, team: teams.ind, played: 5, won: 4, drawn: 1, lost: 0, goalDifference: 320, points: 8 },
-  { position: 2, team: teams.aus, played: 5, won: 2, drawn: 1, lost: 2, goalDifference: 110, points: 5 },
-  { position: 3, team: teams.eng, played: 4, won: 1, drawn: 0, lost: 3, goalDifference: -180, points: 2 },
-].map((row, i) => ({ ...row, position: i + 1 }));
+const leagueTabs = [
+  { label: "Premier League", value: "39" },
+  { label: "La Liga", value: "140" },
+  { label: "Serie A", value: "135" },
+  { label: "Bundesliga", value: "78" },
+  { label: "Ligue 1", value: "61" },
+];
 
-const nbaStandings = [
-  { position: 1, team: teams.bos, played: 82, won: 64, drawn: 0, lost: 18, goalDifference: 420, points: 0 },
-  { position: 2, team: teams.gsw, played: 82, won: 51, drawn: 0, lost: 31, goalDifference: 150, points: 0 },
-  { position: 3, team: teams.lal, played: 82, won: 47, drawn: 0, lost: 35, goalDifference: 89, points: 0 },
-  { position: 4, team: teams.mia, played: 82, won: 45, drawn: 0, lost: 37, goalDifference: -12, points: 0 },
+const seasonTabs = [
+  { label: "2025", value: "2025" },
+  { label: "2024", value: "2024" },
 ];
 
 export default function StandingsPage() {
-  const [league, setLeague] = useState("La Liga");
+  const [leagueId, setLeagueId] = useState("39");
+  const [season, setSeason] = useState("2025");
+  const [standings, setStandings] = useState<Standing[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const tables: Record<string, React.ReactNode> = {
-    "La Liga": <StandingsTable standings={standings} title="La Liga 2023-24" />,
-    "Premier League": <StandingsTable standings={[...standings].reverse()} title="Premier League 2023-24" />,
-    Cricket: <StandingsTable standings={cricketStandings} title="Border-Gavaskar Trophy" />,
-    NBA: <StandingsTable standings={nbaStandings} title="NBA 2023-24" />,
-  };
+  useEffect(() => {
+    async function load() {
+      setLoading(true);
+      try {
+        const data = await getStandings(leagueId, season);
+        setStandings(data);
+      } catch (e) {
+        console.error("Failed to load standings:", e);
+      } finally {
+        setLoading(false);
+      }
+    }
+    load();
+  }, [leagueId, season]);
+
+  const leagueName = leagueTabs.find((l) => l.value === leagueId)?.label ?? "League";
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <div className="text-center">
+          <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <p className="text-muted">Loading standings...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <AppShell>
@@ -37,17 +62,31 @@ export default function StandingsPage() {
         <PageHeader
           icon={<Trophy className="h-5 w-5" />}
           title="Standings"
-          subtitle="League tables and rankings for every competition"
+          subtitle="Live league tables from top competitions"
         />
 
-        <SportTabs
-          tabs={["La Liga", "Premier League", "Cricket", "NBA"].map((l) => ({ label: l, value: l }))}
-          active={league}
-          onChange={setLeague}
-          className="mb-6"
-        />
+        <div className="flex flex-col gap-4 mb-6">
+          <SportTabs
+            tabs={leagueTabs}
+            active={leagueId}
+            onChange={setLeagueId}
+          />
+          <SportTabs
+            tabs={seasonTabs}
+            active={season}
+            onChange={setSeason}
+          />
+        </div>
 
-        {tables[league]}
+        {standings.length > 0 ? (
+          <StandingsTable standings={standings} title={`${leagueName} ${season}`} />
+        ) : (
+          <div className="text-center py-20 bg-card rounded-xl border border-border">
+            <p className="text-4xl mb-4">📊</p>
+            <p className="font-medium">No standings available</p>
+            <p className="text-sm text-muted mt-1">Try a different league or season</p>
+          </div>
+        )}
       </div>
     </AppShell>
   );

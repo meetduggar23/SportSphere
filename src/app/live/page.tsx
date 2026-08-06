@@ -1,20 +1,17 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Zap } from "lucide-react";
 import { AppShell } from "@/components/layout/AppShell";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { SportTabs } from "@/components/ui/SportTabs";
 import { LiveMatchCard } from "@/components/sports/LiveMatchCard";
-import { allMatches } from "@/data/mock";
+import { getLiveMatches } from "@/lib/api";
+import { Match } from "@/types";
 
 const tabs = [
-  { label: "All Sports", value: "all", count: allMatches.length },
-  { label: "⚽ Football", value: "football", count: allMatches.filter((m) => m.sport === "football").length },
-  { label: "🏏 Cricket", value: "cricket", count: allMatches.filter((m) => m.sport === "cricket").length },
-  { label: "🏀 Basketball", value: "basketball", count: allMatches.filter((m) => m.sport === "basketball").length },
-  { label: "🏎️ F1", value: "f1", count: allMatches.filter((m) => m.sport === "f1").length },
-  { label: "🎾 Tennis", value: "tennis", count: allMatches.filter((m) => m.sport === "tennis").length },
+  { label: "All Sports", value: "all" },
+  { label: "⚽ Football", value: "football" },
 ];
 
 const statusTabs = [
@@ -24,16 +21,45 @@ const statusTabs = [
 ];
 
 export default function LivePage() {
+  const [matches, setMatches] = useState<Match[]>([]);
+  const [loading, setLoading] = useState(true);
   const [sport, setSport] = useState("all");
-  const [status, setStatus] = useState("all");
+  const [status, setStatus] = useState("live");
 
-  const filtered = allMatches.filter(
+  useEffect(() => {
+    async function load() {
+      try {
+        const data = await getLiveMatches();
+        setMatches(data);
+      } catch (e) {
+        console.error("Failed to load live matches:", e);
+      } finally {
+        setLoading(false);
+      }
+    }
+    load();
+    const interval = setInterval(load, 60000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const filtered = matches.filter(
     (m) =>
       (sport === "all" || m.sport === sport) &&
       (status === "all" || m.status === status)
   );
 
-  const liveCount = allMatches.filter((m) => m.status === "live").length;
+  const liveCount = matches.filter((m) => m.status === "live").length;
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <div className="text-center">
+          <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <p className="text-muted">Loading live matches...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <AppShell>
