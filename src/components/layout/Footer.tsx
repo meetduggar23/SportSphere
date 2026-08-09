@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Radio, Trophy, Newspaper, Wand2, Sparkles } from "lucide-react";
+import { Radio, Trophy, Newspaper, Wand2, Sparkles } from "lucide-react";
 
 const socials = [
   {
@@ -76,22 +76,17 @@ const quickNav = [
 
 export function Footer() {
   return (
-<footer className="relative mt-20 overflow-hidden border-t border-border-strong bg-surface-2">
-      <div className="rule-live absolute inset-x-0 top-0" />
-      <div className="pointer-events-none absolute -top-28 right-0 h-80 w-80  bg-blue/40 blur-3xl animate-glow-drift" />
-      <div className="pointer-events-none absolute bottom-0 left-1/4 h-72 w-96  bg-accent/30 blur-3xl" />
-
-      <div className="relative mx-auto max-w-[1440px] px-4 py-16 lg:px-6">
+    <footer className="mt-20 border-t border-border bg-background">
+      <div className="mx-auto max-w-[1440px] px-4 py-12 lg:px-6">
         <div className="grid grid-cols-2 gap-10 md:grid-cols-5">
           <div className="col-span-2">
             <Link href="/" className="inline-flex items-center gap-2">
-              <img src="/logo.png" alt="SportSphere Logo" className="h-10 w-auto object-contain" />
+              <img src="/logo.png" alt="SportSphere Logo" className="h-9 w-auto object-contain" />
             </Link>
-            <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted">
-              The AI-powered sports media platform. Live scores, cinematic match centres, fantasy
-              sports, and intelligent insights across 13 major sports.
+            <p className="mt-3 max-w-xs text-sm leading-relaxed text-muted">
+              Live scores, match centres, fantasy and AI-powered insights across 13 major sports.
             </p>
-            <div className="mt-6 flex gap-2">
+            <div className="mt-5 flex gap-2">
               {socials.map((social) => (
                 <a
                   key={social.label}
@@ -99,7 +94,7 @@ export function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={social.label}
-                  className="flex h-10 w-10 items-center justify-center  border border-border-navy text-muted transition-all duration-200 hover:-translate-y-0.5 hover:border-border-strong hover:bg-blue/40 hover:text-foreground rounded-md"
+                  className="flex h-9 w-9 items-center justify-center border border-border text-muted transition-colors hover:border-border-strong hover:text-foreground"
                 >
                   <svg viewBox="0 0 24 24" className="h-4 w-4 fill-current" aria-hidden="true">
                     <path d={social.path} />
@@ -111,16 +106,17 @@ export function Footer() {
 
           {footerLinks.map((col) => (
             <div key={col.title}>
-              <h4 className="heading mb-4 text-sm text-muted-strong">{col.title}</h4>
-              <ul className="space-y-2.5">
+              <h4 className="text-xs font-bold uppercase tracking-widest text-muted-strong">
+                {col.title}
+              </h4>
+              <ul className="mt-3 space-y-2">
                 {col.links.map((link) => (
                   <li key={link.label}>
                     <Link
                       href={link.href}
-                      className="group inline-flex items-center gap-1 text-sm text-muted transition-colors hover:text-foreground"
+                      className="text-sm text-muted transition-colors hover:text-foreground"
                     >
                       {link.label}
-                      <ArrowRight className="h-3 w-3 -translate-x-1 text-secondary opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100" />
                     </Link>
                   </li>
                 ))}
@@ -129,26 +125,19 @@ export function Footer() {
           ))}
         </div>
 
-        <div className="mt-12 flex flex-wrap items-center gap-4 border-t border-border-strong pt-6">
-          <div className="flex flex-wrap items-center gap-2">
+        <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-border pt-5">
+          <div className="flex flex-wrap items-center gap-4">
             {quickNav.map((q) => (
               <Link
                 key={q.label}
                 href={q.href}
-                className="flex items-center gap-1.5  border border-border-navy px-3.5 py-1.5 text-xs font-bold text-muted transition-colors hover:border-border-strong hover:text-foreground"
+                className="flex items-center gap-1.5 text-xs font-semibold text-muted transition-colors hover:text-foreground"
               >
                 <q.icon className="h-3.5 w-3.5" /> {q.label}
               </Link>
             ))}
           </div>
-          <div className="ml-auto flex flex-col gap-1 text-right">
-            <p className="meta">
-              © {new Date().getFullYear()} SportSphere. All rights reserved.
-            </p>
-            <p className="meta">
-              Crafted with <span className="text-secondary">♥</span> for fans worldwide
-            </p>
-          </div>
+          <p className="meta">© {new Date().getFullYear()} SportSphere. All rights reserved.</p>
         </div>
       </div>
     </footer>
