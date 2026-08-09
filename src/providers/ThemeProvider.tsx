@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect, useRef, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 type Theme = "light" | "dark";
 
@@ -23,7 +23,6 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     if (stored === "light" || stored === "dark") return stored;
     return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
   });
-  const fadeTimer = useRef<number | null>(null);
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", theme === "dark");
@@ -33,24 +32,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     if (meta) meta.setAttribute("content", theme === "dark" ? "#082032" : "#E3F2FD");
   }, [theme]);
 
-  // Brief cross-fade — only on user-initiated switches, never on first load,
-  // so users with a saved/system dark preference never see a light flash.
-  const animate = () => {
-    const html = document.documentElement;
-    html.classList.add("theme-fade");
-    if (fadeTimer.current) window.clearTimeout(fadeTimer.current);
-    fadeTimer.current = window.setTimeout(() => html.classList.remove("theme-fade"), 450);
-  };
-
-  const setTheme = (t: Theme) => {
-    animate();
-    setThemeState(t);
-  };
-
-  const toggleTheme = () => {
-    animate();
-    setThemeState((prev) => (prev === "light" ? "dark" : "light"));
-  };
+  const setTheme = (t: Theme) => setThemeState(t);
+  const toggleTheme = () => setThemeState((prev) => (prev === "light" ? "dark" : "light"));
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme, setTheme }}>

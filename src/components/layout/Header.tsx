@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -47,15 +47,18 @@ export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
   const searchBtnRef = useRef<HTMLButtonElement>(null);
   const pathname = usePathname();
   const { theme, toggleTheme } = useTheme();
   const isDark = theme === "dark";
 
-  // Wait for hydration so the theme icon matches the stored/system theme
-  // (server always renders light — rendering the icon early would mismatch).
-  useEffect(() => setMounted(true), []);
+  // Client-only flag (no effect): server & first hydration render both show
+  // the placeholder, then the correct Sun/Moon icon appears — zero mismatch.
+  const mounted = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false
+  );
 
   // Stable callback so the overlay's effect doesn't re-subscribe on every
   // header render; returns focus to the search trigger on close.
