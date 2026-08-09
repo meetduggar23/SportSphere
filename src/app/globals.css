@@ -301,10 +301,20 @@
   --bg-hero-overlay: var(--hero-overlay);
 }
 
-/* No custom scrollbar styling — the OS-default scrollbar is used everywhere.
-   Page scrolling remains fully functional (wheel, trackpad, keyboard, touch).
-   The .no-scrollbar utility below only hides scrollbars inside horizontally
-   scrollable strips (sports nav, tabs) without disabling their scrolling. */
+/* ---- Scrollbars hidden everywhere, scrolling fully functional ----
+   Every scrollable element (page, cards, panels, tables, strips) keeps its
+   native scrolling behavior — wheel, trackpad, keyboard, touch, arrows,
+   Page Up/Down — but no scrollbar is rendered at all. No overflow:hidden
+   is used, so nothing is ever actually disabled. */
+* {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* legacy Edge / IE */
+}
+*::-webkit-scrollbar {
+  display: none; /* Chrome / Safari / Edge */
+  width: 0;
+  height: 0;
+}
 
 ::selection {
   background: color-mix(in srgb, var(--sport-accent) 45%, transparent);
