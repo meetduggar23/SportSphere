@@ -125,8 +125,8 @@ export function Footer() {
           ))}
         </div>
 
-        <div className="mt-10 border-t border-border pt-6 text-center">
-          <nav className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
+        <div className="mt-10 border-t border-border pt-6">
+          <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
             {quickNav.map((q) => (
               <Link
                 key={q.label}
@@ -136,13 +136,13 @@ export function Footer() {
                 <q.icon className="h-3.5 w-3.5" /> {q.label}
               </Link>
             ))}
-          </nav>
-          <p className="meta mt-3">
-            © {new Date().getFullYear()} SportSphere. All rights reserved.
-          </p>
-          <p className="mt-2 text-center text-xs font-semibold uppercase tracking-widest text-muted">
-            Made by <span className="text-secondary">Meet Duggar</span>
-          </p>
+            <span className="text-border-strong" aria-hidden="true">|</span>
+            <p className="meta">© {new Date().getFullYear()} SportSphere. All rights reserved.</p>
+            <span className="text-border-strong" aria-hidden="true">|</span>
+            <p className="text-xs font-semibold uppercase tracking-widest text-muted">
+              Made by <span className="text-secondary">Meet Duggar</span>
+            </p>
+          </div>
         </div>
       </div>
     </footer>
