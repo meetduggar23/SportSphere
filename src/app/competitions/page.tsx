@@ -8,8 +8,8 @@ import { sportIcons, sportLabels, Sport } from "@/types";
 import { cn } from "@/lib/utils";
 
 const statusColors: Record<string, string> = {
-  active: "bg-green-500/10 text-green-600",
-  upcoming: "bg-blue-500/10 text-blue-600",
+  active: "bg-brand/10 text-brand",
+  upcoming: "bg-brand-maroon/10 text-brand-maroon",
   finished: "bg-muted/20 text-muted",
 };
 

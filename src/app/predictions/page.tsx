@@ -27,10 +27,10 @@ export default function PredictionsPage() {
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
           {[
-            { icon: Trophy, label: "Season Rank", value: "#5", color: "text-yellow-500" },
+            { icon: Trophy, label: "Season Rank", value: "#5", color: "text-brand" },
             { icon: Target, label: "Accuracy", value: "68%", color: "text-primary" },
-            { icon: Medal, label: "Badges", value: "12", color: "text-green-600" },
-            { icon: Flame, label: "Streak", value: "6", color: "text-orange-500" },
+            { icon: Medal, label: "Badges", value: "12", color: "text-brand-maroon" },
+            { icon: Flame, label: "Streak", value: "6", color: "text-brand-light" },
           ].map((s) => (
             <div key={s.label} className="bg-card rounded-xl border border-border p-4 flex items-center gap-3">
               <s.icon className={cn("h-6 w-6", s.color)} />
@@ -56,7 +56,7 @@ export default function PredictionsPage() {
             <div className="bg-card rounded-xl border border-border overflow-hidden">
               <div className="p-4 border-b border-border">
                 <h3 className="font-bold flex items-center gap-2">
-                  <Trophy className="h-4 w-4 text-yellow-500" /> Season Leaderboard
+                  <Trophy className="h-4 w-4 text-brand" /> Season Leaderboard
                 </h3>
               </div>
               <div className="divide-y divide-border">
@@ -66,11 +66,11 @@ export default function PredictionsPage() {
                       className={cn(
                         "w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold shrink-0",
                         row.rank === 1
-                          ? "bg-yellow-500/20 text-yellow-600"
+                          ? "bg-brand/20 text-brand"
                           : row.rank === 2
-                          ? "bg-slate-400/20 text-slate-500"
+                          ? "bg-brand-maroon/20 text-brand-maroon"
                           : row.rank === 3
-                          ? "bg-orange-500/20 text-orange-600"
+                          ? "bg-brand-purple/20 text-brand-purple"
                           : "bg-muted/10 text-muted"
                       )}
                     >
@@ -83,7 +83,7 @@ export default function PredictionsPage() {
                       <p className="text-xs text-muted">{row.accuracy}% accuracy</p>
                     </div>
                     <div className="flex items-center gap-1.5">
-                      {row.trend === "up" && <Flame className="h-3.5 w-3.5 text-orange-500" />}
+                      {row.trend === "up" && <Flame className="h-3.5 w-3.5 text-brand" />}
                       <span className="text-sm font-bold">{row.points}</span>
                     </div>
                   </div>

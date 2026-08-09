@@ -58,7 +58,7 @@ export default function PlayerPage({ params }: { params: Promise<{ id: string }>
         </Link>
 
         <div className="bg-card rounded-2xl border border-border overflow-hidden mb-6">
-          <div className="h-32 bg-gradient-to-r from-primary via-primary-hover to-purple-600 relative">
+          <div className="h-32 bg-gradient-to-r from-primary via-brand-maroon to-brand-purple relative">
             <div className="absolute inset-0 opacity-20 pattern-dots" />
           </div>
           <div className="px-6 pb-6">
@@ -160,7 +160,7 @@ export default function PlayerPage({ params }: { params: Promise<{ id: string }>
                         <span className="text-xs font-medium text-muted w-20">{r.label}</span>
                         <div className="flex-1 h-2 bg-muted/20 rounded-full overflow-hidden">
                           <div
-                            className="h-full bg-gradient-to-r from-primary to-purple-500 rounded-full transition-all"
+                            className="h-full bg-gradient-to-r from-primary to-brand-purple rounded-full transition-all"
                             style={{ width: `${r.value}%` }}
                           />
                         </div>

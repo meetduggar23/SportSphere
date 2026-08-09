@@ -12,15 +12,15 @@ interface NewsCardProps {
 }
 
 const categoryColors: Record<string, { bg: string; color: string }> = {
-  FOOTBALL: { bg: "rgba(34,197,94,0.16)", color: "#4ade80" },
-  CRICKET: { bg: "rgba(59,130,246,0.16)", color: "#60a5fa" },
-  F1: { bg: "rgba(239,68,68,0.16)", color: "#f87171" },
-  NBA: { bg: "rgba(168,85,247,0.16)", color: "#c084fc" },
-  TRANSFERS: { bg: "rgba(249,115,22,0.16)", color: "#fb923c" },
+  FOOTBALL: { bg: "rgba(255,32,78,0.16)", color: "#ff204e" },
+  CRICKET: { bg: "rgba(160,21,62,0.16)", color: "#a0153e" },
+  F1: { bg: "rgba(93,14,65,0.16)", color: "#5d0e41" },
+  NBA: { bg: "rgba(0,34,77,0.16)", color: "#00224d" },
+  TRANSFERS: { bg: "rgba(255,32,78,0.16)", color: "#ff204e" },
 };
 
 function CategoryChip({ category }: { category: string }) {
-  const c = categoryColors[category] ?? { bg: "rgba(148,163,184,0.16)", color: "#94a3b8" };
+  const c = categoryColors[category] ?? { bg: "rgba(0,34,77,0.16)", color: "#00224d" };
   return (
     <span
       className="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider"
@@ -53,7 +53,7 @@ export function NewsCard({ news, variant = "default", className }: NewsCardProps
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
             {news.isBreaking && (
-              <span className="absolute top-4 left-4 inline-flex items-center gap-1.5 rounded-full bg-red-500 px-3 py-1 text-[10px] font-bold text-white">
+              <span className="absolute top-4 left-4 inline-flex items-center gap-1.5 rounded-full bg-brand px-3 py-1 text-[10px] font-bold text-white">
                 <span className="relative flex h-1.5 w-1.5">
                   <span className="absolute inline-flex h-full w-full rounded-full bg-white animate-ping-dot" />
                   <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-white" />
@@ -66,7 +66,7 @@ export function NewsCard({ news, variant = "default", className }: NewsCardProps
                 <CategoryChip category={news.category} />
                 <span className="text-white/80">{sportIcons[news.sport]}</span>
               </div>
-              <h3 className="font-display text-xl md:text-2xl font-bold leading-snug text-white line-clamp-2 group-hover:text-orange-300 transition-colors">
+              <h3 className="font-display text-xl md:text-2xl font-bold leading-snug text-white line-clamp-2 group-hover:text-brand-light transition-colors">
                 {news.title}
               </h3>
               <div className="flex items-center gap-4 mt-3 text-xs text-white/70">
@@ -95,7 +95,7 @@ export function NewsCard({ news, variant = "default", className }: NewsCardProps
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/5 to-transparent" />
             {news.isBreaking && (
-              <span className="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-red-500 px-2.5 py-1 text-[10px] font-bold text-white">
+              <span className="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-brand px-2.5 py-1 text-[10px] font-bold text-white">
                 <span className="relative flex h-1 w-1">
                   <span className="absolute inline-flex h-full w-full rounded-full bg-white animate-ping-dot" />
                   <span className="relative inline-flex h-1 w-1 rounded-full bg-white" />

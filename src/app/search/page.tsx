@@ -122,10 +122,10 @@ function SearchContent({ initialQuery }: { initialQuery: string }) {
                       className={cn(
                         "text-[10px] font-bold px-2 py-0.5 rounded-full shrink-0",
                         r.type === "Player" && "bg-primary/10 text-primary",
-                        r.type === "Team" && "bg-blue-500/10 text-blue-600",
-                        r.type === "Match" && "bg-green-500/10 text-green-600",
-                        r.type === "News" && "bg-purple-500/10 text-purple-600",
-                        r.type === "Competition" && "bg-orange-500/10 text-orange-600"
+                        r.type === "Team" && "bg-brand-maroon/10 text-brand-maroon",
+                        r.type === "Match" && "bg-brand-purple/10 text-brand-purple",
+                        r.type === "News" && "bg-brand-navy/10 text-brand-navy",
+                        r.type === "Competition" && "bg-primary/10 text-primary"
                       )}
                     >
                       {r.type}

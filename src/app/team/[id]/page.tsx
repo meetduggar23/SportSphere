@@ -62,7 +62,7 @@ export default function TeamPage({ params }: { params: Promise<{ id: string }> }
         </Link>
 
         <div className="bg-card rounded-2xl border border-border overflow-hidden mb-6">
-          <div className="h-32 bg-gradient-to-r from-primary via-primary-hover to-purple-600" />
+          <div className="h-32 bg-gradient-to-r from-primary via-brand-maroon to-brand-purple" />
           <div className="px-6 pb-6">
             <div className="flex flex-col md:flex-row items-start md:items-end gap-4 -mt-12">
               <div className="w-28 h-28 rounded-2xl bg-card border-4 border-card overflow-hidden shadow-xl flex items-center justify-center">

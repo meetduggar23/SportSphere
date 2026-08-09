@@ -45,10 +45,10 @@ export function FixtureList({ fixtures, title = "Upcoming Fixtures", href = "/ca
                   {fixture.league}
                 </span>
                 {fixture.isLive && (
-                  <span className="flex items-center gap-1 text-[11px] font-bold text-red-500">
+                  <span className="flex items-center gap-1 text-[11px] font-bold text-brand">
                     <span className="relative flex h-1.5 w-1.5">
-                      <span className="absolute inline-flex h-full w-full rounded-full bg-red-500 animate-ping-dot" />
-                      <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-red-500" />
+                      <span className="absolute inline-flex h-full w-full rounded-full bg-brand animate-ping-dot" />
+                      <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-brand" />
                     </span>
                     LIVE
                   </span>

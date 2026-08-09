@@ -7,9 +7,9 @@ import { transfers } from "@/data/mock";
 import { cn } from "@/lib/utils";
 
 const statusColors: Record<string, string> = {
-  confirmed: "bg-green-500/10 text-green-600",
-  rumored: "bg-yellow-500/10 text-yellow-600",
-  completed: "bg-blue-500/10 text-blue-600",
+  confirmed: "bg-brand/10 text-brand",
+  rumored: "bg-brand-purple/10 text-brand-purple",
+  completed: "bg-brand-navy/10 text-brand-navy",
 };
 
 export default function TransfersPage() {

@@ -32,11 +32,11 @@ export function StatBar({ label, home, away, homeSuffix = "", awaySuffix = "" }:
       </div>
       <div className="flex gap-1">
         <div
-          className="h-1.5 rounded-full bg-gradient-to-r from-primary to-orange-400 transition-all duration-500"
+          className="h-1.5 rounded-full bg-gradient-to-r from-primary to-brand-purple transition-all duration-500"
           style={{ width: `${homePct}%` }}
         />
         <div
-          className="h-1.5 rounded-full bg-gradient-to-r from-sky-500 to-cyan-400 transition-all duration-500"
+          className="h-1.5 rounded-full bg-gradient-to-r from-brand-purple to-brand-navy transition-all duration-500"
           style={{ width: `${100 - homePct}%` }}
         />
       </div>
@@ -94,12 +94,12 @@ export function H2HSummary({ home, draw, away, className }: { home: number; draw
   return (
     <div className={cn("flex gap-1.5 h-2.5 rounded-full overflow-hidden", className)}>
       <div
-        className="h-full bg-gradient-to-r from-primary to-orange-400 transition-all duration-500"
+        className="h-full bg-gradient-to-r from-primary to-brand-purple transition-all duration-500"
         style={{ width: `${(home / total) * 100}%` }}
       />
       <div className="h-full bg-muted transition-all duration-500" style={{ width: `${(draw / total) * 100}%` }} />
       <div
-        className="h-full bg-gradient-to-r from-sky-500 to-cyan-400 transition-all duration-500"
+        className="h-full bg-gradient-to-r from-brand-purple to-brand-navy transition-all duration-500"
         style={{ width: `${(away / total) * 100}%` }}
       />
     </div>

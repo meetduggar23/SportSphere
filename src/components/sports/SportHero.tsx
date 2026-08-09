@@ -91,10 +91,10 @@ export function SportHero({
                 </span>
               </div>
               {live && (
-                <span className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-red-500/15 px-3 py-1 text-xs font-bold text-red-500 ring-1 ring-red-500/30">
+                <span className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-brand/15 px-3 py-1 text-xs font-bold text-brand ring-1 ring-brand/30">
                   <span className="relative flex h-1.5 w-1.5">
-                    <span className="absolute inline-flex h-full w-full rounded-full bg-red-500 animate-ping-dot" />
-                    <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-red-500" />
+                    <span className="absolute inline-flex h-full w-full rounded-full bg-brand animate-ping-dot" />
+                    <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-brand" />
                   </span>
                   LIVE
                 </span>

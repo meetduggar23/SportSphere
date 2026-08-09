@@ -12,10 +12,10 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
 };
 
 const iconColors: Record<string, string> = {
-  live: "from-rose-500 to-red-500",
-  calendar: "from-sky-500 to-blue-500",
-  news: "from-violet-500 to-purple-500",
-  predictions: "from-emerald-500 to-green-500",
+  live: "from-brand to-brand-maroon",
+  calendar: "from-brand-maroon to-brand-purple",
+  news: "from-brand-purple to-brand-navy",
+  predictions: "from-brand-navy to-brand",
 };
 
 interface StatsCardProps {
@@ -32,7 +32,7 @@ export function StatsCard({ card }: StatsCardProps) {
         <div
           className={cn(
             "p-3 rounded-xl bg-gradient-to-br text-white shadow-card shrink-0",
-            iconColors[card.icon] ?? "from-primary to-orange-500"
+            iconColors[card.icon] ?? "from-primary to-brand-maroon"
           )}
         >
           {Icon && <Icon className="h-5 w-5" />}

@@ -29,15 +29,15 @@ export function AIPrediction({ prediction }: AIPredictionProps) {
     {
       key: "home",
       label: prediction.homeTeam.shortName,
-      bar: "bg-gradient-to-r from-primary to-orange-400",
+      bar: "bg-gradient-to-r from-primary to-brand-purple",
       chip: "bg-primary/10 text-primary",
     },
     { key: "draw", label: "Draw", bar: "bg-muted", chip: "bg-muted/10 text-muted" },
     {
       key: "away",
       label: prediction.awayTeam.shortName,
-      bar: "bg-gradient-to-r from-emerald-500 to-teal-400",
-      chip: "bg-emerald-500/10 text-emerald-500",
+      bar: "bg-gradient-to-r from-brand-navy to-brand-purple",
+      chip: "bg-brand-navy/10 text-brand-navy",
     },
   ];
 
@@ -101,11 +101,11 @@ export function AIPrediction({ prediction }: AIPredictionProps) {
           <span className="text-xs text-muted">Confidence</span>
           <div className="flex-1 max-w-[130px] h-1.5 bg-muted/15 rounded-full overflow-hidden">
             <div
-              className="h-full bg-gradient-to-r from-emerald-500 to-teal-400 rounded-full transition-all duration-500"
+              className="h-full bg-gradient-to-r from-brand to-brand-maroon rounded-full transition-all duration-500"
               style={{ width: `${prediction.confidence}%` }}
             />
           </div>
-          <span className="text-xs font-bold text-emerald-500 tabular-nums">{prediction.confidence}%</span>
+          <span className="text-xs font-bold text-brand tabular-nums">{prediction.confidence}%</span>
         </div>
 
         <div className="flex gap-2">
@@ -139,7 +139,7 @@ export function AIPrediction({ prediction }: AIPredictionProps) {
             className={cn(
               "flex-1 py-2.5 text-xs font-semibold rounded-xl border transition-all duration-200",
               selected === "away"
-                ? "bg-emerald-500 text-white border-emerald-500 shadow-card"
+                ? "bg-brand-navy text-white border-brand-navy shadow-card"
                 : "border-border hover:bg-muted/10"
             )}
           >

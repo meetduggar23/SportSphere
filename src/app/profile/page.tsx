@@ -24,7 +24,7 @@ export default function ProfilePage() {
         <div className="flex gap-6">
           <div className="flex-1 min-w-0 space-y-6">
             <div className="bg-card rounded-xl border border-border p-6 flex items-center gap-5">
-              <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary to-purple-600 flex items-center justify-center text-3xl font-bold text-white">
+              <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary to-brand-purple flex items-center justify-center text-3xl font-bold text-white">
                 MD
               </div>
               <div className="flex-1">

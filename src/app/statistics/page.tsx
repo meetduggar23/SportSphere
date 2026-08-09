@@ -93,11 +93,11 @@ export default function StatisticsPage() {
             <h3 className="font-bold mb-4">Key Metrics Comparison</h3>
             <div className="space-y-4">
               {[
-                { label: "Home Performance", value: 82, color: "from-blue-500 to-blue-400" },
-                { label: "Away Performance", value: 65, color: "from-purple-500 to-purple-400" },
-                { label: "First Half Goals", value: 58, color: "from-green-500 to-green-400" },
-                { label: "Second Half Goals", value: 74, color: "from-orange-500 to-orange-400" },
-                { label: "Set Piece Goals", value: 31, color: "from-red-500 to-red-400" },
+                { label: "Home Performance", value: 82, color: "from-brand to-brand-maroon" },
+                { label: "Away Performance", value: 65, color: "from-brand-purple to-brand-navy" },
+                { label: "First Half Goals", value: 58, color: "from-brand-navy to-brand-purple" },
+                { label: "Second Half Goals", value: 74, color: "from-brand-maroon to-brand" },
+                { label: "Set Piece Goals", value: 31, color: "from-brand-maroon to-brand-purple" },
               ].map((m) => (
                 <div key={m.label}>
                   <div className="flex justify-between text-sm mb-1.5">

@@ -84,7 +84,7 @@ export function StandingsTable({
                       row.position === 1
                         ? "bg-primary text-white shadow-card"
                         : row.position <= 4
-                          ? "bg-blue-500/15 text-blue-500"
+                          ? "bg-brand-maroon/15 text-brand-maroon"
                           : "text-muted"
                     )}
                   >

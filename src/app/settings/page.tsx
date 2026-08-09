@@ -50,7 +50,7 @@ export default function SettingsPage() {
                     )}
                   >
                     <div className="flex items-center gap-2 mb-2">
-                      <Sun className="h-5 w-5 text-yellow-500" />
+                      <Sun className="h-5 w-5 text-brand" />
                       <span className="font-semibold">Light</span>
                     </div>
                     <p className="text-xs text-muted">Bright and clean</p>
@@ -63,7 +63,7 @@ export default function SettingsPage() {
                     )}
                   >
                     <div className="flex items-center gap-2 mb-2">
-                      <Moon className="h-5 w-5 text-blue-500" />
+                      <Moon className="h-5 w-5 text-brand-navy" />
                       <span className="font-semibold">Dark</span>
                     </div>
                     <p className="text-xs text-muted">Easy on the eyes</p>

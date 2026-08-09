@@ -96,7 +96,7 @@ export default function MatchPage({ params }: { params: Promise<{ id: string }> 
                   </span>
                 </div>
                 {isLive ? (
-                  <span className="mt-2 text-xs font-bold text-red-500 bg-red-500/10 px-3 py-1 rounded-full animate-pulse-live">
+                  <span className="mt-2 text-xs font-bold text-brand bg-brand/10 px-3 py-1 rounded-full animate-pulse-live">
                     {match.minute}
                   </span>
                 ) : (
@@ -178,9 +178,9 @@ export default function MatchPage({ params }: { params: Promise<{ id: string }> 
                   </div>
                   <div className="flex gap-2 mb-6">
                     {[
-                      { label: "Home Wins", value: 5, color: "bg-blue-500" },
+                      { label: "Home Wins", value: 5, color: "bg-brand-purple" },
                       { label: "Draws", value: 2, color: "bg-muted" },
-                      { label: "Away Wins", value: 3, color: "bg-red-500" },
+                      { label: "Away Wins", value: 3, color: "bg-brand" },
                     ].map((s) => (
                       <div key={s.label} className="flex-1 bg-muted/10 rounded-lg p-3 text-center">
                         <p className={cn("text-2xl font-bold rounded-lg py-1 mb-1 text-white", s.color)}>{s.value}</p>
@@ -288,9 +288,9 @@ export default function MatchPage({ params }: { params: Promise<{ id: string }> 
               </h3>
               <div className="space-y-2 text-sm">
                 {[
-                  { t: "Home wins", v: 5, c: "bg-blue-500" },
+                  { t: "Home wins", v: 5, c: "bg-brand-purple" },
                   { t: "Draws", v: 2, c: "bg-muted" },
-                  { t: "Away wins", v: 3, c: "bg-red-500" },
+                  { t: "Away wins", v: 3, c: "bg-brand" },
                 ].map((row) => (
                   <div key={row.t} className="flex items-center gap-2">
                     <span className="text-xs text-muted w-20">{row.t}</span>

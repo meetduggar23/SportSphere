@@ -178,7 +178,7 @@ export default function AdminPage() {
                     </div>
                     <div className="h-2 bg-muted/20 rounded-full overflow-hidden">
                       <div
-                        className="h-full rounded-full bg-gradient-to-r from-primary to-purple-500"
+                        className="h-full rounded-full bg-gradient-to-r from-primary to-brand-purple"
                         style={{ width: `${s.pct}%` }}
                       />
                     </div>
