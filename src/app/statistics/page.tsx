@@ -94,8 +94,8 @@ export default function StatisticsPage() {
             <div className="space-y-4">
               {[
                 { label: "Home Performance", value: 82, color: "from-brand to-brand-maroon" },
-                { label: "Away Performance", value: 65, color: "from-brand-purple to-brand-navy" },
-                { label: "First Half Goals", value: 58, color: "from-brand-navy to-brand-purple" },
+                { label: "Away Performance", value: 65, color: "from-deep to-secondary" },
+                { label: "First Half Goals", value: 58, color: "from-secondary to-deep" },
                 { label: "Second Half Goals", value: 74, color: "from-brand-maroon to-brand" },
                 { label: "Set Piece Goals", value: 31, color: "from-brand-maroon to-brand-purple" },
               ].map((m) => (

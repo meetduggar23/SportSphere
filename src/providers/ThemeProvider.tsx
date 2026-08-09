@@ -30,7 +30,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem("sportsphere-theme", theme);
     // Keep the browser chrome bar in sync with the active theme.
     const meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.setAttribute("content", theme === "dark" ? "#3a0619" : "#E3F2FD");
+    if (meta) meta.setAttribute("content", theme === "dark" ? "#082032" : "#E3F2FD");
   }, [theme]);
 
   // Brief cross-fade — only on user-initiated switches, never on first load,

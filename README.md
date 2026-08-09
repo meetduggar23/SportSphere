@@ -22,10 +22,10 @@ The entire design system is token-driven from `src/app/globals.css`:
 
 | | Light (default) | Dark |
 |---|---|---|
-| Background | `#E3F2FD` | `#8D0B41` (deep maroon) |
-| Accent | `#90CAF9` | `#D39D55` (gold) |
-| Secondary accent | `#1E6BB8` | `#D6CFB4` (sand) |
-| Ink / text | `#0B2C4E` | `#FFF8E6` (cream) |
+| Background | `#E3F2FD` | `#082032` (navy) |
+| Surfaces | `#90CAF9`-derived | `#2C394B` (slate) / `#334756` (steel) |
+| Accent | `#90CAF9` | `#FF4C29` (orange) |
+| Ink / text | `#0B2C4E` | `#E9EEF4` (light) |
 
 Every surface, border, shadow and gradient is derived from these tokens via `color-mix()` and opacity, so switching themes updates the entire UI — navbar, hero, scoreboards, standings, news, sport pages, dropdowns, modals and all 13 sports — without a page reload.
 
