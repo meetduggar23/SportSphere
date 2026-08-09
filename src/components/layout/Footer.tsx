@@ -139,6 +139,10 @@ export function Footer() {
           </div>
           <p className="meta">© {new Date().getFullYear()} SportSphere. All rights reserved.</p>
         </div>
+
+        <p className="mt-6 text-center text-xs font-semibold uppercase tracking-widest text-muted">
+          Made by <span className="text-secondary">Meet Duggar</span>
+        </p>
       </div>
     </footer>
   );
