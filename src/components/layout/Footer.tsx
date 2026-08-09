@@ -131,7 +131,7 @@ export function Footer() {
               Made by <span className="text-secondary">Meet Duggar</span>
             </p>
             <p className="text-xs font-semibold uppercase tracking-widest text-muted md:absolute md:left-0 md:top-6 md:text-left">
-              © {new Date().getFullYear()} SportSphere. All rights reserved.
+              © 2024 SportSphere. All rights reserved.
             </p>
           </div>
           <nav className="mt-3 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 md:absolute md:right-0 md:top-6 md:mt-0">
