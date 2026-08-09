@@ -1,64 +1,170 @@
 @import "tailwindcss";
 
+/*
+  SportSphere — "The Sports Broadcast Arena" Design System
+  Official brand palette (complete replacement — no legacy colors remain):
+    #8D0B41  (berry — deep ink, dark accents, premium depth)
+    #D39D55  (gold  — primary accent: live, CTAs, active states)
+    #D6CFB4  (sand  — elevated surfaces: cards, panels, masthead)
+    #FFF8E6  (cream — background foundation)
+
+  Every variation below is derived exclusively from these four colors
+  via color-mix(), rgba() and opacity. The system is a warm, editorial
+  light theme: cream arena, sand surfaces, berry text, gold energy.
+*/
 :root {
-  --background: #f7f7f8;
-  --foreground: #18181b;
-  --card: #ffffff;
-  --card-hover: #fafafa;
-  --border: #e4e4e7;
-  --border-strong: #d4d4d8;
-  --muted: #71717a;
-  --muted-strong: #3f3f46;
-  --primary: #ff204e;
-  --primary-hover: #d91b45;
-  --primary-soft: rgba(255, 32, 78, 0.12);
-  --primary-ring: rgba(255, 32, 78, 0.28);
-  --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 4px 20px rgba(0, 0, 0, 0.05);
-  --pop-shadow: 0 16px 48px rgba(0, 0, 0, 0.14);
-  --glow-shadow: 0 0 0 1px rgba(255, 32, 78, 0.22), 0 12px 48px rgba(255, 32, 78, 0.12);
-  --hero-overlay: linear-gradient(180deg, rgba(0, 34, 77, 0.55) 0%, rgba(0, 34, 77, 0.88) 100%);
+  /* Official palette */
+  --sport-berry: #8d0b41;
+  --sport-gold: #d39d55;
+  --sport-sand: #d6cfb4;
+  --sport-cream: #fff8e6;
+
+  /* Semantic aliases */
+  --sport-primary: var(--sport-gold);
+  --sport-secondary: color-mix(in srgb, var(--sport-gold) 55%, var(--sport-berry) 45%);
+  --sport-deep: var(--sport-berry);
+
+  /* ---- Foundations (warm cream arena) ---- */
+  --background: var(--sport-cream);
+  --background-arena:
+    radial-gradient(1100px 600px at 80% -10%, rgba(211, 157, 85, 0.14), transparent 60%),
+    radial-gradient(900px 520px at -10% 4%, rgba(214, 207, 180, 0.55), transparent 55%),
+    radial-gradient(1300px 700px at 50% 120%, rgba(141, 11, 65, 0.05), transparent 60%),
+    var(--background);
+  --surface-1: var(--sport-sand);
+  --surface-2: color-mix(in srgb, var(--sport-sand) 78%, var(--sport-gold) 22%);
+  --surface-3: color-mix(in srgb, var(--sport-sand) 72%, var(--sport-berry) 28%);
+  --surface-glass: color-mix(in srgb, var(--sport-cream) 74%, transparent 26%);
+
+  /* ---- Foreground / text (deep berry ink, warm greys) ---- */
+  --ink: var(--sport-berry);
+  --foreground: var(--ink);
+  --foreground-soft: color-mix(in srgb, var(--ink) 85%, var(--sport-cream) 15%);
+  --muted-strong: color-mix(in srgb, var(--ink) 74%, var(--sport-cream) 26%);
+  --muted: color-mix(in srgb, var(--ink) 64%, var(--sport-cream) 36%);
+  --faint: color-mix(in srgb, var(--ink) 40%, var(--sport-cream) 60%);
+
+  /* ---- Cards / surfaces ---- */
+  --card: var(--sport-sand);
+  --card-deep: var(--sport-berry);
+  --card-hover: color-mix(in srgb, var(--sport-sand) 84%, var(--sport-gold) 16%);
+  --card-premium: color-mix(in srgb, var(--sport-sand) 66%, var(--sport-gold) 34%);
+  --card-glass: color-mix(in srgb, var(--sport-cream) 50%, transparent 50%);
+
+  /* ---- Borders (subtle warm transparencies) ---- */
+  --border: rgba(141, 11, 65, 0.16);
+  --border-strong: rgba(141, 11, 65, 0.3);
+  --border-live: rgba(211, 157, 85, 0.5);
+  --border-navy: rgba(211, 157, 85, 0.3);
+
+  /* ---- Interactive ---- */
+  --primary: var(--sport-gold);
+  --primary-hover: color-mix(in srgb, var(--sport-gold) 78%, var(--sport-berry) 22%);
+  --primary-soft: rgba(211, 157, 85, 0.16);
+  --primary-ring: rgba(211, 157, 85, 0.42);
+  --secondary: var(--sport-secondary);
+  --secondary-hover: color-mix(in srgb, var(--sport-gold) 62%, var(--sport-berry) 38%);
+  --secondary-soft: rgba(211, 157, 85, 0.14);
+  --deep: var(--sport-berry);
+  --deep-soft: rgba(141, 11, 65, 0.12);
+  --navy: var(--sport-sand);
+  --blue: color-mix(in srgb, var(--sport-sand) 84%, var(--sport-cream) 16%);
+
+  /* ---- Shadows (soft warm berry depth) ---- */
+  --shadow-card:
+    0 1px 2px rgba(141, 11, 65, 0.08),
+    0 8px 22px rgba(141, 11, 65, 0.08);
+  --shadow-raised:
+    0 2px 4px rgba(141, 11, 65, 0.1),
+    0 14px 32px rgba(141, 11, 65, 0.1);
+  --shadow-pop:
+    0 20px 50px rgba(141, 11, 65, 0.16),
+    0 10px 22px rgba(141, 11, 65, 0.1);
+  --shadow-glow:
+    0 8px 22px rgba(141, 11, 65, 0.1);
+  --shadow-hero:
+    0 24px 80px rgba(141, 11, 65, 0.18),
+    0 12px 32px rgba(141, 11, 65, 0.12);
+
+  /* ---- Gradients ---- */
+  --hero-overlay: linear-gradient(
+    180deg,
+    rgba(255, 248, 230, 0.08) 0%,
+    rgba(214, 207, 180, 0.55) 72%,
+    rgba(214, 207, 180, 0.85) 100%
+  );
+  --arena-gradient: linear-gradient(135deg, var(--sport-berry) 0%, var(--sport-sand) 100%);
+  --live-gradient: linear-gradient(
+    135deg,
+    var(--sport-gold) 0%,
+    color-mix(in srgb, var(--sport-gold) 62%, var(--sport-berry) 38%) 100%
+  );
+  --deep-gradient: linear-gradient(
+    135deg,
+    var(--sport-berry) 0%,
+    color-mix(in srgb, var(--sport-berry) 60%, var(--sport-gold) 40%) 100%
+  );
+  --text-gradient: linear-gradient(120deg, var(--sport-gold) 0%, var(--sport-berry) 100%);
+  --score-gradient: linear-gradient(135deg, var(--sport-gold) 0%, var(--sport-berry) 100%);
+
   color-scheme: light;
 }
 
 .dark {
-  --background: #09090d;
-  --foreground: #f4f4f5;
-  --card: #101014;
-  --card-hover: #17171d;
-  --border: rgba(255, 255, 255, 0.08);
-  --border-strong: rgba(255, 255, 255, 0.16);
-  --muted: #a1a1aa;
-  --muted-strong: #e4e4e7;
-  --primary: #ff204e;
-  --primary-hover: #ff5c7d;
-  --primary-soft: rgba(255, 32, 78, 0.15);
-  --primary-ring: rgba(255, 32, 78, 0.35);
-  --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.5), 0 8px 28px rgba(0, 0, 0, 0.4);
-  --pop-shadow: 0 20px 60px rgba(0, 0, 0, 0.65);
-  --glow-shadow: 0 0 0 1px rgba(255, 32, 78, 0.28), 0 16px 60px rgba(255, 32, 78, 0.14);
-  --hero-overlay: linear-gradient(180deg, rgba(0, 34, 77, 0.6) 0%, rgba(0, 34, 77, 0.92) 100%);
-  color-scheme: dark;
+  /* Palette-locked: the official brand palette applies regardless of the
+     theme toggle — no separate dark color set exists. */
+  color-scheme: light;
 }
 
 @theme inline {
   --color-background: var(--background);
+  --color-surface-1: var(--surface-1);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-surface-glass: var(--surface-glass);
   --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-hover: var(--card-hover);
-  --color-border: var(--border);
+  --color-foreground-soft: var(--foreground-soft);
   --color-muted: var(--muted);
+  --color-muted-strong: var(--muted-strong);
+  --color-faint: var(--faint);
+  --color-card: var(--card);
+  --color-card-deep: var(--card-deep);
+  --color-card-hover: var(--card-hover);
+  --color-card-premium: var(--card-premium);
+  --color-card-glass: var(--card-glass);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-border-live: var(--border-live);
+  --color-border-navy: var(--border-navy);
   --color-primary: var(--primary);
   --color-primary-hover: var(--primary-hover);
-  --color-brand: #ff204e;
-  --color-brand-light: #ff5c7d;
-  --color-brand-maroon: #a0153e;
-  --color-brand-purple: #5d0e41;
-  --color-brand-navy: #00224d;
+  --color-secondary: var(--secondary);
+  --color-secondary-hover: var(--secondary-hover);
+  --color-deep: var(--deep);
+  --color-navy: var(--navy);
+  --color-blue: var(--blue);
+  --color-brand: var(--sport-primary);
+  --color-brand-maroon: var(--sport-secondary);
+  --color-brand-purple: var(--sport-deep);
+  --color-brand-navy: var(--sport-berry);
+  --color-brand-blue: var(--blue);
+  /* Official palette tokens */
+  --color-berry: var(--sport-berry);
+  --color-gold: var(--sport-gold);
+  --color-sand: var(--sport-sand);
+  --color-cream: var(--sport-cream);
+  --color-bronze: var(--sport-secondary);
   --font-sans: var(--font-inter);
   --font-display: var(--font-space-grotesk);
-  --shadow-card: var(--card-shadow);
-  --shadow-pop: var(--pop-shadow);
-  --shadow-glow: var(--glow-shadow);
+  --shadow-card: var(--shadow-card);
+  --shadow-raised: var(--shadow-raised);
+  --shadow-pop: var(--shadow-pop);
+  --shadow-glow: var(--shadow-glow);
+  --shadow-hero: var(--shadow-hero);
+  --bg-live-gradient: var(--live-gradient);
+  --bg-arena-gradient: var(--arena-gradient);
+  --bg-deep-gradient: var(--deep-gradient);
+  --bg-hero-overlay: var(--hero-overlay);
 }
 
 * {
@@ -81,7 +187,7 @@
 }
 
 ::selection {
-  background: rgba(255, 32, 78, 0.28);
+  background: rgba(211, 157, 85, 0.4);
 }
 
 html {
@@ -89,10 +195,8 @@ html {
 }
 
 body {
-  background:
-    radial-gradient(1100px 500px at 85% -10%, rgba(255, 32, 78, 0.07), transparent 60%),
-    radial-gradient(900px 500px at -10% 0%, rgba(0, 34, 77, 0.05), transparent 55%),
-    var(--background);
+  background: var(--background-arena);
+  background-attachment: fixed;
   color: var(--foreground);
   font-family: var(--font-inter), Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -104,105 +208,51 @@ body {
   outline-offset: 2px;
 }
 
-@keyframes pulse-live {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.35; }
+/* ---- Editorial Typography ---- */
+.display {
+  font-family: var(--font-space-grotesk), sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 0.98;
+  text-wrap: balance;
+}
+.heading {
+  font-family: var(--font-space-grotesk), sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  text-wrap: balance;
+}
+.subheading {
+  font-family: var(--font-space-grotesk), sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  text-wrap: balance;
+}
+.kicker {
+  font-family: var(--font-inter), sans-serif;
+  font-weight: 700;
+  font-size: 0.66rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+.meta {
+  font-size: 0.72rem;
+  line-height: 1.2;
+  color: var(--muted);
+}
+.label {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
 }
 
-.animate-pulse-live {
-  animation: pulse-live 1.6s ease-in-out infinite;
-}
-
-@keyframes ping-dot {
-  0% { transform: scale(1); opacity: 0.9; }
-  80%, 100% { transform: scale(2.4); opacity: 0; }
-}
-
-.animate-ping-dot {
-  animation: ping-dot 1.6s cubic-bezier(0, 0, 0.2, 1) infinite;
-}
-
-@keyframes fade-up {
-  from { opacity: 0; transform: translateY(14px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.animate-fade-up {
-  animation: fade-up 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-
-@keyframes fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-.animate-fade-in {
-  animation: fade-in 0.4s ease-out both;
-}
-
-@keyframes slide-up {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.animate-slide-up {
-  animation: slide-up 0.3s ease-out;
-}
-
-@keyframes shimmer {
-  from { background-position: 200% 0; }
-  to { background-position: -200% 0; }
-}
-
-.animate-shimmer {
-  background: linear-gradient(
-    110deg,
-    var(--card) 40%,
-    var(--card-hover) 50%,
-    var(--card) 60%
-  );
-  background-size: 200% 100%;
-  animation: shimmer 1.8s linear infinite;
-}
-
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-
-.animate-marquee {
-  animation: marquee 30s linear infinite;
-}
-
-@keyframes float-y {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
-}
-
-.animate-float-y {
-  animation: float-y 5s ease-in-out infinite;
-}
-
-.glass {
-  background: rgba(255, 255, 255, 0.72);
-  backdrop-filter: blur(18px) saturate(160%);
-  -webkit-backdrop-filter: blur(18px) saturate(160%);
-}
-
-.dark .glass {
-  background: rgba(16, 16, 20, 0.72);
-}
-
-.no-scrollbar {
-  scrollbar-width: none;
-}
-
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-
+/* ---- Text gradient ---- */
 .text-gradient {
-  background: linear-gradient(120deg, #ff5c7d 0%, #ff204e 45%, #a0153e 100%);
+  background: var(--text-gradient);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -212,10 +262,173 @@ body {
   text-wrap: balance;
 }
 
+/* ---- Surfaces ---- */
+.glass {
+  background: var(--surface-glass);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+}
+.glass-strong {
+  background: color-mix(in srgb, var(--sport-cream) 78%, transparent 22%);
+  backdrop-filter: blur(26px) saturate(170%);
+  -webkit-backdrop-filter: blur(26px) saturate(170%);
+}
+
+/* Elevated surface — the quiet, workhorse card. */
+.arena-card {
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-card);
+}
+
+/* Premium featured surface — reserved for hero/centre-stage content. */
+.arena-card-premium {
+  background:
+    linear-gradient(165deg, color-mix(in srgb, var(--sport-gold) 16%, transparent 84%), transparent 55%),
+    var(--surface-1);
+  border: 1px solid var(--border-strong);
+  box-shadow: var(--shadow-raised);
+}
+
+.arena-card-hover {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.3s ease;
+}
+.arena-card-hover:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-raised);
+  border-color: var(--border-strong);
+}
+
+/* Flat translucent panel — borderless, for editorial rows and lists. */
+.panel {
+  background: color-mix(in srgb, var(--sport-sand) 32%, transparent 68%);
+  transition: background 0.25s ease;
+}
+.panel-hover:hover {
+  background: color-mix(in srgb, var(--sport-sand) 46%, transparent 54%);
+}
+
+/* ---- Live indicator ---- */
+@keyframes live-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.82); }
+}
+.animate-live-pulse {
+  animation: live-pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes ping-ring {
+  0% { transform: scale(1); opacity: 0.85; }
+  80%, 100% { transform: scale(2.6); opacity: 0; }
+}
+.animate-ping-ring {
+  animation: ping-ring 1.6s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+/* ---- Ticker ---- */
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.animate-ticker {
+  animation: ticker 36s linear infinite;
+}
+.ticker-track:hover .animate-ticker {
+  animation-play-state: paused;
+}
+
+/* ---- Score pop ---- */
+@keyframes score-pop {
+  0% { transform: scale(0.6); opacity: 0; }
+  70% { transform: scale(1.12); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.animate-score-pop {
+  animation: score-pop 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ---- Scroll reveal ---- */
+@keyframes reveal-up {
+  from { opacity: 0; transform: translateY(26px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.reveal {
+  opacity: 0;
+  animation: reveal-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ---- Fade / slide ---- */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up { animation: fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.animate-fade-in { animation: fade-in 0.4s ease-out both; }
+
+@keyframes slide-down {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-slide-down { animation: slide-down 0.28s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+@keyframes slide-up-sm {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-slide-up { animation: slide-up-sm 0.3s ease-out; }
+
+/* ---- Scale in (dropdowns) ---- */
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.96) translateY(-6px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+.animate-scale-in { animation: scale-in 0.22s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+/* ---- Shimmer ---- */
+@keyframes shimmer {
+  from { background-position: 200% 0; }
+  to { background-position: -200% 0; }
+}
+.animate-shimmer {
+  background: linear-gradient(110deg, var(--surface-1) 40%, var(--surface-2) 50%, var(--surface-1) 60%);
+  background-size: 200% 100%;
+  animation: shimmer 1.8s linear infinite;
+}
+
+/* ---- Float / glow drift ---- */
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.animate-float-y { animation: float-y 6s ease-in-out infinite; }
+
+@keyframes glow-drift {
+  0%, 100% { opacity: 0.5; transform: translate(0, 0) scale(1); }
+  50% { opacity: 0.9; transform: translate(8px, -10px) scale(1.08); }
+}
+.animate-glow-drift { animation: glow-drift 9s ease-in-out infinite; }
+
+/* ---- Marquee content ---- */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* ---- Editorial divider (gold seam) ---- */
+.rule-live {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(211, 157, 85, 0.65) 30%, rgba(211, 157, 85, 0.65) 70%, transparent);
+}
+
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
+  *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;

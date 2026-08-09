@@ -28,14 +28,14 @@ export default function MyTeamsPage() {
                   <p className="font-bold truncate">{team.name}</p>
                   <p className="text-xs text-muted">{sportLabels[team.sport as Sport]}</p>
                 </div>
-                <button className="text-xs font-semibold px-3 py-1.5 rounded-full bg-primary text-white hover:bg-primary-hover transition-colors">
+<button className="text-xs font-semibold px-3 py-1.5 rounded-full bg-primary text-berry hover:bg-primary-hover transition-colors">
                   ✓
                 </button>
               </div>
             </div>
           ))}
 
-          <button className="bg-card rounded-xl border border-dashed border-border p-5 hover:border-primary hover:bg-primary/5 transition-all flex flex-col items-center justify-center gap-2 text-muted hover:text-primary min-h-[96px]">
+          <button className="bg-card rounded-xl border border-dashed border-border p-5 hover:border-secondary hover:bg-secondary/5 transition-all flex flex-col items-center justify-center gap-2 text-muted hover:text-secondary min-h-[96px]">
             <Plus className="h-6 w-6" />
             <span className="text-sm font-medium">Add More Teams</span>
           </button>

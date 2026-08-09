@@ -37,31 +37,31 @@ export default function VideosPage() {
           {filtered.map((video) => (
             <div
               key={video.id}
-              className="bg-card rounded-xl border border-border overflow-hidden hover:shadow-lg transition-all group cursor-pointer"
+className="arena-card arena-card-hover overflow-hidden group cursor-pointer"
               onClick={() => setPlaying(playing === video.id ? null : video.id)}
             >
               <div className="relative aspect-video bg-gradient-to-br from-muted/30 to-muted/50 overflow-hidden">
                 <img src={video.thumbnail} alt={video.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
+<div className="absolute inset-0 bg-navy/40 flex items-center justify-center">
                   <div
                     className={cn(
-                      "w-14 h-14 rounded-full bg-white/90 flex items-center justify-center shadow-xl transition-all",
+                      "w-14 h-14 rounded-full bg-brand/90 flex items-center justify-center shadow-xl transition-all",
                       playing === video.id ? "scale-90 opacity-0" : "group-hover:scale-110"
                     )}
                   >
-                    <Play className="h-6 w-6 text-primary fill-primary ml-0.5" />
+                    <Play className="h-6 w-6 text-berry fill-berry ml-0.5" />
                   </div>
                 </div>
-                <span className="absolute bottom-3 right-3 text-xs font-bold bg-black/70 text-white px-2 py-0.5 rounded">
+                <span className="absolute bottom-3 right-3 text-xs font-bold bg-navy/80 text-muted-strong px-2 py-0.5 rounded">
                   {video.duration}
                 </span>
                 <span className="absolute top-3 left-3 text-lg">{sportIcons[video.sport]}</span>
-                <span className="absolute top-3 right-3 text-[10px] font-bold px-2 py-0.5 rounded-full bg-primary text-white">
+                <span className="absolute top-3 right-3 text-[10px] font-bold px-2 py-0.5 rounded-full bg-primary text-berry">
                   {video.category}
                 </span>
               </div>
               <div className="p-4">
-                <h3 className="font-semibold text-sm line-clamp-2 group-hover:text-primary transition-colors">
+                <h3 className="font-semibold text-sm line-clamp-2 group-hover:text-foreground transition-colors">
                   {video.title}
                 </h3>
                 <div className="flex items-center gap-3 mt-2 text-xs text-muted">

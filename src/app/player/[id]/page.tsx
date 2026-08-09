@@ -58,7 +58,7 @@ export default function PlayerPage({ params }: { params: Promise<{ id: string }>
         </Link>
 
         <div className="bg-card rounded-2xl border border-border overflow-hidden mb-6">
-          <div className="h-32 bg-gradient-to-r from-primary via-brand-maroon to-brand-purple relative">
+          <div className="h-32 bg-gradient-to-r from-blue via-navy to-deep relative">
             <div className="absolute inset-0 opacity-20 pattern-dots" />
           </div>
           <div className="px-6 pb-6">
@@ -69,8 +69,8 @@ export default function PlayerPage({ params }: { params: Promise<{ id: string }>
               <div className="flex-1 pt-14 md:pt-0">
                 <div className="flex items-center gap-3 flex-wrap">
                   <h1 className="text-2xl font-extrabold">{player.name}</h1>
-                  <span className="text-sm font-bold text-yellow-500">{player.rating}★</span>
-                  <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-primary/10 text-primary">
+<span className="text-sm font-bold text-foreground">{player.rating}★</span>
+                  <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-secondary/10 text-secondary">
                     {player.position}
                   </span>
                 </div>
@@ -85,9 +85,8 @@ export default function PlayerPage({ params }: { params: Promise<{ id: string }>
                 <button
                   onClick={() => setFavorite(!favorite)}
                   className={cn(
-                    "flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold border transition-all",
-                    favorite
-                      ? "bg-primary text-white border-primary"
+                    "flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold border transition-all",                    favorite
+                      ? "bg-secondary text-berry border-secondary"
                       : "border-border hover:bg-muted/10"
                   )}
                 >
@@ -137,7 +136,7 @@ export default function PlayerPage({ params }: { params: Promise<{ id: string }>
               <>
                 <div className="bg-card rounded-xl border border-border p-5">
                   <h3 className="font-bold mb-3 flex items-center gap-2">
-                    <TrendingUp className="h-4 w-4 text-primary" /> Season Statistics
+                    <TrendingUp className="h-4 w-4 text-secondary" /> Season Statistics
                   </h3>
                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                     {statsGrid.map((s) => (
@@ -152,7 +151,7 @@ export default function PlayerPage({ params }: { params: Promise<{ id: string }>
 
                 <div className="bg-card rounded-xl border border-border p-5">
                   <h3 className="font-bold mb-4 flex items-center gap-2">
-                    <Target className="h-4 w-4 text-primary" /> Player Ratings
+                    <Target className="h-4 w-4 text-secondary" /> Player Ratings
                   </h3>
                   <div className="space-y-3">
                     {ratings.map((r) => (
@@ -160,7 +159,7 @@ export default function PlayerPage({ params }: { params: Promise<{ id: string }>
                         <span className="text-xs font-medium text-muted w-20">{r.label}</span>
                         <div className="flex-1 h-2 bg-muted/20 rounded-full overflow-hidden">
                           <div
-                            className="h-full bg-gradient-to-r from-primary to-brand-purple rounded-full transition-all"
+                            className="h-full bg-gradient-to-r from-secondary to-deep rounded-full transition-all"
                             style={{ width: `${r.value}%` }}
                           />
                         </div>
@@ -172,7 +171,7 @@ export default function PlayerPage({ params }: { params: Promise<{ id: string }>
 
                 <div className="bg-card rounded-xl border border-border p-5">
                   <h3 className="font-bold mb-4 flex items-center gap-2">
-                    <Award className="h-4 w-4 text-primary" /> Achievements
+                    <Award className="h-4 w-4 text-secondary" /> Achievements
                   </h3>
                   <div className="space-y-2 text-sm">
                     {[
@@ -237,7 +236,7 @@ export default function PlayerPage({ params }: { params: Promise<{ id: string }>
                     <div key={m.month} className="flex flex-col items-center flex-1 gap-2">
                       <span className="text-xs font-bold">{m.value}</span>
                       <div
-                        className="w-full max-w-8 rounded-t-lg bg-gradient-to-t from-primary/40 to-primary transition-all hover:from-primary/60"
+                        className="w-full max-w-8 rounded-t-lg bg-gradient-to-t from-secondary/40 to-secondary transition-all hover:from-secondary/60"
                         style={{ height: `${m.value * 1.6}px` }}
                       />
                       <span className="text-xs text-muted">{m.month}</span>
@@ -250,9 +249,9 @@ export default function PlayerPage({ params }: { params: Promise<{ id: string }>
             {activeTab === "AI Analysis" && (
               <div className="bg-card rounded-xl border border-border p-5 space-y-4">
                 <h3 className="font-bold flex items-center gap-2">
-                  <Sparkles className="h-4 w-4 text-primary" /> AI Analysis
+                  <Sparkles className="h-4 w-4 text-secondary" /> AI Analysis
                 </h3>
-                <div className="bg-primary/5 border border-primary/20 rounded-xl p-4">
+                <div className="bg-secondary/5 border border-secondary/20 rounded-xl p-4">
                   <p className="text-sm text-muted leading-relaxed">
                     {player.name} is a generational talent with elite finishing and off-ball movement.
                     His xG overperformance of +8.2 this season ranks in the 99th percentile among
@@ -261,8 +260,8 @@ export default function PlayerPage({ params }: { params: Promise<{ id: string }>
                   </p>
                 </div>
                 <div className="grid grid-cols-2 gap-3">
-                  <div className="bg-green-500/10 border border-green-500/20 rounded-xl p-4">
-                    <p className="text-sm font-bold text-green-600 mb-2">Strengths</p>
+<div className="bg-secondary/10 border border-secondary/20 rounded-xl p-4">
+                    <p className="text-sm font-bold text-secondary mb-2">Strengths</p>
                     <ul className="text-xs text-muted space-y-1.5">
                       <li>• Elite finishing (93/100)</li>
                       <li>• Aerial dominance</li>
@@ -270,8 +269,8 @@ export default function PlayerPage({ params }: { params: Promise<{ id: string }>
                       <li>• Pressing intensity</li>
                     </ul>
                   </div>
-                  <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-4">
-                    <p className="text-sm font-bold text-red-500 mb-2">Weaknesses</p>
+<div className="bg-brand-maroon/10 border border-brand-maroon/20 rounded-xl p-4">
+                    <p className="text-sm font-bold text-brand-maroon mb-2">Weaknesses</p>
                     <ul className="text-xs text-muted space-y-1.5">
                       <li>• Limited link-up play</li>
                       <li>• Defensive contribution</li>
@@ -299,7 +298,7 @@ export default function PlayerPage({ params }: { params: Promise<{ id: string }>
                     { year: "2019", from: "Bryne FK", to: "RB Salzburg", fee: "€8M" },
                   ].map((t) => (
                     <div key={t.year} className="flex items-center gap-4 bg-muted/10 rounded-xl p-4">
-                      <span className="text-sm font-bold text-primary w-12">{t.year}</span>
+                      <span className="text-sm font-bold text-muted-strong w-12">{t.year}</span>
                       <div className="flex-1">
                         <p className="text-sm font-medium">{t.from} → {t.to}</p>
                       </div>
@@ -317,7 +316,7 @@ export default function PlayerPage({ params }: { params: Promise<{ id: string }>
               <Link href={`/team/${player.teamId || "#"}`} className="flex items-center gap-3 group">
                 <TeamLogo logo={player.teamLogo} name={player.team} size="lg" />
                 <div>
-                  <p className="font-semibold text-sm group-hover:text-primary transition-colors">{player.team}</p>
+                  <p className="font-semibold text-sm group-hover:text-foreground transition-colors">{player.team}</p>
                   <p className="text-xs text-muted">Squad Member</p>
                 </div>
               </Link>
@@ -328,14 +327,12 @@ export default function PlayerPage({ params }: { params: Promise<{ id: string }>
               <div className="space-y-3">
                 {topPlayers.filter((p) => p.id !== player.id).slice(0, 4).map((p) => (
                   <Link key={p.id} href={`/player/${p.id}`} className="flex items-center gap-3 group">
-                    <div className="w-8 h-8 rounded-full bg-muted/10 flex items-center justify-center text-sm shrink-0">
-                      <TeamLogo logo={p.teamLogo} name={p.team} size="sm" />
-                    </div>
+                    <TeamLogo logo={p.teamLogo} name={p.team} size="sm" />
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium truncate group-hover:text-primary transition-colors">{p.name}</p>
+                      <p className="text-sm font-medium truncate group-hover:text-foreground transition-colors">{p.name}</p>
                       <p className="text-xs text-muted">{p.team}</p>
                     </div>
-                    <span className="text-xs font-bold text-yellow-500">{p.rating}★</span>
+<span className="text-xs font-bold text-foreground">{p.rating}★</span>
                   </Link>
                 ))}
               </div>

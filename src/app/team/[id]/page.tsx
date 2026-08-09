@@ -62,12 +62,10 @@ export default function TeamPage({ params }: { params: Promise<{ id: string }> }
         </Link>
 
         <div className="bg-card rounded-2xl border border-border overflow-hidden mb-6">
-          <div className="h-32 bg-gradient-to-r from-primary via-brand-maroon to-brand-purple" />
+          <div className="h-32 bg-gradient-to-r from-blue via-navy to-deep" />
           <div className="px-6 pb-6">
             <div className="flex flex-col md:flex-row items-start md:items-end gap-4 -mt-12">
-              <div className="w-28 h-28 rounded-2xl bg-card border-4 border-card overflow-hidden shadow-xl flex items-center justify-center">
-                <TeamLogo logo={team.logo} name={team.name} size="xl" />
-              </div>
+              <TeamLogo logo={team.logo} name={team.name} size="xl" />
               <div className="flex-1 pt-14 md:pt-0">
                 <h1 className="text-2xl font-extrabold">{team.name}</h1>
                 <div className="flex items-center gap-4 mt-2 text-sm text-muted flex-wrap">
@@ -82,9 +80,9 @@ export default function TeamPage({ params }: { params: Promise<{ id: string }> }
               <div className="flex gap-2 md:pt-14">
                 <button
                   onClick={() => setFavorite(!favorite)}
-                  className={cn(
+className={cn(
                     "flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold border transition-all",
-                    favorite ? "bg-primary text-white border-primary" : "border-border hover:bg-muted/10"
+                    favorite ? "bg-secondary text-berry border-secondary" : "border-border hover:bg-muted/10"
                   )}
                 >
                   <Heart className={cn("h-4 w-4", favorite && "fill-current")} />
@@ -133,7 +131,7 @@ export default function TeamPage({ params }: { params: Promise<{ id: string }> }
               <>
                 <div className="bg-card rounded-xl border border-border p-5">
                   <h3 className="font-bold mb-3 flex items-center gap-2">
-                    <Trophy className="h-4 w-4 text-primary" /> Achievements
+                    <Trophy className="h-4 w-4 text-secondary" /> Achievements
                   </h3>
                   <div className="space-y-2 text-sm">
                     {achievements.map((a) => (
@@ -155,10 +153,10 @@ export default function TeamPage({ params }: { params: Promise<{ id: string }> }
                         <span className="text-sm font-bold text-muted w-5">{i + 1}</span>
                         <TeamLogo logo={p.teamLogo} name={p.team} size="sm" />
                         <div className="flex-1 min-w-0">
-                          <p className="text-sm font-medium truncate group-hover:text-primary transition-colors">{p.name}</p>
+                          <p className="text-sm font-medium truncate group-hover:text-foreground transition-colors">{p.name}</p>
                           <p className="text-xs text-muted">{p.position}</p>
                         </div>
-                        <span className="text-sm font-bold text-primary">{p.stat} {p.statLabel}</span>
+                        <span className="text-sm font-bold text-secondary">{p.stat} {p.statLabel}</span>
                       </Link>
                     ))}
                   </div>
@@ -173,7 +171,7 @@ export default function TeamPage({ params }: { params: Promise<{ id: string }> }
                   {squad.map((player) => (
                     <div key={player.name} className="flex items-center gap-3 bg-muted/10 rounded-xl p-3">
                       <span className="text-xs font-bold text-muted w-6">{player.no}</span>
-                      <div className="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center text-sm">
+                      <div className="w-8 h-8 rounded-full bg-secondary/10 text-secondary flex items-center justify-center text-sm">
                         {player.position[0]}
                       </div>
                       <div className="flex-1 min-w-0">
@@ -205,7 +203,7 @@ export default function TeamPage({ params }: { params: Promise<{ id: string }> }
                     { year: "2022", name: "Antonio Rüdiger", type: "In", fee: "Free" },
                   ].map((t) => (
                     <div key={t.name} className="flex items-center gap-4 bg-muted/10 rounded-xl p-4">
-                      <span className={cn("text-xs font-bold px-2 py-1 rounded-full", t.type === "In" ? "bg-green-500/10 text-green-600" : "bg-red-500/10 text-red-600")}>
+<span className={cn("text-xs font-bold px-2 py-1 rounded-full", t.type === "In" ? "bg-secondary/10 text-secondary" : "bg-brand-maroon/10 text-brand-maroon")}>
                         {t.type}
                       </span>
                       <p className="text-sm font-medium flex-1">{t.name}</p>
@@ -220,9 +218,9 @@ export default function TeamPage({ params }: { params: Promise<{ id: string }> }
             {activeTab === "AI Analysis" && (
               <div className="bg-card rounded-xl border border-border p-5 space-y-4">
                 <h3 className="font-bold flex items-center gap-2">
-                  <Sparkles className="h-4 w-4 text-primary" /> AI Analysis
+                  <Sparkles className="h-4 w-4 text-secondary" /> AI Analysis
                 </h3>
-                <div className="bg-primary/5 border border-primary/20 rounded-xl p-4">
+                <div className="bg-secondary/5 border border-secondary/20 rounded-xl p-4">
                   <p className="text-sm text-muted leading-relaxed">
                     {team.name} enter this phase of the season with a 78% win probability in their
                     remaining fixtures. Their press triggers in the final third rank 4th in Europe,
@@ -242,7 +240,7 @@ export default function TeamPage({ params }: { params: Promise<{ id: string }> }
                     <p className="text-sm font-bold mb-2">Team Form</p>
                     <div className="flex gap-1.5">
                       {["W", "W", "D", "W", "W"].map((f, i) => (
-                        <span key={i} className={cn("w-6 h-6 text-[10px] font-bold rounded flex items-center justify-center", f === "W" ? "bg-green-500 text-white" : "bg-slate-400 text-white")}>
+<span key={i} className={cn("w-6 h-6 text-[10px] font-bold rounded flex items-center justify-center", f === "W" ? "bg-secondary text-berry" : "bg-deep text-gold")}>
                           {f}
                         </span>
                       ))}
@@ -271,10 +269,10 @@ export default function TeamPage({ params }: { params: Promise<{ id: string }> }
                   <Link key={p.id} href={`/player/${p.id}`} className="flex items-center gap-3 group">
                     <TeamLogo logo={p.teamLogo} name={p.team} size="sm" />
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium truncate group-hover:text-primary transition-colors">{p.name}</p>
+                      <p className="text-sm font-medium truncate group-hover:text-foreground transition-colors">{p.name}</p>
                       <p className="text-xs text-muted">{p.position}</p>
                     </div>
-                    <span className="text-xs font-bold text-yellow-500">{p.rating}★</span>
+<span className="text-xs font-bold text-foreground">{p.rating}★</span>
                   </Link>
                 ))}
               </div>

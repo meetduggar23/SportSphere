@@ -9,13 +9,13 @@ export function LiveBadge({ className, label = "LIVE" }: LiveBadgeProps) {
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-brand/15 text-brand ring-1 ring-brand/30 text-[11px] font-bold tracking-wide",
+        "inline-flex items-center gap-1.5 rounded-full bg-primary/15 px-2.5 py-1 text-[11px] font-bold tracking-wide text-primary ring-1 ring-primary/40",
         className
       )}
     >
       <span className="relative flex h-1.5 w-1.5">
-        <span className="absolute inline-flex h-full w-full rounded-full bg-brand animate-ping-dot" />
-        <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-brand" />
+        <span className="absolute inline-flex h-full w-full rounded-full bg-primary animate-ping-ring" />
+        <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-primary" />
       </span>
       {label}
     </span>

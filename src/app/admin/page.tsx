@@ -33,10 +33,10 @@ const adminNav = [
 ];
 
 const adminStats = [
-  { label: "Total Users", value: "128,450", change: "+12%", icon: Users, color: "text-blue-500" },
-  { label: "Active Matches", value: "24", change: "+3", icon: Activity, color: "text-green-500" },
-  { label: "API Uptime", value: "99.98%", change: "Stable", icon: Database, color: "text-purple-500" },
-  { label: "Error Rate", value: "0.02%", change: "-0.1%", icon: FileWarning, color: "text-red-500" },
+  { label: "Total Users", value: "128,450", change: "+12%", icon: Users, color: "text-secondary" },
+  { label: "Active Matches", value: "24", change: "+3", icon: Activity, color: "text-secondary" },
+  { label: "API Uptime", value: "99.98%", change: "Stable", icon: Database, color: "text-secondary" },
+  { label: "Error Rate", value: "0.02%", change: "-0.1%", icon: FileWarning, color: "text-muted" },
 ];
 
 const recentUsers = [
@@ -75,7 +75,7 @@ export default function AdminPage() {
                   className={cn(
                     "w-full flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors text-left",
                     activeSection === item.label
-                      ? "bg-primary/10 text-primary"
+                      ? "bg-secondary/10 text-secondary"
                       : "text-muted hover:text-foreground hover:bg-muted/10"
                   )}
                 >
@@ -91,8 +91,7 @@ export default function AdminPage() {
               {adminStats.map((s) => (
                 <div key={s.label} className="bg-card rounded-xl border border-border p-4">
                   <div className="flex items-center justify-between mb-3">
-                    <s.icon className={cn("h-5 w-5", s.color)} />
-                    <span className="text-xs font-bold text-green-600">{s.change}</span>
+                    <s.icon className={cn("h-5 w-5", s.color)} />                    <span className="text-xs font-bold text-secondary">{s.change}</span>
                   </div>
                   <p className="text-2xl font-extrabold">{s.value}</p>
                   <p className="text-xs text-muted mt-1">{s.label}</p>
@@ -104,7 +103,7 @@ export default function AdminPage() {
               <div className="bg-card rounded-xl border border-border overflow-hidden">
                 <div className="px-4 py-3 border-b border-border flex items-center justify-between">
                   <h3 className="font-bold text-sm">Recent Users</h3>
-                  <button className="text-xs font-medium text-primary">View All</button>
+                  <button className="text-xs font-medium text-secondary">View All</button>
                 </div>
                 <div className="divide-y divide-border">
                   {recentUsers.map((u) => (
@@ -121,10 +120,9 @@ export default function AdminPage() {
                       </span>
                       <span
                         className={cn(
-                          "text-[10px] font-bold px-2 py-0.5 rounded-full shrink-0",
-                          u.status === "Active"
-                            ? "bg-green-500/10 text-green-600"
-                            : "bg-red-500/10 text-red-500"
+                          "text-[10px] font-bold px-2 py-0.5 rounded-full shrink-0",                          u.status === "Active"
+                            ? "bg-secondary/10 text-secondary"
+                            : "bg-navy/40 text-muted"
                         )}
                       >
                         {u.status}
@@ -137,7 +135,7 @@ export default function AdminPage() {
               <div className="bg-card rounded-xl border border-border overflow-hidden">
                 <div className="px-4 py-3 border-b border-border flex items-center justify-between">
                   <h3 className="font-bold text-sm">System Logs</h3>
-                  <button className="text-xs font-medium text-primary">View All</button>
+                  <button className="text-xs font-medium text-secondary">View All</button>
                 </div>
                 <div className="divide-y divide-border">
                   {recentErrors.map((e, i) => (
@@ -145,10 +143,9 @@ export default function AdminPage() {
                       <div className="flex items-center gap-2">
                         <span
                           className={cn(
-                            "text-[9px] font-bold px-1.5 py-0.5 rounded",
-                            e.level === "ERROR" && "bg-red-500/10 text-red-500",
-                            e.level === "WARN" && "bg-yellow-500/10 text-yellow-600",
-                            e.level === "INFO" && "bg-blue-500/10 text-blue-600"
+                            "text-[9px] font-bold px-1.5 py-0.5 rounded",                            e.level === "ERROR" && "bg-secondary/10 text-secondary",
+                            e.level === "WARN" && "bg-brand-maroon/10 text-brand-maroon",
+                            e.level === "INFO" && "bg-blue/20 text-muted"
                           )}
                         >
                           {e.level}
@@ -164,12 +161,12 @@ export default function AdminPage() {
 
             <div className="bg-card rounded-xl border border-border p-5">
               <h3 className="font-bold mb-4">System Health</h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 {[
-                  { label: "API Servers", value: "Healthy", color: "text-green-500", pct: 98 },
-                  { label: "Database", value: "Operational", color: "text-green-500", pct: 99 },
-                  { label: "Redis Cache", value: "Operational", color: "text-green-500", pct: 97 },
-                  { label: "WebSockets", value: "Degraded", color: "text-yellow-500", pct: 82 },
+                  { label: "API Servers", value: "Healthy", color: "text-secondary", pct: 98 },
+                  { label: "Database", value: "Operational", color: "text-secondary", pct: 99 },
+                  { label: "Redis Cache", value: "Operational", color: "text-secondary", pct: 97 },
+                  { label: "WebSockets", value: "Degraded", color: "text-brand-maroon", pct: 82 },
                 ].map((s) => (
                   <div key={s.label} className="bg-muted/10 rounded-xl p-4">
                     <div className="flex justify-between mb-2">

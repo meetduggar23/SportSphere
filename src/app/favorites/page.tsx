@@ -58,7 +58,7 @@ export default function FavoritesPage() {
                       <p className="text-sm font-medium truncate">{p.name}</p>
                       <p className="text-xs text-muted">{p.team}</p>
                     </div>
-                    <span className="text-sm font-bold text-primary">{p.stat}</span>
+                    <span className="text-sm font-bold text-secondary">{p.stat}</span>
                   </div>
                 ))}
               </div>

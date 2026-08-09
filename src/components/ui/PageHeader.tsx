@@ -5,28 +5,28 @@ interface PageHeaderProps {
   subtitle?: string;
   icon?: React.ReactNode;
   actions?: React.ReactNode;
+  kicker?: string;
   className?: string;
 }
 
-export function PageHeader({ title, subtitle, icon, actions, className }: PageHeaderProps) {
+export function PageHeader({ title, subtitle, icon, actions, kicker, className }: PageHeaderProps) {
   return (
     <div
       className={cn(
-        "flex flex-col md:flex-row md:items-end justify-between gap-5 mb-8",
+        "mb-8 flex flex-col gap-5 md:flex-row md:items-end md:justify-between",
         className
       )}
     >
-      <div className="flex items-start gap-4">
+<div className="flex items-start gap-4">
         {icon && (
-          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-primary/10 text-primary ring-1 ring-primary/20">
+          <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-border-navy bg-blue/40 text-muted-strong">
             {icon}
           </div>
         )}
         <div>
-          <h1 className="font-display text-3xl md:text-4xl font-bold tracking-tight text-balance">
-            {title}
-          </h1>
-          {subtitle && <p className="text-muted text-sm mt-2 max-w-xl">{subtitle}</p>}
+          {kicker && <p className="kicker mb-1.5 text-muted">{kicker}</p>}
+          <h1 className="heading text-3xl text-foreground md:text-4xl">{title}</h1>
+          {subtitle && <p className="mt-2 max-w-xl text-sm text-muted">{subtitle}</p>}
         </div>
       </div>
       {actions && <div className="flex items-center gap-2">{actions}</div>}

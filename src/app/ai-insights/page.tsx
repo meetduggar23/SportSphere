@@ -95,15 +95,14 @@ export default function AIInsightsPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2">
             <SectionHeader title="AI Assistant" />
-            <div className="bg-card rounded-xl border border-border flex flex-col h-[520px]">
+<div className="arena-card flex flex-col h-[520px]">
               <div className="px-4 py-3 border-b border-border flex items-center gap-2">
-                <div className="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center">
+                <div className="w-8 h-8 rounded-full bg-secondary/10 text-secondary flex items-center justify-center">
                   <Bot className="h-4 w-4" />
                 </div>
                 <div>
-                  <p className="text-sm font-bold">SportSphere Assistant</p>
-                  <p className="text-xs text-green-500 flex items-center gap-1">
-                    <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse-live" /> Online
+                  <p className="text-sm font-bold">SportSphere Assistant</p>                  <p className="text-xs text-secondary flex items-center gap-1">
+                    <span className="w-1.5 h-1.5 bg-secondary rounded-full animate-live-pulse" /> Online
                   </p>
                 </div>
               </div>
@@ -117,7 +116,7 @@ export default function AIInsightsPage() {
                     <div
                       className={cn(
                         "w-8 h-8 rounded-full flex items-center justify-center shrink-0",
-                        msg.role === "ai" ? "bg-primary/10 text-primary" : "bg-muted/20 text-muted"
+                        msg.role === "ai" ? "bg-secondary/10 text-secondary" : "bg-muted/20 text-muted"
                       )}
                     >
                       {msg.role === "ai" ? <Bot className="h-4 w-4" /> : <User className="h-4 w-4" />}
@@ -127,11 +126,10 @@ export default function AIInsightsPage() {
                         "max-w-[80%] rounded-2xl px-4 py-3 text-sm leading-relaxed whitespace-pre-line",
                         msg.role === "ai"
                           ? "bg-muted/10 rounded-tl-sm"
-                          : "bg-primary text-white rounded-tr-sm"
+: "bg-primary text-berry rounded-tr-sm"
                       )}
                     >
-                      {msg.text}
-                      <p className={cn("text-[10px] mt-1.5", msg.role === "ai" ? "text-muted" : "text-white/70")}>
+                      {msg.text}                      <p className={cn("text-[10px] mt-1.5", msg.role === "ai" ? "text-muted" : "text-berry/60")}>
                         {msg.time}
                       </p>
                     </div>
@@ -139,7 +137,7 @@ export default function AIInsightsPage() {
                 ))}
                 {typing && (
                   <div className="flex gap-3">
-                    <div className="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                    <div className="w-8 h-8 rounded-full bg-secondary/10 text-secondary flex items-center justify-center shrink-0">
                       <Bot className="h-4 w-4" />
                     </div>
                     <div className="bg-muted/10 rounded-2xl rounded-tl-sm px-4 py-3">
@@ -163,7 +161,7 @@ export default function AIInsightsPage() {
                     <button
                       key={s}
                       onClick={() => send(s)}
-                      className="text-xs px-3 py-1.5 rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-colors whitespace-nowrap shrink-0"
+                      className="text-xs px-3 py-1.5 rounded-full bg-secondary/10 text-secondary hover:bg-secondary/20 transition-colors whitespace-nowrap shrink-0"
                     >
                       {s}
                     </button>
@@ -171,7 +169,7 @@ export default function AIInsightsPage() {
                 </div>
                 <div className="flex items-center gap-2">
                   <button
-                    className="p-2.5 rounded-lg border border-border text-muted hover:text-primary transition-colors"
+                    className="p-2.5 rounded-lg border border-border text-muted hover:text-secondary transition-colors"
                     aria-label="Voice input"
                   >
                     <Mic className="h-4 w-4" />
@@ -181,12 +179,12 @@ export default function AIInsightsPage() {
                     onChange={(e) => setInput(e.target.value)}
                     onKeyDown={(e) => e.key === "Enter" && send()}
                     placeholder="Ask anything about sports..."
-                    className="flex-1 px-4 py-2.5 rounded-lg border border-border bg-background text-sm outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all"
+                    className="flex-1 px-4 py-2.5 rounded-lg border border-border bg-background text-sm outline-none focus:border-secondary/50 focus:ring-2 focus:ring-secondary/10 transition-all"
                   />
                   <button
                     onClick={() => send()}
                     disabled={!input.trim() || typing}
-                    className="p-2.5 rounded-lg bg-primary text-white hover:bg-primary-hover transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+className="p-2.5 rounded-lg bg-primary text-berry hover:bg-primary-hover transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                     aria-label="Send"
                   >
                     <Send className="h-4 w-4" />
@@ -197,9 +195,9 @@ export default function AIInsightsPage() {
           </div>
 
           <aside className="space-y-6">
-            <div className="bg-card rounded-xl border border-border p-4">
-              <h3 className="font-bold text-sm mb-3 flex items-center gap-2">
-                <Sparkles className="h-4 w-4 text-primary" /> AI Capabilities
+<div className="arena-card p-4">
+              <h3 className="heading text-sm text-foreground mb-3 flex items-center gap-2">
+                <Sparkles className="h-4 w-4 text-secondary" /> AI Capabilities
               </h3>
               <ul className="space-y-2 text-sm">
                 {[
@@ -215,8 +213,8 @@ export default function AIInsightsPage() {
               </ul>
             </div>
 
-            <div className="bg-card rounded-xl border border-border p-4">
-              <h3 className="font-bold text-sm mb-3">Natural Language Search</h3>
+<div className="arena-card p-4">
+              <h3 className="heading text-sm text-foreground mb-3">Natural Language Search</h3>
               <p className="text-xs text-muted leading-relaxed">
                 Ask in plain English and SportSphere AI will find the answer. Try voice search
                 using the microphone button for hands-free queries.

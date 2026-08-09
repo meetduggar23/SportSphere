@@ -31,8 +31,8 @@ function SidebarLink({ item, active }: { item: SidebarItem; active: boolean }) {
       className={cn(
         "group relative flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-colors duration-200",
         active
-          ? "font-medium text-foreground"
-          : "text-muted hover:bg-muted/[0.06] hover:text-foreground"
+          ? "bg-blue font-medium text-foreground"
+          : "text-muted hover:bg-secondary/15 hover:text-foreground"
       )}
     >
       {active && (
@@ -58,7 +58,7 @@ export function Sidebar() {
   const SportIcon = sport ? sportIcons[sport.id] : null;
 
   return (
-    <aside className="sticky top-16 hidden h-[calc(100vh-64px)] w-[264px] shrink-0 flex-col overflow-y-auto border-r border-border no-scrollbar lg:flex">
+<aside className="sticky top-16 hidden h-[calc(100vh-64px)] w-[264px] shrink-0 flex-col overflow-y-auto border-r border-border-navy bg-navy no-scrollbar lg:flex">
       <nav className="flex-1 px-3 pb-6">
         {section ? (
           <>
@@ -91,7 +91,7 @@ export function Sidebar() {
                 <li key={team.id}>
                   <Link
                     href={`/team/${team.id}`}
-                    className="group flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors duration-200 hover:bg-muted/[0.06]"
+className="group flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors duration-200 hover:bg-secondary/15"
                   >
                     <TeamLogo logo={team.logo} name={team.name} size="xs" />
                     <span className="flex-1 truncate font-medium">{team.name}</span>
@@ -107,7 +107,7 @@ export function Sidebar() {
                 <li key={match.id}>
                   <Link
                     href={`/match/${match.id}`}
-                    className="group flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm transition-colors duration-200 hover:bg-muted/[0.06]"
+className="group flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm transition-colors duration-200 hover:bg-secondary/15"
                   >
                     <TeamLogo logo={match.homeTeam.logo} name={match.homeTeam.name} size="xs" />
                     <span className="min-w-0 flex-1 truncate">

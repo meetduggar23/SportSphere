@@ -11,11 +11,11 @@ interface MatchTimelineProps {
 }
 
 const eventStyles: Record<string, string> = {
-  goal: "text-emerald-600 dark:text-emerald-400",
-  yellow: "text-yellow-500",
-  red: "text-rose-600 dark:text-rose-400",
-  sub: "text-sky-600 dark:text-sky-400",
-  var: "text-violet-600 dark:text-violet-400",
+  goal: "text-secondary",
+  yellow: "text-brand-maroon",
+  red: "text-brand",
+  sub: "text-brand-purple",
+  var: "text-brand-navy",
   info: "text-muted",
 };
 
@@ -31,15 +31,15 @@ export function MatchTimeline({ events, homeLogo, awayLogo }: MatchTimelineProps
       <div className="space-y-1">
         {timeline.map((event, i) => (
           <div key={i} className="relative flex items-center gap-3.5 py-2.5 pl-2">
-            <div
+<div
               className={cn(
                 "w-9 h-9 rounded-xl border bg-card flex items-center justify-center z-10 shrink-0 shadow-card",
-                event.type === "goal" && "border-emerald-500/30 bg-emerald-500/10"
+                event.type === "goal" && "border-secondary/40 bg-secondary/10"
               )}
             >
               {event.type === "goal" && <span className="text-sm">⚽</span>}
-              {event.type === "yellow" && <span className="w-3 h-4 rounded-[2px] bg-yellow-400" />}
-              {event.type === "red" && <span className="w-3 h-4 rounded-[2px] bg-rose-500" />}
+              {event.type === "yellow" && <span className="w-3 h-4 rounded-[2px] bg-brand-maroon" />}
+              {event.type === "red" && <span className="w-3 h-4 rounded-[2px] bg-brand" />}
               {event.type === "sub" && <span className="text-xs">🔄</span>}
               {event.type === "var" && <span className="text-xs">📺</span>}
               {event.type === "info" && <span className="text-xs">ℹ️</span>}

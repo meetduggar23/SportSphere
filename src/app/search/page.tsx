@@ -58,7 +58,7 @@ function SearchContent({ initialQuery }: { initialQuery: string }) {
         />
 
         <div className="relative mb-8">
-          <div className="flex items-center gap-3 px-4 py-3 rounded-xl border border-border bg-card focus-within:border-primary/50 focus-within:ring-2 focus-within:ring-primary/10 transition-all">
+          <div className="flex items-center gap-3 px-4 py-3 rounded-xl border border-border bg-card focus-within:border-secondary/50 focus-within:ring-2 focus-within:ring-secondary/10 transition-all">
             <SearchIcon className="h-5 w-5 text-muted shrink-0" />
             <input
               value={localQuery}
@@ -113,7 +113,7 @@ function SearchContent({ initialQuery }: { initialQuery: string }) {
                       {icons[r.type]}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium truncate group-hover:text-primary transition-colors">
+                      <p className="text-sm font-medium truncate group-hover:text-foreground transition-colors">
                         {r.label}
                       </p>
                       <p className="text-xs text-muted truncate">{r.sub}</p>
@@ -121,11 +121,11 @@ function SearchContent({ initialQuery }: { initialQuery: string }) {
                     <span
                       className={cn(
                         "text-[10px] font-bold px-2 py-0.5 rounded-full shrink-0",
-                        r.type === "Player" && "bg-primary/10 text-primary",
+                        r.type === "Player" && "bg-secondary/10 text-secondary",
                         r.type === "Team" && "bg-brand-maroon/10 text-brand-maroon",
                         r.type === "Match" && "bg-brand-purple/10 text-brand-purple",
                         r.type === "News" && "bg-brand-navy/10 text-brand-navy",
-                        r.type === "Competition" && "bg-primary/10 text-primary"
+                        r.type === "Competition" && "bg-secondary/10 text-secondary"
                       )}
                     >
                       {r.type}

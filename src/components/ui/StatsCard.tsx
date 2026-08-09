@@ -12,10 +12,10 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
 };
 
 const iconColors: Record<string, string> = {
-  live: "from-brand to-brand-maroon",
-  calendar: "from-brand-maroon to-brand-purple",
-  news: "from-brand-purple to-brand-navy",
-  predictions: "from-brand-navy to-brand",
+  live: "from-sand to-gold/70 text-berry",
+  calendar: "from-sand to-secondary/50 text-berry",
+  news: "from-sand to-deep/25 text-berry",
+  predictions: "from-sand to-gold/60 text-berry",
 };
 
 interface StatsCardProps {
@@ -26,23 +26,21 @@ export function StatsCard({ card }: StatsCardProps) {
   const Icon = iconMap[card.icon];
 
   return (
-    <div className="group relative overflow-hidden rounded-2xl border border-border bg-card p-5 hover:shadow-pop hover:-translate-y-0.5 transition-all duration-300">
-      <div className="absolute -top-10 -right-10 h-28 w-28 rounded-full bg-primary/5 blur-2xl group-hover:bg-primary/10 transition-colors duration-300" />
+    <div className="group relative overflow-hidden rounded-3xl arena-card arena-card-hover p-5">
+      <div className="absolute -right-10 -top-10 h-28 w-28 rounded-full bg-secondary/8 blur-2xl transition-colors duration-300 group-hover:bg-secondary/14" />
       <div className="flex items-start gap-4">
         <div
           className={cn(
-            "p-3 rounded-xl bg-gradient-to-br text-white shadow-card shrink-0",
-            iconColors[card.icon] ?? "from-primary to-brand-maroon"
+            "shrink-0 rounded-2xl bg-gradient-to-br p-3 text-berry shadow-card",
+            iconColors[card.icon] ?? "from-sand to-gold/60"
           )}
         >
           {Icon && <Icon className="h-5 w-5" />}
         </div>
         <div className="min-w-0">
-          <p className="text-sm text-muted">{card.label}</p>
-          <p className="font-display text-3xl font-bold tracking-tight mt-1 tabular-nums">
-            {card.value}
-          </p>
-          <p className="text-xs text-muted mt-1">{card.subtitle}</p>
+          <p className="meta">{card.label}</p>
+          <p className="display mt-1 text-3xl tabular-nums">{card.value}</p>
+          <p className="meta mt-1">{card.subtitle}</p>
         </div>
       </div>
     </div>

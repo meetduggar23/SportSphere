@@ -24,7 +24,7 @@ export default function ProfilePage() {
         <div className="flex gap-6">
           <div className="flex-1 min-w-0 space-y-6">
             <div className="bg-card rounded-xl border border-border p-6 flex items-center gap-5">
-              <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary to-brand-purple flex items-center justify-center text-3xl font-bold text-white">
+<div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-3xl font-bold text-berry">
                 MD
               </div>
               <div className="flex-1">
@@ -36,11 +36,10 @@ export default function ProfilePage() {
               </div>
               <div className="flex gap-6 text-center">
                 <div>
-                  <p className="text-xl font-extrabold text-primary">128</p>
+                  <p className="text-xl font-extrabold text-foreground">128</p>
                   <p className="text-xs text-muted">Predictions</p>
                 </div>
-                <div>
-                  <p className="text-xl font-extrabold text-yellow-500">12</p>
+                <div>              <p className="text-xl font-extrabold text-foreground">12</p>
                   <p className="text-xs text-muted">Badges</p>
                 </div>
                 <div>
@@ -52,7 +51,7 @@ export default function ProfilePage() {
 
             <div>
               <h3 className="font-bold text-lg mb-4 flex items-center gap-2">
-                <Heart className="h-4 w-4 text-primary" /> Followed Teams
+                <Heart className="h-4 w-4 text-secondary" /> Followed Teams
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {followedTeams.map((team) => (
@@ -62,7 +61,7 @@ export default function ProfilePage() {
                       <p className="font-bold truncate">{team.name}</p>
                       <p className="text-xs text-muted">{team.sport}</p>
                     </div>
-                    <button className="text-xs font-medium text-muted hover:text-primary transition-colors">
+                    <button className="text-xs font-medium text-muted hover:text-secondary transition-colors">
                       Unfollow
                     </button>
                   </div>
@@ -71,8 +70,7 @@ export default function ProfilePage() {
             </div>
 
             <div>
-              <h3 className="font-bold text-lg mb-4 flex items-center gap-2">
-                <Star className="h-4 w-4 text-yellow-500" /> Bookmarked Matches
+              <h3 className="font-bold text-lg mb-4 flex items-center gap-2">                <Star className="h-4 w-4 text-secondary" /> Bookmarked Matches
               </h3>
               <div className="space-y-3">
                 {bookmarkedMatches.map((m) => (
@@ -83,7 +81,7 @@ export default function ProfilePage() {
 
             <div>
               <h3 className="font-bold text-lg mb-4 flex items-center gap-2">
-                <Bookmark className="h-4 w-4 text-primary" /> Saved News
+                <Bookmark className="h-4 w-4 text-secondary" /> Saved News
               </h3>
               <div className="space-y-3">
                 {savedNews.map((n) => (
@@ -114,9 +112,7 @@ export default function ProfilePage() {
                   </a>
                 ))}
               </div>
-            </div>
-
-            <button className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold text-red-500 border border-red-500/20 hover:bg-red-500/10 transition-colors">
+            </div>              <button className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold text-secondary border border-secondary/30 hover:bg-secondary/10 transition-colors">
               <LogOut className="h-4 w-4" /> Sign Out
             </button>
           </aside>

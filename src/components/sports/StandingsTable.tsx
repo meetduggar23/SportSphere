@@ -15,9 +15,9 @@ interface StandingsTableProps {
 }
 
 const formColors: Record<string, string> = {
-  W: "bg-emerald-500/90 text-white",
-  D: "bg-zinc-400/80 text-white",
-  L: "bg-rose-500/90 text-white",
+  W: "bg-secondary/15 text-secondary",
+  D: "bg-deep/30 text-muted-strong",
+  L: "bg-navy/60 text-muted-strong",
 };
 
 export function StandingsTable({
@@ -30,22 +30,22 @@ export function StandingsTable({
   const [activeTab, setActiveTab] = useState(0);
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-card">
-      <div className="flex items-center justify-between gap-3 flex-wrap px-6 py-5 border-b border-border">
+<div className="overflow-hidden rounded-3xl arena-card">
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border-navy px-6 py-5">
         <div>
-          <h2 className="font-display text-lg font-bold tracking-tight">{title}</h2>
-          <p className="text-xs text-muted mt-0.5">Latest league table</p>
+          <h2 className="heading text-lg text-foreground">{title}</h2>
+          <p className="meta mt-0.5">Latest league table</p>
         </div>
         {tabs && (
-          <div className="flex gap-1 bg-muted/10 rounded-xl p-1 border border-border/60">
+          <div className="flex gap-1 rounded-xl border border-border-navy bg-navy/50 p-1">
             {tabs.map((tab, i) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(i)}
                 className={cn(
-                  "px-3 py-1.5 text-xs font-medium rounded-lg transition-all duration-200",
+                  "rounded-lg px-3 py-1.5 text-xs font-semibold transition-all duration-200",
                   activeTab === i
-                    ? "bg-card shadow-card text-foreground"
+                    ? "bg-blue/50 text-foreground"
                     : "text-muted hover:text-foreground"
                 )}
               >
@@ -59,61 +59,61 @@ export function StandingsTable({
       <div className="overflow-x-auto">
         <table className="w-full">
           <thead>
-            <tr className="text-[11px] uppercase tracking-wider text-muted border-b border-border bg-muted/5">
-              <th className="text-left py-3 px-6 font-semibold">#</th>
-              <th className="text-left py-3 px-2 font-semibold">Team</th>
-              <th className="text-center py-3 px-2 font-semibold">P</th>
-              <th className="text-center py-3 px-2 font-semibold">W</th>
-              <th className="text-center py-3 px-2 font-semibold">D</th>
-              <th className="text-center py-3 px-2 font-semibold">L</th>
-              <th className="text-center py-3 px-2 font-semibold">GD</th>
-              {!compact && <th className="text-center py-3 px-2 font-semibold hidden sm:table-cell">Form</th>}
-              <th className="text-center py-3 px-6 font-semibold">Pts</th>
+            <tr className="border-b border-border-navy bg-navy/30 text-[11px] uppercase tracking-wider text-muted">
+              <th className="px-6 py-3 text-left font-semibold">#</th>
+              <th className="px-2 py-3 text-left font-semibold">Team</th>
+              <th className="px-2 py-3 text-center font-semibold">P</th>
+              <th className="px-2 py-3 text-center font-semibold">W</th>
+              <th className="px-2 py-3 text-center font-semibold">D</th>
+              <th className="px-2 py-3 text-center font-semibold">L</th>
+              <th className="px-2 py-3 text-center font-semibold">GD</th>
+              {!compact && <th className="hidden px-2 py-3 text-center font-semibold sm:table-cell">Form</th>}
+              <th className="px-6 py-3 text-center font-semibold">Pts</th>
             </tr>
           </thead>
           <tbody>
             {standings.slice(0, compact ? 6 : undefined).map((row) => (
-              <tr
+<tr
                 key={row.position}
-                className="border-b border-border last:border-0 transition-colors hover:bg-card-hover"
+                className="border-b border-border-navy transition-colors last:border-0 hover:bg-blue/30"
               >
-                <td className="py-3.5 px-6">
+                <td className="px-6 py-3.5">
                   <span
                     className={cn(
-                      "inline-flex items-center justify-center w-6 h-6 text-xs font-bold rounded-lg tabular-nums",
+                      "inline-flex h-7 w-7 items-center justify-center rounded-lg text-xs font-bold tabular-nums",
                       row.position === 1
-                        ? "bg-primary text-white shadow-card"
+                        ? "bg-secondary text-berry"
                         : row.position <= 4
-                          ? "bg-brand-maroon/15 text-brand-maroon"
+                          ? "bg-blue/50 text-muted-strong"
                           : "text-muted"
                     )}
                   >
                     {row.position}
                   </span>
                 </td>
-                <td className="py-3.5 px-2">
-                  <Link href={`/team/${row.team.id}`} className="flex items-center gap-2.5 group">
+<td className="px-2 py-3.5">
+                  <Link href={`/team/${row.team.id}`} className="group flex items-center gap-2.5">
                     <TeamLogo logo={row.team.logo} name={row.team.name} size="sm" />
-                    <span className="font-medium text-sm truncate max-w-[150px] group-hover:text-primary transition-colors">
+                    <span className="max-w-[150px] truncate text-sm font-medium text-foreground-soft transition-colors group-hover:text-foreground">
                       {row.team.name}
                     </span>
                   </Link>
                 </td>
-                <td className="text-center py-3.5 px-2 text-sm tabular-nums text-muted">{row.played}</td>
-                <td className="text-center py-3.5 px-2 text-sm tabular-nums">{row.won}</td>
-                <td className="text-center py-3.5 px-2 text-sm tabular-nums">{row.drawn}</td>
-                <td className="text-center py-3.5 px-2 text-sm tabular-nums">{row.lost}</td>
-                <td className="text-center py-3.5 px-2 text-sm tabular-nums text-muted">
+                <td className="px-2 py-3.5 text-center text-sm tabular-nums text-muted">{row.played}</td>
+                <td className="px-2 py-3.5 text-center text-sm tabular-nums">{row.won}</td>
+                <td className="px-2 py-3.5 text-center text-sm tabular-nums">{row.drawn}</td>
+                <td className="px-2 py-3.5 text-center text-sm tabular-nums">{row.lost}</td>
+                <td className="px-2 py-3.5 text-center text-sm tabular-nums text-muted">
                   {row.goalDifference > 0 ? `+${row.goalDifference}` : row.goalDifference}
                 </td>
                 {!compact && (
-                  <td className="py-3.5 px-2 hidden sm:table-cell">
-                    <div className="flex gap-1 justify-center">
+                  <td className="hidden px-2 py-3.5 sm:table-cell">
+                    <div className="flex justify-center gap-1">
                       {row.form?.map((f, i) => (
                         <span
                           key={i}
                           className={cn(
-                            "w-5 h-5 text-[9px] font-bold rounded-md flex items-center justify-center shadow-sm",
+                            "flex h-5 w-5 items-center justify-center rounded-md text-[9px] font-bold shadow-sm",
                             formColors[f]
                           )}
                         >
@@ -123,8 +123,8 @@ export function StandingsTable({
                     </div>
                   </td>
                 )}
-                <td className="text-center py-3.5 px-6">
-                  <span className="font-display text-sm font-bold tabular-nums">{row.points}</span>
+                <td className="px-6 py-3.5 text-center">
+                  <span className="display text-sm font-bold text-foreground tabular-nums">{row.points}</span>
                 </td>
               </tr>
             ))}
@@ -132,10 +132,10 @@ export function StandingsTable({
         </table>
       </div>
 
-      <div className="px-6 py-4 border-t border-border">
+<div className="border-t border-border-navy px-6 py-4">
         <Link
           href={href}
-          className="w-full block text-center text-sm font-semibold text-primary hover:bg-primary/10 py-2.5 rounded-xl transition-colors"
+          className="block w-full rounded-xl py-2.5 text-center text-sm font-semibold text-muted-strong transition-colors hover:bg-blue/40 hover:text-foreground"
         >
           View Full Table
         </Link>

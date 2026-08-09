@@ -35,7 +35,7 @@ export default function SettingsPage() {
         <div className="space-y-6">
           <div className="bg-card rounded-xl border border-border overflow-hidden">
             <div className="px-5 py-4 border-b border-border flex items-center gap-2">
-              <Palette className="h-4 w-4 text-primary" />
+              <Palette className="h-4 w-4 text-secondary" />
               <h3 className="font-bold">Appearance</h3>
             </div>
             <div className="p-5 space-y-4">
@@ -46,11 +46,11 @@ export default function SettingsPage() {
                     onClick={() => setTheme("light")}
                     className={cn(
                       "p-4 rounded-xl border text-left transition-all",
-                      theme === "light" ? "border-primary ring-1 ring-primary/30 bg-primary/5" : "border-border hover:border-muted"
+                      theme === "light" ? "border-secondary ring-1 ring-secondary/30 bg-secondary/5" : "border-border hover:border-muted"
                     )}
                   >
                     <div className="flex items-center gap-2 mb-2">
-                      <Sun className="h-5 w-5 text-brand" />
+                      <Sun className="h-5 w-5 text-secondary" />
                       <span className="font-semibold">Light</span>
                     </div>
                     <p className="text-xs text-muted">Bright and clean</p>
@@ -59,7 +59,7 @@ export default function SettingsPage() {
                     onClick={() => setTheme("dark")}
                     className={cn(
                       "p-4 rounded-xl border text-left transition-all",
-                      theme === "dark" ? "border-primary ring-1 ring-primary/30 bg-primary/5" : "border-border hover:border-muted"
+                      theme === "dark" ? "border-secondary ring-1 ring-secondary/30 bg-secondary/5" : "border-border hover:border-muted"
                     )}
                   >
                     <div className="flex items-center gap-2 mb-2">
@@ -82,8 +82,8 @@ export default function SettingsPage() {
                       onClick={() => setLanguage(lang)}
                       className={cn(
                         "px-3 py-1.5 rounded-full text-sm transition-colors",
-                        language === lang
-                          ? "bg-primary text-white"
+language === lang
+                          ? "bg-secondary text-berry"
                           : "bg-muted/10 hover:bg-muted/20"
                       )}
                     >
@@ -97,7 +97,7 @@ export default function SettingsPage() {
 
           <div className="bg-card rounded-xl border border-border overflow-hidden">
             <div className="px-5 py-4 border-b border-border flex items-center gap-2">
-              <Bell className="h-4 w-4 text-primary" />
+              <Bell className="h-4 w-4 text-secondary" />
               <h3 className="font-bold">Notifications</h3>
             </div>
             <div className="divide-y divide-border">
@@ -119,13 +119,12 @@ export default function SettingsPage() {
                     aria-checked={notifications[n.key]}
                     onClick={() => toggleNotification(n.key)}
                     className={cn(
-                      "w-11 h-6 rounded-full transition-colors relative shrink-0",
-                      notifications[n.key] ? "bg-primary" : "bg-muted/30"
+                      "w-11 h-6 rounded-full transition-colors relative shrink-0",                          notifications[n.key] ? "bg-secondary" : "bg-muted/30"
                     )}
                   >
-                    <span
+<span
                       className={cn(
-                        "absolute top-0.5 w-5 h-5 rounded-full bg-white shadow transition-all",
+                        "absolute top-0.5 w-5 h-5 rounded-full bg-navy shadow transition-all",
                         notifications[n.key] ? "left-[22px]" : "left-0.5"
                       )}
                     />
@@ -137,7 +136,7 @@ export default function SettingsPage() {
 
           <div className="bg-card rounded-xl border border-border overflow-hidden">
             <div className="px-5 py-4 border-b border-border flex items-center gap-2">
-              <Shield className="h-4 w-4 text-primary" />
+              <Shield className="h-4 w-4 text-secondary" />
               <h3 className="font-bold">Security & Privacy</h3>
             </div>
             <div className="divide-y divide-border">

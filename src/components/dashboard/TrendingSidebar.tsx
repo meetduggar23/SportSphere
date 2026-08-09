@@ -12,57 +12,57 @@ interface TrendingSidebarProps {
 
 export function TrendingSidebar({ items, title = "Trending Now" }: TrendingSidebarProps) {
   return (
-    <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-card">
-      <div className="px-6 py-5 border-b border-border flex items-center justify-between">
-        <h2 className="font-display text-lg font-bold tracking-tight">{title}</h2>
+<div className="overflow-hidden rounded-3xl arena-card">
+      <div className="flex items-center justify-between border-b border-border-navy px-6 py-5">
+        <h2 className="heading text-lg text-foreground">{title}</h2>
         <Link
           href="/sports"
-          className="text-sm font-semibold text-primary hover:text-primary-hover transition-colors"
+          className="text-sm font-semibold text-muted-strong transition-colors hover:text-foreground"
         >
           View All
         </Link>
       </div>
 
-      <div className="divide-y divide-border">
+      <div className="divide-y divide-border-navy">
         {items.map((item) => (
           <div
             key={item.id}
-            className="group px-6 py-4 hover:bg-card-hover transition-colors cursor-pointer flex items-center gap-4"
+            className="group flex cursor-pointer items-center gap-4 px-6 py-4 transition-colors hover:bg-blue/30"
           >
-            <span className="font-display text-2xl font-bold text-muted/40 w-7 shrink-0 tabular-nums">
+            <span className="display w-7 shrink-0 text-2xl text-faint tabular-nums">
               {item.rank}
             </span>
-            <div className="flex-1 min-w-0">
-              <p className="font-medium text-sm truncate group-hover:text-primary transition-colors">
+            <div className="min-w-0 flex-1">
+              <p className="truncate text-sm font-semibold text-foreground-soft transition-colors group-hover:text-foreground">
                 {item.title}
               </p>
-              <p className="text-xs text-muted mt-0.5 truncate">{item.subtitle}</p>
+              <p className="meta mt-0.5 truncate">{item.subtitle}</p>
             </div>
-            <div className="flex items-center gap-2 shrink-0">
+            <div className="flex shrink-0 items-center gap-2">
               <div className="flex -space-x-1.5">
                 {item.logos.map((logo, i) => (
                   <span
                     key={i}
-                    className="flex h-6 w-6 items-center justify-center rounded-full bg-muted/10 ring-2 ring-card text-xs"
+                    className="flex h-6 w-6 items-center justify-center rounded-full bg-navy/50 text-xs ring-2 ring-surface-1"
                   >
                     {logo}
                   </span>
                 ))}
               </div>
-              {item.trend === "up" && <TrendingUp className="h-4 w-4 text-emerald-500" />}
-              {item.trend === "down" && <TrendingDown className="h-4 w-4 text-rose-500" />}
+              {item.trend === "up" && <TrendingUp className="h-4 w-4 text-secondary" />}
+              {item.trend === "down" && <TrendingDown className="h-4 w-4 text-brand-navy" />}
               {item.trend === "steady" && <Minus className="h-4 w-4 text-muted" />}
             </div>
-            <ChevronRight className="h-4 w-4 text-muted opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 shrink-0" />
+<ChevronRight className="h-4 w-4 shrink-0 -translate-x-1 text-faint opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100 group-hover:text-foreground" />
           </div>
         ))}
       </div>
 
-      <div className="px-6 py-4 border-t border-border">
+      <div className="border-t border-border-navy px-6 py-4">
         <Link
           href="/sports"
           className={cn(
-            "block w-full text-center text-sm font-semibold text-primary hover:bg-primary/10 py-2.5 rounded-xl transition-colors"
+            "block w-full rounded-xl py-2.5 text-center text-sm font-semibold text-muted-strong transition-colors hover:bg-blue/40 hover:text-foreground"
           )}
         >
           See What&apos;s Trending

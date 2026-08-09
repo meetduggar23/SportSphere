@@ -15,6 +15,15 @@ const sizes = {
   xl: "w-20 h-20 text-2xl",
 };
 
+/**
+ * Clean logo renderer.
+ *
+ * The logo image itself is the only visible graphic: no rings, circles,
+ * background tiles, borders, shadows or decorative wrappers. Images use
+ * object-contain so each logo keeps its natural shape and proportions
+ * (shields stay shields, wide logos stay wide), centered within the
+ * allocated square space.
+ */
 export function TeamLogo({ logo, name, size = "md", className }: TeamLogoProps) {
   const isUrl = logo.startsWith("http") || logo.startsWith("/");
 
@@ -27,19 +36,16 @@ export function TeamLogo({ logo, name, size = "md", className }: TeamLogoProps) 
         height={96}
         loading="lazy"
         decoding="async"
-        className={cn(
-          "rounded-full object-cover bg-muted/10 ring-1 ring-border shadow-card shrink-0",
-          sizes[size],
-          className
-        )}
+        className={cn("shrink-0 object-contain", sizes[size], className)}
       />
     );
   }
 
+  // Fallback for teams without an image asset — a quiet neutral chip, no ring/shadow.
   return (
     <div
       className={cn(
-        "rounded-full bg-gradient-to-br from-primary/25 to-primary/5 ring-1 ring-primary/20 flex items-center justify-center shrink-0 select-none",
+        "flex shrink-0 select-none items-center justify-center rounded-lg bg-blue/40",
         sizes[size],
         className
       )}

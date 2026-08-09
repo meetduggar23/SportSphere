@@ -31,7 +31,7 @@ export default function TeamsPage() {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="text-center">
-          <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <div className="w-12 h-12 border-4 border-secondary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
           <p className="text-muted">Loading teams...</p>
         </div>
       </div>
@@ -52,12 +52,12 @@ export default function TeamsPage() {
             <Link
               key={team.id}
               href={`/team/${team.id}`}
-              className="bg-card rounded-xl border border-border p-5 hover:shadow-lg hover:-translate-y-0.5 transition-all group"
+className="arena-card arena-card-hover p-5 group"
             >
               <div className="flex items-center gap-4">
                 <TeamLogo logo={team.logo} name={team.name} size="lg" />
                 <div className="flex-1 min-w-0">
-                  <p className="font-bold truncate group-hover:text-primary transition-colors">{team.name}</p>
+                  <p className="font-bold truncate group-hover:text-foreground transition-colors">{team.name}</p>
                   <p className="text-xs text-muted">⚽ Football</p>
                   {team.country && <p className="text-xs text-muted mt-0.5">🌍 {team.country}</p>}
                 </div>

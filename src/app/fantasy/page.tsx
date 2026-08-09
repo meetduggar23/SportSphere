@@ -32,18 +32,17 @@ export default function FantasyPage() {
           subtitle="Build your dream team with AI-powered suggestions"
         />
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-          <div className="bg-card rounded-xl border border-border p-5 text-center">
-            <p className="text-3xl font-extrabold text-primary">{selected.length}/15</p>
-            <p className="text-xs text-muted mt-1">Players Selected</p>
+<div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+          <div className="arena-card p-5 text-center">
+            <p className="headline text-3xl text-foreground">{selected.length}/15</p>
+            <p className="meta mt-1">Players Selected</p>
           </div>
-          <div className="bg-card rounded-xl border border-border p-5 text-center">
-            <p className="text-3xl font-extrabold">€{totalValue.toFixed(1)}M</p>
-            <p className="text-xs text-muted mt-1">Team Value (Budget €100M)</p>
+          <div className="arena-card p-5 text-center">
+            <p className="headline text-3xl text-foreground">€{totalValue.toFixed(1)}M</p>
+            <p className="meta mt-1">Team Value (Budget €100M)</p>
           </div>
-          <div className="bg-card rounded-xl border border-border p-5 text-center">
-            <p className="text-3xl font-extrabold text-green-600">1,245</p>
-            <p className="text-xs text-muted mt-1">Projected Points (GW 35)</p>
+          <div className="arena-card p-5 text-center">            <p className="headline text-3xl text-foreground">1,245</p>
+            <p className="meta mt-1">Projected Points (GW 35)</p>
           </div>
         </div>
 
@@ -58,9 +57,8 @@ export default function FantasyPage() {
                   <div
                     key={pick.id}
                     className={cn(
-                      "bg-card rounded-xl border p-4 transition-all cursor-pointer hover:shadow-lg",
-                      isSelected ? "border-primary ring-1 ring-primary/30" : "border-border",
-                      isCaptain && "ring-2 ring-yellow-400/60"
+                      "bg-card rounded-xl border p-4 transition-all cursor-pointer hover:shadow-lg",                      isSelected ? "border-secondary ring-1 ring-secondary/30" : "border-border",
+                      isCaptain && "ring-2 ring-secondary/50"
                     )}
                     onClick={() => toggle(pick.id)}
                   >
@@ -69,7 +67,7 @@ export default function FantasyPage() {
                         {pick.position}
                       </span>
                       {pick.suggested && (
-                        <span className="flex items-center gap-1 text-[10px] font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-full">
+                        <span className="flex items-center gap-1 text-[10px] font-bold text-secondary bg-secondary/10 px-2 py-0.5 rounded-full">
                           <Wand2 className="h-2.5 w-2.5" /> AI Pick
                         </span>
                       )}
@@ -88,8 +86,7 @@ export default function FantasyPage() {
                       <span className="text-xs text-muted">{pick.price}</span>
                       <div className="flex gap-1.5">
                         {isCaptain && (
-                          <button
-                            className="text-[10px] font-bold px-2 py-1 rounded-full bg-yellow-500/10 text-yellow-600"
+                          <button                            className="text-[10px] font-bold px-2 py-1 rounded-full bg-secondary/10 text-secondary"
                             title="Captain"
                           >
                             <Crown className="h-3 w-3" />
@@ -104,7 +101,7 @@ export default function FantasyPage() {
                           className={cn(
                             "text-[10px] font-bold px-2 py-1 rounded-full transition-colors",
                             isSelected
-                              ? "bg-primary/10 text-primary hover:bg-primary/20"
+                              ? "bg-secondary/10 text-secondary hover:bg-secondary/20"
                               : "bg-muted/10 text-muted cursor-not-allowed"
                           )}
                           title="Make captain"
@@ -121,8 +118,7 @@ export default function FantasyPage() {
 
           <aside className="hidden lg:block w-80 shrink-0 space-y-6">
             <div className="bg-card rounded-xl border border-border p-4">
-              <h3 className="font-bold text-sm mb-3 flex items-center gap-2">
-                <Crown className="h-4 w-4 text-yellow-500" /> Captain Suggestions
+              <h3 className="font-bold text-sm mb-3 flex items-center gap-2">                <Crown className="h-4 w-4 text-secondary" /> Captain Suggestions
               </h3>
               <div className="space-y-2 text-sm">
                 {[
@@ -132,7 +128,7 @@ export default function FantasyPage() {
                   <div key={s.name} className="bg-muted/10 rounded-lg p-3">
                     <div className="flex justify-between">
                       <p className="font-semibold text-sm">{s.name}</p>
-                      <span className="text-xs font-bold text-primary">{s.pts} pts</span>
+                      <span className="text-xs font-bold text-muted-strong">{s.pts} pts</span>
                     </div>
                     <p className="text-xs text-muted mt-1">💡 {s.reason}</p>
                   </div>
@@ -142,7 +138,7 @@ export default function FantasyPage() {
 
             <div className="bg-card rounded-xl border border-border p-4">
               <h3 className="font-bold text-sm mb-3 flex items-center gap-2">
-                <TrendingUp className="h-4 w-4 text-primary" /> Differential Picks
+                <TrendingUp className="h-4 w-4 text-secondary" /> Differential Picks
               </h3>
               <div className="space-y-2 text-sm">
                 {[
@@ -161,8 +157,7 @@ export default function FantasyPage() {
             </div>
 
             <div className="bg-card rounded-xl border border-border p-4">
-              <h3 className="font-bold text-sm mb-3 flex items-center gap-2">
-                <ShieldAlert className="h-4 w-4 text-red-500" /> Injury Alerts
+              <h3 className="font-bold text-sm mb-3 flex items-center gap-2">                <ShieldAlert className="h-4 w-4 text-secondary" /> Injury Alerts
               </h3>
               <div className="space-y-2 text-sm">
                 {[
@@ -171,8 +166,7 @@ export default function FantasyPage() {
                 ].map((s) => (
                   <div key={s.name} className="bg-muted/10 rounded-lg p-3">
                     <div className="flex justify-between">
-                      <p className="font-semibold text-sm">{s.name}</p>
-                      <span className={cn("text-[10px] font-bold px-2 py-0.5 rounded-full", s.risk === "High" ? "bg-red-500/10 text-red-500" : "bg-green-500/10 text-green-600")}>
+                      <p className="font-semibold text-sm">{s.name}</p>                      <span className={cn("text-[10px] font-bold px-2 py-0.5 rounded-full", s.risk === "High" ? "bg-secondary/10 text-secondary" : "bg-brand-maroon/10 text-brand-maroon")}>
                         {s.risk} Risk
                       </span>
                     </div>

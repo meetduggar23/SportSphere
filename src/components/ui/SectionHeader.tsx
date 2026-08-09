@@ -7,6 +7,7 @@ interface SectionHeaderProps {
   href?: string;
   linkLabel?: string;
   icon?: React.ReactNode;
+  kicker?: string;
   className?: string;
 }
 
@@ -15,24 +16,26 @@ export function SectionHeader({
   href,
   linkLabel = "View All",
   icon,
+  kicker,
   className,
 }: SectionHeaderProps) {
   return (
-    <div className={cn("flex items-end justify-between gap-4 mb-6", className)}>
-      <div className="flex items-center gap-3 min-w-0">
-        {icon && (
-          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary ring-1 ring-primary/20">
-            {icon}
-          </span>
-        )}
-        <h2 className="font-display text-xl md:text-2xl font-bold tracking-tight text-balance">
-          {title}
-        </h2>
+    <div className={cn("mb-6 flex items-end justify-between gap-4", className)}>
+<div className="min-w-0">
+        {kicker && <p className="kicker mb-1.5 text-muted">{kicker}</p>}
+        <div className="flex items-center gap-3">
+          {icon && (
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl border border-border-navy bg-blue/40 text-muted-strong">
+              {icon}
+            </span>
+          )}
+          <h2 className="heading text-xl md:text-2xl text-foreground">{title}</h2>
+        </div>
       </div>
       {href && (
         <Link
           href={href}
-          className="group inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:text-primary-hover transition-colors shrink-0 pb-0.5"
+          className="group inline-flex shrink-0 items-center gap-1.5 rounded-full border border-border py-1.5 text-sm font-semibold text-muted-strong transition-colors hover:border-border-strong hover:text-foreground"
         >
           <span className="hidden sm:inline">{linkLabel}</span>
           <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />

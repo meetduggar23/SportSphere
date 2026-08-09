@@ -38,7 +38,7 @@ export default function CalendarPage() {
 
         <div className="flex gap-6">
           <div className="flex-1 min-w-0">
-            <div className="bg-card rounded-xl border border-border p-5 mb-6">
+<div className="arena-card p-5 mb-6">
               <div className="grid grid-cols-7 gap-2 mb-2">
                 {days.map((d) => (
                   <div key={d} className="text-center text-xs font-semibold text-muted py-1">
@@ -54,11 +54,10 @@ export default function CalendarPage() {
                       key={date}
                       onClick={() => setSelectedDay(date)}
                       className={cn(
-                        "relative aspect-square rounded-xl border text-sm font-medium transition-all",
-                        selectedDay === date
-                          ? "bg-primary text-white border-primary"
+                        "relative aspect-square rounded-xl border text-sm font-medium transition-all",                        selectedDay === date
+                          ? "bg-secondary text-berry border-secondary"
                           : hasEvents
-                          ? "bg-primary/5 border-primary/20 hover:bg-primary/10"
+                          ? "bg-secondary/5 border-secondary/20 hover:bg-secondary/10"
                           : "border-border hover:bg-muted/10"
                       )}
                     >
@@ -66,8 +65,7 @@ export default function CalendarPage() {
                       {hasEvents && (
                         <span
                           className={cn(
-                            "absolute bottom-1.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full",
-                            selectedDay === date ? "bg-white" : "bg-primary"
+                            "absolute bottom-1.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full",                            selectedDay === date ? "bg-navy" : "bg-secondary"
                           )}
                         />
                       )}
@@ -77,8 +75,8 @@ export default function CalendarPage() {
               </div>
             </div>
 
-            <div className="bg-card rounded-xl border border-border p-5">
-              <h3 className="font-bold mb-4">
+<div className="arena-card p-5">
+              <h3 className="heading text-lg text-foreground mb-4">
                 Matches on May {selectedDay}
               </h3>
               {eventsByDay[selectedDay] ? (

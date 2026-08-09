@@ -26,17 +26,18 @@ export default function PredictionsPage() {
         />
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-          {[
-            { icon: Trophy, label: "Season Rank", value: "#5", color: "text-brand" },
-            { icon: Target, label: "Accuracy", value: "68%", color: "text-primary" },
+          {[            { icon: Trophy, label: "Season Rank", value: "#5", color: "text-secondary" },
+            { icon: Target, label: "Accuracy", value: "68%", color: "text-secondary" },
             { icon: Medal, label: "Badges", value: "12", color: "text-brand-maroon" },
-            { icon: Flame, label: "Streak", value: "6", color: "text-brand-light" },
-          ].map((s) => (
-            <div key={s.label} className="bg-card rounded-xl border border-border p-4 flex items-center gap-3">
-              <s.icon className={cn("h-6 w-6", s.color)} />
+            { icon: Flame, label: "Streak", value: "6", color: "text-secondary" },
+].map((s) => (
+            <div key={s.label} className="arena-card p-4 flex items-center gap-3">
+              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-navy/60 ring-1 ring-border-navy">
+                <s.icon className={cn("h-5 w-5", s.color)} />
+              </span>
               <div>
-                <p className="text-xl font-extrabold">{s.value}</p>
-                <p className="text-xs text-muted">{s.label}</p>
+                <p className="headline text-xl text-foreground">{s.value}</p>
+                <p className="meta">{s.label}</p>
               </div>
             </div>
           ))}
@@ -56,7 +57,7 @@ export default function PredictionsPage() {
             <div className="bg-card rounded-xl border border-border overflow-hidden">
               <div className="p-4 border-b border-border">
                 <h3 className="font-bold flex items-center gap-2">
-                  <Trophy className="h-4 w-4 text-brand" /> Season Leaderboard
+                  <Trophy className="h-4 w-4 text-secondary" /> Season Leaderboard
                 </h3>
               </div>
               <div className="divide-y divide-border">
@@ -66,7 +67,7 @@ export default function PredictionsPage() {
                       className={cn(
                         "w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold shrink-0",
                         row.rank === 1
-                          ? "bg-brand/20 text-brand"
+                          ? "bg-secondary/20 text-secondary"
                           : row.rank === 2
                           ? "bg-brand-maroon/20 text-brand-maroon"
                           : row.rank === 3
@@ -77,13 +78,13 @@ export default function PredictionsPage() {
                       {row.rank}
                     </span>
                     <div className="flex-1 min-w-0">
-                      <p className={cn("text-sm font-medium truncate", row.user === "You" && "text-primary font-bold")}>
+                      <p className={cn("text-sm font-medium truncate", row.user === "You" && "text-secondary font-bold")}>
                         {row.user}
                       </p>
                       <p className="text-xs text-muted">{row.accuracy}% accuracy</p>
                     </div>
                     <div className="flex items-center gap-1.5">
-                      {row.trend === "up" && <Flame className="h-3.5 w-3.5 text-brand" />}
+                      {row.trend === "up" && <Flame className="h-3.5 w-3.5 text-secondary" />}
                       <span className="text-sm font-bold">{row.points}</span>
                     </div>
                   </div>

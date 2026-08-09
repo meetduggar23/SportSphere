@@ -25,15 +25,15 @@ export default function NewsDetailPage({ params }: { params: Promise<{ id: strin
           <ArrowLeft className="h-4 w-4" /> Back to News
         </Link>
 
-        <article className="bg-card rounded-2xl border border-border overflow-hidden">
+<article className="arena-card overflow-hidden">
           <div className="relative h-64 md:h-80">
             <img src={news.image} alt={news.title} className="w-full h-full object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+<div className="absolute inset-0 bg-gradient-to-t from-navy/80 to-transparent" />
             <div className="absolute bottom-4 left-6 right-6">
-              <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-primary text-white">
+              <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-secondary text-berry">
                 {news.category}
               </span>
-              <h1 className="text-xl md:text-2xl font-extrabold text-white mt-3 leading-snug">
+              <h1 className="text-xl md:text-2xl font-extrabold text-foreground mt-3 leading-snug">
                 {news.title}
               </h1>
             </div>
@@ -42,7 +42,7 @@ export default function NewsDetailPage({ params }: { params: Promise<{ id: strin
           <div className="p-6">
             <div className="flex items-center justify-between pb-5 border-b border-border mb-5">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold">
+                <div className="w-10 h-10 rounded-full bg-secondary/10 text-secondary flex items-center justify-center font-bold">
                   {news.author?.[0] ?? "S"}
                 </div>
                 <div>
@@ -57,7 +57,7 @@ export default function NewsDetailPage({ params }: { params: Promise<{ id: strin
                   onClick={() => setLiked(!liked)}
                   className={cn(
                     "p-2.5 rounded-lg border transition-colors",
-                    liked ? "bg-primary text-white border-primary" : "border-border hover:bg-muted/10"
+liked ? "bg-secondary text-berry border-secondary" : "border-border hover:bg-muted/10"
                   )}
                   aria-label="Like"
                 >
@@ -67,7 +67,7 @@ export default function NewsDetailPage({ params }: { params: Promise<{ id: strin
                   onClick={() => setBookmarked(!bookmarked)}
                   className={cn(
                     "p-2.5 rounded-lg border transition-colors",
-                    bookmarked ? "bg-primary text-white border-primary" : "border-border hover:bg-muted/10"
+bookmarked ? "bg-secondary text-berry border-secondary" : "border-border hover:bg-muted/10"
                   )}
                   aria-label="Bookmark"
                 >
@@ -95,7 +95,7 @@ export default function NewsDetailPage({ params }: { params: Promise<{ id: strin
                 as the deciding factor. Expected goals data showed a remarkably open game, with
                 combined xG exceeding 4.5.
               </p>
-              <blockquote className="border-l-4 border-primary pl-4 italic text-muted my-6">
+              <blockquote className="border-l-4 border-secondary pl-4 italic text-muted my-6">
                 &quot;This is why we love this sport. Moments like these transcend the game itself.&quot;
               </blockquote>
               <p>

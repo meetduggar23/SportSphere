@@ -65,7 +65,7 @@ export function LiveChat() {
                   onClick={() => toggleLike(msg.id)}
                   className={cn(
                     "flex items-center gap-1 text-xs mt-1 transition-colors",
-                    isLiked ? "text-primary" : "text-muted hover:text-primary"
+                    isLiked ? "text-secondary" : "text-muted hover:text-secondary"
                   )}
                 >
                   <Heart className={cn("h-3 w-3", isLiked && "fill-current")} />
@@ -84,11 +84,11 @@ export function LiveChat() {
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && send()}
             placeholder="Join the conversation..."
-            className="flex-1 px-3 py-2 rounded-lg border border-border bg-background text-sm outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all"
+            className="flex-1 px-3 py-2 rounded-lg border border-border bg-background text-sm outline-none focus:border-secondary/50 focus:ring-2 focus:ring-secondary/10 transition-all"
           />
           <button
             onClick={send}
-            className="p-2.5 rounded-lg bg-primary text-white hover:bg-primary-hover transition-colors"
+className="p-2.5 rounded-lg bg-primary text-berry hover:bg-primary-hover transition-colors"
             aria-label="Send message"
           >
             <Send className="h-4 w-4" />

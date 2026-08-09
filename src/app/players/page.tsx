@@ -31,7 +31,7 @@ export default function PlayersPage() {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="text-center">
-          <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <div className="w-12 h-12 border-4 border-secondary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
           <p className="text-muted">Loading top players...</p>
         </div>
       </div>
@@ -52,26 +52,25 @@ export default function PlayersPage() {
             <Link
               key={player.id}
               href={`/player/${player.id}`}
-              className="bg-card rounded-xl border border-border p-4 hover:shadow-lg hover:-translate-y-0.5 transition-all group"
+className="arena-card arena-card-hover p-4 group"
             >
               <div className="flex items-center gap-3 mb-3">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 border border-border flex items-center justify-center shrink-0 overflow-hidden">
-                  {player.photo ? (
+                {player.photo ? (
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-secondary/20 to-secondary/10 border border-border flex items-center justify-center shrink-0 overflow-hidden">
                     <img src={player.photo} alt={player.name} className="w-full h-full object-cover" />
-                  ) : (
-                    <TeamLogo logo={player.teamLogo} name={player.team} size="md" />
-                  )}
-                </div>
+                  </div>
+                ) : (
+                  <TeamLogo logo={player.teamLogo} name={player.team} size="md" />
+                )}
                 <div className="flex-1 min-w-0">
-                  <p className="font-semibold text-sm truncate group-hover:text-primary transition-colors">
+                  <p className="font-semibold text-sm truncate group-hover:text-foreground transition-colors">
                     {player.name}
                   </p>
                   <p className="text-xs text-muted truncate">
                     {player.team} • {player.position}
                   </p>
                 </div>
-                {player.rating && (
-                  <span className="text-xs font-bold text-yellow-500 shrink-0">
+                {player.rating && (                  <span className="text-xs font-bold text-foreground shrink-0">
                     {player.rating}★
                   </span>
                 )}
@@ -79,7 +78,7 @@ export default function PlayersPage() {
               <div className="grid grid-cols-3 gap-2 pt-3 border-t border-border">
                 <div>
                   <p className="text-[10px] text-muted uppercase">Stat</p>
-                  <p className="text-sm font-bold text-primary">{player.stat}</p>
+                  <p className="text-sm font-bold text-foreground">{player.stat}</p>
                 </div>
                 <div>
                   <p className="text-[10px] text-muted uppercase">Age</p>

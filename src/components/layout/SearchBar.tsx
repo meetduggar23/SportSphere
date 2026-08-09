@@ -56,7 +56,7 @@ export function SearchBar() {
 
   return (
     <div ref={containerRef} className="relative">
-      <div className="flex h-9 items-center gap-2 rounded-full border border-border bg-background/60 px-3.5 backdrop-blur transition-all w-48 focus-within:border-primary/50 focus-within:ring-2 focus-within:ring-primary/15 lg:w-56 xl:w-60">
+<div className="flex h-9 items-center gap-2 rounded-full border border-border-navy bg-blue/40 px-3.5 backdrop-blur transition-all w-48 focus-within:border-secondary/60 focus-within:ring-2 focus-within:ring-secondary/10 lg:w-56 xl:w-60">
         <Search className="h-4 w-4 text-muted shrink-0" />
         <input
           type="text"
@@ -78,7 +78,7 @@ export function SearchBar() {
         <button
           onClick={startVoiceSearch}
           className={`p-0.5 rounded-md transition-colors ${
-            listening ? "text-primary animate-pulse" : "text-muted hover:text-primary"
+            listening ? "text-primary animate-pulse" : "text-muted hover:text-secondary"
           }`}
           title="Voice search"
         >
@@ -128,7 +128,7 @@ export function SearchBar() {
                     <button
                       key={s}
                       onClick={() => submit(s)}
-                      className="text-xs px-2.5 py-1 rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-colors"
+                      className="text-xs px-2.5 py-1 rounded-full bg-blue/50 text-muted-strong hover:bg-blue/70 hover:text-foreground transition-colors"
                     >
                       {s}
                     </button>

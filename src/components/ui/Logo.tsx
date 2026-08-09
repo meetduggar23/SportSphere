@@ -11,9 +11,9 @@ export function Logo({ className }: LogoProps) {
       <img
         src="/logo.png"
         alt="SportSphere Logo"
-        width={140}
-        height={42}
-        className="h-8 w-auto object-contain"
+        width={175}
+        height={50}
+        className="h-10 w-auto object-contain"
         loading="eager"
         decoding="async"
       />

@@ -8,7 +8,7 @@ import { sportIcons, sportLabels, Sport } from "@/types";
 import { cn } from "@/lib/utils";
 
 const statusColors: Record<string, string> = {
-  active: "bg-brand/10 text-brand",
+  active: "bg-secondary/10 text-secondary",
   upcoming: "bg-brand-maroon/10 text-brand-maroon",
   finished: "bg-muted/20 text-muted",
 };
@@ -27,11 +27,11 @@ export default function CompetitionsPage() {
           {tournaments.map((tournament) => (
             <div
               key={tournament.id}
-              className="bg-card rounded-xl border border-border p-5 hover:shadow-lg transition-all cursor-pointer"
+className="arena-card arena-card-hover p-5 cursor-pointer"
             >
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center text-2xl">
+                  <div className="w-12 h-12 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center text-2xl">
                     {sportIcons[tournament.sport]}
                   </div>
                   <div>
@@ -63,7 +63,7 @@ export default function CompetitionsPage() {
 
               {tournament.prizePool && (
                 <p className="text-xs text-muted mt-3">
-                  💰 Prize Pool: <span className="font-semibold text-primary">{tournament.prizePool}</span>
+                  💰 Prize Pool: <span className="font-semibold text-foreground">{tournament.prizePool}</span>
                 </p>
               )}
             </div>

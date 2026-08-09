@@ -7,7 +7,7 @@ import { transfers } from "@/data/mock";
 import { cn } from "@/lib/utils";
 
 const statusColors: Record<string, string> = {
-  confirmed: "bg-brand/10 text-brand",
+  confirmed: "bg-secondary/10 text-secondary",
   rumored: "bg-brand-purple/10 text-brand-purple",
   completed: "bg-brand-navy/10 text-brand-navy",
 };
@@ -26,7 +26,7 @@ export default function TransfersPage() {
           {transfers.map((transfer) => (
             <div
               key={transfer.id}
-              className="bg-card rounded-xl border border-border p-5 hover:shadow-lg transition-all"
+className="arena-card arena-card-hover p-5"
             >
               <div className="flex items-center justify-between mb-4">
                 <span className={cn("text-xs font-bold px-2.5 py-1 rounded-full capitalize", statusColors[transfer.status])}>
@@ -48,13 +48,13 @@ export default function TransfersPage() {
                 <div className="flex flex-col items-center gap-2">
                   <div className="flex items-center gap-2">
                     <span className="text-lg">{transfer.fromTeamLogo}</span>
-                    <ArrowLeftRight className="h-5 w-5 text-primary rotate-180" />
+                    <ArrowLeftRight className="h-5 w-5 text-secondary rotate-180" />
                     <span className="text-lg">{transfer.toTeamLogo}</span>
                   </div>
                   <p className="text-xs text-muted text-center">
                     {transfer.fromTeam} → {transfer.toTeam}
                   </p>
-                  <p className="text-sm font-bold text-primary">{transfer.fee}</p>
+                  <p className="text-sm font-bold text-foreground">{transfer.fee}</p>
                 </div>
 
                 <div className="flex-1" />

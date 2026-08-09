@@ -54,7 +54,7 @@ export default function LivePage() {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="text-center">
-          <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <div className="w-12 h-12 border-4 border-secondary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
           <p className="text-muted">Loading live matches...</p>
         </div>
       </div>
@@ -80,7 +80,7 @@ export default function LivePage() {
         </div>
 
         {filtered.length === 0 ? (
-          <div className="text-center py-20 bg-card rounded-xl border border-border">
+<div className="arena-card text-center py-20">
             <p className="text-4xl mb-4">📡</p>
             <p className="font-medium">No matches found</p>
             <p className="text-sm text-muted mt-1">Try changing your filters</p>

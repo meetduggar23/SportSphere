@@ -69,7 +69,7 @@ export default function CricketPage() {
                 <div className="flex flex-col items-center gap-3 p-5">
                   <TeamLogo logo={t.logo} name={t.name} size="lg" />
                   <div className="text-center">
-                    <p className="font-display text-sm font-bold truncate group-hover:text-primary transition-colors">
+                    <p className="font-display text-sm font-bold truncate group-hover:text-foreground transition-colors">
                       {t.name}
                     </p>
                     <p className="text-xs text-muted mt-0.5">{t.city}</p>

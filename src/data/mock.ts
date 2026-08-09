@@ -18,10 +18,10 @@ import {
 } from "@/types";
 
 export const statsCards: StatsCard[] = [
-  { label: "Live Matches", value: 24, subtitle: "Across all sports", icon: "live", color: "bg-red-100 text-red-600 dark:bg-red-950 dark:text-red-400" },
-  { label: "Upcoming", value: 57, subtitle: "Next 7 days", icon: "calendar", color: "bg-blue-100 text-blue-600 dark:bg-blue-950 dark:text-blue-400" },
-  { label: "News Updates", value: 128, subtitle: "Today", icon: "news", color: "bg-purple-100 text-purple-600 dark:bg-purple-950 dark:text-purple-400" },
-  { label: "Your Predictions", value: 12, subtitle: "Active", icon: "predictions", color: "bg-green-100 text-green-600 dark:bg-green-950 dark:text-green-400" },
+  { label: "Live Matches", value: 24, subtitle: "Across all sports", icon: "live", color: "bg-secondary/15 text-secondary" },
+  { label: "Upcoming", value: 57, subtitle: "Next 7 days", icon: "calendar", color: "bg-brand-maroon/15 text-brand-maroon" },
+  { label: "News Updates", value: 128, subtitle: "Today", icon: "news", color: "bg-brand-purple/15 text-brand-purple" },
+  { label: "Your Predictions", value: 12, subtitle: "Active", icon: "predictions", color: "bg-blue/25 text-secondary" },
 ];
 
 interface TeamExtra {

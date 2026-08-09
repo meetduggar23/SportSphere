@@ -1,10 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { MapPin } from "lucide-react";
+import { MapPin, Clock } from "lucide-react";
 import { Match, sportIcons } from "@/types";
 import { TeamLogo } from "@/components/ui/TeamLogo";
-import { LiveBadge } from "@/components/ui/LiveBadge";
 import { cn } from "@/lib/utils";
 
 interface LiveMatchCardProps {
@@ -15,87 +14,94 @@ interface LiveMatchCardProps {
 export function LiveMatchCard({ match, className }: LiveMatchCardProps) {
   const isLive = match.status === "live";
   const isUpcoming = match.status === "upcoming";
-  const isFinished = match.status === "finished";
 
   return (
-    <Link
+<Link
       href={`/match/${match.id}`}
       className={cn(
-        "group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-card p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-pop",
-        isLive && "ring-1 ring-primary/25",
+        "group relative flex flex-col overflow-hidden rounded-3xl arena-card arena-card-hover",
+        isLive && "ring-1 ring-border-live/50",
         className
       )}
     >
+      {/* Live top accent bar */}
       {isLive && (
-        <div className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-transparent via-primary to-transparent" />
+        <div className="absolute inset-x-0 top-0 h-0.5 bg-live-gradient" />
       )}
 
-      <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center gap-2 min-w-0">
-          <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-muted/10 text-muted shrink-0">
+      {/* Header */}
+      <div className="flex items-center justify-between gap-2 px-5 pt-4">
+        <div className="flex min-w-0 items-center gap-2">
+          <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-blue/50 text-muted-strong">
             <span className="text-sm">{sportIcons[match.sport]}</span>
           </span>
-          <span className="text-[11px] font-semibold uppercase tracking-wider text-muted truncate">
-            {match.league}
-          </span>
+          <span className="label truncate">{match.league}</span>
         </div>
-        {isLive && <LiveBadge />}
+        {isLive && (
+          <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-primary/15 px-2.5 py-1 text-[10px] font-bold text-primary ring-1 ring-border-live">
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="absolute inline-flex h-full w-full rounded-full bg-primary animate-ping-ring" />
+              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-primary" />
+            </span>
+            {match.minute}
+          </span>
+        )}
         {isUpcoming && (
-          <span className="text-xs font-semibold text-muted tabular-nums shrink-0">{match.minute}</span>
-        )}
-        {isFinished && (
-          <span className="text-xs font-semibold text-muted tabular-nums shrink-0">
-            {match.minute ?? "FT"}
+          <span className="shrink-0 text-xs font-bold text-muted tabular-nums">
+            {match.minute}
           </span>
         )}
       </div>
 
-      <div className="space-y-3">
-        <div className="flex items-center justify-between gap-3">
-          <div className="flex items-center gap-3 min-w-0">
-            <TeamLogo logo={match.homeTeam.logo} name={match.homeTeam.name} size="sm" />
-            <span className="font-medium text-sm truncate">{match.homeTeam.name}</span>
-          </div>
-          <span
-            className={cn(
-              "font-display text-xl font-bold tabular-nums shrink-0",
-              isLive ? "text-primary" : "text-foreground"
-            )}
-          >
-            {match.homeScore}
-          </span>
+      {/* Scoreboard */}
+      <div className="flex items-center justify-between gap-3 px-5 py-5">
+        <div className="flex flex-1 items-center gap-3">
+          <TeamLogo logo={match.homeTeam.logo} name={match.homeTeam.name} size="md" />
+          <span className="font-semibold text-sm leading-tight text-foreground-soft">{match.homeTeam.name}</span>
         </div>
-        <div className="flex items-center justify-between gap-3">
-          <div className="flex items-center gap-3 min-w-0">
-            <TeamLogo logo={match.awayTeam.logo} name={match.awayTeam.name} size="sm" />
-            <span className="font-medium text-sm truncate">{match.awayTeam.name}</span>
+        <div className="flex shrink-0 flex-col items-center">
+          <div className="flex items-center gap-2">
+            <span
+              className={cn(
+                "display text-3xl tabular-nums",
+                isLive ? "text-berry" : "text-foreground"
+              )}
+            >
+              {match.homeScore}
+            </span>
+            <span className="text-sm text-muted">—</span>
+            <span
+              className={cn(
+                "display text-3xl tabular-nums",
+                isLive ? "text-berry" : "text-foreground"
+              )}
+            >
+              {match.awayScore}
+            </span>
           </div>
-          <span
-            className={cn(
-              "font-display text-xl font-bold tabular-nums shrink-0",
-              isLive ? "text-primary" : "text-foreground"
-            )}
-          >
-            {match.awayScore}
-          </span>
+          {match.details && <p className="meta mt-1.5 text-center">{match.details}</p>}
+        </div>
+        <div className="flex flex-1 items-center justify-end gap-3">
+          <span className="font-semibold text-sm text-right leading-tight text-foreground-soft">{match.awayTeam.name}</span>
+          <TeamLogo logo={match.awayTeam.logo} name={match.awayTeam.name} size="md" />
         </div>
       </div>
 
-      {isLive && match.minute && (
-        <div className="mt-4 flex items-center justify-center gap-1.5 rounded-full bg-primary/10 py-1.5 text-xs font-bold text-primary">
-          <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse-live" />
-          {match.minute}
-        </div>
-      )}
-
-      {match.details && <p className="text-xs text-muted mt-3 text-center">{match.details}</p>}
-
-      {match.venue && (
-        <div className="mt-4 flex items-center gap-1.5 pt-3.5 border-t border-border">
-          <MapPin className="h-3 w-3 text-muted shrink-0" />
-          <span className="text-xs text-muted truncate">{match.venue}</span>
-        </div>
-      )}
+      {/* Footer */}
+      <div className="mt-auto flex items-center justify-between border-t border-border-navy bg-navy/30 px-5 py-3">
+        <span className="flex items-center gap-1.5 meta">
+          <MapPin className="h-3 w-3" /> {match.venue ?? "TBD"}
+        </span>
+        <span className="meta">
+          {isUpcoming ? (
+            <span className="flex items-center gap-1.5">
+              <Clock className="h-3 w-3" /> {match.date}
+            </span>
+          ) : (
+            match.competition ?? match.league
+          )}
+        </span>
+      </div>
     </Link>
   );
 }
