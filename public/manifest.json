@@ -4,8 +4,8 @@
   "description": "AI-Powered Sports Platform",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#fff8e6",
-  "theme_color": "#8d0b41",
+  "background_color": "#E3F2FD",
+  "theme_color": "#E3F2FD",
   "icons": [
     {
       "src": "/logobrowser.png",

@@ -4,7 +4,6 @@ import { use, useState } from "react";
 import Link from "next/link";
 import {
   MapPin,
-  Clock,
   Users,
   Gauge,
   CloudSun,
@@ -14,13 +13,14 @@ import {
   History,
 } from "lucide-react";
 import { AppShell } from "@/components/layout/AppShell";
+import { DemoBadge } from "@/components/ui/DemoBadge";
 import { LiveBadge } from "@/components/ui/LiveBadge";
 import { TeamLogo } from "@/components/ui/TeamLogo";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { MatchTimeline } from "@/components/sports/MatchTimeline";
 import { MatchStatsCompare } from "@/components/sports/MatchStatsCompare";
 import { LiveChat } from "@/components/sports/LiveChat";
-import { allMatches, matchTimeline, matchStats, teams, topPlayers } from "@/data/mock";
+import { allMatches, matchTimeline, matchStats, topPlayers } from "@/data/mock";
 import { cn } from "@/lib/utils";
 
 const tabs = [
@@ -53,6 +53,10 @@ export default function MatchPage({ params }: { params: Promise<{ id: string }> 
         >
           <ArrowLeft className="h-4 w-4" /> Back to Live Scores
         </Link>
+
+        <div className="mb-4">
+          <DemoBadge label="Demo match data" />
+        </div>
 
 <div className="arena-card overflow-hidden mb-6">
           <div className="px-6 py-4 border-b border-border flex items-center justify-between gap-4 flex-wrap">
@@ -96,7 +100,7 @@ export default function MatchPage({ params }: { params: Promise<{ id: string }> 
                   </span>
                 </div>
                 {isLive ? (
-                  <span className="mt-2 text-xs font-bold text-primary bg-primary/15 px-3 py-1 rounded-full animate-live-pulse">
+                  <span className="mt-2 text-xs font-bold text-navy bg-primary px-3 py-1  animate-live-pulse rounded-full">
                     {match.minute}
                   </span>
                 ) : (
@@ -135,13 +139,13 @@ export default function MatchPage({ params }: { params: Promise<{ id: string }> 
 
         <div className="flex gap-6">
           <div className="flex-1 min-w-0 space-y-6">
-<div className="flex gap-1 overflow-x-auto rounded-2xl border border-border/60 bg-navy/50 p-1.5">
+<div className="flex gap-1 overflow-x-auto  border border-border/60 bg-blue/10 p-1.5">
               {tabs.map((tab) => (
                 <button
                   key={tab.value}
                   onClick={() => setActiveTab(tab.value)}
                   className={cn(
-                    "px-4 py-2 text-sm font-semibold rounded-xl transition-all whitespace-nowrap",
+                    "px-4 py-2 text-sm font-semibold  transition-all whitespace-nowrap",
                     activeTab === tab.value
                       ? "bg-blue/50 text-foreground"
                       : "text-muted hover:text-foreground"
@@ -182,8 +186,8 @@ export default function MatchPage({ params }: { params: Promise<{ id: string }> 
                       { label: "Draws", value: 2, color: "bg-muted" },
                       { label: "Away Wins", value: 3, color: "bg-secondary" },
                     ].map((s) => (
-                      <div key={s.label} className="flex-1 bg-muted/10 rounded-lg p-3 text-center">
-<p className={cn("text-2xl font-bold rounded-lg py-1 mb-1 text-berry", s.color)}>{s.value}</p>
+                      <div key={s.label} className="flex-1 bg-muted/10  p-3 text-center rounded-sm">
+<p className={cn("text-2xl font-bold  py-1 mb-1", s.color === "bg-secondary" ? "text-white" : "text-berry")}>{s.value}</p>
                         <p className="text-xs text-muted">{s.label}</p>
                       </div>
                     ))}
@@ -253,7 +257,7 @@ export default function MatchPage({ params }: { params: Promise<{ id: string }> 
                       key={v.title}
                       className="arena-card arena-card-hover flex items-center gap-3 p-4 cursor-pointer"
                     >
-                      <div className="w-12 h-12 rounded-lg bg-secondary/10 text-secondary flex items-center justify-center text-xl shrink-0">
+                      <div className="w-12 h-12  bg-secondary/10 text-secondary flex items-center justify-center text-xl shrink-0 rounded-md">
                         {v.icon}
                       </div>
                       <div className="flex-1 min-w-0">
@@ -277,7 +281,7 @@ export default function MatchPage({ params }: { params: Promise<{ id: string }> 
                 Rodrygo&apos;s 74th minute strike has swung the momentum. Key battle: Bellingham vs Kimmich
                 in midfield. Expect Bayern to push high in the final 15 minutes.
               </p>
-              <button className="w-full mt-3 py-2 text-sm font-medium bg-secondary/10 text-secondary rounded-lg hover:bg-secondary/20 transition-colors">
+              <button className="w-full mt-3 py-2 text-sm font-medium bg-secondary/10 text-secondary  hover:bg-secondary/20 transition-colors rounded-md">
                 Ask AI about this match
               </button>
             </div>
@@ -294,8 +298,8 @@ export default function MatchPage({ params }: { params: Promise<{ id: string }> 
                 ].map((row) => (
                   <div key={row.t} className="flex items-center gap-2">
                     <span className="text-xs text-muted w-20">{row.t}</span>
-                    <div className="flex-1 h-2 bg-muted/20 rounded-full overflow-hidden">
-                      <div className={cn("h-full rounded-full", row.c)} style={{ width: `${row.v * 10}%` }} />
+                    <div className="flex-1 h-2 bg-muted/20  overflow-hidden">
+                      <div className={cn("h-full", row.c)} style={{ width: `${row.v * 10}%` }} />
                     </div>
                     <span className="text-xs font-bold w-5 text-right">{row.v}</span>
                   </div>

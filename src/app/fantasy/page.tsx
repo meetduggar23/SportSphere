@@ -57,13 +57,13 @@ export default function FantasyPage() {
                   <div
                     key={pick.id}
                     className={cn(
-                      "bg-card rounded-xl border p-4 transition-all cursor-pointer hover:shadow-lg",                      isSelected ? "border-secondary ring-1 ring-secondary/30" : "border-border",
+                      "bg-card  border p-4 transition-all cursor-pointer hover:shadow-lg",                      isSelected ? "border-secondary ring-1 ring-secondary/30" : "border-border",
                       isCaptain && "ring-2 ring-secondary/50"
                     )}
                     onClick={() => toggle(pick.id)}
                   >
                     <div className="flex items-center justify-between mb-3">
-                      <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-muted/10">
+                      <span className="text-xs font-bold px-2 py-0.5  bg-muted/10 rounded-full">
                         {pick.position}
                       </span>
                       {pick.suggested && (
@@ -73,7 +73,7 @@ export default function FantasyPage() {
                       )}
                     </div>
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-muted/10 flex items-center justify-center text-lg">
+                      <div className="w-10 h-10  bg-muted/10 flex items-center justify-center text-lg rounded-full">
                         {pick.logo}
                       </div>
                       <div className="flex-1 min-w-0">
@@ -86,7 +86,7 @@ export default function FantasyPage() {
                       <span className="text-xs text-muted">{pick.price}</span>
                       <div className="flex gap-1.5">
                         {isCaptain && (
-                          <button                            className="text-[10px] font-bold px-2 py-1 rounded-full bg-secondary/10 text-secondary"
+                          <button                            className="text-[10px] font-bold px-2 py-1  bg-secondary/10 text-secondary rounded-full"
                             title="Captain"
                           >
                             <Crown className="h-3 w-3" />
@@ -99,7 +99,7 @@ export default function FantasyPage() {
                           }}
                           disabled={!isSelected}
                           className={cn(
-                            "text-[10px] font-bold px-2 py-1 rounded-full transition-colors",
+                            "text-[10px] font-bold px-2 py-1  transition-colors rounded-md",
                             isSelected
                               ? "bg-secondary/10 text-secondary hover:bg-secondary/20"
                               : "bg-muted/10 text-muted cursor-not-allowed"
@@ -117,7 +117,7 @@ export default function FantasyPage() {
           </div>
 
           <aside className="hidden lg:block w-80 shrink-0 space-y-6">
-            <div className="bg-card rounded-xl border border-border p-4">
+            <div className="bg-card  border border-border p-4">
               <h3 className="font-bold text-sm mb-3 flex items-center gap-2">                <Crown className="h-4 w-4 text-secondary" /> Captain Suggestions
               </h3>
               <div className="space-y-2 text-sm">
@@ -125,7 +125,7 @@ export default function FantasyPage() {
                   { name: "Erling Haaland", reason: "3 home games, form 92", pts: 142 },
                   { name: "Jude Bellingham", reason: "2 home games, set-piece threat", pts: 131 },
                 ].map((s) => (
-                  <div key={s.name} className="bg-muted/10 rounded-lg p-3">
+                  <div key={s.name} className="bg-muted/10  p-3 rounded-md">
                     <div className="flex justify-between">
                       <p className="font-semibold text-sm">{s.name}</p>
                       <span className="text-xs font-bold text-muted-strong">{s.pts} pts</span>
@@ -136,7 +136,7 @@ export default function FantasyPage() {
               </div>
             </div>
 
-            <div className="bg-card rounded-xl border border-border p-4">
+            <div className="bg-card  border border-border p-4">
               <h3 className="font-bold text-sm mb-3 flex items-center gap-2">
                 <TrendingUp className="h-4 w-4 text-secondary" /> Differential Picks
               </h3>
@@ -145,7 +145,7 @@ export default function FantasyPage() {
                   { name: "Cole Palmer", owned: "4.2%", reason: "Penalty duties + form" },
                   { name: "Phil Foden", owned: "8.1%", reason: "Double gameweek" },
                 ].map((s) => (
-                  <div key={s.name} className="bg-muted/10 rounded-lg p-3">
+                  <div key={s.name} className="bg-muted/10  p-3 rounded-md">
                     <div className="flex justify-between">
                       <p className="font-semibold text-sm">{s.name}</p>
                       <span className="text-xs text-muted">{s.owned} owned</span>
@@ -156,7 +156,7 @@ export default function FantasyPage() {
               </div>
             </div>
 
-            <div className="bg-card rounded-xl border border-border p-4">
+            <div className="bg-card  border border-border p-4">
               <h3 className="font-bold text-sm mb-3 flex items-center gap-2">                <ShieldAlert className="h-4 w-4 text-secondary" /> Injury Alerts
               </h3>
               <div className="space-y-2 text-sm">
@@ -164,7 +164,7 @@ export default function FantasyPage() {
                   { name: "Mohamed Salah", status: "Doubtful (Muscle)", risk: "High" },
                   { name: "Kevin De Bruyne", status: "Fit (Hamstring)", risk: "Low" },
                 ].map((s) => (
-                  <div key={s.name} className="bg-muted/10 rounded-lg p-3">
+                  <div key={s.name} className="bg-muted/10  p-3 rounded-md">
                     <div className="flex justify-between">
                       <p className="font-semibold text-sm">{s.name}</p>                      <span className={cn("text-[10px] font-bold px-2 py-0.5 rounded-full", s.risk === "High" ? "bg-secondary/10 text-secondary" : "bg-brand-maroon/10 text-brand-maroon")}>
                         {s.risk} Risk

@@ -2,118 +2,249 @@
 
 /*
   SportSphere — "The Sports Broadcast Arena" Design System
-  Official brand palette (complete replacement — no legacy colors remain):
-    #8D0B41  (berry — deep ink, dark accents, premium depth)
-    #D39D55  (gold  — primary accent: live, CTAs, active states)
-    #D6CFB4  (sand  — elevated surfaces: cards, panels, masthead)
-    #FFF8E6  (cream — background foundation)
+  Dual-theme design tokens.
 
-  Every variation below is derived exclusively from these four colors
-  via color-mix(), rgba() and opacity. The system is a warm, editorial
-  light theme: cream arena, sand surfaces, berry text, gold energy.
+  LIGHT (default, :root):
+    #E3F2FD  (light primary — page background, large content areas, heroes)
+    #90CAF9  (secondary light blue — accent, surfaces, active states, buttons)
+    + deep derived blue ink (#0B2C4E) and accent-deep (#1E6BB8)
+
+  DARK (.dark):
+    #8D0B41  (deep maroon — foundation: background, header, deep sections)
+    #D39D55  (gold — primary accent: LIVE, CTAs, active states, scores)
+    #D6CFB4  (sand — secondary accent / readable accent text)
+    #FFF8E6  (cream — ink / light text)
+
+  Every variation derives from these via color-mix(), rgba() and opacity —
+  no pure white backgrounds in light, no pure black in dark, no neon.
 */
 :root {
   /* Official palette */
-  --sport-berry: #8d0b41;
-  --sport-gold: #d39d55;
-  --sport-sand: #d6cfb4;
-  --sport-cream: #fff8e6;
+  --sport-bg: #e3f2fd;         /* light primary — page background */
+  --sport-accent: #90caf9;     /* secondary light blue — accent / surfaces */
+  --sport-accent-deep: #1e6bb8; /* readable accent text / secondary interaction */
+  --sport-navy: #0b2c4e;       /* deep derived blue — ink, overlays, deep sections */
 
   /* Semantic aliases */
-  --sport-primary: var(--sport-gold);
-  --sport-secondary: color-mix(in srgb, var(--sport-gold) 55%, var(--sport-berry) 45%);
-  --sport-deep: var(--sport-berry);
+  --sport-primary: var(--sport-accent);
+  --sport-secondary: var(--sport-accent-deep);
+  --sport-deep: var(--sport-navy);
 
-  /* ---- Foundations (warm cream arena) ---- */
-  --background: var(--sport-cream);
+  /* ---- Foundations (light blue arena) ---- */
+  --background: var(--sport-bg);
   --background-arena:
-    radial-gradient(1100px 600px at 80% -10%, rgba(211, 157, 85, 0.14), transparent 60%),
-    radial-gradient(900px 520px at -10% 4%, rgba(214, 207, 180, 0.55), transparent 55%),
-    radial-gradient(1300px 700px at 50% 120%, rgba(141, 11, 65, 0.05), transparent 60%),
+    radial-gradient(1100px 600px at 80% -10%, rgba(144, 202, 249, 0.45), transparent 60%),
+    radial-gradient(900px 520px at -10% 4%, rgba(144, 202, 249, 0.22), transparent 55%),
+    radial-gradient(1300px 700px at 50% 120%, rgba(144, 202, 249, 0.12), transparent 60%),
     var(--background);
-  --surface-1: var(--sport-sand);
-  --surface-2: color-mix(in srgb, var(--sport-sand) 78%, var(--sport-gold) 22%);
-  --surface-3: color-mix(in srgb, var(--sport-sand) 72%, var(--sport-berry) 28%);
-  --surface-glass: color-mix(in srgb, var(--sport-cream) 74%, transparent 26%);
+  --surface-1: color-mix(in srgb, var(--sport-bg) 58%, #ffffff 42%);
+  --surface-2: color-mix(in srgb, var(--sport-accent) 26%, #ffffff 74%);
+  --surface-3: color-mix(in srgb, var(--sport-accent) 44%, #ffffff 56%);
+  --surface-glass: color-mix(in srgb, var(--sport-bg) 84%, transparent 16%);
 
-  /* ---- Foreground / text (deep berry ink, warm greys) ---- */
-  --ink: var(--sport-berry);
+  /* ---- Foreground / text (deep blue ink) ---- */
+  --ink: var(--sport-navy);
   --foreground: var(--ink);
-  --foreground-soft: color-mix(in srgb, var(--ink) 85%, var(--sport-cream) 15%);
-  --muted-strong: color-mix(in srgb, var(--ink) 74%, var(--sport-cream) 26%);
-  --muted: color-mix(in srgb, var(--ink) 64%, var(--sport-cream) 36%);
-  --faint: color-mix(in srgb, var(--ink) 40%, var(--sport-cream) 60%);
+  --foreground-soft: color-mix(in srgb, var(--ink) 86%, transparent 14%);
+  --muted-strong: color-mix(in srgb, var(--ink) 72%, transparent 28%);
+  --muted: color-mix(in srgb, var(--ink) 56%, transparent 44%);
+  --faint: color-mix(in srgb, var(--ink) 38%, transparent 62%);
 
-  /* ---- Cards / surfaces ---- */
-  --card: var(--sport-sand);
-  --card-deep: var(--sport-berry);
-  --card-hover: color-mix(in srgb, var(--sport-sand) 84%, var(--sport-gold) 16%);
-  --card-premium: color-mix(in srgb, var(--sport-sand) 66%, var(--sport-gold) 34%);
-  --card-glass: color-mix(in srgb, var(--sport-cream) 50%, transparent 50%);
+  /* ---- Cards / surfaces (subtle blue-tinted elevation) ---- */
+  --card: var(--surface-1);
+  --card-deep: color-mix(in srgb, var(--sport-accent) 24%, var(--sport-bg) 76%);
+  --card-hover: var(--surface-2);
+  --card-premium: var(--surface-3);
+  --card-glass: color-mix(in srgb, var(--sport-bg) 72%, transparent 28%);
 
-  /* ---- Borders (subtle warm transparencies) ---- */
-  --border: rgba(141, 11, 65, 0.16);
-  --border-strong: rgba(141, 11, 65, 0.3);
-  --border-live: rgba(211, 157, 85, 0.5);
-  --border-navy: rgba(211, 157, 85, 0.3);
+  /* ---- Borders (subtle accent-derived transparency) ---- */
+  --border: rgba(58, 116, 178, 0.2);
+  --border-strong: rgba(58, 116, 178, 0.38);
+  --border-live: rgba(30, 107, 184, 0.55);
+  --border-navy: rgba(11, 44, 78, 0.14);
 
   /* ---- Interactive ---- */
-  --primary: var(--sport-gold);
-  --primary-hover: color-mix(in srgb, var(--sport-gold) 78%, var(--sport-berry) 22%);
-  --primary-soft: rgba(211, 157, 85, 0.16);
-  --primary-ring: rgba(211, 157, 85, 0.42);
-  --secondary: var(--sport-secondary);
-  --secondary-hover: color-mix(in srgb, var(--sport-gold) 62%, var(--sport-berry) 38%);
-  --secondary-soft: rgba(211, 157, 85, 0.14);
-  --deep: var(--sport-berry);
-  --deep-soft: rgba(141, 11, 65, 0.12);
-  --navy: var(--sport-sand);
-  --blue: color-mix(in srgb, var(--sport-sand) 84%, var(--sport-cream) 16%);
+  --primary: var(--sport-accent);
+  --primary-hover: color-mix(in srgb, var(--sport-accent) 76%, var(--sport-accent-deep) 24%);
+  --primary-soft: rgba(144, 202, 249, 0.32);
+  --primary-ring: rgba(30, 107, 184, 0.45);
+  --secondary: var(--sport-accent-deep);
+  --secondary-hover: color-mix(in srgb, var(--sport-accent-deep) 78%, var(--sport-navy) 22%);
+  --secondary-soft: rgba(30, 107, 184, 0.14);
+  --deep: var(--sport-navy);
+  --deep-soft: rgba(11, 44, 78, 0.4);
+  --navy: var(--sport-navy);
+  --blue: var(--sport-accent);
 
-  /* ---- Shadows (soft warm berry depth) ---- */
+  /* ---- Shadows (soft light depth, no neon) ---- */
   --shadow-card:
-    0 1px 2px rgba(141, 11, 65, 0.08),
-    0 8px 22px rgba(141, 11, 65, 0.08);
+    0 1px 2px rgba(11, 44, 78, 0.05),
+    0 6px 18px rgba(11, 44, 78, 0.07);
   --shadow-raised:
-    0 2px 4px rgba(141, 11, 65, 0.1),
-    0 14px 32px rgba(141, 11, 65, 0.1);
+    0 2px 4px rgba(11, 44, 78, 0.08),
+    0 12px 28px rgba(11, 44, 78, 0.1);
   --shadow-pop:
-    0 20px 50px rgba(141, 11, 65, 0.16),
-    0 10px 22px rgba(141, 11, 65, 0.1);
+    0 20px 48px rgba(11, 44, 78, 0.16),
+    0 8px 20px rgba(11, 44, 78, 0.1);
   --shadow-glow:
-    0 8px 22px rgba(141, 11, 65, 0.1);
+    0 6px 18px rgba(144, 202, 249, 0.4);
   --shadow-hero:
-    0 24px 80px rgba(141, 11, 65, 0.18),
-    0 12px 32px rgba(141, 11, 65, 0.12);
+    0 24px 64px rgba(11, 44, 78, 0.14),
+    0 10px 26px rgba(11, 44, 78, 0.08);
 
   /* ---- Gradients ---- */
   --hero-overlay: linear-gradient(
     180deg,
-    rgba(255, 248, 230, 0.08) 0%,
-    rgba(214, 207, 180, 0.55) 72%,
-    rgba(214, 207, 180, 0.85) 100%
+    rgba(227, 242, 253, 0.4) 0%,
+    rgba(144, 202, 249, 0.85) 100%
   );
-  --arena-gradient: linear-gradient(135deg, var(--sport-berry) 0%, var(--sport-sand) 100%);
+  --arena-gradient: linear-gradient(135deg, var(--sport-bg) 0%, var(--sport-accent) 100%);
   --live-gradient: linear-gradient(
     135deg,
-    var(--sport-gold) 0%,
-    color-mix(in srgb, var(--sport-gold) 62%, var(--sport-berry) 38%) 100%
+    var(--sport-accent) 0%,
+    color-mix(in srgb, var(--sport-accent) 62%, var(--sport-accent-deep) 38%) 100%
   );
-  --deep-gradient: linear-gradient(
-    135deg,
-    var(--sport-berry) 0%,
-    color-mix(in srgb, var(--sport-berry) 60%, var(--sport-gold) 40%) 100%
-  );
-  --text-gradient: linear-gradient(120deg, var(--sport-gold) 0%, var(--sport-berry) 100%);
-  --score-gradient: linear-gradient(135deg, var(--sport-gold) 0%, var(--sport-berry) 100%);
+  --deep-gradient: linear-gradient(135deg, var(--sport-bg) 0%, color-mix(in srgb, var(--sport-accent) 50%, var(--sport-bg) 50%) 100%);
+  --text-gradient: linear-gradient(120deg, var(--sport-accent-deep) 0%, var(--sport-accent) 100%);
+  --score-gradient: linear-gradient(135deg, var(--sport-accent-deep) 0%, var(--sport-accent) 100%);
+
+  /* ---- Radius scale (deliberate, applied by purpose — never uniform) ---- */
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
 
   color-scheme: light;
 }
 
 .dark {
-  /* Palette-locked: the official brand palette applies regardless of the
-     theme toggle — no separate dark color set exists. */
-  color-scheme: light;
+  /* Official dark palette — deep maroon arena with gold energy */
+  --sport-bg: #3a0619;           /* deep maroon — page background (from #8D0B41) */
+  --sport-accent: #d39d55;       /* gold — primary accent */
+  --sport-accent-deep: #e8c48d;  /* light sand-gold — readable accent text on dark */
+  --sport-navy: #fff8e6;         /* cream — ink / light text */
+
+  --sport-primary: var(--sport-accent);
+  --sport-secondary: var(--sport-accent-deep);
+  --sport-deep: #23030e;         /* deepest maroon — dark overlays & deep surfaces */
+
+  /* ---- Foundations (deep maroon arena) ---- */
+  --background: var(--sport-bg);
+  --background-arena:
+    radial-gradient(1100px 600px at 80% -10%, rgba(211, 157, 85, 0.09), transparent 60%),
+    radial-gradient(900px 520px at -10% 4%, rgba(141, 11, 65, 0.5), transparent 55%),
+    radial-gradient(1300px 700px at 50% 120%, rgba(90, 9, 40, 0.42), transparent 60%),
+    var(--background);
+  --surface-1: color-mix(in srgb, var(--sport-bg) 58%, #8d0b41 42%);
+  --surface-2: color-mix(in srgb, var(--sport-bg) 66%, #8d0b41 34%);
+  --surface-3: color-mix(in srgb, var(--sport-bg) 74%, #8d0b41 26%);
+  --surface-glass: color-mix(in srgb, var(--sport-bg) 80%, transparent 20%);
+
+  /* ---- Foreground / text (cream ink) ---- */
+  --ink: var(--sport-navy);
+  --foreground: var(--ink);
+  --foreground-soft: color-mix(in srgb, var(--ink) 88%, transparent 12%);
+  --muted-strong: color-mix(in srgb, var(--ink) 74%, transparent 26%);
+  --muted: color-mix(in srgb, var(--ink) 58%, transparent 42%);
+  --faint: color-mix(in srgb, var(--ink) 38%, transparent 62%);
+
+  /* ---- Cards / surfaces (elevated maroon panels) ---- */
+  --card: var(--surface-1);
+  --card-deep: color-mix(in srgb, var(--sport-deep) 72%, var(--sport-bg) 28%);
+  --card-hover: var(--surface-2);
+  --card-premium: var(--surface-3);
+  --card-glass: color-mix(in srgb, var(--sport-bg) 70%, transparent 30%);
+
+  /* ---- Borders (subtle cream/gold transparency) ---- */
+  --border: rgba(214, 207, 180, 0.14);
+  --border-strong: rgba(214, 207, 180, 0.3);
+  --border-live: rgba(211, 157, 85, 0.55);
+  --border-navy: rgba(255, 248, 230, 0.12);
+
+  /* ---- Interactive ---- */
+  --primary: var(--sport-accent);
+  --primary-hover: color-mix(in srgb, var(--sport-accent) 82%, var(--sport-navy) 18%);
+  --primary-soft: rgba(211, 157, 85, 0.16);
+  --primary-ring: rgba(211, 157, 85, 0.5);
+  --secondary: var(--sport-accent-deep);
+  --secondary-hover: color-mix(in srgb, var(--sport-accent-deep) 84%, var(--sport-navy) 16%);
+  --secondary-soft: rgba(232, 196, 141, 0.16);
+  --deep: var(--sport-deep);
+  --deep-soft: rgba(35, 3, 14, 0.6);
+  --navy: var(--sport-deep);
+  --blue: color-mix(in srgb, var(--sport-accent) 24%, var(--sport-bg) 76%);
+
+  /* ---- Shadows (deep black-maroon depth, no neon) ---- */
+  --shadow-card:
+    0 1px 2px rgba(0, 0, 0, 0.42),
+    0 8px 22px rgba(0, 0, 0, 0.36);
+  --shadow-raised:
+    0 2px 4px rgba(0, 0, 0, 0.46),
+    0 14px 32px rgba(0, 0, 0, 0.42);
+  --shadow-pop:
+    0 20px 50px rgba(0, 0, 0, 0.62),
+    0 10px 22px rgba(0, 0, 0, 0.46);
+  --shadow-glow:
+    0 8px 22px rgba(0, 0, 0, 0.42);
+  --shadow-hero:
+    0 24px 80px rgba(0, 0, 0, 0.56),
+    0 12px 32px rgba(0, 0, 0, 0.42);
+
+  /* ---- Gradients ---- */
+  --hero-overlay: linear-gradient(
+    180deg,
+    rgba(35, 3, 14, 0.35) 0%,
+    rgba(35, 3, 14, 0.92) 100%
+  );
+  --arena-gradient: linear-gradient(135deg, var(--sport-bg) 0%, #8d0b41 100%);
+  --live-gradient: linear-gradient(
+    135deg,
+    var(--sport-accent) 0%,
+    color-mix(in srgb, var(--sport-accent) 55%, var(--sport-bg) 45%) 100%
+  );
+  --deep-gradient: linear-gradient(135deg, var(--sport-bg) 0%, var(--sport-deep) 100%);
+  --text-gradient: linear-gradient(120deg, var(--sport-accent) 0%, var(--sport-accent-deep) 100%);
+  --score-gradient: linear-gradient(135deg, var(--sport-accent) 0%, var(--sport-accent-deep) 100%);
+
+  color-scheme: dark;
+}
+
+/*
+  ---- Deliberate radius system ----
+  Radius is applied by purpose, never uniformly:
+  • Sharp (0)   → scoreboards, tables, navigation, information-heavy layouts
+  • 6–8px       → cards, containers, dropdowns, inputs
+  • Pill        → status badges (LIVE, NEW, FINAL) and tiny dots only
+  Logos render as their own artwork — no decorative circular containers.
+  (Tailwind's default radius utilities match this scale: sm 4px, md 6px,
+  lg 8px, xl 12px, full pill.)
+*/
+@layer components {
+  /* Cards & featured panels — subtle broadcast-panel rounding */
+  .arena-card,
+  .arena-card-premium {
+    border-radius: var(--radius-lg);
+  }
+
+  /* Editorial rows — near-sharp, grouped but not card-like */
+  .panel {
+    border-radius: var(--radius-sm);
+  }
+
+  /* Dropdowns, search overlays, mobile drawers */
+  .glass,
+  .glass-strong {
+    border-radius: var(--radius-lg);
+  }
+
+  /* Live indicator dots — naturally round (ping ring + static dot) */
+  .animate-ping-ring {
+    border-radius: 9999px;
+  }
+  .animate-ping-ring + span {
+    border-radius: 9999px;
+  }
 }
 
 @theme inline {
@@ -146,13 +277,15 @@
   --color-brand: var(--sport-primary);
   --color-brand-maroon: var(--sport-secondary);
   --color-brand-purple: var(--sport-deep);
-  --color-brand-navy: var(--sport-berry);
+  --color-brand-navy: var(--sport-navy);
   --color-brand-blue: var(--blue);
-  /* Official palette tokens */
-  --color-berry: var(--sport-berry);
-  --color-gold: var(--sport-gold);
-  --color-sand: var(--sport-sand);
-  --color-cream: var(--sport-cream);
+  /* Official light-theme tokens */
+  --color-accent: var(--sport-accent);
+  --color-steel: var(--sport-accent);
+  --color-berry: var(--sport-accent-deep);
+  --color-gold: var(--sport-accent);
+  --color-sand: var(--sport-bg);
+  --color-cream: var(--surface-1);
   --color-bronze: var(--sport-secondary);
   --font-sans: var(--font-inter);
   --font-display: var(--font-space-grotesk);
@@ -167,27 +300,13 @@
   --bg-hero-overlay: var(--hero-overlay);
 }
 
-* {
-  scrollbar-width: thin;
-  scrollbar-color: var(--border-strong) transparent;
-}
-
-*::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-
-*::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-*::-webkit-scrollbar-thumb {
-  background-color: var(--border-strong);
-  border-radius: 3px;
-}
+/* No custom scrollbar styling — the OS-default scrollbar is used everywhere.
+   Page scrolling remains fully functional (wheel, trackpad, keyboard, touch).
+   The .no-scrollbar utility below only hides scrollbars inside horizontally
+   scrollable strips (sports nav, tabs) without disabling their scrolling. */
 
 ::selection {
-  background: rgba(211, 157, 85, 0.4);
+  background: color-mix(in srgb, var(--sport-accent) 45%, transparent);
 }
 
 html {
@@ -269,7 +388,7 @@ body {
   -webkit-backdrop-filter: blur(20px) saturate(160%);
 }
 .glass-strong {
-  background: color-mix(in srgb, var(--sport-cream) 78%, transparent 22%);
+  background: color-mix(in srgb, var(--sport-bg) 88%, transparent 12%);
   backdrop-filter: blur(26px) saturate(170%);
   -webkit-backdrop-filter: blur(26px) saturate(170%);
 }
@@ -284,7 +403,7 @@ body {
 /* Premium featured surface — reserved for hero/centre-stage content. */
 .arena-card-premium {
   background:
-    linear-gradient(165deg, color-mix(in srgb, var(--sport-gold) 16%, transparent 84%), transparent 55%),
+    linear-gradient(165deg, color-mix(in srgb, var(--sport-accent) 14%, transparent 86%), transparent 55%),
     var(--surface-1);
   border: 1px solid var(--border-strong);
   box-shadow: var(--shadow-raised);
@@ -301,11 +420,11 @@ body {
 
 /* Flat translucent panel — borderless, for editorial rows and lists. */
 .panel {
-  background: color-mix(in srgb, var(--sport-sand) 32%, transparent 68%);
+  background: color-mix(in srgb, var(--sport-accent) 12%, transparent 88%);
   transition: background 0.25s ease;
 }
 .panel-hover:hover {
-  background: color-mix(in srgb, var(--sport-sand) 46%, transparent 54%);
+  background: color-mix(in srgb, var(--sport-accent) 22%, transparent 78%);
 }
 
 /* ---- Live indicator ---- */
@@ -413,6 +532,18 @@ body {
 }
 .animate-glow-drift { animation: glow-drift 9s ease-in-out infinite; }
 
+/* ---- Theme switch cross-fade ---- */
+html.theme-fade *,
+html.theme-fade *::before,
+html.theme-fade *::after {
+  transition:
+    background-color 0.35s ease,
+    border-color 0.35s ease,
+    color 0.35s ease,
+    fill 0.35s ease,
+    box-shadow 0.35s ease !important;
+}
+
 /* ---- Marquee content ---- */
 .no-scrollbar {
   scrollbar-width: none;
@@ -421,10 +552,10 @@ body {
   display: none;
 }
 
-/* ---- Editorial divider (gold seam) ---- */
+/* ---- Editorial divider (accent seam) ---- */
 .rule-live {
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(211, 157, 85, 0.65) 30%, rgba(211, 157, 85, 0.65) 70%, transparent);
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--sport-accent) 55%, transparent) 30%, color-mix(in srgb, var(--sport-accent) 55%, transparent) 70%, transparent);
 }
 
 @media (prefers-reduced-motion: reduce) {

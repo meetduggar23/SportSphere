@@ -19,7 +19,7 @@ export function LiveMatchCard({ match, className }: LiveMatchCardProps) {
 <Link
       href={`/match/${match.id}`}
       className={cn(
-        "group relative flex flex-col overflow-hidden rounded-3xl arena-card arena-card-hover",
+        "group relative flex flex-col overflow-hidden  arena-card arena-card-hover",
         isLive && "ring-1 ring-border-live/50",
         className
       )}
@@ -32,16 +32,16 @@ export function LiveMatchCard({ match, className }: LiveMatchCardProps) {
       {/* Header */}
       <div className="flex items-center justify-between gap-2 px-5 pt-4">
         <div className="flex min-w-0 items-center gap-2">
-          <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-blue/50 text-muted-strong">
+          <span className="flex h-7 w-7 shrink-0 items-center justify-center  bg-blue/50 text-muted-strong rounded-sm">
             <span className="text-sm">{sportIcons[match.sport]}</span>
           </span>
           <span className="label truncate">{match.league}</span>
         </div>
         {isLive && (
-          <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-primary/15 px-2.5 py-1 text-[10px] font-bold text-primary ring-1 ring-border-live">
+          <span className="inline-flex shrink-0 items-center gap-1.5  bg-primary px-2.5 py-1 text-[10px] font-bold text-navy rounded-full">
             <span className="relative flex h-1.5 w-1.5">
-              <span className="absolute inline-flex h-full w-full rounded-full bg-primary animate-ping-ring" />
-              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-primary" />
+              <span className="absolute inline-flex h-full w-full  bg-navy animate-ping-ring" />
+              <span className="relative inline-flex h-1.5 w-1.5  bg-navy" />
             </span>
             {match.minute}
           </span>
@@ -88,7 +88,7 @@ export function LiveMatchCard({ match, className }: LiveMatchCardProps) {
       </div>
 
       {/* Footer */}
-      <div className="mt-auto flex items-center justify-between border-t border-border-navy bg-navy/30 px-5 py-3">
+      <div className="mt-auto flex items-center justify-between border-t border-border-navy bg-blue/10 px-5 py-3">
         <span className="flex items-center gap-1.5 meta">
           <MapPin className="h-3 w-3" /> {match.venue ?? "TBD"}
         </span>

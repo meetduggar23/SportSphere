@@ -61,7 +61,7 @@ export default function StatisticsPage() {
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-6">
           {stats.map((s) => (
-            <div key={s.label} className="bg-card rounded-xl border border-border p-4 hover:shadow-lg transition-all">
+            <div key={s.label} className="bg-card  border border-border p-4 hover:shadow-lg transition-all">
               <p className="text-2xl">{s.icon}</p>
               <p className="text-2xl font-extrabold mt-2">
                 {s.value}
@@ -73,14 +73,14 @@ export default function StatisticsPage() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="bg-card rounded-xl border border-border p-5">
+          <div className="bg-card  border border-border p-5">
             <h3 className="font-bold mb-4">Season Performance Trend</h3>
             <div className="flex items-end justify-between gap-2 h-52">
               {monthlyData.map((m) => (
                 <div key={m.month} className="flex flex-col items-center flex-1 gap-2">
                   <span className="text-xs font-bold text-muted">{m.value}</span>
                   <div
-                    className="w-full max-w-10 rounded-t-lg bg-gradient-to-t from-primary/50 to-primary hover:from-primary/70 transition-all"
+                    className="w-full max-w-10 bg-gradient-to-t from-primary/50 to-primary hover:from-primary/70 transition-all"
                     style={{ height: `${m.value * 5}px` }}
                   />
                   <span className="text-xs text-muted">{m.month}</span>
@@ -89,7 +89,7 @@ export default function StatisticsPage() {
             </div>
           </div>
 
-          <div className="bg-card rounded-xl border border-border p-5">
+          <div className="bg-card  border border-border p-5">
             <h3 className="font-bold mb-4">Key Metrics Comparison</h3>
             <div className="space-y-4">
               {[
@@ -104,9 +104,9 @@ export default function StatisticsPage() {
                     <span className="text-muted">{m.label}</span>
                     <span className="font-bold">{m.value}%</span>
                   </div>
-                  <div className="h-2.5 bg-muted/20 rounded-full overflow-hidden">
+                  <div className="h-2.5 bg-muted/20  overflow-hidden">
                     <div
-                      className={cn("h-full rounded-full bg-gradient-to-r transition-all", m.color)}
+                      className={cn("h-full  bg-gradient-to-r transition-all", m.color)}
                       style={{ width: `${m.value}%` }}
                     />
                   </div>

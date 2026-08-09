@@ -58,7 +58,7 @@ function SearchContent({ initialQuery }: { initialQuery: string }) {
         />
 
         <div className="relative mb-8">
-          <div className="flex items-center gap-3 px-4 py-3 rounded-xl border border-border bg-card focus-within:border-secondary/50 focus-within:ring-2 focus-within:ring-secondary/10 transition-all">
+          <div className="flex items-center gap-3 px-4 py-3  border border-border bg-card focus-within:border-secondary/50 focus-within:ring-2 focus-within:ring-secondary/10 transition-all">
             <SearchIcon className="h-5 w-5 text-muted shrink-0" />
             <input
               value={localQuery}
@@ -80,7 +80,7 @@ function SearchContent({ initialQuery }: { initialQuery: string }) {
                 <button
                   key={s}
                   onClick={() => setLocalQuery(s)}
-                  className="text-sm px-3 py-1.5 rounded-full bg-muted/10 hover:bg-muted/20 transition-colors"
+                  className="text-sm px-3 py-1.5  bg-muted/10 hover:bg-muted/20 transition-colors rounded-full"
                 >
                   {s}
                 </button>
@@ -92,24 +92,24 @@ function SearchContent({ initialQuery }: { initialQuery: string }) {
         {q && (
           <>
             <p className="text-sm text-muted mb-4">
-              {results.length} result{results.length !== 1 && "s"} for "{localQuery}"
+              {results.length} result{results.length !== 1 && "s"} for &quot;{localQuery}&quot;
             </p>
 
             {results.length === 0 ? (
-              <div className="text-center py-16 bg-card rounded-xl border border-border">
+              <div className="text-center py-16 bg-card  border border-border">
                 <p className="text-4xl mb-3">🔍</p>
                 <p className="font-medium">No results found</p>
                 <p className="text-sm text-muted mt-1">Try a different search term</p>
               </div>
             ) : (
-              <div className="bg-card rounded-xl border border-border divide-y divide-border overflow-hidden">
+              <div className="bg-card  border border-border divide-y divide-border overflow-hidden">
                 {results.slice(0, 30).map((r, i) => (
                   <Link
                     key={i}
                     href={r.href}
                     className="flex items-center gap-4 px-4 py-3.5 hover:bg-muted/5 transition-colors group"
                   >
-                    <div className="w-9 h-9 rounded-lg bg-muted/10 text-muted flex items-center justify-center shrink-0">
+                    <div className="w-9 h-9  bg-muted/10 text-muted flex items-center justify-center shrink-0 rounded-md">
                       {icons[r.type]}
                     </div>
                     <div className="flex-1 min-w-0">
@@ -120,10 +120,10 @@ function SearchContent({ initialQuery }: { initialQuery: string }) {
                     </div>
                     <span
                       className={cn(
-                        "text-[10px] font-bold px-2 py-0.5 rounded-full shrink-0",
+                        "text-[10px] font-bold px-2 py-0.5  shrink-0 rounded-full",
                         r.type === "Player" && "bg-secondary/10 text-secondary",
                         r.type === "Team" && "bg-brand-maroon/10 text-brand-maroon",
-                        r.type === "Match" && "bg-brand-purple/10 text-brand-purple",
+                        r.type === "Match" && "bg-secondary/10 text-secondary",
                         r.type === "News" && "bg-brand-navy/10 text-brand-navy",
                         r.type === "Competition" && "bg-secondary/10 text-secondary"
                       )}

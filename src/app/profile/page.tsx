@@ -3,7 +3,7 @@
 import { User, Mail, MapPin, Heart, Star, Bookmark, LogOut } from "lucide-react";
 import { AppShell } from "@/components/layout/AppShell";
 import { PageHeader } from "@/components/ui/PageHeader";
-import { followedTeams, upcomingFixtures, topNews } from "@/data/mock";
+import { followedTeams, topNews } from "@/data/mock";
 import { TeamLogo } from "@/components/ui/TeamLogo";
 import { MatchRow } from "@/components/sports/MatchRow";
 import { allMatches } from "@/data/mock";
@@ -23,8 +23,8 @@ export default function ProfilePage() {
 
         <div className="flex gap-6">
           <div className="flex-1 min-w-0 space-y-6">
-            <div className="bg-card rounded-xl border border-border p-6 flex items-center gap-5">
-<div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-3xl font-bold text-berry">
+            <div className="bg-card  border border-border p-6 flex items-center gap-5">
+<div className="w-20 h-20  bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-3xl font-bold text-navy rounded-full">
                 MD
               </div>
               <div className="flex-1">
@@ -55,7 +55,7 @@ export default function ProfilePage() {
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {followedTeams.map((team) => (
-                  <div key={team.id} className="bg-card rounded-xl border border-border p-4 flex items-center gap-3">
+                  <div key={team.id} className="bg-card  border border-border p-4 flex items-center gap-3">
                     <TeamLogo logo={team.logo} name={team.name} size="lg" />
                     <div className="flex-1 min-w-0">
                       <p className="font-bold truncate">{team.name}</p>
@@ -85,8 +85,8 @@ export default function ProfilePage() {
               </h3>
               <div className="space-y-3">
                 {savedNews.map((n) => (
-                  <div key={n.id} className="bg-card rounded-xl border border-border p-4 flex items-center gap-3">
-                    <img src={n.image} alt={n.title} className="w-20 h-14 rounded-lg object-cover shrink-0" />
+                  <div key={n.id} className="bg-card  border border-border p-4 flex items-center gap-3">
+                    <img src={n.image} alt={n.title} className="w-20 h-14  object-cover shrink-0" />
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-medium truncate">{n.title}</p>
                       <p className="text-xs text-muted mt-0.5">{n.timeAgo}</p>
@@ -98,7 +98,7 @@ export default function ProfilePage() {
           </div>
 
           <aside className="hidden lg:block w-72 shrink-0 space-y-6">
-            <div className="bg-card rounded-xl border border-border p-4">
+            <div className="bg-card  border border-border p-4">
               <h3 className="font-bold text-sm mb-3">Quick Links</h3>
               <div className="space-y-1">
                 {[
@@ -107,12 +107,12 @@ export default function ProfilePage() {
                   { label: "Notification Settings", href: "/settings", icon: "🔔" },
                   { label: "Watch Later", href: "/videos", icon: "🎬" },
                 ].map((l) => (
-                  <a key={l.label} href={l.href} className="flex items-center gap-2.5 px-3 py-2.5 text-sm rounded-lg hover:bg-muted/10 transition-colors text-muted hover:text-foreground">
+                  <a key={l.label} href={l.href} className="flex items-center gap-2.5 px-3 py-2.5 text-sm  hover:bg-muted/10 transition-colors text-muted hover:text-foreground">
                     <span>{l.icon}</span> {l.label}
                   </a>
                 ))}
               </div>
-            </div>              <button className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold text-secondary border border-secondary/30 hover:bg-secondary/10 transition-colors">
+            </div>              <button className="w-full flex items-center justify-center gap-2 px-4 py-2.5  text-sm font-semibold text-secondary border border-secondary/30 hover:bg-secondary/10 transition-colors rounded-md">
               <LogOut className="h-4 w-4" /> Sign Out
             </button>
           </aside>

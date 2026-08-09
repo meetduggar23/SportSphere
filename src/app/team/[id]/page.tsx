@@ -14,8 +14,8 @@ import {
   Sparkles,
 } from "lucide-react";
 import { AppShell } from "@/components/layout/AppShell";
+import { DemoBadge } from "@/components/ui/DemoBadge";
 import { TeamLogo } from "@/components/ui/TeamLogo";
-import { SectionHeader } from "@/components/ui/SectionHeader";
 import { FixtureList } from "@/components/sports/FixtureList";
 import { StandingsTable } from "@/components/sports/StandingsTable";
 import { teams, upcomingFixtures, standings, topPlayers } from "@/data/mock";
@@ -61,7 +61,11 @@ export default function TeamPage({ params }: { params: Promise<{ id: string }> }
           <ArrowLeft className="h-4 w-4" /> Back to Teams
         </Link>
 
-        <div className="bg-card rounded-2xl border border-border overflow-hidden mb-6">
+        <div className="mb-4">
+          <DemoBadge label="Demo team data" />
+        </div>
+
+        <div className="bg-card  border border-border overflow-hidden mb-6 rounded-md">
           <div className="h-32 bg-gradient-to-r from-blue via-navy to-deep" />
           <div className="px-6 pb-6">
             <div className="flex flex-col md:flex-row items-start md:items-end gap-4 -mt-12">
@@ -81,14 +85,14 @@ export default function TeamPage({ params }: { params: Promise<{ id: string }> }
                 <button
                   onClick={() => setFavorite(!favorite)}
 className={cn(
-                    "flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold border transition-all",
-                    favorite ? "bg-secondary text-berry border-secondary" : "border-border hover:bg-muted/10"
+                    "flex items-center gap-2 px-4 py-2  text-sm font-semibold border transition-all rounded-md",
+                    favorite ? "bg-primary text-navy border-primary" : "border-border hover:bg-muted/10"
                   )}
                 >
                   <Heart className={cn("h-4 w-4", favorite && "fill-current")} />
                   {favorite ? "Following" : "Follow"}
                 </button>
-                <button className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold border border-border hover:bg-muted/10 transition-all">
+                <button className="flex items-center gap-2 px-4 py-2  text-sm font-semibold border border-border hover:bg-muted/10 transition-all rounded-md">
                   <Share2 className="h-4 w-4" /> Share
                 </button>
               </div>
@@ -101,7 +105,7 @@ className={cn(
                 { label: "League Position", value: "1st" },
                 { label: "Current Form", value: "WWWDW" },
               ].map((s) => (
-                <div key={s.label} className="bg-muted/10 rounded-xl p-3 text-center">
+                <div key={s.label} className="bg-muted/10  p-3 text-center rounded-sm">
                   <p className="text-sm font-bold truncate">{s.value}</p>
                   <p className="text-[10px] text-muted uppercase tracking-wide">{s.label}</p>
                 </div>
@@ -110,13 +114,13 @@ className={cn(
           </div>
         </div>
 
-        <div className="flex gap-1 overflow-x-auto rounded-xl bg-muted/10 p-1 mb-6">
+        <div className="flex gap-1 overflow-x-auto  bg-muted/10 p-1 mb-6 rounded-lg">
           {tabs.map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
               className={cn(
-                "px-4 py-2 text-sm font-medium rounded-lg transition-all whitespace-nowrap",
+                "px-4 py-2 text-sm font-medium  transition-all whitespace-nowrap rounded-md",
                 activeTab === tab ? "bg-card shadow-sm text-foreground" : "text-muted hover:text-foreground"
               )}
             >
@@ -129,13 +133,13 @@ className={cn(
           <div className="lg:col-span-2 space-y-6">
             {activeTab === "Overview" && (
               <>
-                <div className="bg-card rounded-xl border border-border p-5">
+                <div className="bg-card  border border-border p-5 rounded-md">
                   <h3 className="font-bold mb-3 flex items-center gap-2">
                     <Trophy className="h-4 w-4 text-secondary" /> Achievements
                   </h3>
                   <div className="space-y-2 text-sm">
                     {achievements.map((a) => (
-                      <p key={a} className="bg-muted/10 rounded-lg px-3 py-2">{a}</p>
+                      <p key={a} className="bg-muted/10  px-3 py-2 rounded-md">{a}</p>
                     ))}
                   </div>
                 </div>
@@ -145,7 +149,7 @@ className={cn(
                   title="Upcoming Fixtures"
                 />
 
-                <div className="bg-card rounded-xl border border-border p-5">
+                <div className="bg-card  border border-border p-5 rounded-md">
                   <h3 className="font-bold mb-4">Top Scorers</h3>
                   <div className="space-y-3">
                     {topPlayers.filter((p) => p.teamId === id).map((p, i) => (
@@ -165,13 +169,13 @@ className={cn(
             )}
 
             {activeTab === "Squad" && (
-              <div className="bg-card rounded-xl border border-border p-5">
+              <div className="bg-card  border border-border p-5">
                 <h3 className="font-bold mb-4">Current Squad</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   {squad.map((player) => (
-                    <div key={player.name} className="flex items-center gap-3 bg-muted/10 rounded-xl p-3">
+                    <div key={player.name} className="flex items-center gap-3 bg-muted/10  p-3 rounded-sm">
                       <span className="text-xs font-bold text-muted w-6">{player.no}</span>
-                      <div className="w-8 h-8 rounded-full bg-secondary/10 text-secondary flex items-center justify-center text-sm">
+                      <div className="w-8 h-8  bg-secondary/10 text-secondary flex items-center justify-center text-sm rounded-md">
                         {player.position[0]}
                       </div>
                       <div className="flex-1 min-w-0">
@@ -193,7 +197,7 @@ className={cn(
             )}
 
             {activeTab === "Transfers" && (
-              <div className="bg-card rounded-xl border border-border p-5">
+              <div className="bg-card  border border-border p-5">
                 <h3 className="font-bold mb-4">Recent Transfers</h3>
                 <div className="space-y-3">
                   {[
@@ -202,7 +206,7 @@ className={cn(
                     { year: "2023", name: "Arda Güler", type: "In", fee: "€20M" },
                     { year: "2022", name: "Antonio Rüdiger", type: "In", fee: "Free" },
                   ].map((t) => (
-                    <div key={t.name} className="flex items-center gap-4 bg-muted/10 rounded-xl p-4">
+                    <div key={t.name} className="flex items-center gap-4 bg-muted/10  p-4 rounded-md">
 <span className={cn("text-xs font-bold px-2 py-1 rounded-full", t.type === "In" ? "bg-secondary/10 text-secondary" : "bg-brand-maroon/10 text-brand-maroon")}>
                         {t.type}
                       </span>
@@ -216,11 +220,11 @@ className={cn(
             )}
 
             {activeTab === "AI Analysis" && (
-              <div className="bg-card rounded-xl border border-border p-5 space-y-4">
+              <div className="bg-card  border border-border p-5 space-y-4">
                 <h3 className="font-bold flex items-center gap-2">
                   <Sparkles className="h-4 w-4 text-secondary" /> AI Analysis
                 </h3>
-                <div className="bg-secondary/5 border border-secondary/20 rounded-xl p-4">
+                <div className="bg-secondary/5 border border-secondary/20  p-4 rounded-md">
                   <p className="text-sm text-muted leading-relaxed">
                     {team.name} enter this phase of the season with a 78% win probability in their
                     remaining fixtures. Their press triggers in the final third rank 4th in Europe,
@@ -229,18 +233,18 @@ className={cn(
                   </p>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <div className="bg-muted/10 rounded-xl p-4">
+                  <div className="bg-muted/10  p-4 rounded-md">
                     <p className="text-sm font-bold mb-2">Expected Lineup (4-3-3)</p>
                     <p className="text-xs text-muted leading-relaxed">
                       Courtois; Carvajal, Rüdiger, Militão, Mendy; Valverde, Kroos, Bellingham;
                       Rodrygo, Vini Jr, Joselu
                     </p>
                   </div>
-                  <div className="bg-muted/10 rounded-xl p-4">
+                  <div className="bg-muted/10  p-4 rounded-md">
                     <p className="text-sm font-bold mb-2">Team Form</p>
                     <div className="flex gap-1.5">
                       {["W", "W", "D", "W", "W"].map((f, i) => (
-<span key={i} className={cn("w-6 h-6 text-[10px] font-bold rounded flex items-center justify-center", f === "W" ? "bg-secondary text-berry" : "bg-deep text-gold")}>
+<span key={i} className={cn("w-6 h-6 text-[10px] font-bold  flex items-center justify-center rounded-full", f === "W" ? "bg-primary text-navy" : "bg-deep text-gold")}>
                           {f}
                         </span>
                       ))}
@@ -251,8 +255,7 @@ className={cn(
             )}
           </div>
 
-          <aside className="space-y-6">
-            <div className="bg-card rounded-xl border border-border p-4">
+          <aside className="space-y-6">                <div className="bg-card  border border-border p-4 rounded-md">
               <h3 className="font-bold text-sm mb-3">Club Info</h3>
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between"><span className="text-muted">Founded</span><span className="font-medium">{team.founded ?? "-"}</span></div>
@@ -261,8 +264,7 @@ className={cn(
                 <div className="flex justify-between"><span className="text-muted">Capacity</span><span className="font-medium">{team.capacity?.toLocaleString() ?? "-"}</span></div>
               </div>
             </div>
-
-            <div className="bg-card rounded-xl border border-border p-4">
+                <div className="bg-card  border border-border p-4 rounded-md">
               <h3 className="font-bold text-sm mb-3">Star Players</h3>
               <div className="space-y-3">
                 {topPlayers.filter((p) => p.teamId === id).slice(0, 4).map((p) => (

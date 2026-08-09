@@ -12,7 +12,7 @@ interface TrendingSidebarProps {
 
 export function TrendingSidebar({ items, title = "Trending Now" }: TrendingSidebarProps) {
   return (
-<div className="overflow-hidden rounded-3xl arena-card">
+<div className="overflow-hidden  arena-card">
       <div className="flex items-center justify-between border-b border-border-navy px-6 py-5">
         <h2 className="heading text-lg text-foreground">{title}</h2>
         <Link
@@ -43,7 +43,7 @@ export function TrendingSidebar({ items, title = "Trending Now" }: TrendingSideb
                 {item.logos.map((logo, i) => (
                   <span
                     key={i}
-                    className="flex h-6 w-6 items-center justify-center rounded-full bg-navy/50 text-xs ring-2 ring-surface-1"
+                    className="flex h-6 w-6 items-center justify-center  bg-blue/30 text-xs ring-2 ring-surface-1 rounded-full"
                   >
                     {logo}
                   </span>
@@ -62,7 +62,7 @@ export function TrendingSidebar({ items, title = "Trending Now" }: TrendingSideb
         <Link
           href="/sports"
           className={cn(
-            "block w-full rounded-xl py-2.5 text-center text-sm font-semibold text-muted-strong transition-colors hover:bg-blue/40 hover:text-foreground"
+            "block w-full  py-2.5 text-center text-sm font-semibold text-muted-strong transition-colors hover:bg-blue/40 hover:text-foreground"
           )}
         >
           See What&apos;s Trending

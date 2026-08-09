@@ -1,6 +1,53 @@
 import { Match, Standing, Team, Fixture, Player, Sport } from "@/types";
 
-function apiTeam(t: { id: number; name: string; logo: string }): Team {
+/* ---- API-Football v3 response shapes ---- */
+interface APITeam {
+  id: number;
+  name: string;
+  logo: string;
+}
+
+interface APIFixture {
+  fixture: {
+    id: number;
+    date: string;
+    status: { short: string; long?: string; elapsed?: number | null };
+  };
+  league: { name: string; logo?: string };
+  teams: { home: APITeam; away: APITeam };
+  goals: { home: number | null; away: number | null };
+  venue?: { name?: string };
+}
+
+interface APIStandingRow {
+  rank: number;
+  team: APITeam;
+  all: {
+    played: number;
+    win: number;
+    draw: number;
+    lose: number;
+    goals: { for: number; against: number };
+  };
+  goalsDiff: number;
+  points: number;
+  form?: string;
+}
+
+interface APIPlayer {
+  player: { id: number; name: string; photo: string; nationality?: string; age?: number };
+  statistics?: Array<{
+    team?: { id?: number; name?: string; logo?: string };
+    games?: { position?: string; rating?: string };
+    goals?: { total?: number | null; assists?: number | null };
+  }>;
+}
+
+interface APITeamResponse {
+  team: APITeam;
+}
+
+function apiTeam(t: APITeam): Team {
   return {
     id: String(t.id),
     name: t.name,
@@ -17,25 +64,38 @@ function mapStatus(status: string): "live" | "upcoming" | "finished" {
   return "upcoming";
 }
 
-export function toMatch(f: any): Match {
+export function toMatch(f: APIFixture): Match {
+  const status = mapStatus(f.fixture.status.short);
+  const home = f.goals.home ?? 0;
+  const away = f.goals.away ?? 0;
   return {
     id: String(f.fixture.id),
     sport: "football" as Sport,
     league: f.league.name,
     leagueLogo: f.league.logo,
-    status: mapStatus(f.fixture.status.short),
+    status,
+    statusDetail: f.fixture.status.long,
+    period: status === "live" ? f.fixture.status.long : undefined,
+    winner:
+      status === "finished"
+        ? home > away
+          ? "home"
+          : away > home
+            ? "away"
+            : "draw"
+        : null,
     minute: f.fixture.status.elapsed ? `${f.fixture.status.elapsed}'` : f.fixture.status.long,
     homeTeam: apiTeam(f.teams.home),
     awayTeam: apiTeam(f.teams.away),
-    homeScore: f.goals.home ?? 0,
-    awayScore: f.goals.away ?? 0,
+    homeScore: home,
+    awayScore: away,
     venue: f.venue?.name,
     date: f.fixture.date,
     competition: f.league.name,
   };
 }
 
-export function toFixture(f: any): Fixture {
+export function toFixture(f: APIFixture): Fixture {
   return {
     id: String(f.fixture.id),
     sport: "football" as Sport,
@@ -49,7 +109,7 @@ export function toFixture(f: any): Fixture {
   };
 }
 
-export function toStanding(s: any): Standing {
+export function toStanding(s: APIStandingRow): Standing {
   return {
     position: s.rank,
     team: {
@@ -66,13 +126,13 @@ export function toStanding(s: any): Standing {
     lost: s.all.lose,
     goalDifference: s.goalsDiff,
     points: s.points,
-    form: s.form?.split("").slice(-5) || [],
+    form: s.form?.split("").slice(-5) as ("W" | "D" | "L")[] || [],
     goalsFor: s.all.goals.for,
     goalsAgainst: s.all.goals.against,
   };
 }
 
-export function toPlayer(p: any): Player {
+export function toPlayer(p: APIPlayer): Player {
   const stats = p.statistics?.[0];
   return {
     id: String(p.player.id),
@@ -83,8 +143,8 @@ export function toPlayer(p: any): Player {
     teamLogo: stats?.team?.logo ?? "",
     position: stats?.games?.position ?? "",
     sport: "football" as Sport,
-    nationality: p.player.nationality,
-    age: p.player.age,
+    nationality: p.player.nationality ?? "",
+    age: p.player.age ?? 0,
     stat: String(stats?.goals?.total ?? stats?.goals?.assists ?? "-"),
     statLabel: stats?.goals?.total != null ? "Goals" : stats?.goals?.assists != null ? "Assists" : "-",
     marketValue: undefined,
@@ -109,12 +169,12 @@ export async function getMatchesByDate(date: string): Promise<Match[]> {
   return data.map(toMatch);
 }
 
-export async function getFixtures(league = "39", season = "2025", next = "15"): Promise<Fixture[]> {
+export async function getFixtures(league = "39", season = "2024", next = "15"): Promise<Fixture[]> {
   const data = await fetchAPI("fixtures", { league, season, next });
   return data.map(toFixture);
 }
 
-export async function getStandings(league = "39", season = "2025"): Promise<Standing[]> {
+export async function getStandings(league = "39", season = "2024"): Promise<Standing[]> {
   const data = await fetchAPI("standings", { league, season });
   if (data.length > 0 && data[0].league?.standings?.[0]) {
     return data[0].league.standings[0].map(toStanding);
@@ -122,12 +182,12 @@ export async function getStandings(league = "39", season = "2025"): Promise<Stan
   return [];
 }
 
-export async function getTeams(league = "39", season = "2025"): Promise<Team[]> {
+export async function getTeams(league = "39", season = "2024"): Promise<Team[]> {
   const data = await fetchAPI("teams", { league, season });
-  return data.map((t: any) => apiTeam(t.team));
+  return data.map((t: APITeamResponse) => apiTeam(t.team));
 }
 
-export async function getTopScorers(league = "39", season = "2025"): Promise<Player[]> {
+export async function getTopScorers(league = "39", season = "2024"): Promise<Player[]> {
   const data = await fetchAPI("topscorers", { league, season });
   return data.map(toPlayer);
 }

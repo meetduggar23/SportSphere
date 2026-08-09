@@ -18,12 +18,12 @@ export function FeaturedPlayers({ players }: FeaturedPlayersProps) {
           <Link
             key={p.id}
             href={`/player/${p.id}`}
-            className="group relative overflow-hidden rounded-3xl arena-card arena-card-hover p-5"
+            className="group relative overflow-hidden  arena-card arena-card-hover p-5"
           >
-<div className="absolute -right-12 -top-12 h-36 w-36 rounded-full bg-blue/30 blur-2xl transition-colors duration-300 group-hover:bg-blue/40" />
+<div className="absolute -right-12 -top-12 h-36 w-36  bg-blue/30 blur-2xl transition-colors duration-300 group-hover:bg-blue/40" />
             <div className="relative flex items-center gap-4">
               {p.photo ? (
-                <div className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-border-navy bg-navy/50">
+                <div className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden  border border-border-navy bg-blue/30">
                   <img src={p.photo} alt={p.name} className="h-full w-full object-cover" />
                 </div>
               ) : (

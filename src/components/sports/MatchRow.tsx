@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ChevronRight, MapPin } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import { Match, sportIcons } from "@/types";
 import { TeamLogo } from "@/components/ui/TeamLogo";
 import { cn } from "@/lib/utils";
@@ -19,22 +19,22 @@ export function MatchRow({ match, className }: MatchRowProps) {
 <Link
       href={`/match/${match.id}`}
       className={cn(
-        "group flex items-center gap-4 rounded-2xl px-5 py-3.5 panel panel-hover",
+        "group flex items-center gap-4  px-5 py-3.5 panel panel-hover",
         isLive && "ring-1 ring-border-live/40",
         className
       )}
     >
       <div className="flex min-w-0 flex-1 flex-col gap-1.5">
         <div className="flex items-center gap-2">
-          <span className="flex h-6 w-6 items-center justify-center rounded-md bg-blue/50 text-muted-strong">
+          <span className="flex h-6 w-6 items-center justify-center  bg-blue/50 text-muted-strong rounded-sm">
             <span className="text-xs">{sportIcons[match.sport]}</span>
           </span>
           <span className="label truncate">{match.league}</span>
           {isLive && (
-            <span className="inline-flex items-center gap-1 rounded-full bg-primary/15 px-2 py-0.5 text-[9px] font-bold text-primary">
+            <span className="inline-flex items-center gap-1  bg-primary px-2 py-0.5 text-[9px] font-bold text-navy rounded-full">
               <span className="relative flex h-1 w-1">
-                <span className="absolute inline-flex h-full w-full rounded-full bg-primary animate-ping-ring" />
-                <span className="relative inline-flex h-1 w-1 rounded-full bg-primary" />
+                <span className="absolute inline-flex h-full w-full  bg-navy animate-ping-ring" />
+                <span className="relative inline-flex h-1 w-1  bg-navy" />
               </span>
               LIVE
             </span>

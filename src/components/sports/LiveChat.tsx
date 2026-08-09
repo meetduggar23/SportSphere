@@ -53,7 +53,7 @@ export function LiveChat() {
               <img
                 src={msg.avatar}
                 alt={msg.user}
-                className="w-8 h-8 rounded-full shrink-0 bg-muted/20"
+                className="w-8 h-8  shrink-0 bg-muted/20 rounded-full"
               />
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">
@@ -84,11 +84,10 @@ export function LiveChat() {
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && send()}
             placeholder="Join the conversation..."
-            className="flex-1 px-3 py-2 rounded-lg border border-border bg-background text-sm outline-none focus:border-secondary/50 focus:ring-2 focus:ring-secondary/10 transition-all"
+            className="flex-1 px-3 py-2  border border-border bg-background text-sm outline-none focus:border-secondary/50 focus:ring-2 focus:ring-secondary/10 transition-all rounded-md"
           />
           <button
-            onClick={send}
-className="p-2.5 rounded-lg bg-primary text-berry hover:bg-primary-hover transition-colors"
+            onClick={send}            className="p-2.5  bg-primary text-navy hover:bg-primary-hover transition-colors rounded-md"
             aria-label="Send message"
           >
             <Send className="h-4 w-4" />

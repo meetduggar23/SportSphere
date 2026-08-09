@@ -31,7 +31,7 @@ className="arena-card arena-card-hover p-5 cursor-pointer"
             >
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center text-2xl">
+                  <div className="w-12 h-12  bg-secondary/10 text-secondary flex items-center justify-center text-2xl rounded-md">
                     {sportIcons[tournament.sport]}
                   </div>
                   <div>
@@ -41,12 +41,12 @@ className="arena-card arena-card-hover p-5 cursor-pointer"
                     </p>
                   </div>
                 </div>
-                <span className={cn("text-[10px] font-bold px-2 py-0.5 rounded-full capitalize", statusColors[tournament.status])}>
+                <span className={cn("text-[10px] font-bold px-2 py-0.5  capitalize rounded-full", statusColors[tournament.status])}>
                   {tournament.status}
                 </span>
               </div>
 
-              <div className="grid grid-cols-3 gap-2 text-center bg-muted/10 rounded-lg p-3">
+              <div className="grid grid-cols-3 gap-2 text-center bg-muted/10  p-3 rounded-sm">
                 <div>
                   <p className="text-sm font-bold">{tournament.season}</p>
                   <p className="text-[10px] text-muted uppercase">Season</p>

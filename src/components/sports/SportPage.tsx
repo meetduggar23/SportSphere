@@ -23,8 +23,10 @@ interface SportPageProps {
   news: News[];
   players: Player[];
   competitions: string[];
-  hero: React.ReactNode;
+  hero?: React.ReactNode;
   extra?: React.ReactNode;
+  /** Loading / unavailable banner + last-updated label */
+  dataStatus?: React.ReactNode;
 }
 
 const tabs = ["Live", "Fixtures", "Standings", "News", "Top Players"];
@@ -40,6 +42,7 @@ export function SportPage({
   competitions,
   hero,
   extra,
+  dataStatus,
 }: SportPageProps) {
   const [activeTab, setActiveTab] = useState("Live");
   const accent = getSportAccent(sport);
@@ -58,6 +61,8 @@ export function SportPage({
           kicker="SportSphere Coverage"
           subtitle={`Everything ${sportLabels[sport]}. Live scores, fixtures, standings, and more`}
         />
+
+        {dataStatus}
 
         {hero}
 
@@ -80,52 +85,79 @@ export function SportPage({
             {activeTab === "Live" && (
               <section>
                 <SectionHeader title={`Live & Upcoming`} href="/live" kicker="On now & next" />
-                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 2xl:grid-cols-3">
-                  {matches.map((match) => (
-                    <LiveMatchCard key={match.id} match={match} />
-                  ))}
-                </div>
+                {matches.length === 0 ? (
+                  <p className=" border border-border-navy bg-card/50 px-5 py-8 text-center text-sm text-muted">
+                    No live or upcoming matches right now.
+                  </p>
+                ) : (
+                  <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 2xl:grid-cols-3">
+                    {matches.map((match) => (
+                      <LiveMatchCard key={match.id} match={match} />
+                    ))}
+                  </div>
+                )}
               </section>
             )}
 
-            {activeTab === "Fixtures" && (
-              <FixtureList fixtures={fixtures} title="Upcoming Fixtures" href="/calendar" />
-            )}
+            {activeTab === "Fixtures" &&
+              (fixtures.length === 0 ? (
+                <p className=" border border-border-navy bg-card/50 px-5 py-8 text-center text-sm text-muted">
+                  No upcoming fixtures available.
+                </p>
+              ) : (
+                <FixtureList fixtures={fixtures} title="Upcoming Fixtures" href="/calendar" />
+              ))}
 
-            {activeTab === "Standings" && (
-              <StandingsTable
-                standings={standings}
-                title={`${sportLabels[sport]} Standings`}
-              />
-            )}
+            {activeTab === "Standings" &&
+              (standings.length === 0 ? (
+                <p className=" border border-border-navy bg-card/50 px-5 py-8 text-center text-sm text-muted">
+                  No standings available.
+                </p>
+              ) : (
+                <StandingsTable
+                  standings={standings}
+                  title={`${sportLabels[sport]} Standings`}
+                />
+              ))}
 
             {activeTab === "News" && (
               <section>
                 <SectionHeader title="Latest News" href="/news" kicker="Stories & reports" />
-                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                  {news.map((n) => (
-                    <NewsCard key={n.id} news={n} />
-                  ))}
-                </div>
+                {news.length === 0 ? (
+                  <p className=" border border-border-navy bg-card/50 px-5 py-8 text-center text-sm text-muted">
+                    No news available. A news provider is not configured yet.
+                  </p>
+                ) : (
+                  <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                    {news.map((n) => (
+                      <NewsCard key={n.id} news={n} />
+                    ))}
+                  </div>
+                )}
               </section>
             )}
 
             {activeTab === "Top Players" && (
               <section>
                 <SectionHeader title="Top Players" href="/players" kicker="Leaders & performers" />
+                {players.length === 0 ? (
+                  <p className=" border border-border-navy bg-card/50 px-5 py-8 text-center text-sm text-muted">
+                    No player data available.
+                  </p>
+                ) : (
                 <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
 {players.map((p) => (
                     <div
                       key={p.id}
-                      className="group relative overflow-hidden rounded-3xl arena-card arena-card-hover p-5"
+                      className="group relative overflow-hidden  arena-card arena-card-hover p-5"
                     >
                       <div
-                        className="absolute -right-10 -top-10 h-32 w-32 rounded-full blur-2xl opacity-20"
+                        className="absolute -right-10 -top-10 h-32 w-32  blur-2xl opacity-20"
                         style={{ backgroundColor: "var(--sport-accent)" }}
                       />
                       <div className="relative flex items-center gap-4">
                         {p.photo ? (
-                          <div className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-border-navy bg-navy/50">
+                          <div className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden  border border-border-navy bg-blue/30 rounded-md">
                             <img src={p.photo} alt={p.name} className="h-full w-full object-cover" />
                           </div>
                         ) : (
@@ -149,13 +181,14 @@ export function SportPage({
                     </div>
                   ))}
                 </div>
+                )}
               </section>
             )}
           </div>
 
           <aside className="hidden xl:block">
             <div className="sticky top-28 space-y-5">
-<div className="overflow-hidden rounded-3xl arena-card">
+<div className="overflow-hidden  arena-card">
                 <div className="border-b border-border-navy px-5 py-4">
                   <h3 className="heading text-base text-foreground">Competitions</h3>
                   <p className="meta mt-0.5">{sportLabels[sport]} tournaments</p>
@@ -164,12 +197,12 @@ export function SportPage({
                   {competitions.map((c) => (
                     <li key={c}>
                       <a
-                        href="#"
-                        className="group flex items-center justify-between rounded-xl px-3.5 py-2.5 text-sm text-muted transition-colors hover:bg-blue/40 hover:text-foreground"
+                        href="/competitions"
+                        className="group flex items-center justify-between  px-3.5 py-2.5 text-sm text-muted transition-colors hover:bg-blue/40 hover:text-foreground"
                       >
                         <span className="truncate">{c}</span>
                         <span
-                          className="h-1.5 w-1.5 rounded-full bg-border-strong opacity-0 transition-opacity group-hover:opacity-100"
+                          className="h-1.5 w-1.5  bg-border-strong opacity-0 transition-opacity group-hover:opacity-100"
                         />
                       </a>
                     </li>

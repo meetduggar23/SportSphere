@@ -13,7 +13,7 @@ export function SportTabs({ tabs, active, onChange, className }: SportTabsProps)
   return (
     <div
       className={cn(
-        "flex gap-1 overflow-x-auto rounded-2xl border border-border/60 bg-navy/50 p-1.5 no-scrollbar backdrop-blur",
+        "flex gap-1 overflow-x-auto  border border-border/60 bg-blue/10 p-1.5 no-scrollbar backdrop-blur rounded-lg",
         className
       )}
       role="tablist"
@@ -27,7 +27,7 @@ export function SportTabs({ tabs, active, onChange, className }: SportTabsProps)
             aria-selected={isActive}
             onClick={() => onChange(tab.value)}
 className={cn(
-              "relative flex items-center whitespace-nowrap rounded-xl px-4 py-2 text-sm font-semibold transition-all duration-200",
+              "relative flex items-center whitespace-nowrap  px-4 py-2 text-sm font-semibold transition-all duration-200 rounded-md",
               isActive
                 ? "bg-blue/50 text-foreground"
                 : "text-muted hover:bg-blue/30 hover:text-foreground"
@@ -37,7 +37,7 @@ className={cn(
             {tab.count !== undefined && (
               <span
                 className={cn(
-                  "ml-1.5 rounded-full px-1.5 py-0.5 text-[10px] font-bold tabular-nums",
+                  "ml-1.5  px-1.5 py-0.5 text-[10px] font-bold tabular-nums rounded-full",
                   isActive ? "bg-secondary/15 text-secondary" : "bg-muted/10 text-muted"
                 )}
               >
@@ -45,7 +45,7 @@ className={cn(
               </span>
             )}
             {isActive && (
-              <span className="absolute -bottom-[7px] left-1/2 h-0.5 w-6 -translate-x-1/2 rounded-full bg-primary" />
+              <span className="absolute -bottom-[7px] left-1/2 h-0.5 w-6 -translate-x-1/2  bg-primary" />
             )}
           </button>
         );

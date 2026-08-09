@@ -17,7 +17,7 @@ export function MobileNav() {
   const pathname = usePathname();
 
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-50 border-t border-border-strong bg-navy/92 backdrop-blur-xl lg:hidden">
+    <nav className="fixed inset-x-0 bottom-0 z-50 border-t border-border-strong bg-background/92 backdrop-blur-xl lg:hidden">
       <div className="mx-auto grid max-w-md grid-cols-5">
         {items.map((item) => {
           const active =
@@ -34,7 +34,7 @@ export function MobileNav() {
               )}
             >
               {active && (
-                <span className="absolute inset-x-4 top-0 h-0.5 rounded-full bg-primary" />
+                <span className="absolute inset-x-4 top-0 h-0.5  bg-primary" />
               )}
               <Icon className="h-5 w-5" strokeWidth={active ? 2.4 : 2} />
               {item.label}

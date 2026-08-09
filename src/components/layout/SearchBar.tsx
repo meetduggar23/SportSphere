@@ -56,7 +56,7 @@ export function SearchBar() {
 
   return (
     <div ref={containerRef} className="relative">
-<div className="flex h-9 items-center gap-2 rounded-full border border-border-navy bg-blue/40 px-3.5 backdrop-blur transition-all w-48 focus-within:border-secondary/60 focus-within:ring-2 focus-within:ring-secondary/10 lg:w-56 xl:w-60">
+<div className="flex h-9 items-center gap-2  border border-border-navy bg-blue/40 px-3.5 backdrop-blur transition-all w-48 focus-within:border-secondary/60 focus-within:ring-2 focus-within:ring-secondary/10 lg:w-56 xl:w-60 rounded-lg">
         <Search className="h-4 w-4 text-muted shrink-0" />
         <input
           type="text"
@@ -77,8 +77,8 @@ export function SearchBar() {
         )}
         <button
           onClick={startVoiceSearch}
-          className={`p-0.5 rounded-md transition-colors ${
-            listening ? "text-primary animate-pulse" : "text-muted hover:text-secondary"
+          className={`p-0.5  transition-colors ${
+            listening ? "text-secondary animate-pulse" : "text-muted hover:text-secondary"
           }`}
           title="Voice search"
         >
@@ -87,13 +87,13 @@ export function SearchBar() {
       </div>
 
       {open && (
-        <div className="absolute top-full left-0 right-0 mt-2 bg-card border border-border rounded-2xl shadow-pop z-50 overflow-hidden animate-slide-up">
+        <div className="absolute top-full left-0 right-0 mt-2 bg-card border border-border  shadow-pop z-50 overflow-hidden animate-slide-up rounded-lg">
           {query ? (
             <div className="p-2">
               <p className="text-xs text-muted px-3 py-2 font-medium">Search for &quot;{query}&quot;</p>
               <button
                 onClick={() => submit(query)}
-                className="w-full text-left px-3 py-2 text-sm rounded-lg hover:bg-muted/10 transition-colors flex items-center gap-2"
+                className="w-full text-left px-3 py-2 text-sm  hover:bg-muted/10 transition-colors flex items-center gap-2"
               >
                 <Search className="h-4 w-4 text-muted" />
                 {query}
@@ -111,7 +111,7 @@ export function SearchBar() {
                       <button
                         key={s}
                         onClick={() => submit(s)}
-                        className="text-xs px-2.5 py-1 rounded-full bg-muted/10 hover:bg-muted/20 transition-colors"
+                        className="text-xs px-2.5 py-1  bg-muted/10 hover:bg-muted/20 transition-colors rounded-full"
                       >
                         {s}
                       </button>
@@ -128,7 +128,7 @@ export function SearchBar() {
                     <button
                       key={s}
                       onClick={() => submit(s)}
-                      className="text-xs px-2.5 py-1 rounded-full bg-blue/50 text-muted-strong hover:bg-blue/70 hover:text-foreground transition-colors"
+                      className="text-xs px-2.5 py-1  bg-blue/50 text-muted-strong hover:bg-blue/70 hover:text-foreground transition-colors rounded-full"
                     >
                       {s}
                     </button>

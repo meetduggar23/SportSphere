@@ -12,18 +12,18 @@ interface NewsCardProps {
 }
 
 const categoryColors: Record<string, string> = {
-  FOOTBALL: "bg-blue/50 text-muted-strong",
-  CRICKET: "bg-blue/50 text-muted-strong",
-  F1: "bg-blue/50 text-muted-strong",
-  NBA: "bg-blue/50 text-muted-strong",
-  TRANSFERS: "bg-blue/50 text-muted-strong",
+  FOOTBALL: "bg-primary text-navy",
+  CRICKET: "bg-primary text-navy",
+  F1: "bg-primary text-navy",
+  NBA: "bg-primary text-navy",
+  TRANSFERS: "bg-primary text-navy",
 };
 
 function CategoryChip({ category }: { category: string }) {
-  const c = categoryColors[category] ?? "bg-blue/50 text-muted-strong";
+  const c = categoryColors[category] ?? "bg-primary text-navy";
   return (
     <span
-      className={`inline-flex items-center rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider ${c}`}
+      className={`inline-flex items-center  px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider rounded-full ${c}`}
     >
       {category}
     </span>
@@ -35,7 +35,7 @@ export function NewsCard({ news, variant = "default", className }: NewsCardProps
     <Link
       href={`/news/${news.id}`}
       className={cn(
-        "group block overflow-hidden rounded-3xl arena-card arena-card-hover",
+        "group block overflow-hidden  arena-card arena-card-hover",
         variant === "compact" && "flex gap-4 p-3.5",
         className
       )}
@@ -52,10 +52,10 @@ export function NewsCard({ news, variant = "default", className }: NewsCardProps
             />
             <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/40 to-transparent" />
             {news.isBreaking && (
-              <span className="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-primary px-3 py-1 text-[10px] font-bold text-berry shadow-glow">
+              <span className="absolute left-4 top-4 inline-flex items-center gap-1.5  bg-primary px-3 py-1 text-[10px] font-bold text-navy shadow-glow rounded-full">
                 <span className="relative flex h-1.5 w-1.5">
-                  <span className="absolute inline-flex h-full w-full rounded-full bg-berry animate-ping-ring" />
-                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-berry" />
+                  <span className="absolute inline-flex h-full w-full  bg-navy animate-ping-ring" />
+                  <span className="relative inline-flex h-1.5 w-1.5  bg-navy" />
                 </span>
                 BREAKING
               </span>
@@ -63,12 +63,12 @@ export function NewsCard({ news, variant = "default", className }: NewsCardProps
 <div className="absolute inset-x-0 bottom-0 p-5">
               <div className="mb-2.5 flex items-center gap-2">
                 <CategoryChip category={news.category} />
-                <span className="text-muted">{sportIcons[news.sport]}</span>
+                <span className="text-white/80">{sportIcons[news.sport]}</span>
               </div>
-              <h3 className="heading text-xl text-foreground md:text-2xl line-clamp-2">
+              <h3 className="heading text-xl text-white md:text-2xl line-clamp-2">
                 {news.title}
               </h3>
-              <div className="mt-3 flex items-center gap-4 meta">
+              <div className="mt-3 flex items-center gap-4 text-xs text-white/75">
                 {news.author && <span>{news.author}</span>}
                 <span className="inline-flex items-center gap-1">
                   <Clock className="h-3 w-3" /> {news.timeAgo}
@@ -94,17 +94,17 @@ export function NewsCard({ news, variant = "default", className }: NewsCardProps
             />
             <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/25 to-transparent" />
             {news.isBreaking && (
-              <span className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-primary px-2.5 py-1 text-[10px] font-bold text-berry">
+              <span className="absolute left-3 top-3 inline-flex items-center gap-1.5  bg-primary px-2.5 py-1 text-[10px] font-bold text-navy rounded-full">
                 <span className="relative flex h-1 w-1">
-                  <span className="absolute inline-flex h-full w-full rounded-full bg-berry animate-ping-ring" />
-                  <span className="relative inline-flex h-1 w-1 rounded-full bg-berry" />
+                  <span className="absolute inline-flex h-full w-full  bg-navy animate-ping-ring" />
+                  <span className="relative inline-flex h-1 w-1  bg-navy" />
                 </span>
                 BREAKING
               </span>
             )}
 <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
               <CategoryChip category={news.category} />
-              <span className="text-sm text-muted">{sportIcons[news.sport]}</span>
+              <span className="text-sm text-white/80">{sportIcons[news.sport]}</span>
             </div>
           </div>
           <div className="p-5">
@@ -125,7 +125,7 @@ export function NewsCard({ news, variant = "default", className }: NewsCardProps
         </>
       ) : (
         <>
-          <div className="relative h-20 w-28 shrink-0 overflow-hidden rounded-2xl">
+          <div className="relative h-20 w-28 shrink-0 overflow-hidden">
             <img
               src={news.image}
               alt={news.title}

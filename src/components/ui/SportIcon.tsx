@@ -11,7 +11,7 @@ export function SportIcon({ sport, className }: SportIconProps) {
 
   if (!IconComponent) {
     return (
-      <div className={cn("w-6 h-6 rounded-full bg-muted/20 flex items-center justify-center text-xs", className)}>
+      <div className={cn("w-6 h-6  bg-muted/20 flex items-center justify-center text-xs", className)}>
         {sport.charAt(0).toUpperCase()}
       </div>
     );

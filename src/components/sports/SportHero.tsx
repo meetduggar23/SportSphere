@@ -41,20 +41,23 @@ export function SportHero({
 
   return (
     <div
-      className="relative mb-8 overflow-hidden rounded-[28px] border shadow-hero"
-      style={{ borderColor: `${accent.accent}33`, background: accent.gradient }}
+      className="relative mb-8 overflow-hidden border shadow-hero rounded-lg"
+      style={{
+        borderColor: "color-mix(in srgb, var(--sport-accent) 22%, transparent)",
+        background: accent.gradient,
+      }}
     >
 {/* Cinematic glows */}
       <div
-        className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full blur-3xl"
+        className="pointer-events-none absolute -right-24 -top-24 h-80 w-80  blur-3xl"
         style={{ backgroundColor: accent.accent, opacity: 0.22 }}
       />
-      <div className="pointer-events-none absolute -bottom-32 -left-20 h-96 w-96 rounded-full bg-navy/70 blur-3xl" />
+      <div className="pointer-events-none absolute -bottom-32 -left-20 h-96 w-96  bg-accent/25 blur-3xl" />
       {/* Score rays */}
       <div
         className="pointer-events-none absolute inset-0"
         style={{
-          background: `radial-gradient(circle at 50% 38%, transparent 42%, rgba(141,11,65,0.16) 100%)`,
+          background: `radial-gradient(circle at 50% 38%, transparent 42%, color-mix(in srgb, var(--sport-accent) 30%, transparent) 100%)`,
         }}
       />
 
@@ -62,16 +65,16 @@ export function SportHero({
         {/* Kicker row */}
         <div className="mb-8 flex flex-wrap items-center justify-center gap-3">
           <span
-            className="flex h-9 w-9 items-center justify-center rounded-xl border border-border-navy bg-blue/40 text-muted-strong"
+            className="flex h-9 w-9 items-center justify-center  border border-border-navy bg-blue/40 text-muted-strong rounded-md"
           >
             <SportIcon sport={sport} className="h-5 w-5" />
           </span>
           <span className="kicker text-muted-strong">{kicker}</span>
           {live && (
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/15 px-3 py-1 text-[11px] font-bold text-primary ring-1 ring-border-live">
+            <span className="inline-flex items-center gap-1.5  bg-primary px-3 py-1 text-[11px] font-bold text-navy rounded-full">
               <span className="relative flex h-1.5 w-1.5">
-                <span className="absolute inline-flex h-full w-full rounded-full bg-primary animate-ping-ring" />
-                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-primary" />
+                <span className="absolute inline-flex h-full w-full  bg-navy animate-ping-ring" />
+                <span className="relative inline-flex h-1.5 w-1.5  bg-navy" />
               </span>
               LIVE
             </span>
@@ -98,10 +101,10 @@ export function SportHero({
                 {away.score}
               </span>
             </div>            {live && (
-              <span className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-primary px-3.5 py-1 text-xs font-bold text-berry">
+              <span className="mt-3 inline-flex items-center gap-1.5  bg-primary px-3.5 py-1 text-xs font-bold text-navy rounded-full">
                 <span className="relative flex h-1.5 w-1.5">
-                  <span className="absolute inline-flex h-full w-full rounded-full bg-berry animate-ping-ring" />
-                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-berry" />
+                  <span className="absolute inline-flex h-full w-full  bg-navy animate-ping-ring" />
+                  <span className="relative inline-flex h-1.5 w-1.5  bg-navy" />
                 </span>
                 {home.sub ?? "Live"}
               </span>
@@ -133,14 +136,14 @@ export function SportHero({
         <div className="mt-7 flex items-center justify-center gap-3">
           <Link
             href={ctaHref}
-            className="group inline-flex items-center gap-2 rounded-full bg-live-gradient px-6 py-2.5 text-sm font-bold text-berry transition-transform hover:scale-[1.03]"
+            className="group inline-flex items-center gap-2  bg-live-gradient px-6 py-2.5 text-sm font-bold text-navy transition-transform hover:scale-[1.03] rounded-md"
           >
             Match Centre
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
           </Link>
           <Link
             href="/ai-insights"
-            className="inline-flex items-center gap-2 rounded-full border border-border-strong bg-navy/50 px-6 py-2.5 text-sm font-semibold text-foreground-soft backdrop-blur transition-colors hover:border-border-strong hover:bg-blue/40"
+            className="inline-flex items-center gap-2  border border-border-strong bg-card-glass px-6 py-2.5 text-sm font-semibold text-foreground-soft backdrop-blur transition-colors hover:border-border-strong hover:bg-blue/40 rounded-md"
           >
             <Sparkles className="h-4 w-4" /> AI Insight
           </Link>

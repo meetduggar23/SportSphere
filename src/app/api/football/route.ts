@@ -26,6 +26,13 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const type = searchParams.get("type") || "matches";
 
+  if (!API_KEY) {
+    return NextResponse.json(
+      { error: "FOOTBALL_API_KEY is not configured. Add it to .env.local" },
+      { status: 401 }
+    );
+  }
+
   try {
     switch (type) {
       case "matches": {
@@ -39,32 +46,32 @@ export async function GET(request: Request) {
       }
       case "standings": {
         const league = searchParams.get("league") || "39";
-        const season = searchParams.get("season") || "2025";
+        const season = searchParams.get("season") || "2024";
         const data = await fetchAPI("/standings", { league, season });
         return NextResponse.json(data);
       }
       case "fixtures": {
         const league = searchParams.get("league") || "39";
-        const season = searchParams.get("season") || "2025";
+        const season = searchParams.get("season") || "2024";
         const next = searchParams.get("next") || "10";
         const data = await fetchAPI("/fixtures", { league, season, next });
         return NextResponse.json(data);
       }
       case "teams": {
         const league = searchParams.get("league") || "39";
-        const season = searchParams.get("season") || "2025";
+        const season = searchParams.get("season") || "2024";
         const data = await fetchAPI("/teams", { league, season });
         return NextResponse.json(data);
       }
       case "players": {
         const team = searchParams.get("team") || "";
-        const season = searchParams.get("season") || "2025";
+        const season = searchParams.get("season") || "2024";
         const data = await fetchAPI("/players", { team, season });
         return NextResponse.json(data);
       }
       case "topscorers": {
         const league = searchParams.get("league") || "39";
-        const season = searchParams.get("season") || "2025";
+        const season = searchParams.get("season") || "2024";
         const data = await fetchAPI("/players/topscorers", { league, season });
         return NextResponse.json(data);
       }

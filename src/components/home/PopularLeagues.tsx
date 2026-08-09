@@ -27,9 +27,9 @@ export function PopularLeagues({ leagues }: PopularLeaguesProps) {
           <Link
             key={lg.id}
             href={lg.href}
-            className="group flex items-center gap-3 rounded-2xl panel panel-hover p-4"
+            className="group flex items-center gap-3  panel panel-hover p-4"
           >
-<span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-blue/50 text-muted-strong ring-1 ring-border-navy">
+<span className="flex h-11 w-11 shrink-0 items-center justify-center  bg-blue/50 text-muted-strong ring-1 ring-border-navy">
               <SportIcon sport={lg.sport} className="h-5 w-5" />
             </span>
             <div className="min-w-0 flex-1">

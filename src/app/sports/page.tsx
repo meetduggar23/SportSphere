@@ -5,7 +5,7 @@ import { Globe } from "lucide-react";
 import { AppShell } from "@/components/layout/AppShell";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { SportIcon } from "@/components/ui/SportIcon";
-import { sportsConfig, primarySports, secondarySports } from "@/config/sports";
+import { primarySports, secondarySports } from "@/config/sports";
 
 export default function SportsPage() {
   return (
@@ -29,9 +29,9 @@ export default function SportsPage() {
                 className="group arena-card overflow-hidden p-5 focus-visible:ring-2 focus-visible:ring-secondary"
                 aria-label={`${sport.name} - ${sport.description}`}
               >
-                <div className="absolute -top-10 -right-10 h-28 w-28 rounded-full bg-secondary/8 blur-3xl transition-opacity duration-300 group-hover:opacity-100" />
+                <div className="absolute -top-10 -right-10 h-28 w-28  bg-secondary/8 blur-3xl transition-opacity duration-300 group-hover:opacity-100" />
                 <div className="relative flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-navy/60 ring-1 ring-border-navy flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-200">
+                  <div className="w-12 h-12  bg-blue/25 ring-1 ring-border-navy flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-200 rounded-md">
                     <SportIcon sport={sport.id} className="w-6 h-6 text-secondary" />
                   </div>
                   <div className="flex-1 min-w-0">
@@ -59,9 +59,9 @@ export default function SportsPage() {
                 className="group arena-card overflow-hidden p-5 focus-visible:ring-2 focus-visible:ring-secondary"
                 aria-label={`${sport.name} - ${sport.description}`}
               >
-                <div className="absolute -top-10 -right-10 h-28 w-28 rounded-full bg-secondary/8 blur-3xl transition-opacity duration-300 group-hover:opacity-100" />
+                <div className="absolute -top-10 -right-10 h-28 w-28  bg-secondary/8 blur-3xl transition-opacity duration-300 group-hover:opacity-100" />
                 <div className="relative flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-navy/60 ring-1 ring-border-navy flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-200">
+                  <div className="w-12 h-12  bg-blue/25 ring-1 ring-border-navy flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-200 rounded-md">
                     <SportIcon sport={sport.id} className="w-6 h-6 text-secondary" />
                   </div>
                   <div className="flex-1 min-w-0">

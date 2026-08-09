@@ -54,8 +54,8 @@ export default function CalendarPage() {
                       key={date}
                       onClick={() => setSelectedDay(date)}
                       className={cn(
-                        "relative aspect-square rounded-xl border text-sm font-medium transition-all",                        selectedDay === date
-                          ? "bg-secondary text-berry border-secondary"
+                        "relative aspect-square  border text-sm font-medium transition-all rounded-sm",                        selectedDay === date
+                          ? "bg-primary text-navy border-primary"
                           : hasEvents
                           ? "bg-secondary/5 border-secondary/20 hover:bg-secondary/10"
                           : "border-border hover:bg-muted/10"
@@ -65,7 +65,7 @@ export default function CalendarPage() {
                       {hasEvents && (
                         <span
                           className={cn(
-                            "absolute bottom-1.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full",                            selectedDay === date ? "bg-navy" : "bg-secondary"
+                            "absolute bottom-1.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full ",                            selectedDay === date ? "bg-navy" : "bg-secondary"
                           )}
                         />
                       )}
@@ -82,7 +82,7 @@ export default function CalendarPage() {
               {eventsByDay[selectedDay] ? (
                 <div className="space-y-3">
                   {eventsByDay[selectedDay].map((e) => (
-                    <div key={e.title} className="flex items-center gap-4 bg-muted/10 rounded-xl p-4">
+                    <div key={e.title} className="flex items-center gap-4 bg-muted/10  p-4 rounded-md">
                       <span className="text-xl">{e.sport}</span>
                       <div className="flex-1">
                         <p className="text-sm font-semibold">{e.title}</p>

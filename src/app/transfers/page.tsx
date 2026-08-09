@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 
 const statusColors: Record<string, string> = {
   confirmed: "bg-secondary/10 text-secondary",
-  rumored: "bg-brand-purple/10 text-brand-purple",
+  rumored: "bg-secondary/10 text-secondary",
   completed: "bg-brand-navy/10 text-brand-navy",
 };
 
@@ -29,7 +29,7 @@ export default function TransfersPage() {
 className="arena-card arena-card-hover p-5"
             >
               <div className="flex items-center justify-between mb-4">
-                <span className={cn("text-xs font-bold px-2.5 py-1 rounded-full capitalize", statusColors[transfer.status])}>
+                <span className={cn("text-xs font-bold px-2.5 py-1  capitalize rounded-full", statusColors[transfer.status])}>
                   {transfer.status}
                 </span>
                 <span className="text-xs text-muted">{transfer.date}</span>
@@ -40,7 +40,7 @@ className="arena-card arena-card-hover p-5"
                   <img
                     src={transfer.playerPhoto}
                     alt={transfer.playerName}
-                    className="w-16 h-16 rounded-full object-cover bg-muted/20"
+                    className="w-16 h-16  object-cover bg-muted/20"
                   />
                   <p className="font-bold text-sm text-center">{transfer.playerName}</p>
                 </div>

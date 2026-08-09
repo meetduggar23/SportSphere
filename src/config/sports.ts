@@ -1,3 +1,5 @@
+import { allSportsSidebarOrder } from "@/config/sidebar";
+
 export interface SportConfig {
   id: string;
   name: string;
@@ -158,26 +160,54 @@ export interface SportAccent {
   gradient: string;
 }
 
+/**
+ * Theme-adaptive hero accents — built entirely from the live design tokens
+ * (var(--sport-accent) / var(--sport-surface)) so the same value resolves
+ * to light-blue in the light theme and gold in the dark theme.
+ */
+const ACCENT_WASH: SportAccent = {
+  accent: "var(--sport-accent)",
+  soft: "color-mix(in srgb, var(--sport-accent) 28%, transparent)",
+  gradient:
+    "linear-gradient(135deg, color-mix(in srgb, var(--sport-accent) 32%, transparent) 0%, var(--surface-1) 55%, var(--surface-2) 100%)",
+};
+
+const DEEP_WASH: SportAccent = {
+  accent: "var(--sport-accent)",
+  soft: "color-mix(in srgb, var(--sport-accent) 44%, transparent)",
+  gradient:
+    "linear-gradient(135deg, color-mix(in srgb, var(--sport-accent) 48%, transparent) 0%, var(--surface-1) 60%, var(--surface-2) 100%)",
+};
+
 export const sportAccents: Record<string, SportAccent> = {
-  football: { accent: "#d39d55", soft: "rgba(211, 157, 85, 0.16)", gradient: "linear-gradient(135deg, rgba(211,157,85,0.2), rgba(255,248,230,0.4))" },
-  cricket: { accent: "#8d0b41", soft: "rgba(141, 11, 65, 0.12)", gradient: "linear-gradient(135deg, rgba(141,11,65,0.1), rgba(255,248,230,0.4))" },
-  basketball: { accent: "#b7624d", soft: "rgba(183, 98, 77, 0.14)", gradient: "linear-gradient(135deg, rgba(183,98,77,0.16), rgba(255,248,230,0.4))" },
-  nba: { accent: "#8d0b41", soft: "rgba(141, 11, 65, 0.12)", gradient: "linear-gradient(135deg, rgba(141,11,65,0.1), rgba(255,248,230,0.4))" },
-  f1: { accent: "#d39d55", soft: "rgba(211, 157, 85, 0.16)", gradient: "linear-gradient(135deg, rgba(211,157,85,0.2), rgba(255,248,230,0.4))" },
-  nfl: { accent: "#b7624d", soft: "rgba(183, 98, 77, 0.14)", gradient: "linear-gradient(135deg, rgba(183,98,77,0.16), rgba(255,248,230,0.4))" },
-  mma: { accent: "#8d0b41", soft: "rgba(141, 11, 65, 0.12)", gradient: "linear-gradient(135deg, rgba(141,11,65,0.1), rgba(255,248,230,0.4))" },
-  hockey: { accent: "#d39d55", soft: "rgba(211, 157, 85, 0.16)", gradient: "linear-gradient(135deg, rgba(211,157,85,0.2), rgba(255,248,230,0.4))" },
-  rugby: { accent: "#b7624d", soft: "rgba(183, 98, 77, 0.14)", gradient: "linear-gradient(135deg, rgba(183,98,77,0.16), rgba(255,248,230,0.4))" },
-  baseball: { accent: "#8d0b41", soft: "rgba(141, 11, 65, 0.12)", gradient: "linear-gradient(135deg, rgba(141,11,65,0.1), rgba(255,248,230,0.4))" },
-  volleyball: { accent: "#d39d55", soft: "rgba(211, 157, 85, 0.16)", gradient: "linear-gradient(135deg, rgba(211,157,85,0.2), rgba(255,248,230,0.4))" },
-  handball: { accent: "#b7624d", soft: "rgba(183, 98, 77, 0.14)", gradient: "linear-gradient(135deg, rgba(183,98,77,0.16), rgba(255,248,230,0.4))" },
-  afl: { accent: "#d39d55", soft: "rgba(211, 157, 85, 0.16)", gradient: "linear-gradient(135deg, rgba(211,157,85,0.2), rgba(255,248,230,0.4))" },
+  football: ACCENT_WASH,
+  cricket: ACCENT_WASH,
+  f1: ACCENT_WASH,
+  mma: ACCENT_WASH,
+  baseball: ACCENT_WASH,
+  basketball: DEEP_WASH,
+  nba: DEEP_WASH,
+  nfl: DEEP_WASH,
+  hockey: DEEP_WASH,
+  rugby: DEEP_WASH,
+  volleyball: DEEP_WASH,
+  handball: DEEP_WASH,
+  afl: DEEP_WASH,
 };
 
 export function getSportAccent(id: string): SportAccent {
-  return sportAccents[id] ?? {
-    accent: "#d39d55",
-    soft: "rgba(211, 157, 85, 0.16)",
-    gradient: "linear-gradient(135deg, rgba(211,157,85,0.2), rgba(255,248,230,0.4))",
-  };
+  return sportAccents[id] ?? ACCENT_WASH;
+}
+
+/**
+ * All supported sports in the canonical editorial order (cricket-first,
+ * never football-biased) — used by the top navigation and sports surfaces.
+ */
+export const orderedSports: SportConfig[] = allSportsSidebarOrder
+  .map((id) => sportsConfig.find((s) => s.id === id))
+  .filter((s): s is SportConfig => Boolean(s));
+
+/** Display label for a sport id, special-casing "formula-1". */
+export function sportLabel(id: string, shortName: string): string {
+  return id === "formula-1" ? "Formula 1" : shortName;
 }

@@ -32,11 +32,11 @@ export function StatBar({ label, home, away, homeSuffix = "", awaySuffix = "" }:
       </div>
       <div className="flex gap-1">
         <div
-          className="h-1.5 rounded-full bg-gradient-to-r from-primary to-brand-purple transition-all duration-500"
+          className="h-1.5  bg-gradient-to-r from-primary to-brand-purple transition-all duration-500 rounded-full"
           style={{ width: `${homePct}%` }}
         />
         <div
-          className="h-1.5 rounded-full bg-gradient-to-r from-brand-purple to-brand-navy transition-all duration-500"
+          className="h-1.5  bg-gradient-to-r from-brand-purple to-brand-navy transition-all duration-500 rounded-full"
           style={{ width: `${100 - homePct}%` }}
         />
       </div>
@@ -92,14 +92,14 @@ export function MatchStatsCompare({ stats, homeName, awayName }: MatchStatsCompa
 export function H2HSummary({ home, draw, away, className }: { home: number; draw: number; away: number; className?: string }) {
   const total = home + draw + away || 1;
   return (
-    <div className={cn("flex gap-1.5 h-2.5 rounded-full overflow-hidden", className)}>
+    <div className={cn("flex gap-1.5 h-2.5  overflow-hidden", className)}>
       <div
-        className="h-full bg-gradient-to-r from-primary to-brand-purple transition-all duration-500"
+        className="h-full bg-gradient-to-r from-primary to-brand-purple transition-all duration-500 rounded-full"
         style={{ width: `${(home / total) * 100}%` }}
       />
-      <div className="h-full bg-muted transition-all duration-500" style={{ width: `${(draw / total) * 100}%` }} />
+      <div className="h-full bg-muted transition-all duration-500 rounded-full" style={{ width: `${(draw / total) * 100}%` }} />
       <div
-        className="h-full bg-gradient-to-r from-brand-purple to-brand-navy transition-all duration-500"
+        className="h-full bg-gradient-to-r from-brand-purple to-brand-navy transition-all duration-500 rounded-full"
         style={{ width: `${(away / total) * 100}%` }}
       />
     </div>

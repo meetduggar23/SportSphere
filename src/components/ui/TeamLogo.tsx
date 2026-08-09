@@ -45,7 +45,7 @@ export function TeamLogo({ logo, name, size = "md", className }: TeamLogoProps) 
   return (
     <div
       className={cn(
-        "flex shrink-0 select-none items-center justify-center rounded-lg bg-blue/40",
+        "flex shrink-0 select-none items-center justify-center  bg-blue/40",
         sizes[size],
         className
       )}

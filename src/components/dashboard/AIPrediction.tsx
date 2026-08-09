@@ -42,11 +42,11 @@ const bars: { key: "home" | "draw" | "away"; label: string; bar: string; chip: s
   ];
 
   return (
-    <div className="relative overflow-hidden rounded-3xl arena-card">
-      <div className="absolute -right-16 -top-16 h-40 w-40 rounded-full bg-secondary/10 blur-3xl" />
+    <div className="relative overflow-hidden  arena-card">
+      <div className="absolute -right-16 -top-16 h-40 w-40  bg-secondary/10 blur-3xl" />
 <div className="relative flex items-center justify-between border-b border-border-navy px-6 py-5">
         <h2 className="heading flex items-center gap-2.5 text-lg text-foreground">
-          <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-blue/50 text-muted-strong ring-1 ring-border-navy">
+          <span className="flex h-8 w-8 items-center justify-center  bg-blue/50 text-muted-strong ring-1 ring-border-navy rounded-md">
             <Sparkles className="h-4 w-4" />
           </span>
           AI Prediction
@@ -87,9 +87,9 @@ const bars: { key: "home" | "draw" | "away"; label: string; bar: string; chip: s
             <div key={bar.key} className="text-center">
               <p className="display text-lg tabular-nums">{votes[bar.key]}%</p>
               <p className="label mt-0.5">{bar.label}</p>
-              <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-muted/15">
+              <div className="mt-2 h-1.5 overflow-hidden  bg-muted/15">
                 <div
-                  className={cn("h-full rounded-full transition-all duration-500", bar.bar)}
+                  className={cn("h-full  transition-all duration-500", bar.bar)}
                   style={{ width: `${votes[bar.key]}%` }}
                 />
               </div>
@@ -99,9 +99,9 @@ const bars: { key: "home" | "draw" | "away"; label: string; bar: string; chip: s
 
         <div className="mb-5 flex items-center justify-center gap-2">
           <span className="meta">Confidence</span>
-          <div className="h-1.5 max-w-[130px] flex-1 overflow-hidden rounded-full bg-muted/15">
+          <div className="h-1.5 max-w-[130px] flex-1 overflow-hidden  bg-muted/15">
             <div
-              className="h-full rounded-full bg-gradient-to-r from-secondary to-deep transition-all duration-500"
+              className="h-full  bg-gradient-to-r from-secondary to-deep transition-all duration-500"
               style={{ width: `${prediction.confidence}%` }}
             />
           </div>
@@ -113,9 +113,9 @@ const bars: { key: "home" | "draw" | "away"; label: string; bar: string; chip: s
             onClick={() => handleVote("home")}
             disabled={!!selected}
             className={cn(
-              "flex-1 rounded-xl border py-2.5 text-xs font-semibold transition-all duration-200",
+              "flex-1  border py-2.5 text-xs font-semibold transition-all duration-200 rounded-md",
               selected === "home"
-                ? "border-secondary bg-secondary text-berry"
+                ? "border-primary bg-primary text-navy"
                 : "border-border-navy text-muted-strong hover:bg-blue/40 hover:text-foreground"
             )}
           >
@@ -125,9 +125,9 @@ const bars: { key: "home" | "draw" | "away"; label: string; bar: string; chip: s
             onClick={() => handleVote("draw")}
             disabled={!!selected}
             className={cn(
-              "flex-1 rounded-xl border py-2.5 text-xs font-semibold transition-all duration-200",
+              "flex-1  border py-2.5 text-xs font-semibold transition-all duration-200 rounded-md",
               selected === "draw"
-                ? "border-muted bg-muted text-berry"
+                ? "border-muted bg-muted text-navy"
                 : "border-border-navy text-muted-strong hover:bg-blue/40 hover:text-foreground"
             )}
           >
@@ -137,9 +137,9 @@ const bars: { key: "home" | "draw" | "away"; label: string; bar: string; chip: s
             onClick={() => handleVote("away")}
             disabled={!!selected}
             className={cn(
-              "flex-1 rounded-xl border py-2.5 text-xs font-semibold transition-all duration-200",
+              "flex-1  border py-2.5 text-xs font-semibold transition-all duration-200 rounded-md",
               selected === "away"
-                ? "border-secondary bg-secondary text-berry"
+                ? "border-primary bg-primary text-navy"
                 : "border-border-navy text-muted-strong hover:bg-blue/40 hover:text-foreground"
             )}
           >

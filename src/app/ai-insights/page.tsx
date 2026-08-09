@@ -97,12 +97,12 @@ export default function AIInsightsPage() {
             <SectionHeader title="AI Assistant" />
 <div className="arena-card flex flex-col h-[520px]">
               <div className="px-4 py-3 border-b border-border flex items-center gap-2">
-                <div className="w-8 h-8 rounded-full bg-secondary/10 text-secondary flex items-center justify-center">
+                <div className="w-8 h-8  bg-secondary/10 text-secondary flex items-center justify-center rounded-md">
                   <Bot className="h-4 w-4" />
                 </div>
                 <div>
                   <p className="text-sm font-bold">SportSphere Assistant</p>                  <p className="text-xs text-secondary flex items-center gap-1">
-                    <span className="w-1.5 h-1.5 bg-secondary rounded-full animate-live-pulse" /> Online
+                    <span className="w-1.5 h-1.5 bg-secondary  animate-live-pulse rounded-full" /> Online
                   </p>
                 </div>
               </div>
@@ -115,7 +115,7 @@ export default function AIInsightsPage() {
                   >
                     <div
                       className={cn(
-                        "w-8 h-8 rounded-full flex items-center justify-center shrink-0",
+                        "w-8 h-8  flex items-center justify-center shrink-0 rounded-full",
                         msg.role === "ai" ? "bg-secondary/10 text-secondary" : "bg-muted/20 text-muted"
                       )}
                     >
@@ -123,10 +123,9 @@ export default function AIInsightsPage() {
                     </div>
                     <div
                       className={cn(
-                        "max-w-[80%] rounded-2xl px-4 py-3 text-sm leading-relaxed whitespace-pre-line",
-                        msg.role === "ai"
-                          ? "bg-muted/10 rounded-tl-sm"
-: "bg-primary text-berry rounded-tr-sm"
+                        "max-w-[80%]  px-4 py-3 text-sm leading-relaxed whitespace-pre-line rounded-lg",
+                        msg.role === "ai"                          ? "bg-muted/10"
+                          : "bg-primary text-navy"
                       )}
                     >
                       {msg.text}                      <p className={cn("text-[10px] mt-1.5", msg.role === "ai" ? "text-muted" : "text-berry/60")}>
@@ -137,15 +136,15 @@ export default function AIInsightsPage() {
                 ))}
                 {typing && (
                   <div className="flex gap-3">
-                    <div className="w-8 h-8 rounded-full bg-secondary/10 text-secondary flex items-center justify-center shrink-0">
+                    <div className="w-8 h-8  bg-secondary/10 text-secondary flex items-center justify-center shrink-0 rounded-full">
                       <Bot className="h-4 w-4" />
                     </div>
-                    <div className="bg-muted/10 rounded-2xl rounded-tl-sm px-4 py-3">
+                    <div className="bg-muted/10 px-4 py-3 rounded-lg">
                       <div className="flex gap-1">
                         {[0, 1, 2].map((i) => (
                           <span
                             key={i}
-                            className="w-2 h-2 bg-muted rounded-full animate-bounce"
+                            className="w-2 h-2 bg-muted  animate-bounce rounded-full"
                             style={{ animationDelay: `${i * 150}ms` }}
                           />
                         ))}
@@ -161,7 +160,7 @@ export default function AIInsightsPage() {
                     <button
                       key={s}
                       onClick={() => send(s)}
-                      className="text-xs px-3 py-1.5 rounded-full bg-secondary/10 text-secondary hover:bg-secondary/20 transition-colors whitespace-nowrap shrink-0"
+                      className="text-xs px-3 py-1.5  bg-secondary/10 text-secondary hover:bg-secondary/20 transition-colors whitespace-nowrap shrink-0 rounded-full"
                     >
                       {s}
                     </button>
@@ -169,7 +168,7 @@ export default function AIInsightsPage() {
                 </div>
                 <div className="flex items-center gap-2">
                   <button
-                    className="p-2.5 rounded-lg border border-border text-muted hover:text-secondary transition-colors"
+                    className="p-2.5  border border-border text-muted hover:text-secondary transition-colors rounded-md"
                     aria-label="Voice input"
                   >
                     <Mic className="h-4 w-4" />
@@ -179,12 +178,12 @@ export default function AIInsightsPage() {
                     onChange={(e) => setInput(e.target.value)}
                     onKeyDown={(e) => e.key === "Enter" && send()}
                     placeholder="Ask anything about sports..."
-                    className="flex-1 px-4 py-2.5 rounded-lg border border-border bg-background text-sm outline-none focus:border-secondary/50 focus:ring-2 focus:ring-secondary/10 transition-all"
+                    className="flex-1 px-4 py-2.5  border border-border bg-background text-sm outline-none focus:border-secondary/50 focus:ring-2 focus:ring-secondary/10 transition-all rounded-md"
                   />
                   <button
                     onClick={() => send()}
                     disabled={!input.trim() || typing}
-className="p-2.5 rounded-lg bg-primary text-berry hover:bg-primary-hover transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+className="p-2.5  bg-primary text-navy hover:bg-primary-hover transition-colors disabled:opacity-50 disabled:cursor-not-allowed rounded-md"
                     aria-label="Send"
                   >
                     <Send className="h-4 w-4" />
@@ -208,7 +207,7 @@ className="p-2.5 rounded-lg bg-primary text-berry hover:bg-primary-hover transit
                   "📰 AI-powered news summaries",
                   "🔮 Career and market value projections",
                 ].map((c) => (
-                  <li key={c} className="bg-muted/10 rounded-lg px-3 py-2">{c}</li>
+                  <li key={c} className="bg-muted/10  px-3 py-2 rounded-md">{c}</li>
                 ))}
               </ul>
             </div>

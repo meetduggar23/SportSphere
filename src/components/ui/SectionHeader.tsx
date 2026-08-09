@@ -25,7 +25,7 @@ export function SectionHeader({
         {kicker && <p className="kicker mb-1.5 text-muted">{kicker}</p>}
         <div className="flex items-center gap-3">
           {icon && (
-            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl border border-border-navy bg-blue/40 text-muted-strong">
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center  border border-border-navy bg-blue/40 text-muted-strong rounded-md">
               {icon}
             </span>
           )}
@@ -35,7 +35,7 @@ export function SectionHeader({
       {href && (
         <Link
           href={href}
-          className="group inline-flex shrink-0 items-center gap-1.5 rounded-full border border-border py-1.5 text-sm font-semibold text-muted-strong transition-colors hover:border-border-strong hover:text-foreground"
+          className="group inline-flex shrink-0 items-center gap-1.5  border border-border py-1.5 text-sm font-semibold text-muted-strong transition-colors hover:border-border-strong hover:text-foreground rounded-md"
         >
           <span className="hidden sm:inline">{linkLabel}</span>
           <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />

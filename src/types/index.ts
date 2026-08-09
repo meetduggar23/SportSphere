@@ -58,6 +58,9 @@ export interface Team {
   stadium?: string;
   capacity?: number;
   colors?: string[];
+  league?: string;
+  form?: string;
+  ranking?: number;
 }
 
 export interface Player {
@@ -75,6 +78,7 @@ export interface Player {
   statLabel: string;
   marketValue?: string;
   rating?: number;
+  statistics?: Record<string, unknown>;
 }
 
 export interface Match {
@@ -93,6 +97,11 @@ export interface Match {
   details?: string;
   date?: string;
   competition?: string;
+  /** Provider status code (e.g. "POSTPONED", "CANCELLED", "HT", "Q3", "FT") */
+  statusDetail?: string;
+  /** Current period/inning/round while live */
+  period?: string;
+  winner?: "home" | "away" | "draw" | null;
 }
 
 export interface News {

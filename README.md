@@ -1,36 +1,78 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SportSphere — AI-Powered Sports Platform
 
-## Getting Started
+Live scores, cinematic match centres, fantasy sports, and intelligent AI insights across **13 major sports** — Cricket, Football, Basketball, Baseball, Hockey, Volleyball, Rugby, Formula 1, MMA, NFL, NBA, Handball and AFL.
 
-First, run the development server:
+Built with **Next.js (App Router) + TypeScript + Tailwind CSS v4**, SportSphere is a premium sports-broadcast-style platform with a full **Light / Dark theme system**.
+
+---
+
+## ✨ Features
+
+- **13-sport coverage** — dedicated pages for every supported sport with live events, fixtures, results, standings, teams and players
+- **Sport-agnostic Home feed** — the homepage reflects what is actually happening right now across all sports (live-first, never hardcoded to one sport)
+- **Live ticker** — a compact broadcast-style marquee of real live events, polling the sport providers every 60s
+- **Match centres** — timeline, statistics, head-to-head, lineups and live chat per match
+- **AI Insights** — an AI assistant, predictions, and analysis surfaces
+- **Fantasy, Predictions, Transfers, Calendar, News, Search, Favorites, My Teams** and more
+- **Light / Dark theme** — icon toggle in the top-right navbar, persisted to `localStorage`, system-preference default
+
+## 🎨 Theming
+
+The entire design system is token-driven from `src/app/globals.css`:
+
+| | Light (default) | Dark |
+|---|---|---|
+| Background | `#E3F2FD` | `#8D0B41` (deep maroon) |
+| Accent | `#90CAF9` | `#D39D55` (gold) |
+| Secondary accent | `#1E6BB8` | `#D6CFB4` (sand) |
+| Ink / text | `#0B2C4E` | `#FFF8E6` (cream) |
+
+Every surface, border, shadow and gradient is derived from these tokens via `color-mix()` and opacity, so switching themes updates the entire UI — navbar, hero, scoreboards, standings, news, sport pages, dropdowns, modals and all 13 sports — without a page reload.
+
+## 🚀 Getting Started
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Command | Description |
+|---|---|
+| `npm run dev` | Start the dev server (Turbopack) |
+| `npm run build` | Production build |
+| `npm start` | Serve the production build |
+| `npm run lint` | ESLint |
 
-## Learn More
+## 🔌 Real Sports Data (optional)
 
-To learn more about Next.js, take a look at the following resources:
+SportSphere ships with a provider-based data architecture (`src/lib/`) designed to be wired to real sports APIs. API keys live **only** in environment variables — see `.env.example` for the variable names. Never commit `.env*` files.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+When a provider is connected, real data takes priority; when unavailable, the UI shows a clear "Data currently unavailable" state with a retry action — **no fabricated scores or fixtures**.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📁 Project Structure
 
-## Deploy on Vercel
+```
+src/
+  app/            # App Router pages (one per sport + platform pages)
+  components/     # UI components (layout, sports, home, dashboard, ui)
+  config/         # Sports configuration & navigation
+  data/           # Mock data (used while no live provider is connected)
+  lib/            # Providers, API clients, hooks, home feed
+  providers/      # Theme provider
+  types/          # Shared TypeScript types
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🤝 Contributing
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feat/my-feature`)
+3. Commit your changes (keep messages concise and descriptive)
+4. Push and open a Pull Request
+
+## 📄 License
+
+Private project. All rights reserved.

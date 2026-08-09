@@ -1,6 +1,6 @@
 "use client";
 
-import { Target, Trophy, Medal, Award, Flame } from "lucide-react";
+import { Target, Trophy, Medal, Flame } from "lucide-react";
 import { AppShell } from "@/components/layout/AppShell";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { AIPrediction } from "@/components/dashboard/AIPrediction";
@@ -32,7 +32,7 @@ export default function PredictionsPage() {
             { icon: Flame, label: "Streak", value: "6", color: "text-secondary" },
 ].map((s) => (
             <div key={s.label} className="arena-card p-4 flex items-center gap-3">
-              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-navy/60 ring-1 ring-border-navy">
+              <span className="flex h-11 w-11 shrink-0 items-center justify-center  bg-blue/25 ring-1 ring-border-navy rounded-md">
                 <s.icon className={cn("h-5 w-5", s.color)} />
               </span>
               <div>
@@ -54,7 +54,7 @@ export default function PredictionsPage() {
           </div>
 
           <aside className="hidden lg:block w-80 shrink-0">
-            <div className="bg-card rounded-xl border border-border overflow-hidden">
+            <div className="bg-card  border border-border overflow-hidden rounded-md">
               <div className="p-4 border-b border-border">
                 <h3 className="font-bold flex items-center gap-2">
                   <Trophy className="h-4 w-4 text-secondary" /> Season Leaderboard
@@ -65,13 +65,13 @@ export default function PredictionsPage() {
                   <div key={row.rank} className="flex items-center gap-3 p-3">
                     <span
                       className={cn(
-                        "w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold shrink-0",
+                        "w-7 h-7  flex items-center justify-center text-xs font-bold shrink-0 rounded-full",
                         row.rank === 1
                           ? "bg-secondary/20 text-secondary"
                           : row.rank === 2
                           ? "bg-brand-maroon/20 text-brand-maroon"
                           : row.rank === 3
-                          ? "bg-brand-purple/20 text-brand-purple"
+                          ? "bg-secondary/20 text-secondary"
                           : "bg-muted/10 text-muted"
                       )}
                     >

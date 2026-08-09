@@ -11,7 +11,7 @@ interface TopPlayersSidebarProps {
 
 export function TopPlayersSidebar({ players, title = "Top Players" }: TopPlayersSidebarProps) {
   return (
-<div className="overflow-hidden rounded-3xl arena-card">
+<div className="overflow-hidden  arena-card">
       <div className="flex items-center justify-between border-b border-border-navy px-6 py-5">
         <h2 className="heading text-lg text-foreground">{title}</h2>
         <Link
@@ -36,7 +36,7 @@ export function TopPlayersSidebar({ players, title = "Top Players" }: TopPlayers
                   alt={player.name}
                   loading="lazy"
                   decoding="async"
-                  className="h-10 w-10 shrink-0 rounded-2xl object-cover ring-1 ring-border-navy"
+                  className="h-10 w-10 shrink-0  object-cover ring-1 ring-border-navy"
                 />
               ) : (
                 <TeamLogo logo={player.teamLogo} name={player.team} size="md" />
@@ -54,7 +54,7 @@ export function TopPlayersSidebar({ players, title = "Top Players" }: TopPlayers
                 <p className="label mt-1">{player.statLabel}</p>
               </div>
               {player.rating !== undefined && (
-                <span className="shrink-0 rounded-full bg-blue/50 px-2 py-1 text-[11px] font-bold text-muted-strong">
+                <span className="shrink-0  bg-blue/50 px-2 py-1 text-[11px] font-bold text-muted-strong rounded-full">
                   {player.rating}
                 </span>
               )}

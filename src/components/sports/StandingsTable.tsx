@@ -17,7 +17,7 @@ interface StandingsTableProps {
 const formColors: Record<string, string> = {
   W: "bg-secondary/15 text-secondary",
   D: "bg-deep/30 text-muted-strong",
-  L: "bg-navy/60 text-muted-strong",
+  L: "bg-blue/20 text-muted",
 };
 
 export function StandingsTable({
@@ -30,20 +30,20 @@ export function StandingsTable({
   const [activeTab, setActiveTab] = useState(0);
 
   return (
-<div className="overflow-hidden rounded-3xl arena-card">
+<div className="overflow-hidden  arena-card rounded-sm">
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border-navy px-6 py-5">
         <div>
           <h2 className="heading text-lg text-foreground">{title}</h2>
           <p className="meta mt-0.5">Latest league table</p>
         </div>
         {tabs && (
-          <div className="flex gap-1 rounded-xl border border-border-navy bg-navy/50 p-1">
+          <div className="flex gap-1  border border-border bg-blue/10 p-1">
             {tabs.map((tab, i) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(i)}
                 className={cn(
-                  "rounded-lg px-3 py-1.5 text-xs font-semibold transition-all duration-200",
+                  " px-3 py-1.5 text-xs font-semibold transition-all duration-200 rounded-md",
                   activeTab === i
                     ? "bg-blue/50 text-foreground"
                     : "text-muted hover:text-foreground"
@@ -59,7 +59,7 @@ export function StandingsTable({
       <div className="overflow-x-auto">
         <table className="w-full">
           <thead>
-            <tr className="border-b border-border-navy bg-navy/30 text-[11px] uppercase tracking-wider text-muted">
+            <tr className="border-b border-border bg-blue/10 text-[11px] uppercase tracking-wider text-muted">
               <th className="px-6 py-3 text-left font-semibold">#</th>
               <th className="px-2 py-3 text-left font-semibold">Team</th>
               <th className="px-2 py-3 text-center font-semibold">P</th>
@@ -80,9 +80,9 @@ export function StandingsTable({
                 <td className="px-6 py-3.5">
                   <span
                     className={cn(
-                      "inline-flex h-7 w-7 items-center justify-center rounded-lg text-xs font-bold tabular-nums",
+                      "inline-flex h-7 w-7 items-center justify-center  text-xs font-bold tabular-nums rounded-full",
                       row.position === 1
-                        ? "bg-secondary text-berry"
+                        ? "bg-primary text-navy"
                         : row.position <= 4
                           ? "bg-blue/50 text-muted-strong"
                           : "text-muted"
@@ -113,7 +113,7 @@ export function StandingsTable({
                         <span
                           key={i}
                           className={cn(
-                            "flex h-5 w-5 items-center justify-center rounded-md text-[9px] font-bold shadow-sm",
+                            "flex h-5 w-5 items-center justify-center  text-[9px] font-bold shadow-sm rounded-full",
                             formColors[f]
                           )}
                         >
@@ -135,7 +135,7 @@ export function StandingsTable({
 <div className="border-t border-border-navy px-6 py-4">
         <Link
           href={href}
-          className="block w-full rounded-xl py-2.5 text-center text-sm font-semibold text-muted-strong transition-colors hover:bg-blue/40 hover:text-foreground"
+          className="block w-full  py-2.5 text-center text-sm font-semibold text-muted-strong transition-colors hover:bg-blue/40 hover:text-foreground"
         >
           View Full Table
         </Link>

@@ -45,18 +45,18 @@ className="arena-card arena-card-hover overflow-hidden group cursor-pointer"
 <div className="absolute inset-0 bg-navy/40 flex items-center justify-center">
                   <div
                     className={cn(
-                      "w-14 h-14 rounded-full bg-brand/90 flex items-center justify-center shadow-xl transition-all",
+                      "w-14 h-14  bg-brand/90 flex items-center justify-center shadow-xl transition-all",
                       playing === video.id ? "scale-90 opacity-0" : "group-hover:scale-110"
                     )}
                   >
-                    <Play className="h-6 w-6 text-berry fill-berry ml-0.5" />
+                    <Play className="h-6 w-6 text-navy fill-navy ml-0.5" />
                   </div>
                 </div>
-                <span className="absolute bottom-3 right-3 text-xs font-bold bg-navy/80 text-muted-strong px-2 py-0.5 rounded">
+                <span className="absolute bottom-3 right-3 text-xs font-bold bg-navy/80 text-white px-2 py-0.5 rounded-full">
                   {video.duration}
                 </span>
                 <span className="absolute top-3 left-3 text-lg">{sportIcons[video.sport]}</span>
-                <span className="absolute top-3 right-3 text-[10px] font-bold px-2 py-0.5 rounded-full bg-primary text-berry">
+                <span className="absolute top-3 right-3 text-[10px] font-bold px-2 py-0.5  bg-primary text-navy rounded-full">
                   {video.category}
                 </span>
               </div>

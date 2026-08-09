@@ -13,7 +13,7 @@ interface FixtureListProps {
 
 export function FixtureList({ fixtures, title = "Upcoming Fixtures", href = "/calendar" }: FixtureListProps) {
   return (
-<div className="overflow-hidden rounded-3xl arena-card">
+<div className="overflow-hidden  arena-card">
       <div className="flex items-center justify-between border-b border-border-navy px-6 py-5">
         <div>
           <h2 className="heading text-lg text-foreground">{title}</h2>
@@ -21,7 +21,7 @@ export function FixtureList({ fixtures, title = "Upcoming Fixtures", href = "/ca
         </div>
         <Link
           href={href}
-          className="shrink-0 rounded-xl px-3 py-1.5 text-sm font-semibold text-muted-strong transition-colors hover:bg-blue/40 hover:text-foreground"
+          className="shrink-0  px-3 py-1.5 text-sm font-semibold text-muted-strong transition-colors hover:bg-blue/40 hover:text-foreground rounded-md"
         >
           Full Calendar
         </Link>
@@ -44,10 +44,10 @@ export function FixtureList({ fixtures, title = "Upcoming Fixtures", href = "/ca
                 <span className="text-xs">{sportIcons[fixture.sport]}</span>
                 <span className="label truncate">{fixture.league}</span>
                 {fixture.isLive && (
-                  <span className="flex items-center gap-1 rounded-full bg-primary/15 px-2 py-0.5 text-[10px] font-bold text-primary">
+                  <span className="flex items-center gap-1  bg-primary px-2 py-0.5 text-[10px] font-bold text-navy rounded-full">
                     <span className="relative flex h-1 w-1">
-                      <span className="absolute inline-flex h-full w-full rounded-full bg-primary animate-ping-ring" />
-                      <span className="relative inline-flex h-1 w-1 rounded-full bg-primary" />
+                      <span className="absolute inline-flex h-full w-full  bg-navy animate-ping-ring" />
+                      <span className="relative inline-flex h-1 w-1  bg-navy" />
                     </span>
                     LIVE
                   </span>

@@ -33,7 +33,7 @@ export default function SettingsPage() {
         />
 
         <div className="space-y-6">
-          <div className="bg-card rounded-xl border border-border overflow-hidden">
+          <div className="bg-card  border border-border overflow-hidden">
             <div className="px-5 py-4 border-b border-border flex items-center gap-2">
               <Palette className="h-4 w-4 text-secondary" />
               <h3 className="font-bold">Appearance</h3>
@@ -45,7 +45,7 @@ export default function SettingsPage() {
                   <button
                     onClick={() => setTheme("light")}
                     className={cn(
-                      "p-4 rounded-xl border text-left transition-all",
+                      "p-4  border text-left transition-all",
                       theme === "light" ? "border-secondary ring-1 ring-secondary/30 bg-secondary/5" : "border-border hover:border-muted"
                     )}
                   >
@@ -58,7 +58,7 @@ export default function SettingsPage() {
                   <button
                     onClick={() => setTheme("dark")}
                     className={cn(
-                      "p-4 rounded-xl border text-left transition-all",
+                      "p-4  border text-left transition-all",
                       theme === "dark" ? "border-secondary ring-1 ring-secondary/30 bg-secondary/5" : "border-border hover:border-muted"
                     )}
                   >
@@ -81,9 +81,9 @@ export default function SettingsPage() {
                       key={lang}
                       onClick={() => setLanguage(lang)}
                       className={cn(
-                        "px-3 py-1.5 rounded-full text-sm transition-colors",
+                        "px-3 py-1.5  text-sm transition-colors rounded-full",
 language === lang
-                          ? "bg-secondary text-berry"
+                          ? "bg-primary text-navy"
                           : "bg-muted/10 hover:bg-muted/20"
                       )}
                     >
@@ -95,7 +95,7 @@ language === lang
             </div>
           </div>
 
-          <div className="bg-card rounded-xl border border-border overflow-hidden">
+          <div className="bg-card  border border-border overflow-hidden">
             <div className="px-5 py-4 border-b border-border flex items-center gap-2">
               <Bell className="h-4 w-4 text-secondary" />
               <h3 className="font-bold">Notifications</h3>
@@ -119,12 +119,12 @@ language === lang
                     aria-checked={notifications[n.key]}
                     onClick={() => toggleNotification(n.key)}
                     className={cn(
-                      "w-11 h-6 rounded-full transition-colors relative shrink-0",                          notifications[n.key] ? "bg-secondary" : "bg-muted/30"
+                      "w-11 h-6  transition-colors relative shrink-0",                          notifications[n.key] ? "bg-secondary" : "bg-muted/30"
                     )}
                   >
 <span
                       className={cn(
-                        "absolute top-0.5 w-5 h-5 rounded-full bg-navy shadow transition-all",
+                        "absolute top-0.5 w-5 h-5  bg-navy shadow transition-all",
                         notifications[n.key] ? "left-[22px]" : "left-0.5"
                       )}
                     />
@@ -134,7 +134,7 @@ language === lang
             </div>
           </div>
 
-          <div className="bg-card rounded-xl border border-border overflow-hidden">
+          <div className="bg-card  border border-border overflow-hidden">
             <div className="px-5 py-4 border-b border-border flex items-center gap-2">
               <Shield className="h-4 w-4 text-secondary" />
               <h3 className="font-bold">Security & Privacy</h3>

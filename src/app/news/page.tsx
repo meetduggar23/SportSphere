@@ -5,6 +5,7 @@ import { Newspaper } from "lucide-react";
 import { AppShell } from "@/components/layout/AppShell";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { SportTabs } from "@/components/ui/SportTabs";
+import { DemoBadge } from "@/components/ui/DemoBadge";
 import { NewsCard } from "@/components/sports/NewsCard";
 import { topNews } from "@/data/mock";
 
@@ -29,6 +30,10 @@ export default function NewsPage() {
           title="Sports News"
           subtitle="Breaking news, match reports, and analysis from around the world of sports"
         />
+
+        <div className="mb-6">
+          <DemoBadge label="Demo news — no news provider connected yet" />
+        </div>
 
         <SportTabs tabs={tabs} active={active} onChange={setActive} className="mb-6" />
 

@@ -5,6 +5,7 @@ import { AppShell } from "@/components/layout/AppShell";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { SportTabs } from "@/components/ui/SportTabs";
 import { StandingsTable } from "@/components/sports/StandingsTable";
+import { DataStatus } from "@/components/ui/DataStatus";
 import { useEffect, useState } from "react";
 import { getStandings } from "@/lib/api";
 import { Standing } from "@/types";
@@ -18,24 +19,27 @@ const leagueTabs = [
 ];
 
 const seasonTabs = [
-  { label: "2025", value: "2025" },
   { label: "2024", value: "2024" },
+  { label: "2023", value: "2023" },
 ];
 
 export default function StandingsPage() {
   const [leagueId, setLeagueId] = useState("39");
-  const [season, setSeason] = useState("2025");
+  const [season, setSeason] = useState("2024");
   const [standings, setStandings] = useState<Standing[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string>();
 
   useEffect(() => {
     async function load() {
       setLoading(true);
+      setError(undefined);
       try {
         const data = await getStandings(leagueId, season);
         setStandings(data);
       } catch (e) {
-        console.error("Failed to load standings:", e);
+        setError(e instanceof Error ? e.message : "Unknown error");
+        setStandings([]);
       } finally {
         setLoading(false);
       }
@@ -49,7 +53,7 @@ export default function StandingsPage() {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="text-center">
-          <div className="w-12 h-12 border-4 border-secondary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <div className="w-12 h-12 border-4 border-secondary border-t-transparent  animate-spin mx-auto mb-4" />
           <p className="text-muted">Loading standings...</p>
         </div>
       </div>
@@ -64,6 +68,25 @@ export default function StandingsPage() {
           title="Standings"
           subtitle="Live league tables from top competitions"
         />
+
+        {error ? (
+          <DataStatus
+            status="unavailable"
+            dataSource="API-Football"
+            lastUpdated={null}
+            error={error}
+            onRetry={() => {
+              setLoading(true);
+              setError(undefined);
+              getStandings(leagueId, season)
+                .then((d) => setStandings(d))
+                .catch((e) => setError(e instanceof Error ? e.message : "Unknown error"))
+                .finally(() => setLoading(false));
+            }}
+          />
+        ) : (
+          <p className="mb-6 -mt-2 text-xs text-muted">API-Football • Live</p>
+        )}
 
         <div className="flex flex-col gap-4 mb-6">
           <SportTabs
@@ -81,7 +104,7 @@ export default function StandingsPage() {
         {standings.length > 0 ? (
           <StandingsTable standings={standings} title={`${leagueName} ${season}`} />
         ) : (
-<div className="arena-card text-center py-20">
+          <div className="arena-card text-center py-20">
             <p className="text-4xl mb-4">📊</p>
             <p className="font-medium">No standings available</p>
             <p className="text-sm text-muted mt-1">Try a different league or season</p>

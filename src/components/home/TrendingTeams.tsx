@@ -24,7 +24,7 @@ export function TrendingTeams({ teams }: TrendingTeamsProps) {
           <Link
             key={t.id}
             href={`/team/${t.id}`}
-            className="group flex flex-col items-center gap-3 rounded-3xl arena-card arena-card-hover p-5"
+            className="group flex flex-col items-center gap-3  arena-card arena-card-hover p-5"
           >            <TeamLogo logo={t.logo} name={t.name} size="lg" />
             <div className="text-center">
               <p className="truncate text-sm font-bold text-foreground transition-colors group-hover:text-foreground-soft">

@@ -10,7 +10,7 @@ export function CricketIcon({ className }: IconProps) {
       <path d="M12 2L13.09 8.26L19 6L14.74 10.91L21 12L14.74 13.09L19 18L13.09 15.74L12 22L10.91 15.74L5 18L9.26 13.09L3 12L9.26 10.91L5 6L10.91 8.26L12 2Z" fill="currentColor" opacity="0.2"/>
       <circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="2" fill="none"/>
       <path d="M12 9V3M12 15V21M9 12H3M15 12H21" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-      <rect x="10.5" y="2" width="3" height="2" rx="0.5" fill="currentColor"/>
+      <rect x="10.5" y="2" width="3" height="2" rx="0" fill="currentColor"/>
     </svg>
   );
 }
@@ -60,13 +60,13 @@ export function NFLIcon({ className }: IconProps) {
 export function F1Icon({ className }: IconProps) {
   return (
     <svg viewBox="0 0 24 24" fill="none" className={cn("w-6 h-6", className)}>
-      <rect x="4" y="9" width="16" height="6" rx="3" stroke="currentColor" strokeWidth="1.5"/>
+      <rect x="4" y="9" width="16" height="6" rx="0" stroke="currentColor" strokeWidth="1.5"/>
       <path d="M7 9V7H11V9M13 9V7H17V9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
       <circle cx="8" cy="16" r="2.5" stroke="currentColor" strokeWidth="1.5"/>
       <circle cx="16" cy="16" r="2.5" stroke="currentColor" strokeWidth="1.5"/>
       <path d="M8 13.5V12M16 13.5V12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-      <rect x="2" y="10" width="2" height="4" rx="0.5" fill="currentColor" opacity="0.3"/>
-      <rect x="20" y="10" width="2" height="4" rx="0.5" fill="currentColor" opacity="0.3"/>
+      <rect x="2" y="10" width="2" height="4" rx="0" fill="currentColor" opacity="0.3"/>
+      <rect x="20" y="10" width="2" height="4" rx="0" fill="currentColor" opacity="0.3"/>
     </svg>
   );
 }
@@ -98,7 +98,7 @@ export function BaseballIcon({ className }: IconProps) {
 export function HockeyIcon({ className }: IconProps) {
   return (
     <svg viewBox="0 0 24 24" fill="none" className={cn("w-6 h-6", className)}>
-      <rect x="3" y="14" width="18" height="3" rx="1.5" stroke="currentColor" strokeWidth="1.5" fill="currentColor" opacity="0.15"/>
+      <rect x="3" y="14" width="18" height="3" rx="0" stroke="currentColor" strokeWidth="1.5" fill="currentColor" opacity="0.15"/>
       <path d="M6 14V11L12 8L18 11V14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
       <circle cx="12" cy="13" r="1.5" fill="currentColor"/>
       <path d="M8 8H16" stroke="currentColor" strokeWidth="1" strokeLinecap="round" opacity="0.5"/>
