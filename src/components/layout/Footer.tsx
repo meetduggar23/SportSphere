@@ -125,12 +125,16 @@ export function Footer() {
           ))}
         </div>
 
-        <div className="mt-10 flex flex-wrap items-center justify-between gap-y-3 border-t border-border pt-6">
-          <p className="text-xs font-semibold uppercase tracking-widest text-muted">
-            Made by <span className="text-secondary">Meet Duggar</span>
-          </p>
-          <p className="meta">© {new Date().getFullYear()} SportSphere. All rights reserved.</p>
-          <nav className="flex flex-wrap items-center gap-x-5 gap-y-2">
+        <div className="relative mt-10 border-t border-border pt-6">
+          <div className="space-y-3 text-center md:space-y-0">
+            <p className="text-xs font-semibold uppercase tracking-widest text-muted">
+              Made by <span className="text-secondary">Meet Duggar</span>
+            </p>
+            <p className="text-xs font-semibold uppercase tracking-widest text-muted md:absolute md:left-0 md:top-6 md:text-left">
+              © {new Date().getFullYear()} SportSphere. All rights reserved.
+            </p>
+          </div>
+          <nav className="mt-3 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 md:absolute md:right-0 md:top-6 md:mt-0">
             {quickNav.map((q) => (
               <Link
                 key={q.label}
