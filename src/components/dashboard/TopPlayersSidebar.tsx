@@ -2,6 +2,7 @@
 
 import { Player } from "@/types";
 import Link from "next/link";
+import Image from "next/image";
 import { TeamLogo } from "@/components/ui/TeamLogo";
 
 interface TopPlayersSidebarProps {
@@ -31,9 +32,11 @@ export function TopPlayersSidebar({ players, title = "Top Players" }: TopPlayers
           >
             <div className="flex items-center gap-3.5">
               {player.photo ? (
-                <img
+                <Image
                   src={player.photo}
                   alt={player.name}
+                  width={40}
+                  height={40}
                   loading="lazy"
                   decoding="async"
                   className="h-10 w-10 shrink-0  object-cover ring-1 ring-border-navy"

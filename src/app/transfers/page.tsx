@@ -1,6 +1,7 @@
 "use client";
 
 import { ArrowLeftRight } from "lucide-react";
+import Image from "next/image";
 import { AppShell } from "@/components/layout/AppShell";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { transfers } from "@/data/mock";
@@ -37,9 +38,11 @@ className="arena-card arena-card-hover p-5"
 
               <div className="flex items-center justify-between gap-4">
                 <div className="flex flex-col items-center flex-1 gap-2">
-                  <img
+                  <Image
                     src={transfer.playerPhoto}
                     alt={transfer.playerName}
+                    width={64}
+                    height={64}
                     className="w-16 h-16  object-cover bg-muted/20"
                   />
                   <p className="font-bold text-sm text-center">{transfer.playerName}</p>

@@ -1,6 +1,7 @@
 "use client";
 
 import { Star } from "lucide-react";
+import Image from "next/image";
 import { AppShell } from "@/components/layout/AppShell";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { followedTeams, topNews, topPlayers } from "@/data/mock";
@@ -69,7 +70,13 @@ export default function FavoritesPage() {
               <div className="space-y-3">
                 {topNews.slice(0, 3).map((n) => (
                   <div key={n.id} className="flex gap-3">
-                    <img src={n.image} alt={n.title} className="w-16 h-12  object-cover shrink-0" />
+                    <Image
+                      src={n.image}
+                      alt={n.title}
+                      width={64}
+                      height={48}
+                      className="w-16 h-12  object-cover shrink-0"
+                    />
                     <p className="text-xs font-medium line-clamp-2">{n.title}</p>
                   </div>
                 ))}

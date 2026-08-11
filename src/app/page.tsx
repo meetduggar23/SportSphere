@@ -35,28 +35,29 @@ const shortLabels: Record<Sport, string> = {
 
 export default function Home() {
   const feed = useHomeFeed();
+  const { live, upcoming, results, standings, status, lastUpdated, error, retry } = feed;
   const [filter, setFilter] = useState<string>("all");
 
   const filterTabs = useMemo(
     () => [
-      { label: "All Sports", value: "all", count: feed.live.length },
+      { label: "All Sports", value: "all", count: live.length },
       ...homeSports.map((s) => ({
         label: `${sportIcons[s]} ${shortLabels[s]}`,
         value: s,
-        count: feed.live.filter((m) => m.sport === s).length,
+        count: live.filter((m) => m.sport === s).length,
       })),
     ],
-    [feed.live]
+    [live]
   );
 
   const scoped = useMemo(() => {
     const keep = (m: Match) => filter === "all" || m.sport === filter;
     return {
-      live: feed.live.filter(keep),
-      upcoming: feed.upcoming.filter(keep),
-      results: feed.results.filter(keep),
+      live: live.filter(keep),
+      upcoming: upcoming.filter(keep),
+      results: results.filter(keep),
     };
-  }, [feed.live, feed.upcoming, feed.results, filter]);
+  }, [live, upcoming, results, filter]);
 
   const featured = scoped.live[0];
   const otherLive = scoped.live.slice(1);
@@ -65,12 +66,12 @@ export default function Home() {
   // getFeaturedLiveEvent picks the most relevant event sport-agnostically:
   // live → nearest upcoming → latest result.
   const trendingItems: TrendingItem[] = useMemo(() => {
-    const featuredPick = getFeaturedLiveEvent(feed);
+    const featuredPick = getFeaturedLiveEvent({ live, upcoming, results });
     const source = featuredPick
-      ? feed.live.length > 0
-        ? feed.live
-        : feed.upcoming
-      : feed.results;
+      ? live.length > 0
+        ? live
+        : upcoming
+      : results;
     return source.slice(0, 6).map((m, i) => ({
       id: m.id,
       rank: i + 1,
@@ -79,12 +80,12 @@ export default function Home() {
       logos: [sportIcons[m.sport]],
       trend: "up" as const,
     }));
-  }, [feed.live, feed.upcoming, feed.results]);
+  }, [live, upcoming, results]);
 
   // Group standings by sport so each competition gets its own table.
   const standingsGroups = useMemo(() => {
-    const map = new Map<Sport, typeof feed.standings>();
-    for (const row of feed.standings) {
+    const map = new Map<Sport, typeof standings>();
+    for (const row of standings) {
       const arr = map.get(row.team.sport) ?? [];
       arr.push(row);
       map.set(row.team.sport, arr);
@@ -92,12 +93,12 @@ export default function Home() {
     return homeSports
       .filter((s) => (map.get(s)?.length ?? 0) > 0)
       .map((s) => ({ sport: s, rows: map.get(s) ?? [] }));
-  }, [feed.standings]);
+  }, [standings]);
 
   const [standingSport, setStandingSport] = useState<string | null>(null);
   const activeStandings = standingsGroups.find((g) => g.sport === (standingSport ?? standingsGroups[0]?.sport));
 
-  const liveCount = feed.live.length;
+  const liveCount = live.length;
 
   return (
     <AppShell>
@@ -120,7 +121,7 @@ export default function Home() {
                 <span className="absolute inline-flex h-full w-full  bg-berry animate-ping-ring" />
                 <span className="relative inline-flex h-2 w-2  bg-berry" />
               </span>
-              {feed.status === "loading"
+              {status === "loading"
                 ? "Checking live events…"
                 : liveCount > 0
                   ? `${liveCount} ${liveCount === 1 ? "event" : "events"} live now`
@@ -130,11 +131,11 @@ export default function Home() {
         </div>
 
         <DataStatus
-          status={feed.status}
-          dataSource={feed.status === "ready" ? "Live providers" : undefined}
-          lastUpdated={feed.lastUpdated}
-          error={feed.error}
-          onRetry={feed.retry}
+          status={status}
+          dataSource={status === "ready" ? "Live providers" : undefined}
+          lastUpdated={lastUpdated}
+          error={error}
+          onRetry={retry}
         />
 
         {/* Sport filter — All Sports by default, never football-biased */}
@@ -154,7 +155,7 @@ export default function Home() {
                 icon={<Radio className="h-5 w-5" />}
               />
 
-              {feed.status === "loading" ? (
+              {status === "loading" ? (
                 <div className="flex items-center justify-center py-16 text-muted">
                   Loading live events across all sports…
                 </div>
@@ -265,7 +266,7 @@ export default function Home() {
             <div className="sticky top-28 space-y-5">
               <TrendingSidebar
                 items={trendingItems}
-                title={feed.live.length > 0 ? "Trending Live" : "Trending Upcoming"}
+                title={live.length > 0 ? "Trending Live" : "Trending Upcoming"}
               />
               <div className="overflow-hidden  arena-card p-5">
                 <p className="kicker mb-2 text-muted-strong">All Sports</p>
@@ -288,8 +289,8 @@ export default function Home() {
                   <Trophy className="h-4 w-4 text-secondary" /> Live providers
                 </h3>
                 <p className="mt-2 text-sm text-muted leading-relaxed">
-                  {feed.status === "ready"
-                    ? `Updated ${feed.lastUpdated ? new Date(feed.lastUpdated).toLocaleTimeString() : "just now"}.`
+                  {status === "ready"
+                    ? `Updated ${lastUpdated ? new Date(lastUpdated).toLocaleTimeString() : "just now"}.`
                     : "Live data is temporarily unavailable."}
                 </p>
               </div>

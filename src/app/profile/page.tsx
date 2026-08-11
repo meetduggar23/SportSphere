@@ -1,6 +1,7 @@
 "use client";
 
 import { User, Mail, MapPin, Heart, Star, Bookmark, LogOut } from "lucide-react";
+import Image from "next/image";
 import { AppShell } from "@/components/layout/AppShell";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { followedTeams, topNews } from "@/data/mock";
@@ -86,7 +87,13 @@ export default function ProfilePage() {
               <div className="space-y-3">
                 {savedNews.map((n) => (
                   <div key={n.id} className="bg-card  border border-border p-4 flex items-center gap-3">
-                    <img src={n.image} alt={n.title} className="w-20 h-14  object-cover shrink-0" />
+                    <Image
+                      src={n.image}
+                      alt={n.title}
+                      width={80}
+                      height={56}
+                      className="w-20 h-14  object-cover shrink-0"
+                    />
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-medium truncate">{n.title}</p>
                       <p className="text-xs text-muted mt-0.5">{n.timeAgo}</p>

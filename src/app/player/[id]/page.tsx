@@ -2,6 +2,7 @@
 
 import { use, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import {
   ArrowLeft,
   Heart,
@@ -67,8 +68,8 @@ export default function PlayerPage({ params }: { params: Promise<{ id: string }>
           </div>
           <div className="px-6 pb-6">
             <div className="flex flex-col md:flex-row items-start md:items-end gap-4 -mt-12">
-              <div className="w-28 h-28  bg-card border-4 border-card overflow-hidden shadow-xl rounded-lg">
-                <img src={player.photo} alt={player.name} className="w-full h-full object-cover" />
+              <div className="relative w-28 h-28  bg-card border-4 border-card overflow-hidden shadow-xl rounded-lg">
+                <Image src={player.photo} alt={player.name} fill sizes="112px" className="object-cover" />
               </div>
               <div className="flex-1 pt-14 md:pt-0">
                 <div className="flex items-center gap-3 flex-wrap">

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 interface LogoProps {
@@ -8,7 +9,7 @@ interface LogoProps {
 export function Logo({ className }: LogoProps) {
   return (
     <Link href="/" className={cn("flex items-center shrink-0", className)}>
-      <img
+      <Image
         src="/logo.png"
         alt="SportSphere Logo"
         width={175}

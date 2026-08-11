@@ -2,6 +2,7 @@
 
 import { use, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowLeft, Share2, Bookmark, MessageCircle, Eye, ThumbsUp } from "lucide-react";
 import { AppShell } from "@/components/layout/AppShell";
 import { DemoBadge } from "@/components/ui/DemoBadge";
@@ -32,7 +33,14 @@ export default function NewsDetailPage({ params }: { params: Promise<{ id: strin
 
 <article className="arena-card overflow-hidden">
           <div className="relative h-64 md:h-80">
-            <img src={news.image} alt={news.title} className="w-full h-full object-cover" />
+            <Image
+              src={news.image}
+              alt={news.title}
+              fill
+              priority
+              sizes="(max-width: 896px) 100vw, 896px"
+              className="object-cover"
+            />
 <div className="absolute inset-0 bg-gradient-to-t from-navy/80 to-transparent" />
             <div className="absolute bottom-4 left-6 right-6">
               <span className="text-[11px] font-bold px-2.5 py-1  bg-primary text-navy rounded-full">

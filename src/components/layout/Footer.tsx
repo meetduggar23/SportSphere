@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Radio, Trophy, Newspaper, Wand2, Sparkles } from "lucide-react";
 
 const socials = [
@@ -81,7 +82,13 @@ export function Footer() {
         <div className="grid grid-cols-2 gap-10 md:grid-cols-5">
           <div className="col-span-2">
             <Link href="/" className="inline-flex items-center gap-2">
-              <img src="/logo.png" alt="SportSphere Logo" className="h-9 w-auto object-contain" />
+              <Image
+                src="/logo.png"
+                alt="SportSphere Logo"
+                width={175}
+                height={50}
+                className="h-9 w-auto object-contain"
+              />
             </Link>
             <p className="mt-3 max-w-xs text-sm leading-relaxed text-muted">
               Live scores, match centres, fantasy and AI-powered insights across 13 major sports.

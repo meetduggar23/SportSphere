@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, CSSProperties } from "react";
+import Image from "next/image";
 import { AppShell } from "@/components/layout/AppShell";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { SportTabs } from "@/components/ui/SportTabs";
@@ -157,8 +158,8 @@ export function SportPage({
                       />
                       <div className="relative flex items-center gap-4">
                         {p.photo ? (
-                          <div className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden  border border-border-navy bg-blue/30 rounded-md">
-                            <img src={p.photo} alt={p.name} className="h-full w-full object-cover" />
+                          <div className="relative flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden  border border-border-navy bg-blue/30 rounded-md">
+                            <Image src={p.photo} alt={p.name} fill sizes="56px" className="object-cover" />
                           </div>
                         ) : (
                           <TeamLogo logo={p.teamLogo} name={p.team} size="md" />

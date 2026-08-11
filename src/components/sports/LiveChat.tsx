@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import Image from "next/image";
 import { Send, Heart } from "lucide-react";
 import { matchComments } from "@/data/mock";
 import { cn } from "@/lib/utils";
@@ -50,9 +51,11 @@ export function LiveChat() {
           const isLiked = liked.has(msg.id);
           return (
             <div key={msg.id} className="flex gap-3">
-              <img
+              <Image
                 src={msg.avatar}
                 alt={msg.user}
+                width={32}
+                height={32}
                 className="w-8 h-8  shrink-0 bg-muted/20 rounded-full"
               />
               <div className="flex-1 min-w-0">

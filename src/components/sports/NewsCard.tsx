@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { Clock, Eye } from "lucide-react";
 import { News, sportIcons } from "@/types";
 import { cn } from "@/lib/utils";
@@ -43,12 +44,14 @@ export function NewsCard({ news, variant = "default", className }: NewsCardProps
       {variant === "featured" ? (
         <>
           <div className="relative h-72 md:h-80 overflow-hidden">
-            <img
+            <Image
               src={news.image}
               alt={news.title}
+              fill
+              sizes="(max-width: 1024px) 100vw, 66vw"
               loading="lazy"
               decoding="async"
-              className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+              className="object-cover transition-transform duration-700 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/40 to-transparent" />
             {news.isBreaking && (
@@ -85,12 +88,14 @@ export function NewsCard({ news, variant = "default", className }: NewsCardProps
       ) : variant === "default" ? (
         <>
           <div className="relative h-44 overflow-hidden">
-            <img
+            <Image
               src={news.image}
               alt={news.title}
+              fill
+              sizes="(max-width: 1024px) 100vw, 33vw"
               loading="lazy"
               decoding="async"
-              className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+              className="object-cover transition-transform duration-500 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/25 to-transparent" />
             {news.isBreaking && (
@@ -126,12 +131,14 @@ export function NewsCard({ news, variant = "default", className }: NewsCardProps
       ) : (
         <>
           <div className="relative h-20 w-28 shrink-0 overflow-hidden">
-            <img
+            <Image
               src={news.image}
               alt={news.title}
+              fill
+              sizes="112px"
               loading="lazy"
               decoding="async"
-              className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+              className="object-cover transition-transform duration-500 group-hover:scale-105"
             />
           </div>
 <div className="min-w-0 flex-1">

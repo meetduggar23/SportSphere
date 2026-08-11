@@ -2,6 +2,7 @@
 
 import { Users } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { AppShell } from "@/components/layout/AppShell";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { TeamLogo } from "@/components/ui/TeamLogo";
@@ -84,8 +85,8 @@ export default function PlayersPage() {
               >
                 <div className="flex items-center gap-3 mb-3">
                   {player.photo ? (
-                    <div className="w-12 h-12  bg-gradient-to-br from-secondary/20 to-secondary/10 border border-border flex items-center justify-center shrink-0 overflow-hidden">
-                      <img src={player.photo} alt={player.name} className="w-full h-full object-cover" />
+                    <div className="relative w-12 h-12  bg-gradient-to-br from-secondary/20 to-secondary/10 border border-border flex items-center justify-center shrink-0 overflow-hidden">
+                      <Image src={player.photo} alt={player.name} fill sizes="48px" className="object-cover" />
                     </div>
                   ) : (
                     <TeamLogo logo={player.teamLogo} name={player.team} size="md" />

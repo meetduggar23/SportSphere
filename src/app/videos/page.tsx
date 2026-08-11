@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { Video, Play, Eye, Clock } from "lucide-react";
 import { AppShell } from "@/components/layout/AppShell";
 import { PageHeader } from "@/components/ui/PageHeader";
@@ -41,7 +42,13 @@ className="arena-card arena-card-hover overflow-hidden group cursor-pointer"
               onClick={() => setPlaying(playing === video.id ? null : video.id)}
             >
               <div className="relative aspect-video bg-gradient-to-br from-muted/30 to-muted/50 overflow-hidden">
-                <img src={video.thumbnail} alt={video.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                <Image
+                  src={video.thumbnail}
+                  alt={video.title}
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                />
 <div className="absolute inset-0 bg-navy/40 flex items-center justify-center">
                   <div
                     className={cn(

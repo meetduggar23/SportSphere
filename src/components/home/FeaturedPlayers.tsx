@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { TeamLogo } from "@/components/ui/TeamLogo";
 import { Player } from "@/types";
@@ -23,8 +24,8 @@ export function FeaturedPlayers({ players }: FeaturedPlayersProps) {
 <div className="absolute -right-12 -top-12 h-36 w-36  bg-blue/30 blur-2xl transition-colors duration-300 group-hover:bg-blue/40" />
             <div className="relative flex items-center gap-4">
               {p.photo ? (
-                <div className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden  border border-border-navy bg-blue/30">
-                  <img src={p.photo} alt={p.name} className="h-full w-full object-cover" />
+                <div className="relative flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden  border border-border-navy bg-blue/30">
+                  <Image src={p.photo} alt={p.name} fill sizes="56px" className="object-cover" />
                 </div>
               ) : (
                 <TeamLogo logo={p.teamLogo} name={p.team} size="md" />

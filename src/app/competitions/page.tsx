@@ -4,7 +4,7 @@ import { Trophy } from "lucide-react";
 import { AppShell } from "@/components/layout/AppShell";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { tournaments } from "@/data/mock";
-import { sportIcons, sportLabels, Sport } from "@/types";
+import { sportIcons, sportLabels } from "@/types";
 import { cn } from "@/lib/utils";
 
 const statusColors: Record<string, string> = {
