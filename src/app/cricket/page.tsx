@@ -52,6 +52,11 @@ export default function CricketPage() {
                       {t.name}
                     </p>
                     <p className="text-xs text-muted mt-0.5">{t.city}</p>
+                    {t.achievements?.[0] && (
+                      <p className="mt-2 min-h-[26px] text-[10px] font-semibold text-secondary leading-snug line-clamp-2">
+                        {t.achievements[0]}
+                      </p>
+                    )}
                   </div>
                 </div>
               </Link>

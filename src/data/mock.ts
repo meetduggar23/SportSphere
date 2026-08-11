@@ -20,6 +20,7 @@ interface TeamExtra {
   coach?: string;
   stadium?: string;
   capacity?: number;
+  achievements?: string[];
 }
 
 const team = (
@@ -33,7 +34,20 @@ const team = (
 ): Team => ({ id, name, shortName, logo, sport, country, ...extra });
 
 export const teams: Record<string, Team> = {
-  rm: team("rm", "Real Madrid", "RMA", "/logos/football/real-madrid.png", "football", "Spain", { city: "Madrid", founded: 1902, coach: "Carlo Ancelotti", stadium: "Santiago Bernabéu", capacity: 81044 }),
+  rm: team("rm", "Real Madrid", "RMA", "/logos/football/real-madrid.png", "football", "Spain", {
+    city: "Madrid",
+    founded: 1902,
+    coach: "Carlo Ancelotti",
+    stadium: "Santiago Bernabéu",
+    capacity: 81044,
+    achievements: [
+      "🏆 UEFA Champions League (2014, 2016, 2017, 2018, 2022, 2023, 2024)",
+      "🏆 La Liga Champions (2021-22, 2023-24)",
+      "🏆 FIFA Club World Cup (2016, 2017, 2018, 2022)",
+      "🏆 Copa del Rey (2023)",
+      "🏆 UEFA Super Cup (2022, 2023)",
+    ],
+  }),
   bay: team("bay", "Bayern Munich", "FCB", "/logos/football/bayern-munich.png", "football", "Germany", { city: "Munich", founded: 1900, coach: "Thomas Tuchel", stadium: "Allianz Arena", capacity: 75000 }),
   bar: team("bar", "Barcelona", "BAR", "/logos/football/fc-barcelona.png", "football", "Spain", { city: "Barcelona", founded: 1899, coach: "Xavi Hernández", stadium: "Camp Nou", capacity: 99354 }),
   mci: team("mci", "Man City", "MCI", "/logos/football/manchester-city.png", "football", "England", { city: "Manchester", founded: 1880, coach: "Pep Guardiola", stadium: "Etihad Stadium", capacity: 53400 }),
@@ -43,19 +57,118 @@ export const teams: Record<string, Team> = {
   atl: team("atl", "Atlético Madrid", "ATM", "/logos/football/atletico-madrid.png", "football", "Spain", { city: "Madrid", founded: 1903, stadium: "Metropolitano", capacity: 68456 }),
   ath: team("ath", "Athletic Club", "ATH", "/logos/football/athletic-club-bilbao.png", "football", "Spain", { city: "Bilbao", founded: 1898, stadium: "San Mamés", capacity: 53289 }),
   bet: team("bet", "Real Betis", "BET", "https://api.dicebear.com/7.x/initials/svg?seed=BET", "football", "Spain", { city: "Seville", founded: 1907, stadium: "Benito Villamarín", capacity: 60721 }),
-  ind: team("ind", "India", "IND", "/logos/cricket/india.png", "cricket", "India", { coach: "Rahul Dravid" }),
-  aus: team("aus", "Australia", "AUS", "/logos/cricket/australia.png", "cricket", "Australia", { coach: "Andrew McDonald" }),
-  eng: team("eng", "England", "ENG", "/logos/cricket/england.png", "cricket", "England", { coach: "Brendon McCullum" }),
-  mi: team("mi", "Mumbai Indians", "MI", "/logos/ipl/mi.jpg", "cricket", "India", { city: "Mumbai", founded: 2008, coach: "Mahela Jayawardene" }),
-  csk: team("csk", "Chennai Super Kings", "CSK", "/logos/ipl/csk.jpg", "cricket", "India", { city: "Chennai", founded: 2008, coach: "Stephen Fleming" }),
-  rcb: team("rcb", "Royal Challengers", "RCB", "/logos/ipl/rcb.jpg", "cricket", "India", { city: "Bengaluru", founded: 2008 }),
-  kkr: team("kkr", "Kolkata Knight Riders", "KKR", "/logos/ipl/kkr.png", "cricket", "India", { city: "Kolkata", founded: 2008, coach: "Chandrakant Pandit" }),
-  rr: team("rr", "Rajasthan Royals", "RR", "/logos/ipl/rr.jpg", "cricket", "India", { city: "Jaipur", founded: 2008 }),
-  gt: team("gt", "Gujarat Titans", "GT", "/logos/ipl/gt.jpg", "cricket", "India", { city: "Ahmedabad", founded: 2021 }),
-  srh: team("srh", "Sunrisers Hyderabad", "SRH", "/logos/ipl/srh.jpg", "cricket", "India", { city: "Hyderabad", founded: 2014 }),
-  pbks: team("pbks", "Punjab Kings", "PBKS", "/logos/ipl/pbks.jpg", "cricket", "India", { city: "Chandigarh", founded: 2008 }),
-  dc: team("dc", "Delhi Capitals", "DC", "/logos/ipl/dc.jpg", "cricket", "India", { city: "Delhi", founded: 2008 }),
-  lsg: team("lsg", "Lucknow Super Giants", "LSG", "/logos/ipl/lsg.jpg", "cricket", "India", { city: "Lucknow", founded: 2021 }),
+  ind: team("ind", "India", "IND", "/logos/cricket/india.png", "cricket", "India", {
+    coach: "Rahul Dravid",
+    achievements: [
+      "🏆 ICC Cricket World Cup ×2 (1983, 2011)",
+      "🏆 ICC T20 World Cup (2007, 2024)",
+      "🏆 ICC Champions Trophy ×2 (2013, 2025)",
+      "🏆 Border-Gavaskar Trophy holders",
+    ],
+  }),
+  aus: team("aus", "Australia", "AUS", "/logos/cricket/australia.png", "cricket", "Australia", {
+    coach: "Andrew McDonald",
+    achievements: [
+      "🏆 ICC Cricket World Cup ×6 (1987, 1999, 2003, 2007, 2015, 2023)",
+      "🏆 ICC T20 World Cup (2021)",
+      "🏆 ICC Champions Trophy ×2 (2006, 2009)",
+      "🏆 World Test Championship (2023)",
+    ],
+  }),
+  eng: team("eng", "England", "ENG", "/logos/cricket/england.png", "cricket", "England", {
+    coach: "Brendon McCullum",
+    achievements: [
+      "🏆 ICC Cricket World Cup (2019)",
+      "🏆 ICC T20 World Cup (2010, 2022)",
+      "🏆 The Ashes — multiple series wins",
+    ],
+  }),
+  mi: team("mi", "Mumbai Indians", "MI", "/logos/ipl/mi.jpg", "cricket", "India", {
+    city: "Mumbai",
+    founded: 2008,
+    coach: "Mahela Jayawardene",
+    achievements: [
+      "🏆 IPL Champions ×5 (2013, 2015, 2017, 2019, 2020)",
+      "🏆 Champions League T20 ×2 (2011, 2013)",
+      "🏆 Most successful IPL franchise",
+    ],
+  }),
+  csk: team("csk", "Chennai Super Kings", "CSK", "/logos/ipl/csk.jpg", "cricket", "India", {
+    city: "Chennai",
+    founded: 2008,
+    coach: "Stephen Fleming",
+    achievements: [
+      "🏆 IPL Champions ×5 (2010, 2011, 2018, 2021, 2023)",
+      "🏆 Champions League T20 ×2 (2010, 2014)",
+      "🏆 Most IPL final appearances",
+    ],
+  }),
+  rcb: team("rcb", "Royal Challengers", "RCB", "/logos/ipl/rcb.jpg", "cricket", "India", {
+    city: "Bengaluru",
+    founded: 2008,
+    achievements: [
+      "🥈 IPL Runners-up (2009, 2011, 2016)",
+      "🏆 Women's Premier League (2024)",
+      "🎖️ Home to the highest-ever T20 individual score",
+    ],
+  }),
+  kkr: team("kkr", "Kolkata Knight Riders", "KKR", "/logos/ipl/kkr.png", "cricket", "India", {
+    city: "Kolkata",
+    founded: 2008,
+    coach: "Chandrakant Pandit",
+    achievements: [
+      "🏆 IPL Champions ×3 (2012, 2014, 2024)",
+      "🎖️ Won 10 straight matches en route to the 2024 title",
+    ],
+  }),
+  rr: team("rr", "Rajasthan Royals", "RR", "/logos/ipl/rr.jpg", "cricket", "India", {
+    city: "Jaipur",
+    founded: 2008,
+    achievements: [
+      "🏆 IPL Champions (2008) — inaugural season winners",
+      "🏆 Champions League T20 (2013)",
+      "🥈 IPL Runners-up (2022)",
+    ],
+  }),
+  gt: team("gt", "Gujarat Titans", "GT", "/logos/ipl/gt.jpg", "cricket", "India", {
+    city: "Ahmedabad",
+    founded: 2021,
+    achievements: [
+      "🏆 IPL Champions (2022) — won in their debut season",
+      "🥈 IPL Runners-up (2023)",
+    ],
+  }),
+  srh: team("srh", "Sunrisers Hyderabad", "SRH", "/logos/ipl/srh.jpg", "cricket", "India", {
+    city: "Hyderabad",
+    founded: 2014,
+    achievements: [
+      "🏆 IPL Champions (2016)",
+      "🥈 IPL Runners-up (2018)",
+    ],
+  }),
+  pbks: team("pbks", "Punjab Kings", "PBKS", "/logos/ipl/pbks.jpg", "cricket", "India", {
+    city: "Chandigarh",
+    founded: 2008,
+    achievements: [
+      "🥈 IPL Runners-up (2014)",
+      "🎖️ Won 5 straight matches to reach the 2014 final",
+    ],
+  }),
+  dc: team("dc", "Delhi Capitals", "DC", "/logos/ipl/dc.jpg", "cricket", "India", {
+    city: "Delhi",
+    founded: 2008,
+    achievements: [
+      "🥈 IPL Runners-up (2020)",
+      "🎖️ Playoff regulars (2019, 2020, 2021)",
+    ],
+  }),
+  lsg: team("lsg", "Lucknow Super Giants", "LSG", "/logos/ipl/lsg.jpg", "cricket", "India", {
+    city: "Lucknow",
+    founded: 2021,
+    achievements: [
+      "🎖️ IPL Playoffs in every season so far (2022, 2023, 2024)",
+    ],
+  }),
   ipl: team("ipl", "Indian Premier League", "IPL", "/logos/ipl/ipl.jpg", "cricket", "India"),
   bos: team("bos", "Celtics", "BOS", "https://api.dicebear.com/7.x/initials/svg?seed=BOS", "basketball", "USA", { city: "Boston", founded: 1946, stadium: "TD Garden", capacity: 19156 }),
   mia: team("mia", "Heat", "MIA", "https://api.dicebear.com/7.x/initials/svg?seed=MIA", "basketball", "USA", { city: "Miami", founded: 1988, stadium: "Kaseya Center", capacity: 19600 }),

@@ -63,17 +63,13 @@ export default function TeamPage({ params }: { params: Promise<{ id: string }> }
     );
   }
 
-  // Squad, achievements, transfers and AI analysis are demo content written
-  // for Real Madrid only — showing them under another team's name would be wrong.
+  // Squad, transfers and AI analysis are demo content written for Real
+  // Madrid only — showing them under another team's name would be wrong.
   const hasDetailData = team.id === "rm";
 
-  const achievements = [
-    "🏆 UEFA Champions League (2022, 2023)",
-    "🏆 La Liga Champions (2022, 2023)",
-    "🏆 FIFA Club World Cup (2022, 2023)",
-    "🏆 Copa del Rey (2023)",
-    "🏆 UEFA Super Cup (2022, 2023)",
-  ];
+  // Achievements are curated per team in src/data/mock.ts (every IPL
+  // franchise and national cricket side has a list).
+  const achievements = team.achievements ?? [];
 
   return (
     <AppShell>
@@ -157,25 +153,20 @@ className={cn(
           <div className="lg:col-span-2 space-y-6">
             {activeTab === "Overview" && (
               <>
-                {hasDetailData ? (
-                  <div className="bg-card  border border-border p-5 rounded-md">
-                    <h3 className="font-bold mb-3 flex items-center gap-2">
-                      <Trophy className="h-4 w-4 text-secondary" /> Achievements
-                    </h3>
+                <div className="bg-card  border border-border p-5 rounded-md">
+                  <h3 className="font-bold mb-3 flex items-center gap-2">
+                    <Trophy className="h-4 w-4 text-secondary" /> Achievements
+                  </h3>
+                  {achievements.length > 0 ? (
                     <div className="space-y-2 text-sm">
                       {achievements.map((a) => (
                         <p key={a} className="bg-muted/10  px-3 py-2 rounded-md">{a}</p>
                       ))}
                     </div>
-                  </div>
-                ) : (
-                  <div className="bg-card  border border-border p-5 rounded-md">
-                    <h3 className="font-bold mb-3 flex items-center gap-2">
-                      <Trophy className="h-4 w-4 text-secondary" /> Achievements
-                    </h3>
+                  ) : (
                     <p className="text-sm text-muted">Detailed achievement data is not available for this team yet.</p>
-                  </div>
-                )}
+                  )}
+                </div>
 
                 <FixtureList
                   fixtures={upcomingFixtures.filter((f) => f.homeTeam.id === id || f.awayTeam?.id === id)}

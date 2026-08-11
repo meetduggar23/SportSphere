@@ -61,6 +61,8 @@ export interface Team {
   league?: string;
   form?: string;
   ranking?: number;
+  /** Notable titles & honors — displayed on the team profile. */
+  achievements?: string[];
 }
 
 export interface Player {
