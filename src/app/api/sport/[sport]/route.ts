@@ -14,7 +14,7 @@ async function fetchAPI(
     headers: {
       "x-apisports-key": apiKey,
     },
-    next: { revalidate: 120 },
+    next: { revalidate: 300 },
   });
 
   if (!res.ok) {

@@ -19,7 +19,7 @@ export default function PlayersPage() {
 
   const load = useCallback(async () => {
     const [result] = await Promise.all([
-      getTopScorers("39", "2025")
+      getTopScorers("39", "2024")
         .then((data): { ok: true; data: Player[] } => ({ ok: true, data }))
         .catch((e: unknown): { ok: false; data: Player[]; error: string } => ({
           ok: false,
@@ -43,12 +43,14 @@ export default function PlayersPage() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-[60vh]">
-        <div className="text-center">
-          <div className="w-12 h-12 border-4 border-secondary border-t-transparent  animate-spin mx-auto mb-4" />
-          <p className="text-muted">Loading top players...</p>
+      <AppShell>
+        <div className="flex items-center justify-center min-h-[60vh]">
+          <div className="text-center">
+            <div className="w-12 h-12 border-4 border-secondary border-t-transparent  animate-spin mx-auto mb-4" />
+            <p className="text-muted">Loading top players...</p>
+          </div>
         </div>
-      </div>
+      </AppShell>
     );
   }
 

@@ -51,6 +51,7 @@ export async function GET() {
   );
 
   const items: TickerItem[] = [];
+  const seen = new Set<string>();
 
   for (const result of settled) {
     if (result.status !== "fulfilled") continue;
@@ -58,8 +59,14 @@ export async function GET() {
     if (snap.status !== "ready") continue;
     for (const match of snap.data) {
       if (match.status !== "live") continue;
+      // Match ids are only unique per sport (e.g. football #493475 and
+      // hockey #493475 collide) — namespace the key with the sport so the
+      // ticker never renders duplicate React keys.
+      const key = `${sport}:${match.id}`;
+      if (seen.has(key)) continue;
+      seen.add(key);
       items.push({
-        id: match.id,
+        id: key,
         sport,
         href: `/match/${match.id}`,
         homeShort: match.homeTeam.shortName,

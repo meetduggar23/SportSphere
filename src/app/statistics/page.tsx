@@ -7,11 +7,11 @@ import { PageHeader } from "@/components/ui/PageHeader";
 import { SportTabs } from "@/components/ui/SportTabs";
 import { cn } from "@/lib/utils";
 
+// Only the sports with actual stat sets are exposed — basketball and F1 had no
+// data of their own and silently showed football numbers.
 const tabs = [
   { label: "⚽ Football", value: "football" },
   { label: "🏏 Cricket", value: "cricket" },
-  { label: "🏀 Basketball", value: "basketball" },
-  { label: "🏎️ F1", value: "f1" },
 ];
 
 const footballStats = [

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Settings, Moon, Sun, Bell, Globe, Palette, Shield, ChevronRight } from "lucide-react";
+import { Settings, Moon, Sun, Bell, Globe, Palette } from "lucide-react";
 import { AppShell } from "@/components/layout/AppShell";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { useTheme } from "@/providers/ThemeProvider";
@@ -15,7 +15,6 @@ export default function SettingsPage() {
     news: true,
     transfers: true,
     fantasy: false,
-    email: true,
   });
   const [language, setLanguage] = useState("English");
 
@@ -107,7 +106,6 @@ language === lang
                 { key: "news" as const, label: "Breaking News", desc: "Major sports stories as they happen" },
                 { key: "transfers" as const, label: "Transfer Updates", desc: "Confirmed deals and hot rumors" },
                 { key: "fantasy" as const, label: "Fantasy Reminders", desc: "Deadline alerts and team suggestions" },
-                { key: "email" as const, label: "Email Digest", desc: "Daily summary in your inbox" },
               ].map((n) => (
                 <div key={n.key} className="px-5 py-4 flex items-center justify-between gap-4">
                   <div>
@@ -134,20 +132,6 @@ language === lang
             </div>
           </div>
 
-          <div className="bg-card  border border-border overflow-hidden">
-            <div className="px-5 py-4 border-b border-border flex items-center gap-2">
-              <Shield className="h-4 w-4 text-secondary" />
-              <h3 className="font-bold">Security & Privacy</h3>
-            </div>
-            <div className="divide-y divide-border">
-              {["Change Password", "Two-Factor Authentication", "Linked Accounts", "Privacy Policy", "Delete Account"].map((item) => (
-                <button key={item} className="w-full px-5 py-4 flex items-center justify-between hover:bg-muted/5 transition-colors text-left">
-                  <span className="text-sm font-medium">{item}</span>
-                  <ChevronRight className="h-4 w-4 text-muted" />
-                </button>
-              ))}
-            </div>
-          </div>
         </div>
       </div>
     </AppShell>

@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState } from "react";
+import { flushSync } from "react-dom";
 
 type Theme = "light" | "dark";
 
@@ -32,8 +33,23 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     if (meta) meta.setAttribute("content", theme === "dark" ? "#082032" : "#E3F2FD");
   }, [theme]);
 
-  const setTheme = (t: Theme) => setThemeState(t);
-  const toggleTheme = () => setThemeState((prev) => (prev === "light" ? "dark" : "light"));
+  // Apply a theme change. When the browser supports the View Transitions API,
+  // the switch is wrapped in startViewTransition so the entire page glides
+  // from one theme to the other as a smooth cross-fade (see the
+  // ::view-transition-* rules in globals.css). Older browsers simply apply
+  // the change instantly and rely on the universal CSS transitions instead.
+  const applyTheme = (next: Theme) => {
+    if (typeof document !== "undefined" && "startViewTransition" in document) {
+      document.startViewTransition(() => {
+        flushSync(() => setThemeState(next));
+      });
+    } else {
+      setThemeState(next);
+    }
+  };
+
+  const setTheme = (t: Theme) => applyTheme(t);
+  const toggleTheme = () => applyTheme(theme === "light" ? "dark" : "light");
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme, setTheme }}>

@@ -34,6 +34,16 @@ export const sportApiConfigs: Record<string, SportApiConfig> = {
     leagueId: "12",
     season: "2024",
   },
+  nba: {
+    // NBA is served by the same basketball API (league 12 = NBA).
+    sport: "nba",
+    apiId: "basketball",
+    baseUrl: "https://v1.basketball.api-sports.io",
+    envKey: "BASKETBALL_API_KEY",
+    kind: "team",
+    leagueId: "12",
+    season: "2024",
+  },
   baseball: {
     sport: "baseball",
     apiId: "baseball",

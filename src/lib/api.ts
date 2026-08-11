@@ -164,11 +164,6 @@ export async function getLiveMatches(): Promise<Match[]> {
   return data.map(toMatch);
 }
 
-export async function getMatchesByDate(date: string): Promise<Match[]> {
-  const data = await fetchAPI("matches", { date });
-  return data.map(toMatch);
-}
-
 export async function getFixtures(league = "39", season = "2024", next = "15"): Promise<Fixture[]> {
   const data = await fetchAPI("fixtures", { league, season, next });
   return data.map(toFixture);

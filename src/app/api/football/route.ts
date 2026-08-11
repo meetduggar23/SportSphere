@@ -11,7 +11,7 @@ async function fetchAPI(endpoint: string, params: Record<string, string> = {}) {
     headers: {
       "x-apisports-key": API_KEY || "",
     },
-    next: { revalidate: 60 },
+    next: { revalidate: 300 },
   });
 
   if (!res.ok) {

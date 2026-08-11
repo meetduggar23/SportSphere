@@ -1,25 +1,18 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Zap } from "lucide-react";
 import { AppShell } from "@/components/layout/AppShell";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { SportTabs } from "@/components/ui/SportTabs";
 import { LiveMatchCard } from "@/components/sports/LiveMatchCard";
 import { DataStatus } from "@/components/ui/DataStatus";
-import { getProvider } from "@/lib/providers/registry";
-import { Match } from "@/types";
+import { getAllLiveEventsResilient, homeSports } from "@/lib/homeFeed";
+import { Match, sportIcons, sportLabels } from "@/types";
 
-const tabs = [
-  { label: "All Sports", value: "all" },
-  { label: "⚽ Football", value: "football" },
-];
-
-const statusTabs = [
-  { label: "Live Now", value: "live" },
-  { label: "Upcoming", value: "upcoming" },
-  { label: "Finished", value: "finished" },
-];
+// Only live matches are shown here; upcoming/finished data would need
+// separate requests, so only expose the tab that has data.
+const statusTabs = [{ label: "Live Now", value: "live" }];
 
 export default function LivePage() {
   const [matches, setMatches] = useState<Match[]>([]);
@@ -28,18 +21,18 @@ export default function LivePage() {
   const [error, setError] = useState<string>();
   const [sport, setSport] = useState("all");
   const [statusFilter, setStatusFilter] = useState("live");
+
   const mounted = useRef(true);
 
   const load = useCallback(async () => {
-    const provider = getProvider("football");
-    // Promise.all is statically known-async, which the set-state-in-effect
-    // lint rule accepts; arbitrary method calls are not proven async.
-    const [snap] = await Promise.all([provider.getMatches()]);
+    // Aggregates currently-live events from every configured sport provider
+    // (same resilient aggregator the home feed uses).
+    const feed = await getAllLiveEventsResilient();
     if (!mounted.current) return;
-    setStatus(snap.status === "ready" ? "ready" : "unavailable");
-    setMatches(snap.status === "ready" ? snap.data : []);
-    setLastUpdated(snap.lastUpdated);
-    setError(snap.error);
+    setStatus(feed.status === "ready" ? "ready" : "unavailable");
+    setMatches(feed.live);
+    setLastUpdated(feed.lastUpdated);
+    setError(feed.error);
   }, []);
 
   const retry = () => {
@@ -50,15 +43,27 @@ export default function LivePage() {
   useEffect(() => {
     mounted.current = true;
     void load();
-    // Poll every 5 minutes — respects the free-tier API quota (100 req/day)
+    // Poll every 10 minutes — the free tier allows ~100 req/day, and each
+    // poll hits the provider. Keep the page from exhausting the quota.
     const interval = setInterval(() => {
       void load();
-    }, 300000);
+    }, 600000);
     return () => {
       mounted.current = false;
       clearInterval(interval);
     };
   }, [load]);
+
+  const filterTabs = useMemo(
+    () => [
+      { label: "All Sports", value: "all" },
+      ...homeSports.map((s) => ({
+        label: `${sportIcons[s]} ${sportLabels[s]}`,
+        value: s,
+      })),
+    ],
+    []
+  );
 
   const filtered = matches.filter(
     (m) =>
@@ -85,14 +90,14 @@ export default function LivePage() {
 
         <DataStatus
           status={status}
-          dataSource="API-Football"
+          dataSource={status === "ready" ? "Live providers" : undefined}
           lastUpdated={lastUpdated}
           error={error}
           onRetry={retry}
         />
 
         <div className="flex flex-col gap-4 mb-6">
-          <SportTabs tabs={tabs} active={sport} onChange={setSport} />
+          <SportTabs tabs={filterTabs} active={sport} onChange={setSport} />
           <SportTabs tabs={statusTabs} active={statusFilter} onChange={setStatusFilter} />
         </div>
 
@@ -105,7 +110,7 @@ export default function LivePage() {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {filtered.map((match) => (
-              <LiveMatchCard key={match.id} match={match} />
+              <LiveMatchCard key={`${match.sport}:${match.id}`} match={match} />
             ))}
           </div>
         )}

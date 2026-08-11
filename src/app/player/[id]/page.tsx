@@ -35,9 +35,31 @@ const statsGrid = [
 
 export default function PlayerPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
-  const player = topPlayers.find((p) => p.id === id) ?? topPlayers[0];
+  const player = topPlayers.find((p) => p.id === id);
   const [activeTab, setActiveTab] = useState("Overview");
   const [favorite, setFavorite] = useState(false);
+
+  // Unknown ids (e.g. real provider player ids with no demo profile) must not
+  // silently render another player's name and stats — show a clear empty state.
+  if (!player) {
+    return (
+      <AppShell>
+        <div className="max-w-7xl mx-auto px-4 py-20 text-center">
+          <p className="text-5xl mb-4">🔍</p>
+          <h1 className="text-xl font-bold">Player not found</h1>
+          <p className="text-sm text-muted mt-2 max-w-sm mx-auto">
+            We don&apos;t have a player profile for this id yet. Try browsing the players list.
+          </p>
+          <Link
+            href="/players"
+            className="inline-flex items-center gap-1.5 text-sm font-semibold text-secondary mt-6 hover:underline"
+          >
+            <ArrowLeft className="h-4 w-4" /> Back to Players
+          </Link>
+        </div>
+      </AppShell>
+    );
+  }
 
   const ratings = [
     { label: "Attack", value: 92 },

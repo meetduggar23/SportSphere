@@ -66,10 +66,12 @@ interface ApiStandingRow {
 
 async function fetchSport(apiId: string, type: string): Promise<unknown[]> {
   // Browsers can use a relative URL; the server cannot resolve one, so it
-  // self-fetches against an absolute base (NEXT_PUBLIC_SITE_URL or localhost).
+  // self-fetches against an absolute base (NEXT_PUBLIC_SITE_URL, Vercel's
+  // auto-injected VERCEL_URL, or localhost as a last resort).
+  const vercelUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "";
   const base =
     typeof window === "undefined"
-      ? process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"
+      ? process.env.NEXT_PUBLIC_SITE_URL ?? vercelUrl ?? "http://localhost:3000"
       : "";
   const res = await fetch(`${base}/api/sport/${apiId}?type=${type}`);
   if (!res.ok) throw new Error(`API error: ${res.status}`);

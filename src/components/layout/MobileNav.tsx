@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Radio, Newspaper, Search, User, Trophy } from "lucide-react";
+import { Radio, Newspaper, Search, Home, Trophy } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const items = [
@@ -10,7 +10,7 @@ const items = [
   { label: "Scores", href: "/standings", icon: Trophy },
   { label: "News", href: "/news", icon: Newspaper },
   { label: "Search", href: "/search", icon: Search },
-  { label: "Profile", href: "/profile", icon: User },
+  { label: "Home", href: "/", icon: Home },
 ];
 
 export function MobileNav() {

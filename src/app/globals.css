@@ -627,6 +627,38 @@ body {
   background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--sport-accent) 55%, transparent) 30%, color-mix(in srgb, var(--sport-accent) 55%, transparent) 70%, transparent);
 }
 
+/* ---- Theme toggle icon spin (Sun <-> Moon) ---- */
+@keyframes theme-spin {
+  from { transform: rotate(0deg) scale(0.55); opacity: 0.4; }
+  to { transform: rotate(180deg) scale(1); opacity: 1; }
+}
+.animate-theme-spin {
+  animation: theme-spin 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/*
+  ---- View Transitions (premium whole-page theme cross-fade) ----
+  When the browser supports the View Transitions API (Chrome 111+), the
+  ThemeProvider wraps every theme switch in document.startViewTransition().
+  The old frame is frozen (animation: none) while the new root fades in on
+  top, so dark <-> light blends as one smooth cross-fade with no white
+  flash. mix-blend-mode: normal prevents the default cross-fade blend
+  artifact (a washed-out gray frame in between). Browsers without support
+  ignore these rules and use the universal CSS transitions below instead.
+*/
+::view-transition-old(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+::view-transition-new(root) {
+  animation: theme-view-in 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  mix-blend-mode: normal;
+}
+@keyframes theme-view-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   /* Accessibility: users with reduced-motion get instant theme switches.
      NOTE for QA: if theme transitions appear to "snap" instantly in an
@@ -637,5 +669,9 @@ body {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
   }
 }

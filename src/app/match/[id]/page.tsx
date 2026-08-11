@@ -33,9 +33,36 @@ const tabs = [
 
 export default function MatchPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
-  const match = allMatches.find((m) => m.id === id) ?? allMatches[0];
+  const match = allMatches.find((m) => m.id === id);
   const [activeTab, setActiveTab] = useState("timeline");
+
+  // Unknown ids (e.g. real provider match ids with no demo profile) must not
+  // silently render another fixture's teams and score — show a clear empty state.
+  if (!match) {
+    return (
+      <AppShell>
+        <div className="max-w-7xl mx-auto px-4 py-20 text-center">
+          <p className="text-5xl mb-4">🔍</p>
+          <h1 className="text-xl font-bold">Match not found</h1>
+          <p className="text-sm text-muted mt-2 max-w-sm mx-auto">
+            We don&apos;t have a match profile for this fixture yet. Try browsing the live scores page.
+          </p>
+          <Link
+            href="/live"
+            className="inline-flex items-center gap-1.5 text-sm font-semibold text-secondary mt-6 hover:underline"
+          >
+            <ArrowLeft className="h-4 w-4" /> Back to Live Scores
+          </Link>
+        </div>
+      </AppShell>
+    );
+  }
+
   const isLive = match.status === "live";
+
+  // Timeline, stats, lineups and AI summary are demo content written for the
+  // featured Real Madrid vs Bayern match (m1) only.
+  const hasDetailData = match.id === "m1";
 
   const h2hRows = [
     { home: "W", away: "L", comp: "UCL Semi-Final", year: "2024" },
@@ -43,6 +70,9 @@ export default function MatchPage({ params }: { params: Promise<{ id: string }> 
     { home: "D", away: "D", comp: "UCL Quarter-Final", year: "2022" },
     { home: "W", away: "L", comp: "Friendly", year: "2021" },
   ];
+
+  // Match score header still renders (correct score/teams) for every fixture;
+  // the demo-only deep-dive sections are gated to hasDetailData above.
 
   return (
     <AppShell>
@@ -157,94 +187,102 @@ export default function MatchPage({ params }: { params: Promise<{ id: string }> 
             </div>
 
             <div className="arena-card p-4">
-              {activeTab === "timeline" && (
-                <MatchTimeline
-                  events={matchTimeline}
-                  homeLogo={match.homeTeam.logo}
-                  awayLogo={match.awayTeam.logo}
-                />
-              )}
+              {hasDetailData ? (
+                <>
+                  {activeTab === "timeline" && (
+                    <MatchTimeline
+                      events={matchTimeline}
+                      homeLogo={match.homeTeam.logo}
+                      awayLogo={match.awayTeam.logo}
+                    />
+                  )}
 
-              {activeTab === "stats" && (
-                <MatchStatsCompare
-                  stats={matchStats[`${id}`] ?? matchStats.m1}
-                  homeName={match.homeTeam.name}
-                  awayName={match.awayTeam.name}
-                />
-              )}
+                  {activeTab === "stats" && (
+                    <MatchStatsCompare
+                      stats={matchStats.m1}
+                      homeName={match.homeTeam.name}
+                      awayName={match.awayTeam.name}
+                    />
+                  )}
 
-              {activeTab === "h2h" && (
-                <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <TeamLogo logo={match.homeTeam.logo} size="md" />
-                    <span className="text-sm font-bold">{match.homeTeam.shortName} vs {match.awayTeam.shortName}</span>
-                    <TeamLogo logo={match.awayTeam.logo} size="md" />
-                  </div>
-                  <div className="flex gap-2 mb-6">
-                    {[
-                      { label: "Home Wins", value: 5, color: "bg-blue" },
-                      { label: "Draws", value: 2, color: "bg-muted" },
-                      { label: "Away Wins", value: 3, color: "bg-secondary" },
-                    ].map((s) => (
-                      <div key={s.label} className="flex-1 bg-muted/10  p-3 text-center rounded-sm">
+                  {activeTab === "h2h" && (
+                    <div>
+                      <div className="flex items-center justify-between mb-4">
+                        <TeamLogo logo={match.homeTeam.logo} size="md" />
+                        <span className="text-sm font-bold">{match.homeTeam.shortName} vs {match.awayTeam.shortName}</span>
+                        <TeamLogo logo={match.awayTeam.logo} size="md" />
+                      </div>
+                      <div className="flex gap-2 mb-6">
+                        {[
+                          { label: "Home Wins", value: 5, color: "bg-blue" },
+                          { label: "Draws", value: 2, color: "bg-muted" },
+                          { label: "Away Wins", value: 3, color: "bg-secondary" },
+                        ].map((s) => (
+                          <div key={s.label} className="flex-1 bg-muted/10  p-3 text-center rounded-sm">
 <p className={cn("text-2xl font-bold  py-1 mb-1", s.color === "bg-secondary" ? "text-white" : "text-berry")}>{s.value}</p>
-                        <p className="text-xs text-muted">{s.label}</p>
+                            <p className="text-xs text-muted">{s.label}</p>
+                          </div>
+                        ))}
                       </div>
-                    ))}
-                  </div>
-                  <div className="divide-y divide-border">
-                    {h2hRows.map((row, i) => (
-                      <div key={i} className="flex items-center justify-between py-3">
-                        <span className="text-xs text-muted w-10">{row.home}</span>
-                        <span className="text-sm font-medium flex-1 text-center">{row.comp}</span>
-                        <span className="text-xs text-muted w-10 text-right">{row.away}</span>
+                      <div className="divide-y divide-border">
+                        {h2hRows.map((row, i) => (
+                          <div key={i} className="flex items-center justify-between py-3">
+                            <span className="text-xs text-muted w-10">{row.home}</span>
+                            <span className="text-sm font-medium flex-1 text-center">{row.comp}</span>
+                            <span className="text-xs text-muted w-10 text-right">{row.away}</span>
+                          </div>
+                        ))}
                       </div>
-                    ))}
-                  </div>
-                </div>
-              )}
+                    </div>
+                  )}
 
-              {activeTab === "lineups" && (
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <p className="font-bold text-sm mb-3">{match.homeTeam.name}</p>
-                    <div className="text-sm space-y-1.5 text-muted">
-                      <p>🧤 D. Lunin</p>
-                      <p>🛡️ D. Carvajal</p>
-                      <p>🛡️ A. Rüdiger</p>
-                      <p>🛡️ Nacho</p>
-                      <p>🛡️ F. Mendy</p>
-                      <p>⚙️ F. Valverde</p>
-                      <p>⚙️ T. Kroos</p>
-                      <p>⚙️ E. Camavinga</p>
-                      <p>🔥 J. Bellingham</p>
-                      <p>⚽ Vinícius Júnior</p>
-                      <p>⚽ Rodrygo</p>
+                  {activeTab === "lineups" && (
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <p className="font-bold text-sm mb-3">{match.homeTeam.name}</p>
+                        <div className="text-sm space-y-1.5 text-muted">
+                          <p>🧤 D. Lunin</p>
+                          <p>🛡️ D. Carvajal</p>
+                          <p>🛡️ A. Rüdiger</p>
+                          <p>🛡️ Nacho</p>
+                          <p>🛡️ F. Mendy</p>
+                          <p>⚙️ F. Valverde</p>
+                          <p>⚙️ T. Kroos</p>
+                          <p>⚙️ E. Camavinga</p>
+                          <p>🔥 J. Bellingham</p>
+                          <p>⚽ Vinícius Júnior</p>
+                          <p>⚽ Rodrygo</p>
+                        </div>
+                      </div>
+                      <div>
+                        <p className="font-bold text-sm mb-3">{match.awayTeam.name}</p>
+                        <div className="text-sm space-y-1.5 text-muted">
+                          <p>🧤 M. Neuer</p>
+                          <p>🛡️ J. Kimmich</p>
+                          <p>🛡️ D. Upamecano</p>
+                          <p>🛡️ E. Dier</p>
+                          <p>🛡️ A. Davies</p>
+                          <p>⚙️ J. Pavlović</p>
+                          <p>⚙️ L. Goretzka</p>
+                          <p>⚙️ J. Musiala</p>
+                          <p>⚙️ L. Sané</p>
+                          <p>🔥 T. Müller</p>
+                          <p>⚽ H. Kane</p>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                  <div>
-                    <p className="font-bold text-sm mb-3">{match.awayTeam.name}</p>
-                    <div className="text-sm space-y-1.5 text-muted">
-                      <p>🧤 M. Neuer</p>
-                      <p>🛡️ J. Kimmich</p>
-                      <p>🛡️ D. Upamecano</p>
-                      <p>🛡� E. Dier</p>
-                      <p>🛡️ A. Davies</p>
-                      <p>⚙️ J. Pavlović</p>
-                      <p>⚙️ L. Goretzka</p>
-                      <p>⚙️ J. Musiala</p>
-                      <p>⚙️ L. Sané</p>
-                      <p>🔥 T. Müller</p>
-                      <p>⚽ H. Kane</p>
-                    </div>
-                  </div>
-                </div>
+                  )}
+                </>
+              ) : (
+                <p className="px-2 py-8 text-center text-sm text-muted">
+                  Detailed match data is not available for this fixture yet.
+                </p>
               )}
 
               {activeTab === "chat" && <LiveChat />}
             </div>
 
-            {activeTab !== "chat" && (
+            {hasDetailData && activeTab !== "chat" && (
               <section>
                 <SectionHeader title="Match Moments" href="/videos" linkLabel="More Videos" />
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -269,24 +307,25 @@ export default function MatchPage({ params }: { params: Promise<{ id: string }> 
                 </div>
               </section>
             )}
-          </div>
+          </div>          <aside className="hidden lg:block w-80 shrink-0 space-y-6">
+            {hasDetailData && (
+              <div className="arena-card p-4">
+                <h3 className="heading flex items-center gap-2 mb-3 text-base text-foreground">
+                  <Sparkles className="h-4 w-4 text-secondary" /> AI Match Summary
+                </h3>
+                <p className="text-sm text-muted leading-relaxed">
+                  {match.homeTeam.name} have been dominant, controlling 58% of possession with an xG of 2.1.
+                  Rodrygo&apos;s 74th minute strike has swung the momentum. Key battle: Bellingham vs Kimmich
+                  in midfield. Expect Bayern to push high in the final 15 minutes.
+                </p>
+                <button className="w-full mt-3 py-2 text-sm font-medium bg-secondary/10 text-secondary  hover:bg-secondary/20 transition-colors rounded-md">
+                  Ask AI about this match
+                </button>
+              </div>
+            )}
 
-<aside className="hidden lg:block w-80 shrink-0 space-y-6">
+{hasDetailData && (
             <div className="arena-card p-4">
-              <h3 className="heading flex items-center gap-2 mb-3 text-base text-foreground">
-                <Sparkles className="h-4 w-4 text-secondary" /> AI Match Summary
-              </h3>
-              <p className="text-sm text-muted leading-relaxed">
-                {match.homeTeam.name} have been dominant, controlling 58% of possession with an xG of 2.1.
-                Rodrygo&apos;s 74th minute strike has swung the momentum. Key battle: Bellingham vs Kimmich
-                in midfield. Expect Bayern to push high in the final 15 minutes.
-              </p>
-              <button className="w-full mt-3 py-2 text-sm font-medium bg-secondary/10 text-secondary  hover:bg-secondary/20 transition-colors rounded-md">
-                Ask AI about this match
-              </button>
-            </div>
-
-<div className="arena-card p-4">
               <h3 className="heading flex items-center gap-2 mb-3 text-base text-foreground">
                 <History className="h-4 w-4 text-secondary" /> Head to Head
               </h3>
@@ -306,6 +345,7 @@ export default function MatchPage({ params }: { params: Promise<{ id: string }> 
                 ))}
               </div>
             </div>
+            )}
 
 <div className="arena-card p-4">
               <h3 className="heading flex items-center gap-2 mb-3 text-base text-foreground">

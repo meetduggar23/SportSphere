@@ -1,4 +1,5 @@
 import { allSportsSidebarOrder } from "@/config/sidebar";
+import { sportIcons, Sport } from "@/types";
 
 export interface SportConfig {
   id: string;
@@ -210,4 +211,13 @@ export const orderedSports: SportConfig[] = allSportsSidebarOrder
 /** Display label for a sport id, special-casing "formula-1". */
 export function sportLabel(id: string, shortName: string): string {
   return id === "formula-1" ? "Formula 1" : shortName;
+}
+
+/**
+ * Emoji icon for a sport id, normalizing the config's "formula-1" id to the
+ * types' "f1" key (they differ between config and types).
+ */
+export function sportEmoji(id: string): string {
+  const key = (id === "formula-1" ? "f1" : id) as Sport;
+  return sportIcons[key] ?? "🏅";
 }

@@ -4,8 +4,6 @@ import { useCallback, useRef, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
-  Bell,
-  User,
   Menu,
   X,
   ChevronRight,
@@ -23,8 +21,7 @@ import { useTheme } from "@/providers/ThemeProvider";
 import { Logo } from "@/components/ui/Logo";
 import { SearchBar } from "@/components/layout/SearchBar";
 import { SearchOverlay } from "@/components/layout/SearchOverlay";
-import { orderedSports, sportLabel } from "@/config/sports";
-import { sportIcons, Sport } from "@/types";
+import { orderedSports, sportLabel, sportEmoji } from "@/config/sports";
 import { cn } from "@/lib/utils";
 
 const primaryNav = [
@@ -45,7 +42,6 @@ const quickLinks = [
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [profileOpen, setProfileOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const searchBtnRef = useRef<HTMLButtonElement>(null);
   const pathname = usePathname();
@@ -70,7 +66,7 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50">
       <div className="border-b border-border bg-background/92 backdrop-blur-xl">
-        {/* Primary row — nav + search + profile in one compact strip */}
+        {/* Primary row — nav + search + controls in one compact strip */}
         <div className="mx-auto flex h-14 max-w-[1440px] items-center gap-1.5 px-4 lg:px-6">
           <Logo className="mr-2 shrink-0" />
 
@@ -123,62 +119,15 @@ export function Header() {
             title={isDark ? "Switch to light mode" : "Switch to dark mode"}
           >
             {mounted ? (
-              isDark ? <Moon className="h-[18px] w-[18px]" /> : <Sun className="h-[18px] w-[18px]" />
+              isDark ? (
+                <Moon key="moon" className="h-[18px] w-[18px] animate-theme-spin" />
+              ) : (
+                <Sun key="sun" className="h-[18px] w-[18px] animate-theme-spin" />
+              )
             ) : (
               <span className="h-[18px] w-[18px]" aria-hidden />
             )}
           </button>
-
-          <button
-            className="relative flex h-9 w-9 items-center justify-center text-muted transition-colors hover:bg-blue/40 hover:text-foreground rounded-md"
-            title="Notifications"
-          >
-            <Bell className="h-[18px] w-[18px]" />
-            <span className="absolute right-1.5 top-1.5 h-2 w-2 bg-secondary ring-2 ring-background rounded-full" />
-          </button>
-
-          <div className="relative">
-            <button
-              onClick={() => setProfileOpen((o) => !o)}
-              className="flex h-9 items-center gap-2 pl-1 pr-2 text-muted transition-colors hover:bg-blue/40 hover:text-foreground rounded-md"
-              aria-expanded={profileOpen}
-            >
-              <span className="flex h-7 w-7 items-center justify-center bg-blue/60 text-xs font-bold text-muted-strong ring-1 ring-border-navy rounded-full">
-                MD
-              </span>
-              <span className="hidden text-sm font-semibold xl:block">Meet</span>
-              <ChevronRight className={cn("h-4 w-4 transition-transform", profileOpen && "rotate-90")} />
-            </button>
-
-            {profileOpen && (
-              <div className="absolute right-0 top-full mt-2 w-56 overflow-hidden border border-border-navy glass-strong shadow-pop animate-scale-in">
-                <div className="border-b border-border-navy px-4 py-3">
-                  <p className="text-sm font-bold text-foreground">Meet Duggar</p>
-                  <p className="meta">meet@example.com</p>
-                </div>
-                <div className="p-1.5">
-                  {quickLinks.map((l) => (
-                    <Link
-                      key={l.href}
-                      href={l.href}
-                      onClick={() => setProfileOpen(false)}
-                      className="flex items-center justify-between px-3 py-2 text-sm text-muted transition-colors hover:bg-blue/40 hover:text-foreground"
-                    >
-                      {l.label}
-                      <ChevronRight className="h-3.5 w-3.5 text-faint" />
-                    </Link>
-                  ))}
-                  <Link
-                    href="/profile"
-                    onClick={() => setProfileOpen(false)}
-                    className="mt-1 flex items-center gap-2 border-t border-border-navy px-3 py-2 text-sm font-semibold text-foreground transition-colors hover:bg-blue/40"
-                  >
-                    <User className="h-4 w-4" /> View Profile
-                  </Link>
-                </div>
-              </div>
-            )}
-          </div>
 
           <button
             className="flex h-9 w-9 items-center justify-center text-muted transition-colors hover:bg-blue/40 hover:text-foreground rounded-md lg:hidden"
@@ -195,7 +144,6 @@ export function Header() {
             <div className="no-scrollbar flex flex-1 items-center gap-0.5 overflow-x-auto">
               {orderedSports.map((sport) => {
                 const active = pathname === sport.href;
-                const Icon = sportIcons[sport.id as Sport];
                 return (
                   <Link
                     key={sport.id}
@@ -207,7 +155,7 @@ export function Header() {
                         : "text-muted hover:bg-blue/40 hover:text-foreground"
                     )}
                   >
-                    <span className="text-[13px] leading-none">{Icon}</span>
+                    <span className="text-[13px] leading-none">{sportEmoji(sport.id)}</span>
                     {sportLabel(sport.id, sport.shortName)}
                     {active && (
                       <span className="absolute inset-x-3 bottom-0 h-0.5 bg-primary" />
@@ -256,7 +204,6 @@ export function Header() {
               <div className="no-scrollbar flex gap-1.5 overflow-x-auto pb-1">
                 {orderedSports.map((sport) => {
                   const active = pathname === sport.href;
-                  const Icon = sportIcons[sport.id as Sport];
                   return (
                     <Link
                       key={sport.id}
@@ -269,7 +216,7 @@ export function Header() {
                           : "border-border bg-card-glass text-muted hover:text-foreground"
                       )}
                     >
-                      <span>{Icon}</span> {sportLabel(sport.id, sport.shortName)}
+                      <span>{sportEmoji(sport.id)}</span> {sportLabel(sport.id, sport.shortName)}
                     </Link>
                   );
                 })}

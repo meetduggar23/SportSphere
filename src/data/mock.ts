@@ -3,26 +3,16 @@ import {
   News,
   Standing,
   Fixture,
-  TrendingItem,
   Player,
-  StatsCard,
   Tournament,
   Transfer,
   Prediction,
   VideoItem,
   TimelineEvent,
   MatchStats,
-  NavItem,
   Team,
   MatchComment,
 } from "@/types";
-
-export const statsCards: StatsCard[] = [
-  { label: "Live Matches", value: 24, subtitle: "Across all sports", icon: "live", color: "bg-secondary/15 text-secondary" },
-  { label: "Upcoming", value: 57, subtitle: "Next 7 days", icon: "calendar", color: "bg-brand-maroon/15 text-brand-maroon" },
-  { label: "News Updates", value: 128, subtitle: "Today", icon: "news", color: "bg-brand-purple/15 text-brand-purple" },
-  { label: "Your Predictions", value: 12, subtitle: "Active", icon: "predictions", color: "bg-blue/25 text-secondary" },
-];
 
 interface TeamExtra {
   city?: string;
@@ -52,6 +42,7 @@ export const teams: Record<string, Team> = {
   gir: team("gir", "Girona", "GIR", "/logos/football/girona-fc.png", "football", "Spain", { city: "Girona", founded: 1930, stadium: "Estadi Montilivi", capacity: 13286 }),
   atl: team("atl", "Atlético Madrid", "ATM", "/logos/football/atletico-madrid.png", "football", "Spain", { city: "Madrid", founded: 1903, stadium: "Metropolitano", capacity: 68456 }),
   ath: team("ath", "Athletic Club", "ATH", "/logos/football/athletic-club-bilbao.png", "football", "Spain", { city: "Bilbao", founded: 1898, stadium: "San Mamés", capacity: 53289 }),
+  bet: team("bet", "Real Betis", "BET", "https://api.dicebear.com/7.x/initials/svg?seed=BET", "football", "Spain", { city: "Seville", founded: 1907, stadium: "Benito Villamarín", capacity: 60721 }),
   ind: team("ind", "India", "IND", "/logos/cricket/india.png", "cricket", "India", { coach: "Rahul Dravid" }),
   aus: team("aus", "Australia", "AUS", "/logos/cricket/australia.png", "cricket", "Australia", { coach: "Andrew McDonald" }),
   eng: team("eng", "England", "ENG", "/logos/cricket/england.png", "cricket", "England", { coach: "Brendon McCullum" }),
@@ -216,6 +207,7 @@ export const allMatches: Match[] = [
     venue: "Anfield",
     competition: "Matchday 34",
     date: "Yesterday",
+    winner: "home",
   },
 ];
 
@@ -327,14 +319,7 @@ export const standings: Standing[] = [
   { position: 3, team: teams.gir, played: 33, won: 22, drawn: 5, lost: 6, goalDifference: 26, points: 71, goalsFor: 67, goalsAgainst: 41, form: ["W", "L", "W", "W", "D"] },
   { position: 4, team: teams.atl, played: 33, won: 19, drawn: 4, lost: 10, goalDifference: 21, points: 61, goalsFor: 59, goalsAgainst: 38, form: ["D", "W", "L", "W", "W"] },
   { position: 5, team: teams.ath, played: 33, won: 16, drawn: 8, lost: 9, goalDifference: 15, points: 56, goalsFor: 53, goalsAgainst: 38, form: ["W", "D", "D", "W", "L"] },
-  { position: 6, team: teams.liv, played: 33, won: 15, drawn: 10, lost: 8, goalDifference: 18, points: 55, goalsFor: 65, goalsAgainst: 47, form: ["W", "W", "D", "L", "W"] },
-];
-
-export const trendingNow: TrendingItem[] = [
-  { id: "t1", rank: 1, title: "Real Madrid vs Bayern", subtitle: "UEFA Champions League", logos: ["⚪", "🔴"], trend: "up" },
-  { id: "t2", rank: 2, title: "India vs Australia", subtitle: "Border-Gavaskar Trophy", logos: ["🔵", "🟡"], trend: "up" },
-  { id: "t3", rank: 3, title: "Lakers vs Warriors", subtitle: "NBA Playoffs", logos: ["🟣", "🔵"], trend: "steady" },
-  { id: "t4", rank: 4, title: "Max Verstappen", subtitle: "Emilia Romagna GP", logos: ["🏎️"], trend: "down" },
+  { position: 6, team: teams.bet, played: 33, won: 14, drawn: 10, lost: 9, goalDifference: 4, points: 52, goalsFor: 44, goalsAgainst: 40, form: ["D", "W", "L", "W", "D"] },
 ];
 
 export const topPlayers: Player[] = [
@@ -354,15 +339,6 @@ export const followedTeams = [
   { id: "kkr", name: "Kolkata Knight Riders", sport: "Cricket", logo: teams.kkr.logo },
   { id: "rcb", name: "Royal Challengers", sport: "Cricket", logo: teams.rcb.logo },
   { id: "lal", name: "Los Angeles Lakers", sport: "Basketball", logo: teams.lal.logo },
-];
-
-export const navItems: NavItem[] = [
-  { label: "Home", href: "/" },
-  { label: "Live", href: "/live" },
-  { label: "News", href: "/news" },
-  { label: "Standings", href: "/standings" },
-  { label: "Fantasy", href: "/fantasy" },
-  { label: "AI Insights", href: "/ai-insights" },
 ];
 
 export const tournaments: Tournament[] = [
@@ -499,9 +475,3 @@ export const fantasyPicks = [
   { id: "fp6", name: "Alisson Becker", team: "Liverpool", logo: "🔴", points: 115, price: "€5.5M", position: "GK", suggested: false },
 ];
 
-export const footballMatches = allMatches.filter((m) => m.sport === "football" && (m.status === "live" || m.status === "upcoming"));
-export const footballNews = topNews.filter((n) => n.sport === "football");
-export const footballPlayers = topPlayers.filter((p) => p.sport === "football");
-export const cricketNews = topNews.filter((n) => n.sport === "cricket");
-export const basketballNews = topNews.filter((n) => n.sport === "basketball");
-export const f1News = topNews.filter((n) => n.sport === "f1");

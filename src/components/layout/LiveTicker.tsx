@@ -15,7 +15,9 @@ interface TickerItem {
   minute: string;
 }
 
-const POLL_MS = 60_000;
+// 5 minutes — the free API tier allows only ~100 requests/day, and the ticker
+// fans out to every sport provider per poll. 60s polling would burn the quota.
+const POLL_MS = 300_000;
 
 export function LiveTicker() {
   const [items, setItems] = useState<TickerItem[]>([]);

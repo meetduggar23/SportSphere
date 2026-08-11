@@ -39,9 +39,33 @@ const squad = [
 
 export default function TeamPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
-  const team = teams[id] ?? teams.rm;
+  const team = teams[id];
   const [activeTab, setActiveTab] = useState("Overview");
   const [favorite, setFavorite] = useState(false);
+
+  if (!team) {
+    return (
+      <AppShell>
+        <div className="max-w-7xl mx-auto px-4 py-20 text-center">
+          <p className="text-5xl mb-4">🔍</p>
+          <h1 className="text-xl font-bold">Team not found</h1>
+          <p className="text-sm text-muted mt-2 max-w-sm mx-auto">
+            We don&apos;t have a profile for this team yet. Try browsing the teams list.
+          </p>
+          <Link
+            href="/teams"
+            className="inline-flex items-center gap-1.5 text-sm font-semibold text-secondary mt-6 hover:underline"
+          >
+            <ArrowLeft className="h-4 w-4" /> Back to Teams
+          </Link>
+        </div>
+      </AppShell>
+    );
+  }
+
+  // Squad, achievements, transfers and AI analysis are demo content written
+  // for Real Madrid only — showing them under another team's name would be wrong.
+  const hasDetailData = team.id === "rm";
 
   const achievements = [
     "🏆 UEFA Champions League (2022, 2023)",
@@ -133,16 +157,25 @@ className={cn(
           <div className="lg:col-span-2 space-y-6">
             {activeTab === "Overview" && (
               <>
-                <div className="bg-card  border border-border p-5 rounded-md">
-                  <h3 className="font-bold mb-3 flex items-center gap-2">
-                    <Trophy className="h-4 w-4 text-secondary" /> Achievements
-                  </h3>
-                  <div className="space-y-2 text-sm">
-                    {achievements.map((a) => (
-                      <p key={a} className="bg-muted/10  px-3 py-2 rounded-md">{a}</p>
-                    ))}
+                {hasDetailData ? (
+                  <div className="bg-card  border border-border p-5 rounded-md">
+                    <h3 className="font-bold mb-3 flex items-center gap-2">
+                      <Trophy className="h-4 w-4 text-secondary" /> Achievements
+                    </h3>
+                    <div className="space-y-2 text-sm">
+                      {achievements.map((a) => (
+                        <p key={a} className="bg-muted/10  px-3 py-2 rounded-md">{a}</p>
+                      ))}
+                    </div>
                   </div>
-                </div>
+                ) : (
+                  <div className="bg-card  border border-border p-5 rounded-md">
+                    <h3 className="font-bold mb-3 flex items-center gap-2">
+                      <Trophy className="h-4 w-4 text-secondary" /> Achievements
+                    </h3>
+                    <p className="text-sm text-muted">Detailed achievement data is not available for this team yet.</p>
+                  </div>
+                )}
 
                 <FixtureList
                   fixtures={upcomingFixtures.filter((f) => f.homeTeam.id === id || f.awayTeam?.id === id)}
@@ -171,20 +204,24 @@ className={cn(
             {activeTab === "Squad" && (
               <div className="bg-card  border border-border p-5">
                 <h3 className="font-bold mb-4">Current Squad</h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                  {squad.map((player) => (
-                    <div key={player.name} className="flex items-center gap-3 bg-muted/10  p-3 rounded-sm">
-                      <span className="text-xs font-bold text-muted w-6">{player.no}</span>
-                      <div className="w-8 h-8  bg-secondary/10 text-secondary flex items-center justify-center text-sm rounded-md">
-                        {player.position[0]}
+                {hasDetailData ? (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    {squad.map((player) => (
+                      <div key={player.name} className="flex items-center gap-3 bg-muted/10  p-3 rounded-sm">
+                        <span className="text-xs font-bold text-muted w-6">{player.no}</span>
+                        <div className="w-8 h-8  bg-secondary/10 text-secondary flex items-center justify-center text-sm rounded-md">
+                          {player.position[0]}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm font-medium truncate">{player.name}</p>
+                          <p className="text-xs text-muted">{player.position}</p>
+                        </div>
                       </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium truncate">{player.name}</p>
-                        <p className="text-xs text-muted">{player.position}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-sm text-muted">Squad data is not available for this team yet.</p>
+                )}
               </div>
             )}
 
@@ -199,23 +236,27 @@ className={cn(
             {activeTab === "Transfers" && (
               <div className="bg-card  border border-border p-5">
                 <h3 className="font-bold mb-4">Recent Transfers</h3>
-                <div className="space-y-3">
-                  {[
-                    { year: "2024", name: "Kylian Mbappé", type: "In", fee: "Free" },
-                    { year: "2023", name: "Jude Bellingham", type: "In", fee: "€103M" },
-                    { year: "2023", name: "Arda Güler", type: "In", fee: "€20M" },
-                    { year: "2022", name: "Antonio Rüdiger", type: "In", fee: "Free" },
-                  ].map((t) => (
-                    <div key={t.name} className="flex items-center gap-4 bg-muted/10  p-4 rounded-md">
+                {hasDetailData ? (
+                  <div className="space-y-3">
+                    {[
+                      { year: "2024", name: "Kylian Mbappé", type: "In", fee: "Free" },
+                      { year: "2023", name: "Jude Bellingham", type: "In", fee: "€103M" },
+                      { year: "2023", name: "Arda Güler", type: "In", fee: "€20M" },
+                      { year: "2022", name: "Antonio Rüdiger", type: "In", fee: "Free" },
+                    ].map((t) => (
+                      <div key={t.name} className="flex items-center gap-4 bg-muted/10  p-4 rounded-md">
 <span className={cn("text-xs font-bold px-2 py-1 rounded-full", t.type === "In" ? "bg-secondary/10 text-secondary" : "bg-brand-maroon/10 text-brand-maroon")}>
-                        {t.type}
-                      </span>
-                      <p className="text-sm font-medium flex-1">{t.name}</p>
-                      <span className="text-sm text-muted">{t.year}</span>
-                      <span className="text-sm font-bold">{t.fee}</span>
-                    </div>
-                  ))}
-                </div>
+                          {t.type}
+                        </span>
+                        <p className="text-sm font-medium flex-1">{t.name}</p>
+                        <span className="text-sm text-muted">{t.year}</span>
+                        <span className="text-sm font-bold">{t.fee}</span>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-sm text-muted">Transfer data is not available for this team yet.</p>
+                )}
               </div>
             )}
 
@@ -224,33 +265,39 @@ className={cn(
                 <h3 className="font-bold flex items-center gap-2">
                   <Sparkles className="h-4 w-4 text-secondary" /> AI Analysis
                 </h3>
-                <div className="bg-secondary/5 border border-secondary/20  p-4 rounded-md">
-                  <p className="text-sm text-muted leading-relaxed">
-                    {team.name} enter this phase of the season with a 78% win probability in their
-                    remaining fixtures. Their press triggers in the final third rank 4th in Europe,
-                    and Bellingham&apos;s progressive carries have created 12 big chances. Expected
-                    lineup stability is high — 9 of 11 starters unchanged in the last 5 matches.
-                  </p>
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <div className="bg-muted/10  p-4 rounded-md">
-                    <p className="text-sm font-bold mb-2">Expected Lineup (4-3-3)</p>
-                    <p className="text-xs text-muted leading-relaxed">
-                      Courtois; Carvajal, Rüdiger, Militão, Mendy; Valverde, Kroos, Bellingham;
-                      Rodrygo, Vini Jr, Joselu
-                    </p>
-                  </div>
-                  <div className="bg-muted/10  p-4 rounded-md">
-                    <p className="text-sm font-bold mb-2">Team Form</p>
-                    <div className="flex gap-1.5">
-                      {["W", "W", "D", "W", "W"].map((f, i) => (
-<span key={i} className={cn("w-6 h-6 text-[10px] font-bold  flex items-center justify-center rounded-full", f === "W" ? "bg-primary text-navy" : "bg-deep text-gold")}>
-                          {f}
-                        </span>
-                      ))}
+                {hasDetailData ? (
+                  <>
+                    <div className="bg-secondary/5 border border-secondary/20  p-4 rounded-md">
+                      <p className="text-sm text-muted leading-relaxed">
+                        {team.name} enter this phase of the season with a 78% win probability in their
+                        remaining fixtures. Their press triggers in the final third rank 4th in Europe,
+                        and Bellingham&apos;s progressive carries have created 12 big chances. Expected
+                        lineup stability is high — 9 of 11 starters unchanged in the last 5 matches.
+                      </p>
                     </div>
-                  </div>
-                </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div className="bg-muted/10  p-4 rounded-md">
+                        <p className="text-sm font-bold mb-2">Expected Lineup (4-3-3)</p>
+                        <p className="text-xs text-muted leading-relaxed">
+                          Courtois; Carvajal, Rüdiger, Militão, Mendy; Valverde, Kroos, Bellingham;
+                          Rodrygo, Vini Jr, Joselu
+                        </p>
+                      </div>
+                      <div className="bg-muted/10  p-4 rounded-md">
+                        <p className="text-sm font-bold mb-2">Team Form</p>
+                        <div className="flex gap-1.5">
+                          {["W", "W", "D", "W", "W"].map((f, i) => (
+<span key={i} className={cn("w-6 h-6 text-[10px] font-bold  flex items-center justify-center rounded-full", f === "W" ? "bg-primary text-navy" : "bg-deep text-gold")}>
+                              {f}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <p className="text-sm text-muted">AI analysis is not available for this team yet.</p>
+                )}
               </div>
             )}
           </div>

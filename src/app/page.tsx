@@ -167,7 +167,7 @@ export default function Home() {
                   {otherLive.length > 0 && (
                     <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                       {otherLive.map((match) => (
-                        <LiveMatchCard key={match.id} match={match} />
+                        <LiveMatchCard key={`${match.sport}:${match.id}`} match={match} />
                       ))}
                     </div>
                   )}
@@ -191,7 +191,7 @@ export default function Home() {
               {scoped.upcoming.length > 0 ? (
                 <div className="space-y-3">
                   {scoped.upcoming.slice(0, 5).map((m) => (
-                    <MatchRow key={m.id} match={m} />
+                    <MatchRow key={`${m.sport}:${m.id}`} match={m} />
                   ))}
                 </div>
               ) : (
@@ -208,7 +208,7 @@ export default function Home() {
               {scoped.results.length > 0 ? (
                 <div className="space-y-3">
                   {scoped.results.slice(0, 5).map((m) => (
-                    <MatchRow key={m.id} match={m} />
+                    <MatchRow key={`${m.sport}:${m.id}`} match={m} />
                   ))}
                 </div>
               ) : (
