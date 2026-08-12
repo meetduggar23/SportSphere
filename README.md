@@ -28,8 +28,7 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ## Environment Variables
 
-Copy `.env.example` to `.env.local` and add API keys as needed. Never commit `.env*` files.
-
+add API keys as needed for SportSphere. Given below that you have to add keys  
 | Variable | Purpose |
 |---|---|
 | `FOOTBALL_API_KEY` | API-Football (football scores/fixtures) |
@@ -66,13 +65,6 @@ src/
   sports/         # Sport-specific modules (e.g. cricket)
   types/          # Shared TypeScript types
 ```
-
-## License
-
-Private project. All rights reserved.
-
----
-
 <p align="center">
   Made by <b>Meet Duggar</b>
 </p>
