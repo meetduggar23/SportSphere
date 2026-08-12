@@ -88,8 +88,8 @@ export default function TeamsPage() {
                   <TeamLogo logo={team.logo} name={team.name} size="lg" />
                   <div className="flex-1 min-w-0">
                     <p className="font-bold truncate group-hover:text-foreground transition-colors">{team.name}</p>
-                    <p className="text-xs text-muted">⚽ Football</p>
-                    {team.country && <p className="text-xs text-muted mt-0.5">🌍 {team.country}</p>}
+                    <p className="text-xs text-muted">Football</p>
+                    {team.country && <p className="text-xs text-muted mt-0.5">{team.country}</p>}
                   </div>
                 </div>
               </Link>

@@ -6,8 +6,8 @@ import { Video, Play, Eye, Clock } from "lucide-react";
 import { AppShell } from "@/components/layout/AppShell";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { SportTabs } from "@/components/ui/SportTabs";
+import { SportIcon } from "@/components/ui/SportIcon";
 import { videos } from "@/data/mock";
-import { sportIcons } from "@/types";
 import { cn } from "@/lib/utils";
 
 const tabs = [
@@ -62,7 +62,9 @@ className="arena-card arena-card-hover overflow-hidden group cursor-pointer"
                 <span className="absolute bottom-3 right-3 text-xs font-bold bg-navy/80 text-white px-2 py-0.5 rounded-full">
                   {video.duration}
                 </span>
-                <span className="absolute top-3 left-3 text-lg">{sportIcons[video.sport]}</span>
+                <span className="absolute top-3 left-3  bg-navy/60 text-white p-1.5 rounded-md">
+                  <SportIcon sport={video.sport} className="h-4 w-4" />
+                </span>
                 <span className="absolute top-3 right-3 text-[10px] font-bold px-2 py-0.5  bg-primary text-navy rounded-full">
                   {video.category}
                 </span>

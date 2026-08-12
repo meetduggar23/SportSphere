@@ -8,7 +8,6 @@ import {
   MapPin,
   Calendar,
   Users,
-  Star,
   Share2,
   Trophy,
   Sparkles,
@@ -47,7 +46,6 @@ export default function TeamPage({ params }: { params: Promise<{ id: string }> }
     return (
       <AppShell>
         <div className="max-w-7xl mx-auto px-4 py-20 text-center">
-          <p className="text-5xl mb-4">🔍</p>
           <h1 className="text-xl font-bold">Team not found</h1>
           <p className="text-sm text-muted mt-2 max-w-sm mx-auto">
             We don&apos;t have a profile for this team yet. Try browsing the teams list.
@@ -98,7 +96,6 @@ export default function TeamPage({ params }: { params: Promise<{ id: string }> }
                     <span className="flex items-center gap-1"><Calendar className="h-3.5 w-3.5" /> Founded {team.founded}</span>
                   )}
                   <span className="flex items-center gap-1"><Users className="h-3.5 w-3.5" /> {team.capacity?.toLocaleString() ?? "-"} capacity</span>
-                  <span className="flex items-center gap-1"><Star className="h-3.5 w-3.5" /> 4.8 fan rating</span>
                 </div>
               </div>
               <div className="flex gap-2 md:pt-14">
@@ -122,8 +119,8 @@ className={cn(
               {[
                 { label: "Coach", value: team.coach ?? "-" },
                 { label: "Stadium", value: team.stadium ?? "-" },
-                { label: "League Position", value: "1st" },
-                { label: "Current Form", value: "WWWDW" },
+                { label: "Founded", value: team.founded ? String(team.founded) : "-" },
+                { label: "Capacity", value: team.capacity?.toLocaleString() ?? "-" },
               ].map((s) => (
                 <div key={s.label} className="bg-muted/10  p-3 text-center rounded-sm">
                   <p className="text-sm font-bold truncate">{s.value}</p>

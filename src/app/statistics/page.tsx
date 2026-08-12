@@ -1,52 +1,28 @@
 "use client";
 
 import { useState } from "react";
-import { BarChart3 } from "lucide-react";
+import Link from "next/link";
+import Image from "next/image";
+import { BarChart3, Trophy } from "lucide-react";
 import { AppShell } from "@/components/layout/AppShell";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { SportTabs } from "@/components/ui/SportTabs";
-import { cn } from "@/lib/utils";
+import { DemoBadge } from "@/components/ui/DemoBadge";
+import { topPlayers } from "@/data/mock";
 
-// Only the sports with actual stat sets are exposed — basketball and F1 had no
-// data of their own and silently showed football numbers.
+// Only sports with curated leaderboard data are exposed. The values shown
+// come from the player records themselves — no aggregate season numbers are
+// invented, because no statistics provider is connected yet.
 const tabs = [
-  { label: "⚽ Football", value: "football" },
-  { label: "🏏 Cricket", value: "cricket" },
-];
-
-const footballStats = [
-  { label: "Goals Scored", value: 74, suffix: "goals", icon: "⚽" },
-  { label: "Goals Conceded", value: 23, suffix: "goals", icon: "🛡️" },
-  { label: "Possession Avg", value: 61, suffix: "%", icon: "🔁" },
-  { label: "Pass Accuracy", value: 89, suffix: "%", icon: "📮" },
-  { label: "Clean Sheets", value: 17, suffix: "", icon: "🧤" },
-  { label: "xG Created", value: 67.4, suffix: "", icon: "🎯" },
-];
-
-const cricketStats = [
-  { label: "Runs Scored", value: 5120, suffix: "runs", icon: "🏏" },
-  { label: "Wickets Taken", value: 168, suffix: "", icon: "🎳" },
-  { label: "Batting Average", value: 38.2, suffix: "", icon: "📊" },
-  { label: "Best Bowling", value: "6/32", suffix: "", icon: "🌟" },
-  { label: "Strike Rate", value: 142.5, suffix: "", icon: "⚡" },
-  { label: "Centuries", value: 9, suffix: "", icon: "💯" },
-];
-
-const monthlyData = [
-  { month: "Aug", value: 8 },
-  { month: "Sep", value: 12 },
-  { month: "Oct", value: 10 },
-  { month: "Nov", value: 16 },
-  { month: "Dec", value: 14 },
-  { month: "Jan", value: 18 },
-  { month: "Feb", value: 15 },
-  { month: "Mar", value: 21 },
-  { month: "Apr", value: 19 },
+  { label: "Football", value: "football" },
+  { label: "Cricket", value: "cricket" },
 ];
 
 export default function StatisticsPage() {
   const [sport, setSport] = useState("football");
-  const stats = sport === "cricket" ? cricketStats : footballStats;
+  const players = topPlayers
+    .filter((p) => p.sport === sport)
+    .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0));
 
   return (
     <AppShell>
@@ -54,67 +30,55 @@ export default function StatisticsPage() {
         <PageHeader
           icon={<BarChart3 className="h-5 w-5" />}
           title="Statistics"
-          subtitle="Interactive charts and stats across every sport"
+          subtitle="Leaderboards built from curated player data"
         />
+
+        <div className="mb-6">
+          <DemoBadge label="Demo statistics — values come from curated sample data" />
+        </div>
 
         <SportTabs tabs={tabs} active={sport} onChange={setSport} className="mb-6" />
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-6">
-          {stats.map((s) => (
-            <div key={s.label} className="bg-card  border border-border p-4 hover:shadow-lg transition-all">
-              <p className="text-2xl">{s.icon}</p>
-              <p className="text-2xl font-extrabold mt-2">
-                {s.value}
-                {s.suffix && <span className="text-sm text-muted font-medium"> {s.suffix}</span>}
-              </p>
-              <p className="text-xs text-muted mt-1">{s.label}</p>
+        {players.length === 0 ? (
+          <div className="bg-card  border border-border text-center py-16">
+            <p className="font-medium">Statistics currently unavailable</p>
+            <p className="text-sm text-muted mt-1">No leaderboard data is connected for this sport yet.</p>
+          </div>
+        ) : (
+          <div className="bg-card  border border-border overflow-hidden">
+            <div className="px-5 py-4 border-b border-border flex items-center gap-2">
+              <Trophy className="h-4 w-4 text-secondary" />
+              <h3 className="font-bold">Top Players — {sport === "cricket" ? "Cricket" : "Football"}</h3>
             </div>
-          ))}
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="bg-card  border border-border p-5">
-            <h3 className="font-bold mb-4">Season Performance Trend</h3>
-            <div className="flex items-end justify-between gap-2 h-52">
-              {monthlyData.map((m) => (
-                <div key={m.month} className="flex flex-col items-center flex-1 gap-2">
-                  <span className="text-xs font-bold text-muted">{m.value}</span>
-                  <div
-                    className="w-full max-w-10 bg-gradient-to-t from-primary/50 to-primary hover:from-primary/70 transition-all"
-                    style={{ height: `${m.value * 5}px` }}
-                  />
-                  <span className="text-xs text-muted">{m.month}</span>
-                </div>
+            <div className="divide-y divide-border">
+              {players.map((p, i) => (
+                <Link
+                  key={p.id}
+                  href={`/player/${p.id}`}
+                  className="flex items-center gap-4 px-5 py-3.5 hover:bg-muted/5 transition-colors group"
+                >
+                  <span className="text-sm font-bold text-muted w-6">{i + 1}</span>
+                  <div className="relative w-10 h-10  bg-muted/10 overflow-hidden shrink-0 rounded-md">
+                    <Image src={p.photo} alt={p.name} fill sizes="40px" className="object-cover" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-medium truncate group-hover:text-foreground transition-colors">{p.name}</p>
+                    <p className="text-xs text-muted truncate">{p.team} • {p.position}</p>
+                  </div>
+                  <div className="text-right shrink-0">
+                    <p className="text-sm font-bold">{p.stat} <span className="text-xs font-medium text-muted">{p.statLabel}</span></p>
+                    <p className="text-xs text-secondary font-semibold">{p.rating}★</p>
+                  </div>
+                </Link>
               ))}
             </div>
           </div>
+        )}
 
-          <div className="bg-card  border border-border p-5">
-            <h3 className="font-bold mb-4">Key Metrics Comparison</h3>
-            <div className="space-y-4">
-              {[
-                { label: "Home Performance", value: 82, color: "from-brand to-brand-maroon" },
-                { label: "Away Performance", value: 65, color: "from-deep to-secondary" },
-                { label: "First Half Goals", value: 58, color: "from-secondary to-deep" },
-                { label: "Second Half Goals", value: 74, color: "from-brand-maroon to-brand" },
-                { label: "Set Piece Goals", value: 31, color: "from-brand-maroon to-brand-purple" },
-              ].map((m) => (
-                <div key={m.label}>
-                  <div className="flex justify-between text-sm mb-1.5">
-                    <span className="text-muted">{m.label}</span>
-                    <span className="font-bold">{m.value}%</span>
-                  </div>
-                  <div className="h-2.5 bg-muted/20  overflow-hidden">
-                    <div
-                      className={cn("h-full  bg-gradient-to-r transition-all", m.color)}
-                      style={{ width: `${m.value}%` }}
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+        <p className="text-xs text-muted mt-6">
+          Season aggregates (totals, averages, streaks) require a connected statistics provider
+          and are shown only where available.
+        </p>
       </div>
     </AppShell>
   );

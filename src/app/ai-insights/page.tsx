@@ -5,6 +5,7 @@ import { Sparkles, Send, Bot, User, Mic } from "lucide-react";
 import { AppShell } from "@/components/layout/AppShell";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { SectionHeader } from "@/components/ui/SectionHeader";
+import { DemoBadge } from "@/components/ui/DemoBadge";
 import { AIPrediction } from "@/components/dashboard/AIPrediction";
 import { chatSuggestions, predictions } from "@/data/mock";
 import { cn } from "@/lib/utils";
@@ -18,10 +19,10 @@ interface ChatMessage {
 
 const aiResponses: Record<string, string> = {
   "ipl": "Today's IPL matches:\n\n🏏 MI vs CSK — Wankhede Stadium, 7:30 PM\n🏏 RCB vs KKR — Chinnaswamy Stadium, 7:30 PM\n\nMI are favorites at 58% win probability. Rohit Sharma to score 45+ runs at 62% confidence.",
-  "messi": "Messi vs Ronaldo comparison:\n\n🇦🇷 Messi: 8 Ballon d'Ors, 850+ goals, 1 World Cup, 4 Champions Leagues. Playmaking genius — 1.1 key passes/game.\n\n🇵🇹 Ronaldo: 5 Ballon d'Ors, 890+ goals, 5 Champions Leagues. Record international scorer — 128 goals.\n\nVerdict: Messi edges it on overall playmaking and trophies; Ronaldo ahead on raw goal volume and longevity.",
+  "messi": "Messi vs Ronaldo comparison:\n\nMessi: 8 Ballon d'Ors, 850+ career goals, 1 World Cup, 4 Champions Leagues, 112 international goals. Playmaking genius with elite assist output.\n\nRonaldo: 5 Ballon d'Ors, 900+ career goals, 5 Champions Leagues, record 130+ international goals.\n\nVerdict: Messi edges it on overall playmaking and trophies; Ronaldo leads on raw goal volume and longevity.",
   "century": "Fastest century in international cricket: AB de Villiers — 31 balls vs West Indies (2015).\n\nIn T20 World Cup history: Chris Gayle — 47 balls vs South Africa (2016).\n\nIn IPL: Chris Gayle — 30 balls vs Pune Warriors (2013).",
   "nba": "Tonight's NBA playoff games:\n\n🏀 Celtics vs Heat — Game 5, 8:00 PM ET\n🏀 Lakers vs Warriors — Game 6, 10:30 PM ET\n\nLakers are 3-2 up in the series and close out at Crypto.com Arena tonight at 64% probability.",
-  "el clasico": "El Clásico prediction (AI):\n\n⚪ Real Madrid win: 45%\n🤝 Draw: 26%\n🔵 Barcelona win: 29%\n\nKey factor: Barcelona's home form (14W-2D-1L) vs Madrid's counter-attacking threat with Vinícius Jr. Expected goals: Barça 1.4, Madrid 1.6. Prediction: 2-1 Real Madrid.",
+  "el clasico": "El Clásico prediction (AI):\n\nReal Madrid win: 45%\nDraw: 26%\nBarcelona win: 29%\n\nKey factor: Barcelona's home form (14W-2D-1L) vs Madrid's counter-attacking threat with Vinícius Jr. Expected goals: Barça 1.4, Madrid 1.6. Prediction: 2-1 Real Madrid.",
 };
 
 function getAIResponse(input: string): string {
@@ -85,6 +86,10 @@ export default function AIInsightsPage() {
           title="AI Insights"
           subtitle="Match predictions, tactical analysis, and an AI assistant that knows everything about sports"
         />
+
+        <div className="mb-6">
+          <DemoBadge label="Demo AI — predictions and assistant replies are curated sample responses, not live AI" />
+        </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
           {predictions.map((p) => (

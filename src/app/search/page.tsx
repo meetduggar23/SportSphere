@@ -98,7 +98,6 @@ function SearchContent({ initialQuery }: { initialQuery: string }) {
 
             {results.length === 0 ? (
               <div className="text-center py-16 bg-card  border border-border">
-                <p className="text-4xl mb-3">🔍</p>
                 <p className="font-medium">No results found</p>
                 <p className="text-sm text-muted mt-1">Try a different search term</p>
               </div>

@@ -46,22 +46,6 @@ export const sportShortLabels: Record<Sport, string> = {
   nba: "NBA",
 };
 
-export const sportIcons: Record<Sport, string> = {
-  football: "⚽",
-  cricket: "🏏",
-  basketball: "🏀",
-  f1: "🏎️",
-  nfl: "🏈",
-  baseball: "⚾",
-  hockey: "🏒",
-  mma: "🥋",
-  rugby: "🏉",
-  volleyball: "🏐",
-  handball: "🤾",
-  afl: "🏉",
-  nba: "🏀",
-};
-
 export interface Team {
   id: string;
   name: string;

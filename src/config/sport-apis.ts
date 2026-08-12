@@ -22,7 +22,9 @@ export interface SportApiConfig {
 /**
  * API-SPORTS (api-sports.io) integration config.
  * One account key unlocks every sport API below (verified active on
- * the Free plan). Cricket and NBA are not part of api-sports.io.
+ * the Free plan). NBA is served through the basketball API (league 12);
+ * cricket is provided by the dedicated CricAPI module (src/sports/cricket)
+ * because api-sports.io does not offer a cricket product.
  */
 export const sportApiConfigs: Record<string, SportApiConfig> = {
   basketball: {

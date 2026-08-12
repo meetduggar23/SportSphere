@@ -11,6 +11,9 @@ import {
   Sparkles,
   MessageCircle,
   History,
+  Target,
+  Film,
+  PlayCircle,
 } from "lucide-react";
 import { AppShell } from "@/components/layout/AppShell";
 import { DemoBadge } from "@/components/ui/DemoBadge";
@@ -44,7 +47,6 @@ export default function MatchPage({ params }: { params: Promise<{ id: string }> 
     return (
       <AppShell>
         <div className="max-w-7xl mx-auto px-4 py-20 text-center">
-          <p className="text-5xl mb-4">🔍</p>
           <h1 className="text-xl font-bold">Match not found</h1>
           <p className="text-sm text-muted mt-2 max-w-sm mx-auto">
             We don&apos;t have a match profile for this fixture yet. Try browsing the live scores page.
@@ -161,15 +163,23 @@ export default function MatchPage({ params }: { params: Promise<{ id: string }> 
             <div className="flex items-center gap-2 justify-center text-sm text-muted">
               <MapPin className="h-4 w-4 shrink-0" /> {match.venue ?? "TBD"}
             </div>
-            <div className="flex items-center gap-2 justify-center text-sm text-muted">
-              <CloudSun className="h-4 w-4 shrink-0" /> 22°C • Clear
-            </div>
-            <div className="flex items-center gap-2 justify-center text-sm text-muted">
-              <Users className="h-4 w-4 shrink-0" /> 74,000 Attendance
-            </div>
-            <div className="flex items-center gap-2 justify-center text-sm text-muted">
-              <Gauge className="h-4 w-4 shrink-0" /> Ref: A. Taylor
-            </div>
+            {hasDetailData ? (
+              <>
+                <div className="flex items-center gap-2 justify-center text-sm text-muted">
+                  <CloudSun className="h-4 w-4 shrink-0" /> 22°C • Clear
+                </div>
+                <div className="flex items-center gap-2 justify-center text-sm text-muted">
+                  <Users className="h-4 w-4 shrink-0" /> 74,000 Attendance
+                </div>
+                <div className="flex items-center gap-2 justify-center text-sm text-muted">
+                  <Gauge className="h-4 w-4 shrink-0" /> Ref: A. Taylor
+                </div>
+              </>
+            ) : (
+              <div className="col-span-2 md:col-span-3 flex items-center justify-center text-xs text-muted">
+                Weather, attendance and referee details are not available for this fixture.
+              </div>
+            )}
           </div>
         </div>
 
@@ -247,33 +257,33 @@ export default function MatchPage({ params }: { params: Promise<{ id: string }> 
                       <div>
                         <p className="font-bold text-sm mb-3">{match.homeTeam.name}</p>
                         <div className="text-sm space-y-1.5 text-muted">
-                          <p>🧤 D. Lunin</p>
-                          <p>🛡️ D. Carvajal</p>
-                          <p>🛡️ A. Rüdiger</p>
-                          <p>🛡️ Nacho</p>
-                          <p>🛡️ F. Mendy</p>
-                          <p>⚙️ F. Valverde</p>
-                          <p>⚙️ T. Kroos</p>
-                          <p>⚙️ E. Camavinga</p>
-                          <p>🔥 J. Bellingham</p>
-                          <p>⚽ Vinícius Júnior</p>
-                          <p>⚽ Rodrygo</p>
+                          <p><span className="text-secondary font-semibold">GK</span> D. Lunin</p>
+                          <p><span className="text-secondary font-semibold">DEF</span> D. Carvajal</p>
+                          <p><span className="text-secondary font-semibold">DEF</span> A. Rüdiger</p>
+                          <p><span className="text-secondary font-semibold">DEF</span> Nacho</p>
+                          <p><span className="text-secondary font-semibold">DEF</span> F. Mendy</p>
+                          <p><span className="text-secondary font-semibold">MID</span> F. Valverde</p>
+                          <p><span className="text-secondary font-semibold">MID</span> T. Kroos</p>
+                          <p><span className="text-secondary font-semibold">MID</span> E. Camavinga</p>
+                          <p><span className="text-secondary font-semibold">FWD</span> J. Bellingham</p>
+                          <p><span className="text-secondary font-semibold">FWD</span> Vinícius Júnior</p>
+                          <p><span className="text-secondary font-semibold">FWD</span> Rodrygo</p>
                         </div>
                       </div>
                       <div>
                         <p className="font-bold text-sm mb-3">{match.awayTeam.name}</p>
                         <div className="text-sm space-y-1.5 text-muted">
-                          <p>🧤 M. Neuer</p>
-                          <p>🛡️ J. Kimmich</p>
-                          <p>🛡️ D. Upamecano</p>
-                          <p>🛡️ E. Dier</p>
-                          <p>🛡️ A. Davies</p>
-                          <p>⚙️ J. Pavlović</p>
-                          <p>⚙️ L. Goretzka</p>
-                          <p>⚙️ J. Musiala</p>
-                          <p>⚙️ L. Sané</p>
-                          <p>🔥 T. Müller</p>
-                          <p>⚽ H. Kane</p>
+                          <p><span className="text-secondary font-semibold">GK</span> M. Neuer</p>
+                          <p><span className="text-secondary font-semibold">DEF</span> J. Kimmich</p>
+                          <p><span className="text-secondary font-semibold">DEF</span> D. Upamecano</p>
+                          <p><span className="text-secondary font-semibold">DEF</span> E. Dier</p>
+                          <p><span className="text-secondary font-semibold">DEF</span> A. Davies</p>
+                          <p><span className="text-secondary font-semibold">MID</span> J. Pavlović</p>
+                          <p><span className="text-secondary font-semibold">MID</span> L. Goretzka</p>
+                          <p><span className="text-secondary font-semibold">MID</span> J. Musiala</p>
+                          <p><span className="text-secondary font-semibold">MID</span> L. Sané</p>
+                          <p><span className="text-secondary font-semibold">FWD</span> T. Müller</p>
+                          <p><span className="text-secondary font-semibold">FWD</span> H. Kane</p>
                         </div>
                       </div>
                     </div>
@@ -293,9 +303,9 @@ export default function MatchPage({ params }: { params: Promise<{ id: string }> 
                 <SectionHeader title="Match Moments" href="/videos" linkLabel="More Videos" />
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {[
-                    { title: "Rodrygo's stunner from all angles", time: "0:45", icon: "🎯" },
-                    { title: "Kane's penalty - slow motion", time: "1:12", icon: "⚽" },
-                    { title: "Bellingham masterclass comp", time: "3:20", icon: "🎬" },
+                    { title: "Rodrygo's stunner from all angles", time: "0:45", icon: <Target className="h-5 w-5" /> },
+                    { title: "Kane's penalty - slow motion", time: "1:12", icon: <PlayCircle className="h-5 w-5" /> },
+                    { title: "Bellingham masterclass comp", time: "3:20", icon: <Film className="h-5 w-5" /> },
                   ].map((v) => (
 <div
                       key={v.title}

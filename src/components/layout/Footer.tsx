@@ -51,14 +51,14 @@ const footerLinks = [
     ],
   },
   {
-    title: "Company",
+    title: "Explore",
     links: [
-      { label: "About Us", href: "/about" },
-      { label: "Careers", href: "/careers" },
-      { label: "Press", href: "/press" },
-      { label: "Contact", href: "/contact" },
-      { label: "Privacy Policy", href: "/privacy" },
-      { label: "Terms of Service", href: "/terms" },
+      { label: "All Sports", href: "/sports" },
+      { label: "Competitions", href: "/competitions" },
+      { label: "Calendar", href: "/calendar" },
+      { label: "Videos", href: "/videos" },
+      { label: "Statistics", href: "/statistics" },
+      { label: "Predictions", href: "/predictions" },
     ],
   },
 ];
@@ -134,7 +134,7 @@ export function Footer() {
               Made by <span className="text-secondary">Meet Duggar</span>
             </p>
             <p className="text-xs font-semibold uppercase tracking-widest text-muted md:absolute md:left-0 md:top-6 md:text-left">
-              © 2024 SportSphere. All rights reserved.
+              © 2026 SportSphere. All rights reserved.
             </p>
           </div>
           <nav className="mt-3 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 md:absolute md:right-0 md:top-6 md:mt-0">

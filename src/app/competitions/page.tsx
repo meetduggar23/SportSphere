@@ -1,10 +1,11 @@
 "use client";
 
-import { Trophy } from "lucide-react";
+import { Coins, Trophy } from "lucide-react";
 import { AppShell } from "@/components/layout/AppShell";
 import { PageHeader } from "@/components/ui/PageHeader";
+import { SportIcon } from "@/components/ui/SportIcon";
 import { tournaments } from "@/data/mock";
-import { sportIcons, sportLabels } from "@/types";
+import { sportLabels } from "@/types";
 import { cn } from "@/lib/utils";
 
 const statusColors: Record<string, string> = {
@@ -27,12 +28,12 @@ export default function CompetitionsPage() {
           {tournaments.map((tournament) => (
             <div
               key={tournament.id}
-className="arena-card arena-card-hover p-5 cursor-pointer"
+className="arena-card arena-card-hover p-5"
             >
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12  bg-secondary/10 text-secondary flex items-center justify-center text-2xl rounded-md">
-                    {sportIcons[tournament.sport]}
+                  <div className="w-12 h-12  bg-secondary/10 text-secondary flex items-center justify-center rounded-md">
+                    <SportIcon sport={tournament.sport} className="h-6 w-6" />
                   </div>
                   <div>
                     <p className="font-bold text-sm">{tournament.name}</p>
@@ -62,8 +63,9 @@ className="arena-card arena-card-hover p-5 cursor-pointer"
               </div>
 
               {tournament.prizePool && (
-                <p className="text-xs text-muted mt-3">
-                  💰 Prize Pool: <span className="font-semibold text-foreground">{tournament.prizePool}</span>
+                <p className="text-xs text-muted mt-3 flex items-center gap-1.5">
+                  <Coins className="h-3.5 w-3.5" />
+                  Prize Pool: <span className="font-semibold text-foreground">{tournament.prizePool}</span>
                 </p>
               )}
             </div>

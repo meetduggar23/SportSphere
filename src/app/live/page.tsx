@@ -144,7 +144,6 @@ export default function LivePage() {
 
         {filtered.length === 0 ? (
           <div className="arena-card text-center py-20">
-            <p className="text-4xl mb-4">📡</p>
             <p className="font-medium">No matches found</p>
             <p className="text-sm text-muted mt-1">Try changing your filters</p>
           </div>

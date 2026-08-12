@@ -158,6 +158,8 @@ export const sportIcons: Record<string, React.ComponentType<IconProps>> = {
   football: FootballIcon,
   basketball: BasketballIcon,
   nfl: NFLIcon,
+  // "f1" is the canonical Match.sport id; "formula-1" is the route slug.
+  f1: F1Icon,
   "formula-1": F1Icon,
   handball: HandballIcon,
   baseball: BaseballIcon,

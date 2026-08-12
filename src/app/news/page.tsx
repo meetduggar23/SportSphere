@@ -11,11 +11,11 @@ import { topNews } from "@/data/mock";
 
 const tabs = [
   { label: "All News", value: "all" },
-  { label: "⚽ Football", value: "football" },
-  { label: "🏏 Cricket", value: "cricket" },
-  { label: "🏀 Basketball", value: "basketball" },
-  { label: "🏎️ F1", value: "f1" },
-  { label: "💸 Transfers", value: "transfers" },
+  { label: "Football", value: "football" },
+  { label: "Cricket", value: "cricket" },
+  { label: "Basketball", value: "basketball" },
+  { label: "Formula 1", value: "f1" },
+  { label: "Transfers", value: "transfers" },
 ];
 
 export default function NewsPage() {
