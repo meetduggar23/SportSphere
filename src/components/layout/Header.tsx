@@ -66,38 +66,32 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50">
       <div className="border-b border-border bg-background/92 backdrop-blur-xl">
-        {/* Primary row — logo far-left, primary nav centered, controls far-right */}
-        <div className="relative mx-auto flex h-14 max-w-[1440px] items-center px-4 lg:px-6">
-          {/* Logo — totally left corner */}
-          <div className="absolute left-4 flex items-center lg:left-6">
-            <Logo className="shrink-0" />
-          </div>
+        {/* Primary row — logo left, all 13 sports centered, controls right */}
+        <div className="relative mx-auto flex h-14 max-w-[1440px] items-center gap-3 px-4 lg:px-6">
+          {/* Logo — left corner */}
+          <Logo className="shrink-0" />
 
-          {/* Primary nav — perfectly centered, dark text */}
-          <nav className="absolute left-1/2 hidden h-full -translate-x-1/2 items-center gap-0.5 lg:flex">
-            {primaryNav.map((item) => {
+          {/* Sports nav — centered. The auto-margin trick (first-child ml-auto /
+              last-child mr-auto) keeps the row centered when it fits and lets it
+              scroll from both edges when it overflows. */}
+          <nav className="no-scrollbar mx-auto flex h-full min-w-0 flex-1 items-center overflow-x-auto [&>*:first-child]:ml-auto [&>*:last-child]:mr-auto">
+            {orderedSports.map((sport) => {
               const active =
-                pathname === item.href ||
-                (item.href === "/live" && pathname.startsWith("/match"));
-              const Icon = item.icon;
+                pathname === sport.href || pathname.startsWith(`${sport.href}/`);
               return (
                 <Link
-                  key={item.label}
-                  href={item.href}
+                  key={sport.id}
+                  href={sport.href}
                   className={cn(
-                    "relative flex h-full items-center gap-1.5 px-3 text-[13px] font-bold transition-colors",
+                    "relative flex h-full shrink-0 items-center px-2.5 text-[13px] font-semibold transition-colors lg:px-3",
                     active
                       ? "text-foreground"
                       : "text-foreground/75 hover:bg-blue/40 hover:text-foreground"
                   )}
                 >
-                  <Icon
-                    className={cn("h-4 w-4", active ? "text-secondary" : "text-foreground/60")}
-                    strokeWidth={active ? 2.4 : 2}
-                  />
-                  {item.label}
+                  {sportLabel(sport.id, sport.shortName)}
                   {active && (
-                    <span className="absolute inset-x-3 bottom-0 h-0.5 bg-primary" />
+                    <span className="absolute inset-x-2.5 bottom-0 h-0.5 bg-primary lg:inset-x-3" />
                   )}
                 </Link>
               );
@@ -105,7 +99,7 @@ export function Header() {
           </nav>
 
           {/* Controls — theme + menu + search pinned to the right corner */}
-          <div className="ml-auto flex items-center gap-1.5">
+          <div className="flex shrink-0 items-center gap-1.5">
             <button
               onClick={toggleTheme}
               className="flex h-9 w-9 items-center justify-center text-foreground/75 transition-colors hover:bg-blue/40 hover:text-foreground rounded-md"
@@ -143,24 +137,31 @@ export function Header() {
           </div>
         </div>
 
-        {/* Sports strip — every sport directly visible, horizontally scrollable */}
+        {/* Secondary strip — primary pages (Home, Live, News...), scrollable */}
         <div className="border-t border-border bg-background/55">
           <div className="mx-auto flex max-w-[1440px] items-center px-1.5 lg:px-4">
             <div className="no-scrollbar flex flex-1 items-center gap-0.5 overflow-x-auto">
-              {orderedSports.map((sport) => {
-                const active = pathname === sport.href;
+              {primaryNav.map((item) => {
+                const active =
+                  pathname === item.href ||
+                  (item.href === "/live" && pathname.startsWith("/match"));
+                const Icon = item.icon;
                 return (
                   <Link
-                    key={sport.id}
-                    href={sport.href}
+                    key={item.label}
+                    href={item.href}
                     className={cn(
-                      "relative flex h-9 shrink-0 items-center px-3 text-[13px] font-semibold transition-colors",
+                      "relative flex h-9 shrink-0 items-center gap-1.5 px-3 text-[13px] font-semibold transition-colors",
                       active
                         ? "text-secondary"
                         : "text-muted hover:bg-blue/40 hover:text-foreground"
                     )}
                   >
-                    {sportLabel(sport.id, sport.shortName)}
+                    <Icon
+                      className={cn("h-4 w-4", active ? "text-secondary" : "text-foreground/60")}
+                      strokeWidth={active ? 2.4 : 2}
+                    />
+                    {item.label}
                     {active && (
                       <span className="absolute inset-x-3 bottom-0 h-0.5 bg-primary" />
                     )}
