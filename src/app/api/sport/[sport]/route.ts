@@ -40,6 +40,18 @@ async function fetchAPI(
   }
 
   const data = await res.json();
+
+  // API-SPORTS returns HTTP 200 with the real problem inside the body
+  // (e.g. free-plan daily quota exhausted: errors.requests). Swallowing that
+  // would make every sport page show a silent empty feed — surface it instead
+  // so the UI can render an honest "unavailable" state.
+  const bodyErrors = data.errors && typeof data.errors === "object"
+    ? Object.values(data.errors as Record<string, unknown>).filter(Boolean)
+    : [];
+  if (bodyErrors.length > 0) {
+    throw new Error(String(bodyErrors[0]));
+  }
+
   return data.response;
 }
 

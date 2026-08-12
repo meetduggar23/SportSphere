@@ -100,7 +100,18 @@ async function fetchSport(sport: Sport, type: string): Promise<unknown[]> {
   const ttlMs = type === "matches" || type === "live" ? 30_000 : 300_000;
   return cachedFetch(url, async () => {
     const res = await fetch(url);
-    if (!res.ok) throw new Error(`API error: ${res.status}`);
+    if (!res.ok) {
+      // Prefer the route's own error message (e.g. the quota error surfaced
+      // from the upstream body) over a bare status code.
+      let msg = `API error: ${res.status}`;
+      try {
+        const body = await res.json();
+        if (body?.error) msg = body.error;
+      } catch {
+        /* non-JSON error body — keep the status message */
+      }
+      throw new Error(msg);
+    }
     const data = await res.json();
     return Array.isArray(data) ? (data as unknown[]) : [];
   }, ttlMs);
