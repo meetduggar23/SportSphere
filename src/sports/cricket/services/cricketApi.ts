@@ -1,4 +1,9 @@
-import { CRICKET_API, IPL_TEAM_NAMES, KNOWN_TEAMS } from "@/sports/cricket/config/cricketConfig";
+import {
+  CRICKET_API,
+  getCricketApiKey,
+  IPL_TEAM_NAMES,
+  KNOWN_TEAMS,
+} from "@/sports/cricket/config/cricketConfig";
 import type {
   BattingLine,
   BowlingLine,
@@ -45,9 +50,9 @@ export class CricketApiError extends Error {
   }
 }
 
-/** True when CRICAPI_API_KEY is present in the environment. */
+/** True when a CricketData API key is present in the environment. */
 export function isCricketConfigured(): boolean {
-  return Boolean(process.env[CRICKET_API.envKey]);
+  return Boolean(getCricketApiKey());
 }
 
 interface CricEnvelope<T> {
@@ -66,10 +71,10 @@ async function cricFetch<T>(
   params: Record<string, string | number> = {},
   revalidate = CRICKET_API.revalidateSeconds
 ): Promise<T> {
-  const apiKey = process.env[CRICKET_API.envKey];
+  const apiKey = getCricketApiKey();
   if (!apiKey) {
     throw new CricketApiError(
-      `${CRICKET_API.envKey} is not configured. Add your CricAPI key to .env.local`
+      "CricketData API key is not configured. Add CRICKETDATA_API_KEY to .env.local"
     );
   }
 

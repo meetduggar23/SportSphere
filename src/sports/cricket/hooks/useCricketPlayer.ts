@@ -20,14 +20,24 @@ export function useCricketPlayer(id: string | undefined) {
   };
 }
 
-/** Player search (CricAPI). */
+/** Player search (CricketData.org) — response envelope from the players route. */
 export function useCricketPlayers(search: string) {
-  const path = `/api/cricket/players${search ? `?search=${encodeURIComponent(search)}` : ""}`;
-  return useCricketData<{ id: string; name: string; country?: string }[]>(path);
+  const path = `/api/cricket/players${search ? `?search=${encodeURIComponent(search)}` : "?offset=0"}`;
+  return useCricketData<{
+    players: { id: string; name: string; country?: string }[];
+    total: number;
+    offset: number;
+    hasMore: boolean;
+  }>(path);
 }
 
 /** Players of one national side (filtered by country — never another team's). */
 export function useCricketPlayersTeam(teamId: string | undefined) {
   const path = teamId ? `/api/cricket/players?team=${encodeURIComponent(teamId)}` : "";
-  return useCricketData<{ id: string; name: string; country?: string }[]>(path);
+  return useCricketData<{
+    players: { id: string; name: string; country?: string }[];
+    total: number;
+    offset: number;
+    hasMore: boolean;
+  }>(path);
 }

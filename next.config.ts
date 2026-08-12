@@ -12,6 +12,7 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "api.dicebear.com" },
       { protocol: "https", hostname: "media.api-sports.io" },
       { protocol: "https", hostname: "img.cricapi.com" },
+      { protocol: "https", hostname: "h.cricapi.com" },
     ],
   },
   // Legacy top-level sport routes → canonical /sports/<slug> module routes.

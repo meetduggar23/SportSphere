@@ -110,7 +110,11 @@ export interface CricketTeamRef {
   logo?: string;
 }
 
-/** Player profile — biographical identity only (never stats). */
+/**
+ * Player profile — biographical identity (never fabricated stats). Only
+ * fields the provider actually returned are populated; everything else stays
+ * absent so the UI shows the honest unavailable state.
+ */
 export interface CricketPlayer {
   id: string;
   name: string;
@@ -119,8 +123,19 @@ export interface CricketPlayer {
   role?: string;
   battingStyle?: string;
   bowlingStyle?: string;
+  /** ISO 3166-1 alpha-2 code where one is known ("" for multi-nation sides). */
+  countryCode?: string;
+  /** ISO date of birth when the provider returns one. */
+  dateOfBirth?: string;
+  /** Computed age from dateOfBirth (server-side). */
+  age?: number;
+  placeOfBirth?: string;
+  alternateNames?: string[];
+  /** Provider profile photo (playerImg). May be absent — UI falls back. */
   photo?: string;
   teams?: string[];
+  /** Stable provider id (CricAPI UUID). Same as `id` for this provider. */
+  providerId?: string;
   source: string;
   sourceUrl?: string;
   provider: string;

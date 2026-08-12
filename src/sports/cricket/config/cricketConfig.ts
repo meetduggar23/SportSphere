@@ -22,14 +22,27 @@ import { iplTeams } from "@/data/mock";
 export const CRICKET_API = {
   /** CricAPI / CricketData.org (official, permitted developer API). */
   baseUrl: "https://api.cricapi.com/v1",
-  /** Env var holding the API key. Add to .env.local (git-ignored). */
-  envKey: "CRICAPI_API_KEY",
+  /**
+   * Env vars holding the API key, checked in order. The platform is branded
+   * CricketData.org but served by api.cricapi.com — the same key works for
+   * either name. Add to .env.local (git-ignored); never expose to the client.
+   */
+  envKeys: ["CRICKETDATA_API_KEY", "CRICAPI_API_KEY"] as const,
   provider: "CricAPI",
   sourceName: "CricAPI",
   sourceUrl: "https://www.cricapi.com",
   /** Server-side upstream cache (seconds) — respects CricAPI rate limits. */
   revalidateSeconds: 300,
 } as const;
+
+/** Resolve the configured CricketData API key (server-side only). */
+export function getCricketApiKey(): string | undefined {
+  for (const key of CRICKET_API.envKeys) {
+    const value = process.env[key];
+    if (value) return value;
+  }
+  return undefined;
+}
 
 /* ---- Formats ---- */
 

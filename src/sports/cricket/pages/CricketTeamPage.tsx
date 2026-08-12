@@ -42,7 +42,8 @@ function TeamSections({ team }: { team: CricketTeam }) {
     limit: 20,
   });
   const { data: series, status: seriesStatus } = useCricketSeries(team.name);
-  const { data: players, status: playersStatus } = useCricketPlayersTeam(team.id);
+  const { data: playersData, status: playersStatus } = useCricketPlayersTeam(team.id);
+  const players = playersData?.players ?? [];
 
   const liveOrUpcoming = matches.filter((m) => m.status !== "finished");
   const finished = matches.filter((m) => m.status === "finished");
