@@ -3,6 +3,22 @@ import { NextResponse } from "next/server";
 const API_KEY = process.env.FOOTBALL_API_KEY;
 const BASE_URL = "https://v3.football.api-sports.io";
 
+/** Shared response headers: let browsers reuse the same data within a minute. */
+const CACHE_HEADERS = {
+  "Cache-Control":
+    "public, max-age=60, s-maxage=120, stale-while-revalidate=300",
+};
+
+function json(body: unknown, init?: number | ResponseInit) {
+  const status = typeof init === "number" ? init : init?.status;
+  const headers =
+    status === undefined || status < 400 ? CACHE_HEADERS : undefined;
+  if (typeof init === "number") {
+    return NextResponse.json(body, { status: init, headers });
+  }
+  return NextResponse.json(body, { ...init, headers });
+}
+
 async function fetchAPI(endpoint: string, params: Record<string, string> = {}) {
   const url = new URL(`${BASE_URL}${endpoint}`);
   Object.entries(params).forEach(([key, value]) => url.searchParams.append(key, value));
@@ -27,9 +43,9 @@ export async function GET(request: Request) {
   const type = searchParams.get("type") || "matches";
 
   if (!API_KEY) {
-    return NextResponse.json(
+    return json(
       { error: "FOOTBALL_API_KEY is not configured. Add it to .env.local" },
-      { status: 401 }
+      401
     );
   }
 
@@ -38,50 +54,50 @@ export async function GET(request: Request) {
       case "matches": {
         const date = searchParams.get("date") || new Date().toISOString().split("T")[0];
         const data = await fetchAPI("/fixtures", { date });
-        return NextResponse.json(data);
+        return json(data);
       }
       case "live": {
         const data = await fetchAPI("/fixtures", { live: "all" });
-        return NextResponse.json(data);
+        return json(data);
       }
       case "standings": {
         const league = searchParams.get("league") || "39";
         const season = searchParams.get("season") || "2024";
         const data = await fetchAPI("/standings", { league, season });
-        return NextResponse.json(data);
+        return json(data);
       }
       case "fixtures": {
         const league = searchParams.get("league") || "39";
         const season = searchParams.get("season") || "2024";
         const next = searchParams.get("next") || "10";
         const data = await fetchAPI("/fixtures", { league, season, next });
-        return NextResponse.json(data);
+        return json(data);
       }
       case "teams": {
         const league = searchParams.get("league") || "39";
         const season = searchParams.get("season") || "2024";
         const data = await fetchAPI("/teams", { league, season });
-        return NextResponse.json(data);
+        return json(data);
       }
       case "players": {
         const team = searchParams.get("team") || "";
         const season = searchParams.get("season") || "2024";
         const data = await fetchAPI("/players", { team, season });
-        return NextResponse.json(data);
+        return json(data);
       }
       case "topscorers": {
         const league = searchParams.get("league") || "39";
         const season = searchParams.get("season") || "2024";
         const data = await fetchAPI("/players/topscorers", { league, season });
-        return NextResponse.json(data);
+        return json(data);
       }
       default:
-        return NextResponse.json({ error: "Unknown type" }, { status: 400 });
+        return json({ error: "Unknown type" }, 400);
     }
   } catch (error) {
-    return NextResponse.json(
+    return json(
       { error: error instanceof Error ? error.message : "Unknown error" },
-      { status: 500 }
+      500
     );
   }
 }

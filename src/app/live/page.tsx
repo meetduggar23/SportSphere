@@ -23,14 +23,34 @@ export default function LivePage() {
   const [statusFilter, setStatusFilter] = useState("live");
 
   const mounted = useRef(true);
+  const timerRef = useRef<number | null>(null);
+  const matchesRef = useRef<Match[]>([]);
 
   const load = useCallback(async () => {
     // Aggregates currently-live events from every configured sport provider
     // (same resilient aggregator the home feed uses).
     const feed = await getAllLiveEventsResilient();
     if (!mounted.current) return;
+    // Skip state updates when nothing changed since the last poll, so an
+    // unchanged poll doesn't re-render the whole page subtree.
+    const live = feed.live;
+    const changed =
+      live.length !== matchesRef.current.length ||
+      live.some((m, i) => {
+        const prev = matchesRef.current[i];
+        return (
+          !prev ||
+          prev.id !== m.id ||
+          prev.homeScore !== m.homeScore ||
+          prev.awayScore !== m.awayScore ||
+          prev.status !== m.status
+        );
+      });
+    if (changed) {
+      matchesRef.current = live;
+      setMatches(live);
+    }
     setStatus(feed.status === "ready" ? "ready" : "unavailable");
-    setMatches(feed.live);
     setLastUpdated(feed.lastUpdated);
     setError(feed.error);
   }, []);
@@ -45,12 +65,33 @@ export default function LivePage() {
     void load();
     // Poll every 10 minutes — the free tier allows ~100 req/day, and each
     // poll hits the provider. Keep the page from exhausting the quota.
-    const interval = setInterval(() => {
-      void load();
-    }, 600000);
+    const startPolling = () => {
+      if (timerRef.current !== null) window.clearInterval(timerRef.current);
+      timerRef.current = window.setInterval(() => {
+        void load();
+      }, 600000);
+    };
+    const stopPolling = () => {
+      if (timerRef.current !== null) {
+        window.clearInterval(timerRef.current);
+        timerRef.current = null;
+      }
+    };
+    startPolling();
+    // Pause polling while the tab is hidden and refresh immediately on return,
+    // so a background tab never burns provider quota.
+    const onVisibility = () => {
+      if (document.hidden) stopPolling();
+      else {
+        void load();
+        startPolling();
+      }
+    };
+    document.addEventListener("visibilitychange", onVisibility);
     return () => {
       mounted.current = false;
-      clearInterval(interval);
+      stopPolling();
+      document.removeEventListener("visibilitychange", onVisibility);
     };
   }, [load]);
 

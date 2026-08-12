@@ -2,6 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   devIndicators: false,
+  poweredByHeader: false,
   images: {
     // Team logos & chat avatars in demo data are dicebear SVGs; next/image
     // refuses to optimize SVG unless explicitly allowed.

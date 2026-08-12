@@ -19,17 +19,40 @@ interface TickerItem {
 // fans out to every sport provider per poll. 60s polling would burn the quota.
 const POLL_MS = 300_000;
 
+/** Same-content guard: identical payloads must not re-render the whole shell. */
+function sameItems(a: TickerItem[], b: TickerItem[]): boolean {
+  if (a.length !== b.length) return false;
+  return a.every((item, i) => {
+    const other = b[i];
+    return (
+      other !== undefined &&
+      item.id === other.id &&
+      item.homeScore === other.homeScore &&
+      item.awayScore === other.awayScore &&
+      item.minute === other.minute
+    );
+  });
+}
+
 export function LiveTicker() {
   const [items, setItems] = useState<TickerItem[]>([]);
   const [loaded, setLoaded] = useState(false);
   const mounted = useRef(true);
+  const itemsRef = useRef<TickerItem[]>([]);
+  const timerRef = useRef<number | null>(null);
 
   const load = useCallback(() => {
     fetch("/api/live-ticker")
       .then((res) => (res.ok ? res.json() : Promise.reject(new Error("ticker failed"))))
       .then((data: { items?: TickerItem[] }) => {
         if (!mounted.current) return;
-        setItems(data.items ?? []);
+        const next = data.items ?? [];
+        // Skip the state update (and the resulting shell re-render) when the
+        // scores haven't actually changed since the last poll.
+        if (!sameItems(itemsRef.current, next)) {
+          itemsRef.current = next;
+          setItems(next);
+        }
         setLoaded(true);
       })
       .catch(() => {
@@ -38,15 +61,41 @@ export function LiveTicker() {
       });
   }, []);
 
+  const startPolling = useCallback(() => {
+    if (timerRef.current !== null) window.clearInterval(timerRef.current);
+    timerRef.current = window.setInterval(load, POLL_MS);
+  }, [load]);
+
+  const stopPolling = useCallback(() => {
+    if (timerRef.current !== null) {
+      window.clearInterval(timerRef.current);
+      timerRef.current = null;
+    }
+  }, []);
+
   useEffect(() => {
     mounted.current = true;
     void load();
-    const timer = window.setInterval(load, POLL_MS);
+    startPolling();
+
+    // Pause polling while the tab is hidden — live scores don't need to
+    // refresh for a background tab, and resuming keeps the ticker current
+    // the moment the user returns.
+    const onVisibility = () => {
+      if (document.hidden) stopPolling();
+      else {
+        void load();
+        startPolling();
+      }
+    };
+    document.addEventListener("visibilitychange", onVisibility);
+
     return () => {
       mounted.current = false;
-      window.clearInterval(timer);
+      stopPolling();
+      document.removeEventListener("visibilitychange", onVisibility);
     };
-  }, [load]);
+  }, [load, startPolling, stopPolling]);
 
   return (
     <div className="relative z-40 border-b border-border bg-background/85 backdrop-blur-xl">

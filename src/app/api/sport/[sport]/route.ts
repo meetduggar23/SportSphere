@@ -1,6 +1,24 @@
 import { NextResponse } from "next/server";
 import { sportApiConfigs } from "@/config/sport-apis";
 
+/** Shared response headers: let browsers reuse the same data within a minute. */
+const CACHE_HEADERS = {
+  "Cache-Control":
+    "public, max-age=60, s-maxage=120, stale-while-revalidate=300",
+};
+
+function json(body: unknown, init?: number | ResponseInit) {
+  const status = typeof init === "number" ? init : init?.status;
+  // Only cache successful payloads — errors must stay uncached so retries
+  // actually hit the network again.
+  const headers =
+    status === undefined || status < 400 ? CACHE_HEADERS : undefined;
+  if (typeof init === "number") {
+    return NextResponse.json(body, { status: init, headers });
+  }
+  return NextResponse.json(body, { ...init, headers });
+}
+
 async function fetchAPI(
   baseUrl: string,
   apiKey: string,
@@ -33,14 +51,14 @@ export async function GET(
   const cfg = sportApiConfigs[sport];
 
   if (!cfg) {
-    return NextResponse.json({ error: `Unknown sport: ${sport}` }, { status: 404 });
+    return json({ error: `Unknown sport: ${sport}` }, 404);
   }
 
   const apiKey = process.env[cfg.envKey];
   if (!apiKey) {
-    return NextResponse.json(
+    return json(
       { error: `${cfg.envKey} is not configured. Add it to .env.local` },
-      { status: 401 }
+      401
     );
   }
 
@@ -57,12 +75,12 @@ export async function GET(
           const data = await fetchAPI(cfg.baseUrl, apiKey, "/races", {
             season: cfg.season,
           });
-          return NextResponse.json(data);
+          return json(data);
         }
         case "standings":
-          return NextResponse.json([]);
+          return json([]);
         default:
-          return NextResponse.json({ error: "Unknown type" }, { status: 400 });
+          return json({ error: "Unknown type" }, 400);
       }
     }
 
@@ -74,13 +92,13 @@ export async function GET(
           const data = await fetchAPI(cfg.baseUrl, apiKey, "/fights", {
             season: cfg.season,
           });
-          return NextResponse.json(data);
+          return json(data);
         }
         case "fixtures":
         case "standings":
-          return NextResponse.json([]);
+          return json([]);
         default:
-          return NextResponse.json({ error: "Unknown type" }, { status: 400 });
+          return json({ error: "Unknown type" }, 400);
       }
     }
 
@@ -89,33 +107,33 @@ export async function GET(
       case "matches": {
         const date = searchParams.get("date") || new Date().toISOString().split("T")[0];
         const data = await fetchAPI(cfg.baseUrl, apiKey, "/games", { date });
-        return NextResponse.json(data);
+        return json(data);
       }
       case "live": {
         const data = await fetchAPI(cfg.baseUrl, apiKey, "/games", { live: "all" });
-        return NextResponse.json(data);
+        return json(data);
       }
       case "fixtures": {
         const data = await fetchAPI(cfg.baseUrl, apiKey, "/games", {
           league: cfg.leagueId || "",
           season: cfg.season,
         });
-        return NextResponse.json(data);
+        return json(data);
       }
       case "standings": {
         const data = await fetchAPI(cfg.baseUrl, apiKey, "/standings", {
           league: cfg.leagueId || "",
           season: cfg.season,
         });
-        return NextResponse.json(data);
+        return json(data);
       }
       default:
-        return NextResponse.json({ error: "Unknown type" }, { status: 400 });
+        return json({ error: "Unknown type" }, 400);
     }
   } catch (error) {
-    return NextResponse.json(
+    return json(
       { error: error instanceof Error ? error.message : "Unknown error" },
-      { status: 502 }
+      502
     );
   }
 }

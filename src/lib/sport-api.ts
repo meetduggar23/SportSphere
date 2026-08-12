@@ -1,5 +1,6 @@
 import { Match, Fixture, Standing, Sport, Team } from "@/types";
 import { sportApiConfigs, SportApiConfig } from "@/config/sport-apis";
+import { cachedFetch } from "@/lib/requestCache";
 
 /* ---- API-SPORTS response shapes (verified via live probes) ---- */
 
@@ -85,10 +86,18 @@ async function fetchSport(apiId: string, type: string): Promise<unknown[]> {
     typeof window === "undefined"
       ? process.env.NEXT_PUBLIC_SITE_URL ?? vercelUrl ?? "http://localhost:3000"
       : "";
-  const res = await fetch(`${base}/api/sport/${apiId}?type=${type}`);
-  if (!res.ok) throw new Error(`API error: ${res.status}`);
-  const data = await res.json();
-  return Array.isArray(data) ? (data as unknown[]) : [];
+  const url = `${base}/api/sport/${apiId}?type=${type}`;
+  // Client-side dedup + TTL: homepage, live page and ticker all poll the same
+  // sport endpoints — one network call per window instead of many. Live data
+  // gets a shorter TTL so scores stay fresh; fixtures/standings are static
+  // enough to cache longer.
+  const ttlMs = type === "matches" || type === "live" ? 30_000 : 300_000;
+  return cachedFetch(url, async () => {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`API error: ${res.status}`);
+    const data = await res.json();
+    return Array.isArray(data) ? (data as unknown[]) : [];
+  }, ttlMs);
 }
 
 function shortName(name: string): string {

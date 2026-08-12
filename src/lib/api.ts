@@ -1,4 +1,5 @@
 import { Match, Standing, Team, Fixture, Player, Sport } from "@/types";
+import { cachedFetch } from "@/lib/requestCache";
 
 /* ---- API-Football v3 response shapes ---- */
 interface APITeam {
@@ -161,9 +162,16 @@ async function fetchAPI(type: string, params: Record<string, string> = {}) {
       ? process.env.NEXT_PUBLIC_SITE_URL ?? vercelUrl ?? "http://localhost:3000"
       : "";
   const sp = new URLSearchParams({ type, ...params });
-  const res = await fetch(`${base}/api/football?${sp}`);
-  if (!res.ok) throw new Error(`API error: ${res.status}`);
-  return res.json();
+  const url = `${base}/api/football?${sp}`;
+  // Client-side dedup: repeated identical queries within the TTL share one
+  // network request instead of firing on every mount/poll. Live data gets a
+  // shorter TTL so scores stay fresh; tables and rosters cache longer.
+  const ttlMs = type === "live" ? 30_000 : 300_000;
+  return cachedFetch(url, async () => {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`API error: ${res.status}`);
+    return res.json();
+  }, ttlMs);
 }
 
 export async function getLiveMatches(): Promise<Match[]> {
