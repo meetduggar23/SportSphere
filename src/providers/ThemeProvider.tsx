@@ -30,7 +30,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem("sportsphere-theme", theme);
     // Keep the browser chrome bar in sync with the active theme.
     const meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.setAttribute("content", theme === "dark" ? "#082032" : "#E3F2FD");
+    if (meta) meta.setAttribute("content", theme === "dark" ? "#1A1953" : "#E3F2FD");
   }, [theme]);
 
   // Apply a theme change. When the browser supports the View Transitions API,

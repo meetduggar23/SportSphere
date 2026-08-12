@@ -15,7 +15,7 @@ export interface SportApiConfig {
   kind: SportApiKind;
   /** Default league id used for standings/fixtures */
   leagueId?: string;
-  /** Season — free plan only allows 2022–2024 */
+  /** Season — free plan only allows 2022–2024 (basketball uses "2024-2025" style) */
   season: string;
 }
 
@@ -32,7 +32,8 @@ export const sportApiConfigs: Record<string, SportApiConfig> = {
     envKey: "BASKETBALL_API_KEY",
     kind: "team",
     leagueId: "12",
-    season: "2024",
+    // Basketball/NBA seasons use the "YYYY-YYYY" format (e.g. 2024-2025).
+    season: "2024-2025",
   },
   nba: {
     // NBA is served by the same basketball API (league 12 = NBA).
@@ -42,7 +43,7 @@ export const sportApiConfigs: Record<string, SportApiConfig> = {
     envKey: "BASKETBALL_API_KEY",
     kind: "team",
     leagueId: "12",
-    season: "2024",
+    season: "2024-2025",
   },
   baseball: {
     sport: "baseball",

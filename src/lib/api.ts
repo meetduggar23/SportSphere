@@ -153,8 +153,15 @@ export function toPlayer(p: APIPlayer): Player {
 }
 
 async function fetchAPI(type: string, params: Record<string, string> = {}) {
+  // Browsers can use a relative URL; the server cannot resolve one, so it
+  // self-fetches against an absolute base (same pattern as src/lib/sport-api.ts).
+  const vercelUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "";
+  const base =
+    typeof window === "undefined"
+      ? process.env.NEXT_PUBLIC_SITE_URL ?? vercelUrl ?? "http://localhost:3000"
+      : "";
   const sp = new URLSearchParams({ type, ...params });
-  const res = await fetch(`/api/football?${sp}`);
+  const res = await fetch(`${base}/api/football?${sp}`);
   if (!res.ok) throw new Error(`API error: ${res.status}`);
   return res.json();
 }

@@ -12,15 +12,27 @@ interface ApiTeamRef {
 
 interface ApiGame {
   id?: number;
+  // AFL wraps id at the top level under `game`; NFL nests date/time/status/venue
+  // under `game` too, so both shapes are tolerated below.
+  game?: {
+    id?: number;
+    date?: string | { date?: string; time?: string; timestamp?: number };
+    status?: { long?: string; short?: string };
+    venue?: { name?: string; city?: string };
+  };
   date?: string;
   time?: string;
-  timestamp?: number;
+  timestamp?: number | string;
   venue?: string | null;
   status?: { long?: string; short?: string };
-  league?: { id?: number; name?: string; logo?: string; season?: number };
+  league?: { id?: number; name?: string; logo?: string; season?: number | string };
   country?: { name?: string };
   teams?: { home?: ApiTeamRef; away?: ApiTeamRef };
-  scores?: { home?: { total?: number }; away?: { total?: number } };
+  // Basketball/MLB use `total`; AFL uses `score`. Both are supported.
+  scores?: {
+    home?: { total?: number; score?: number };
+    away?: { total?: number; score?: number };
+  };
 }
 
 interface ApiFight {
@@ -113,6 +125,44 @@ function total(v: { total?: number } | number | undefined): number {
   return typeof v === "number" ? v : (v?.total ?? 0);
 }
 
+/* ---- Shape-normalization helpers (AFL/NFL nest fields under `game`) ---- */
+
+function gameId(g: ApiGame): number | undefined {
+  return g.id ?? g.game?.id;
+}
+
+function gameDateString(g: ApiGame): string {
+  if (typeof g.date === "string") return g.date;
+  const nested = g.game?.date;
+  if (nested && typeof nested === "object") return nested.date ?? "";
+  return "";
+}
+
+function gameTimeString(g: ApiGame): string {
+  if (typeof g.time === "string") return g.time;
+  const nested = g.game?.date;
+  if (nested && typeof nested === "object") return nested.time ?? "";
+  return "";
+}
+
+function gameTimestamp(g: ApiGame): number {
+  const ts = g.timestamp ?? (typeof g.game?.date === "object" ? g.game.date?.timestamp : undefined);
+  return typeof ts === "number" ? ts : Number(ts) || 0;
+}
+
+function gameStatus(g: ApiGame): { long?: string; short?: string } | undefined {
+  return g.status ?? g.game?.status;
+}
+
+function gameVenue(g: ApiGame): string {
+  if (typeof g.venue === "string") return g.venue;
+  return g.game?.venue?.name ?? "";
+}
+
+function gameScore(s: { total?: number; score?: number } | undefined): number {
+  return s?.total ?? s?.score ?? 0;
+}
+
 function fallbackId(id: unknown, name: string): string {
   return String(id ?? (name || "item"));
 }
@@ -120,17 +170,17 @@ function fallbackId(id: unknown, name: string): string {
 /* ---- Team-sport game mappers ---- */
 
 function toMatchFromGame(g: ApiGame, cfg: SportApiConfig): Match {
-  const status = mapStatus(g.status?.short);
-  const home = g.scores?.home?.total ?? 0;
-  const away = g.scores?.away?.total ?? 0;
+  const status = mapStatus(gameStatus(g)?.short);
+  const home = gameScore(g.scores?.home);
+  const away = gameScore(g.scores?.away);
   return {
-    id: fallbackId(g.id, `${g.timestamp ?? ""}-${g.league?.name ?? ""}`),
+    id: fallbackId(gameId(g), `${gameTimestamp(g) ?? ""}-${g.league?.name ?? ""}`),
     sport: cfg.sport,
     league: g.league?.name ?? "",
     leagueLogo: g.league?.logo,
     status,
-    statusDetail: g.status?.short,
-    period: status === "live" ? g.status?.long : undefined,
+    statusDetail: gameStatus(g)?.short,
+    period: status === "live" ? gameStatus(g)?.long : undefined,
     winner:
       status === "finished"
         ? home > away
@@ -139,33 +189,34 @@ function toMatchFromGame(g: ApiGame, cfg: SportApiConfig): Match {
             ? "away"
             : "draw"
         : null,
-    minute: g.status?.long ?? (status === "live" ? g.status?.short : undefined),
+    minute: gameStatus(g)?.long ?? (status === "live" ? gameStatus(g)?.short : undefined),
     homeTeam: toTeam(g.teams?.home, cfg.sport, g.country?.name),
     awayTeam: toTeam(g.teams?.away, cfg.sport, g.country?.name),
     homeScore: home,
     awayScore: away,
-    venue: g.venue ?? "",
-    date: g.date,
+    venue: gameVenue(g),
+    date: gameDateString(g),
     competition: g.league?.name,
   };
 }
 
 function toFixtureFromGame(g: ApiGame, cfg: SportApiConfig): Fixture {
-  const d = new Date(g.date ?? "");
+  const dateStr = gameDateString(g);
+  const d = new Date(dateStr);
   return {
-    id: fallbackId(g.id, String(d.getTime())),
+    id: fallbackId(gameId(g), String(gameTimestamp(g))),
     sport: cfg.sport,
     league: g.league?.name ?? "",
     title: g.league?.name ?? "Game",
     homeTeam: toTeam(g.teams?.home, cfg.sport, g.country?.name),
     awayTeam: toTeam(g.teams?.away, cfg.sport, g.country?.name),
     dateTime: isNaN(d.getTime())
-      ? g.date ?? ""
+      ? dateStr
       : d.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" }),
     time: isNaN(d.getTime())
-      ? ""
+      ? gameTimeString(g)
       : d.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" }),
-    isLive: mapStatus(g.status?.short) === "live",
+    isLive: mapStatus(gameStatus(g)?.short) === "live",
   };
 }
 
@@ -283,6 +334,21 @@ function toStanding(s: ApiStandingRow, cfg: SportApiConfig): Standing {
 
 /* ---- Public API ---- */
 
+/**
+ * Fallback for team sports whose date-scoped "matches" query returns nothing
+ * on the free plan (e.g. AFL/NFL, where only season-scoped 2022–2024 data is
+ * accessible). Returns the most recent completed games of the configured
+ * season as real finished results — never fabricated scores.
+ */
+async function recentSeasonGames(cfg: SportApiConfig, count = 12): Promise<Match[]> {
+  const raw = await fetchSport(cfg.apiId, "fixtures");
+  return (raw as ApiGame[])
+    .filter((g) => gameStatus(g)?.short === "FT" || gameStatus(g)?.short === "AET")
+    .sort((a, b) => gameTimestamp(b) - gameTimestamp(a))
+    .slice(0, count)
+    .map((g) => toMatchFromGame(g, cfg));
+}
+
 export async function getSportMatches(sport: Sport): Promise<Match[]> {
   const cfg = sportApiConfigs[sport];
   if (!cfg) return [];
@@ -293,7 +359,11 @@ export async function getSportMatches(sport: Sport): Promise<Match[]> {
       .map((f) => toMatchFromFight(f, cfg));
   }
   if (cfg.kind === "f1") return [];
-  return (raw as ApiGame[]).map((g) => toMatchFromGame(g, cfg));
+  const games = raw as ApiGame[];
+  if (games.length > 0) return games.map((g) => toMatchFromGame(g, cfg));
+  // Free-plan fallback: no games on today's date — surface the latest real
+  // completed results from the accessible season instead of an empty state.
+  return cfg.kind === "team" && cfg.leagueId ? recentSeasonGames(cfg) : [];
 }
 
 export async function getSportFixtures(sport: Sport): Promise<Fixture[]> {
@@ -318,11 +388,11 @@ export async function getSportFixtures(sport: Sport): Promise<Fixture[]> {
   return (raw as ApiGame[])
     .filter(
       (g) =>
-        new Date(g.date ?? "").getTime() >= Date.now() - 6 * 3600 * 1000
+        new Date(gameDateString(g)).getTime() >= Date.now() - 6 * 3600 * 1000
     )
     .sort(
       (a, b) =>
-        new Date(a.date ?? "").getTime() - new Date(b.date ?? "").getTime()
+        new Date(gameDateString(a)).getTime() - new Date(gameDateString(b)).getTime()
     )
     .slice(0, 15)
     .map((g) => toFixtureFromGame(g, cfg));

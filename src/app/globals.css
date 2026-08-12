@@ -10,10 +10,10 @@
     + deep derived blue ink (#0B2C4E) and accent-deep (#1E6BB8)
 
   DARK (.dark):
-    #082032  (navy — foundation: background, header, deep sections)
-    #2C394B  (slate — secondary surface: cards, panels, match surfaces)
-    #334756  (steel — elevated surface: hover states, dropdowns, highlights)
-    #FF4C29  (orange — primary accent: LIVE, CTAs, active states, scores)
+    #1A1953  (deep navy — foundation: background, header, deep sections)
+    #162E93  (deep blue — secondary surface: cards, panels, match surfaces)
+    #2F2FE4  (electric blue — primary accent: LIVE, CTAs, active states, scores)
+    #080616  (deepest navy — dark overlays, deep sections, shadow base)
 
   Every variation derives from these via color-mix(), rgba() and opacity —
   no pure white backgrounds in light, no pure black in dark, no neon.
@@ -119,15 +119,15 @@
 }
 
 .dark {
-  /* Official dark palette — deep navy arena with controlled orange energy */
-  --sport-bg: #082032;           /* navy — foundation: background, header, deep sections */
-  --sport-accent: #ff4c29;       /* orange — primary accent: LIVE, CTAs, active states, scores */
-  --sport-accent-deep: #ff8a6b;  /* light orange — readable accent text on dark */
+  /* Official dark palette — deep indigo-navy arena with electric blue energy */
+  --sport-bg: #1a1953;           /* deep navy — foundation: background, header, deep sections */
+  --sport-accent: #2f2fe4;       /* electric blue — primary accent: LIVE, CTAs, active states, scores */
+  --sport-accent-deep: color-mix(in srgb, var(--sport-accent) 55%, #ffffff 45%); /* light electric blue — readable accent text on dark */
   --sport-navy: #e9eef4;         /* light ink — text on dark surfaces */
 
   --sport-primary: var(--sport-accent);
   --sport-secondary: var(--sport-accent-deep);
-  --sport-deep: #050f18;         /* deepest navy — dark overlays & deep surfaces */
+  --sport-deep: #080616;         /* deepest navy — dark overlays & deep surfaces */
 
   /* ---- Foundations (dark navy arena) ---- */
   --background: var(--sport-bg);
@@ -136,10 +136,10 @@
     radial-gradient(900px 520px at -10% 4%, color-mix(in srgb, var(--sport-accent) 5%, transparent), transparent 55%),
     radial-gradient(1300px 700px at 50% 120%, color-mix(in srgb, var(--sport-accent) 4%, transparent), transparent 60%),
     var(--background);
-  --surface-1: #2c394b;          /* slate — cards, panels, match surfaces */
-  --surface-2: color-mix(in srgb, #2c394b 66%, #334756 34%);
-  --surface-3: color-mix(in srgb, #334756 72%, #ff4c29 28%);
-  --surface-glass: color-mix(in srgb, #082032 72%, transparent 28%);
+  --surface-1: #162e93;          /* deep blue — cards, panels, match surfaces */
+  --surface-2: color-mix(in srgb, #162e93 68%, #2f2fe4 32%);
+  --surface-3: color-mix(in srgb, #162e93 46%, #2f2fe4 54%);
+  --surface-glass: color-mix(in srgb, #1a1953 72%, transparent 28%);
 
   /* ---- Foreground / text (light ink) ---- */
   --ink: var(--sport-navy);
@@ -151,29 +151,29 @@
 
   /* ---- Cards / surfaces ---- */
   --card: var(--surface-1);
-  --card-deep: #082032;
-  --card-hover: color-mix(in srgb, #2c394b 74%, #334756 26%);
-  --card-premium: color-mix(in srgb, #2c394b 56%, #334756 44%);
-  --card-glass: color-mix(in srgb, #082032 42%, transparent 58%);
+  --card-deep: #1a1953;
+  --card-hover: color-mix(in srgb, #162e93 74%, #2f2fe4 26%);
+  --card-premium: color-mix(in srgb, #162e93 56%, #2f2fe4 44%);
+  --card-glass: color-mix(in srgb, #1a1953 42%, transparent 58%);
 
-  /* ---- Borders (subtle transparent orange tones) ---- */
-  --border: rgba(255, 76, 41, 0.14);
-  --border-strong: rgba(255, 76, 41, 0.3);
-  --border-live: rgba(255, 76, 41, 0.5);
-  --border-navy: rgba(51, 71, 86, 0.9);
+  /* ---- Borders (subtle transparent electric-blue tones) ---- */
+  --border: rgba(47, 47, 228, 0.22);
+  --border-strong: rgba(47, 47, 228, 0.42);
+  --border-live: rgba(47, 47, 228, 0.6);
+  --border-navy: rgba(22, 46, 147, 0.9);
 
   /* ---- Interactive ---- */
   --primary: var(--sport-accent);
-  --primary-hover: color-mix(in srgb, var(--sport-accent) 76%, #ffffff 24%);
-  --primary-soft: rgba(255, 76, 41, 0.14);
-  --primary-ring: rgba(255, 76, 41, 0.45);
+  --primary-hover: color-mix(in srgb, var(--sport-accent) 72%, var(--sport-accent-deep) 28%);
+  --primary-soft: rgba(47, 47, 228, 0.18);
+  --primary-ring: rgba(47, 47, 228, 0.5);
   --secondary: var(--sport-accent-deep);
   --secondary-hover: color-mix(in srgb, var(--sport-accent-deep) 80%, var(--sport-bg) 20%);
-  --secondary-soft: rgba(255, 138, 107, 0.16);
+  --secondary-soft: color-mix(in srgb, var(--sport-accent-deep) 18%, transparent 82%);
   --deep: var(--sport-deep);
-  --deep-soft: rgba(5, 15, 24, 0.6);
+  --deep-soft: rgba(8, 6, 22, 0.62);
   --navy: var(--sport-deep);
-  --blue: #334756;               /* steel — elevated hover/chip surfaces */
+  --blue: #162e93;               /* deep blue — elevated hover/chip surfaces */
 
   /* ---- Shadows (deep black-navy depth, no neon) ---- */
   --shadow-card:
@@ -186,7 +186,7 @@
     0 20px 50px rgba(0, 0, 0, 0.55),
     0 10px 22px rgba(0, 0, 0, 0.4);
   --shadow-glow:
-    0 8px 22px rgba(0, 0, 0, 0.35);
+    0 8px 22px rgba(47, 47, 228, 0.32);
   --shadow-hero:
     0 24px 80px rgba(0, 0, 0, 0.5),
     0 12px 32px rgba(0, 0, 0, 0.4);
@@ -194,19 +194,19 @@
   /* ---- Gradients ---- */
   --hero-overlay: linear-gradient(
     180deg,
-    rgba(5, 15, 24, 0.2) 0%,
-    rgba(44, 57, 75, 0.72) 72%,
-    rgba(5, 15, 24, 0.92) 100%
+    rgba(8, 6, 22, 0.2) 0%,
+    rgba(22, 46, 147, 0.72) 72%,
+    rgba(8, 6, 22, 0.92) 100%
   );
-  --arena-gradient: linear-gradient(135deg, #082032 0%, #2c394b 100%);
+  --arena-gradient: linear-gradient(135deg, #1a1953 0%, #162e93 100%);
   --live-gradient: linear-gradient(
     135deg,
     var(--sport-accent) 0%,
     color-mix(in srgb, var(--sport-accent) 58%, var(--sport-bg) 42%) 100%
   );
-  --deep-gradient: linear-gradient(135deg, #082032 0%, #2c394b 100%);
-  --text-gradient: linear-gradient(120deg, var(--sport-accent) 0%, color-mix(in srgb, var(--sport-accent) 52%, #334756 48%) 100%);
-  --score-gradient: linear-gradient(135deg, var(--sport-accent) 0%, #334756 100%);
+  --deep-gradient: linear-gradient(135deg, #1a1953 0%, #080616 100%);
+  --text-gradient: linear-gradient(120deg, var(--sport-accent) 0%, color-mix(in srgb, var(--sport-accent) 52%, #162e93 48%) 100%);
+  --score-gradient: linear-gradient(135deg, var(--sport-accent) 0%, #162e93 100%);
 
   color-scheme: dark;
 }

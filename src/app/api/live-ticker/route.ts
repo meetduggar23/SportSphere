@@ -78,5 +78,19 @@ export async function GET() {
     }
   }
 
-  return NextResponse.json({ items, updatedAt: Date.now() });
+  return NextResponse.json({
+    items,
+    updatedAt: Date.now(),
+    env: {
+      siteUrl: process.env.NEXT_PUBLIC_SITE_URL ?? null,
+      vercelUrl: process.env.VERCEL_URL ?? null,
+      isServer: typeof window === "undefined",
+    },
+    debug: settled.map((r) => ({
+      sport: r.status === "fulfilled" ? r.value.sport : "ERR",
+      ok: r.status === "fulfilled" && r.value.snap.status === "ready",
+      count: r.status === "fulfilled" ? r.value.snap.data.length : -1,
+      err: r.status === "rejected" ? String(r.reason) : r.status === "fulfilled" && r.value.snap.error ? r.value.snap.error : undefined,
+    })),
+  });
 }
