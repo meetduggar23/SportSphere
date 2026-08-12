@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="public/logo.png" alt="SportSphere" width="180" />
+</p>
+
 # SportSphere
 
 Live scores, match centres, and sports news across **13 sports** — Cricket, Football, Basketball, Baseball, Hockey, Volleyball, Rugby, Formula 1, MMA, NFL, NBA, Handball, and AFL.
