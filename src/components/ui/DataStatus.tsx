@@ -29,6 +29,15 @@ export function DataStatus({
   error,
   onRetry,
 }: DataStatusProps) {
+  // Hooks must run unconditionally — before any early return — or React
+  // throws "rules-of-hooks" violations when the status flips between renders.
+  const [now, setNow] = useState(() => Date.now());
+  useEffect(() => {
+    if (!lastUpdated) return;
+    const id = setInterval(() => setNow(Date.now()), 30_000);
+    return () => clearInterval(id);
+  }, [lastUpdated]);
+
   if (status === "loading") {
     return (
       <div className="mb-6 flex items-center gap-3  border border-border-navy bg-card/60 px-4 py-3 text-sm text-muted rounded-md">
@@ -69,12 +78,6 @@ export function DataStatus({
   }
 
   // ready
-  const [now, setNow] = useState(() => Date.now());
-  useEffect(() => {
-    if (!lastUpdated) return;
-    const id = setInterval(() => setNow(Date.now()), 30_000);
-    return () => clearInterval(id);
-  }, [lastUpdated]);
   if (lastUpdated) {
     return (
       <p className="mb-6 -mt-2 text-xs text-muted">
