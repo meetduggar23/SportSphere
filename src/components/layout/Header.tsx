@@ -137,10 +137,10 @@ export function Header() {
           </div>
         </div>
 
-        {/* Secondary strip — primary pages (Home, Live, News...), scrollable */}
+        {/* Secondary strip — primary pages (Home, Live, News...), centered */}
         <div className="border-t border-border bg-background/55">
           <div className="mx-auto flex max-w-[1440px] items-center px-1.5 lg:px-4">
-            <div className="no-scrollbar flex flex-1 items-center gap-0.5 overflow-x-auto">
+            <div className="no-scrollbar flex flex-1 items-center gap-0.5 overflow-x-auto [&>*:first-child]:ml-auto [&>*:last-child]:mr-auto">
               {primaryNav.map((item) => {
                 const active =
                   pathname === item.href ||
