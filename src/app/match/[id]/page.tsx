@@ -235,7 +235,7 @@ export default function MatchPage({ params }: { params: Promise<{ id: string }> 
                           { label: "Away Wins", value: 3, color: "bg-secondary" },
                         ].map((s) => (
                           <div key={s.label} className="flex-1 bg-muted/10  p-3 text-center rounded-sm">
-<p className={cn("text-2xl font-bold  py-1 mb-1", s.color === "bg-secondary" ? "text-white" : "text-berry")}>{s.value}</p>
+<p className="text-2xl font-bold text-score-text py-1 mb-1">{s.value}</p>
                             <p className="text-xs text-muted">{s.label}</p>
                           </div>
                         ))}

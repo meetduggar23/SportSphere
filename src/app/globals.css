@@ -108,6 +108,18 @@
   --text-gradient: linear-gradient(120deg, var(--sport-accent-deep) 0%, var(--sport-accent) 100%);
   --score-gradient: linear-gradient(135deg, var(--sport-accent-deep) 0%, var(--sport-accent) 100%);
 
+  /* ---- Scorecard-only palette (broadcast scoreboard system) ----
+     Applied ONLY inside scorecard / match-card components via the score-*
+     tokens. These are theme-aware: light surfaces in light mode, the dark
+     broadcast look in dark mode (overridden in .dark below). */
+  --score-bg: #e7f3fc;          /* deepest scorecard surface (featured match) */
+  --score-surface: #f7fbfe;     /* normal match cards, scorecard sections */
+  --score-elevated: #e3f0fb;    /* hover / selected / table headers */
+  --score-accent: #1e6bb8;      /* LIVE / active / small highlights */
+  --score-text: #0b2c4e;        /* scores, team names, headings */
+  --score-muted: #4a6f94;       /* competition, venue, date, metadata */
+  --score-border: rgba(30, 107, 184, 0.18);
+
   /* ---- Radius scale (deliberate, applied by purpose — never uniform) ---- */
   --radius-xs: 2px;
   --radius-sm: 4px;
@@ -225,10 +237,10 @@
 }
 
 /*
-  ---- Scorecard-only dark palette (broadcast scoreboard system) ----
-  Applied ONLY inside scorecard / match-card components via the score-* tokens
-  below. The global SportsSphere theme is intentionally untouched — these are
-  dedicated dark surfaces for match cards, scoreboards and scorecard tables.
+  ---- Scorecard-only DARK palette (broadcast scoreboard system) ----
+  Dark-mode override of the theme-aware score-* tokens above. Applied ONLY
+  inside scorecard / match-card components — the global SportsSphere theme is
+  untouched.
 
     #06131F  score-bg       deepest scorecard background (featured match, match
                             detail, scoreboard deep area)
@@ -241,7 +253,7 @@
     #91A8B8  score-muted    competition, venue, date, time, secondary metadata
     border   rgba(110,172,218,0.12)  extremely subtle sky borders
 */
-:root {
+.dark {
   --score-bg: #06131f;
   --score-surface: #0a1d2b;
   --score-elevated: #0e2638;
