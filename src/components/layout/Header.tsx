@@ -21,7 +21,7 @@ import { useTheme } from "@/providers/ThemeProvider";
 import { Logo } from "@/components/ui/Logo";
 import { SearchBar } from "@/components/layout/SearchBar";
 import { SearchOverlay } from "@/components/layout/SearchOverlay";
-import { orderedSports, sportLabel, sportEmoji } from "@/config/sports";
+import { orderedSports, sportLabel } from "@/config/sports";
 import { cn } from "@/lib/utils";
 
 const primaryNav = [
@@ -149,13 +149,12 @@ export function Header() {
                     key={sport.id}
                     href={sport.href}
                     className={cn(
-                      "relative flex h-9 shrink-0 items-center gap-1.5 px-3 text-[13px] font-semibold transition-colors",
+                      "relative flex h-9 shrink-0 items-center px-3 text-[13px] font-semibold transition-colors",
                       active
                         ? "text-secondary"
                         : "text-muted hover:bg-blue/40 hover:text-foreground"
                     )}
                   >
-                    <span className="text-[13px] leading-none">{sportEmoji(sport.id)}</span>
                     {sportLabel(sport.id, sport.shortName)}
                     {active && (
                       <span className="absolute inset-x-3 bottom-0 h-0.5 bg-primary" />
@@ -210,13 +209,13 @@ export function Header() {
                       href={sport.href}
                       onClick={() => setMobileOpen(false)}
                       className={cn(
-                        "flex shrink-0 items-center gap-1.5 border px-3 py-2 text-xs font-semibold transition-colors",
+                        "flex shrink-0 items-center border px-3 py-2 text-xs font-semibold transition-colors",
                         active
                           ? "border-border-strong bg-blue/40 text-secondary"
                           : "border-border bg-card-glass text-muted hover:text-foreground"
                       )}
                     >
-                      <span>{sportEmoji(sport.id)}</span> {sportLabel(sport.id, sport.shortName)}
+                      {sportLabel(sport.id, sport.shortName)}
                     </Link>
                   );
                 })}

@@ -8,7 +8,7 @@ import { SportTabs } from "@/components/ui/SportTabs";
 import { LiveMatchCard } from "@/components/sports/LiveMatchCard";
 import { DataStatus } from "@/components/ui/DataStatus";
 import { getAllLiveEventsResilient, homeSports } from "@/lib/homeFeed";
-import { Match, sportIcons, sportLabels } from "@/types";
+import { Match, sportLabels } from "@/types";
 
 // Only live matches are shown here; upcoming/finished data would need
 // separate requests, so only expose the tab that has data.
@@ -58,7 +58,7 @@ export default function LivePage() {
     () => [
       { label: "All Sports", value: "all" },
       ...homeSports.map((s) => ({
-        label: `${sportIcons[s]} ${sportLabels[s]}`,
+        label: sportLabels[s],
         value: s,
       })),
     ],

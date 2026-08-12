@@ -42,7 +42,7 @@ export default function Home() {
     () => [
       { label: "All Sports", value: "all", count: live.length },
       ...homeSports.map((s) => ({
-        label: `${sportIcons[s]} ${shortLabels[s]}`,
+        label: shortLabels[s],
         value: s,
         count: live.filter((m) => m.sport === s).length,
       })),
@@ -118,8 +118,8 @@ export default function Home() {
           <div className="flex items-center gap-2">
             <span className="inline-flex items-center gap-2  border border-border bg-blue/15 px-3.5 py-1.5 text-xs text-muted-strong">
               <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full  bg-berry animate-ping-ring" />
-                <span className="relative inline-flex h-2 w-2  bg-berry" />
+                <span className="absolute inline-flex h-full w-full  bg-secondary animate-ping-ring" />
+                <span className="relative inline-flex h-2 w-2  bg-secondary" />
               </span>
               {status === "loading"
                 ? "Checking live events…"
@@ -249,7 +249,7 @@ export default function Home() {
                 <div className="mb-4">
                   <SportTabs
                     tabs={standingsGroups.map((g) => ({
-                      label: `${sportIcons[g.sport]} ${shortLabels[g.sport]}`,
+                      label: shortLabels[g.sport],
                       value: g.sport,
                     }))}
                     active={activeStandings.sport}
@@ -277,8 +277,8 @@ export default function Home() {
                 </p>
                 <div className="mt-4 flex flex-wrap gap-1.5">
                   {homeSports.map((s) => (
-                    <span key={s} className="inline-flex items-center gap-1  bg-blue/15 px-2 py-1 text-[10px] text-muted-strong">
-                      {sportIcons[s]} {shortLabels[s]}
+                    <span key={s} className="inline-flex items-center bg-blue/15 px-2 py-1 text-[10px] text-muted-strong">
+                      {shortLabels[s]}
                     </span>
                   ))}
                 </div>

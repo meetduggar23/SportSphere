@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Search, X, Mic, Clock, TrendingUp, ArrowRight } from "lucide-react";
 import { recentSearches, trendingSearches } from "@/data/mock";
-import { orderedSports, sportLabel, sportEmoji } from "@/config/sports";
+import { orderedSports, sportLabel } from "@/config/sports";
 
 interface SearchOverlayProps {
   onClose: () => void;
@@ -170,9 +170,9 @@ export function SearchOverlay({ onClose }: SearchOverlayProps) {
                     key={s.id}
                     href={s.href}
                     onClick={onClose}
-                    className="flex shrink-0 items-center gap-1.5 border border-border bg-card-glass px-2.5 py-1.5 text-xs font-semibold text-muted-strong transition-colors hover:bg-blue/40 hover:text-foreground rounded-full"
+                    className="flex shrink-0 items-center border border-border bg-card-glass px-2.5 py-1.5 text-xs font-semibold text-muted-strong transition-colors hover:bg-blue/40 hover:text-foreground rounded-full"
                   >
-                    <span>{sportEmoji(s.id)}</span> {sportLabel(s.id, s.shortName)}
+                    {sportLabel(s.id, s.shortName)}
                   </Link>
                 ))}
               </div>
