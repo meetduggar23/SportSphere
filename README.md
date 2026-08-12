@@ -1,57 +1,55 @@
-# SportSphere — AI-Powered Sports Platform
+# SportSphere
 
-Live scores, cinematic match centres, fantasy sports, and intelligent AI insights across **13 major sports** — Cricket, Football, Basketball, Baseball, Hockey, Volleyball, Rugby, Formula 1, MMA, NFL, NBA, Handball and AFL.
+Live scores, match centres, and sports news across **13 sports** — Cricket, Football, Basketball, Baseball, Hockey, Volleyball, Rugby, Formula 1, MMA, NFL, NBA, Handball, and AFL.
 
-Built with **Next.js (App Router) + TypeScript + Tailwind CSS v4**, SportSphere is a premium sports-broadcast-style platform with a full **Light / Dark theme system**.
+Built with **Next.js (App Router) + TypeScript + Tailwind CSS v4**, with a full light/dark theme.
 
----
-
-## ✨ Features
-
-- **13-sport coverage** — dedicated pages for every supported sport with live events, fixtures, results, standings, teams and players
-- **Sport-agnostic Home feed** — the homepage reflects what is actually happening right now across all sports (live-first, never hardcoded to one sport)
-- **Live ticker** — a compact broadcast-style marquee of real live events, polling the sport providers every 60s
-- **Match centres** — timeline, statistics, head-to-head, lineups and live chat per match
-- **AI Insights** — an AI assistant, predictions, and analysis surfaces
-- **Fantasy, Predictions, Transfers, Calendar, News, Search, Favorites, My Teams** and more
-- **Light / Dark theme** — icon toggle in the top-right navbar, persisted to `localStorage`, system-preference default
-
-## 🎨 Theming
-
-The entire design system is token-driven from `src/app/globals.css`:
-
-| | Light (default) | Dark |
-|---|---|---|
-| Background | `#E3F2FD` | `#021526` (deep navy) |
-| Surfaces | `#90CAF9`-derived | `#03346E` (primary blue) |
-| Accent | `#90CAF9` | `#6EACDA` (sky blue) |
-| Ink / text | `#0B2C4E` | `#E2E2B6` (warm cream) |
-
-Every surface, border, shadow and gradient is derived from these tokens via `color-mix()` and opacity, so switching themes updates the entire UI — navbar, hero, scoreboards, standings, news, sport pages, dropdowns, modals and all 13 sports — without a page reload.
-
-## 🚀 Getting Started
+## Getting Started
 
 ```bash
 npm install
 npm run dev
 ```
 
+Open [http://localhost:3000](http://localhost:3000).
+
 ### Scripts
 
 | Command | Description |
 |---|---|
-| `npm run dev` | Start the dev server (Turbopack) |
+| `npm run dev` | Start the dev server |
 | `npm run build` | Production build |
 | `npm start` | Serve the production build |
 | `npm run lint` | ESLint |
 
-## 🔌 Real Sports Data (optional)
+## Environment Variables
 
-SportSphere ships with a provider-based data architecture (`src/lib/`) designed to be wired to real sports APIs. API keys live **only** in environment variables — see `.env.example` for the variable names. Never commit `.env*` files.
+Copy `.env.example` to `.env.local` and add API keys as needed. Never commit `.env*` files.
 
-When a provider is connected, real data takes priority; when unavailable, the UI shows a clear "Data currently unavailable" state with a retry action — **no fabricated scores or fixtures**.
+| Variable | Purpose |
+|---|---|
+| `FOOTBALL_API_KEY` | API-Football (football scores/fixtures) |
+| `NEWS_API_KEY` | NewsData.io (sports news feed) |
+| `CRICKET_API_KEY` / `CRICAPI_API_KEY` | Cricket data |
+| `SPORTMONKS_API_TOKEN` | Player photos |
+| `BASKETBALL_API_KEY` / `NBA_API_KEY` / `BALLDONTLIE_API_KEY` | Basketball / NBA data |
+| `BASEBALL_API_KEY` / `HOCKEY_API_KEY` / `MMA_API_KEY` | Baseball, hockey, MMA data |
+| `NFL_API_KEY` / `RUGBY_API_KEY` / `VOLLEYBALL_API_KEY` / `HANDBALL_API_KEY` / `AFL_API_KEY` | Remaining sports |
+| `NEXT_PUBLIC_SITE_URL` | Canonical site URL |
 
-## 📁 Project Structure
+Providers are optional. When no provider is connected, pages show an honest "Data currently unavailable" state with a retry action — **no fabricated scores**.
+
+## Features
+
+- **13-sport coverage** — live events, fixtures, results, standings, teams, and players
+- **Live ticker** — broadcast-style marquee of real live events
+- **Match centres** — timeline, statistics, head-to-head, and live chat
+- **News** — live sports feed from NewsData.io, sports-only, with category tabs
+- **AI Insights** — predictions and analysis
+- **Fantasy, Predictions, Transfers, Calendar, Search, Favorites, My Teams**
+- **Light / Dark theme** — toggle in the navbar, persisted to `localStorage`
+
+## Project Structure
 
 ```
 src/
@@ -61,16 +59,10 @@ src/
   data/           # Mock data (used while no live provider is connected)
   lib/            # Providers, API clients, hooks, home feed
   providers/      # Theme provider
+  sports/         # Sport-specific modules (e.g. cricket)
   types/          # Shared TypeScript types
 ```
 
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feat/my-feature`)
-3. Commit your changes (keep messages concise and descriptive)
-4. Push and open a Pull Request
-
-## 📄 License
+## License
 
 Private project. All rights reserved.
