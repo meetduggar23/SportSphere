@@ -74,5 +74,5 @@ Private project. All rights reserved.
 ---
 
 <p align="center">
-  Made with ❤️ by <b>Meet</b>
+  Made by <b>Meet Duggar</b>
 </p>
