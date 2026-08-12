@@ -13,6 +13,9 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "media.api-sports.io" },
       { protocol: "https", hostname: "img.cricapi.com" },
       { protocol: "https", hostname: "h.cricapi.com" },
+      // Approved player-image provider CDN (Sportmonks). Only this host is
+      // allowed — arbitrary remote image domains are never added.
+      { protocol: "https", hostname: "cdn.sportmonks.com" },
     ],
   },
   // Legacy top-level sport routes → canonical /sports/<slug> module routes.

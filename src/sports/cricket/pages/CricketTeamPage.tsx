@@ -9,6 +9,7 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
 import { CricketCountrySelector } from "@/sports/cricket/components/CricketCountrySelector";
 import { CricketMatchList } from "@/sports/cricket/components/CricketMatchList";
 import { CricketSourceFooter } from "@/sports/cricket/components/CricketSourceFooter";
+import { CricketPlayerAvatar } from "@/sports/cricket/components/CricketPlayerAvatar";
 import {
   useCricketTeam,
   useCricketTeams,
@@ -87,9 +88,12 @@ function TeamSections({ team }: { team: CricketTeam }) {
                 href={`/sports/cricket/players/${p.id}`}
                 className="group arena-card arena-card-hover flex items-center gap-3 p-4"
               >
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center  bg-blue/40 text-sm font-bold text-muted-strong rounded-md">
-                  {(p.name ?? "?").slice(0, 2).toUpperCase()}
-                </span>
+                <CricketPlayerAvatar
+                  name={p.name ?? "?"}
+                  src={p.photo}
+                  className="h-10 w-10"
+                  sizes="40px"
+                />
                 <span className="min-w-0 flex-1">
                   <span className="block truncate text-sm font-semibold text-foreground-soft group-hover:text-foreground">
                     {p.name}

@@ -1,10 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import { User } from "lucide-react";
 import { PlayerStats } from "@/sports/cricket/components/PlayerStats";
 import { RecordsUnavailable } from "@/sports/cricket/components/RecordsUnavailable";
 import { CricketSourceFooter } from "@/sports/cricket/components/CricketSourceFooter";
+import { CricketPlayerAvatar } from "@/sports/cricket/components/CricketPlayerAvatar";
 import type { CricketPlayer } from "@/sports/cricket/types/cricketTypes";
 import type { PlayerStatsResult } from "@/sports/cricket/services/cricketStats";
 
@@ -42,19 +42,19 @@ export function CricketPlayerProfile({
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-[280px_1fr]">
         {/* Bio card */}
         <div className="bg-score-surface border border-score-border overflow-hidden">
-          <div className="relative flex h-56 items-center justify-center bg-score-elevated/40">
-            {player.photo ? (
-              <Image
-                src={player.photo}
-                alt={player.name}
-                fill
-                sizes="280px"
-                className="object-cover"
-                unoptimized
-              />
-            ) : (
-              <span className="flex h-20 w-20 items-center justify-center bg-score-elevated text-2xl font-bold text-score-muted rounded-md">
-                {player.name.slice(0, 2).toUpperCase()}
+          <div className="relative h-56">
+            <CricketPlayerAvatar
+              name={player.name}
+              src={player.imageUrl ?? player.photo}
+              className="h-full w-full"
+              ratioClassName="aspect-[4/3]"
+              sizes="280px"
+              loading="eager"
+              initialsClassName="text-2xl"
+            />
+            {player.imageProvider && (
+              <span className="absolute bottom-2 right-2 rounded bg-black/60 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-white">
+                Photo via {player.imageProvider}
               </span>
             )}
           </div>

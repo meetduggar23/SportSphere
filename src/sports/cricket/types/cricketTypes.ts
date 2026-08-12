@@ -101,6 +101,8 @@ export interface CricketPlayerRef {
   id: string;
   name: string;
   country?: string;
+  /** Provider photo attached by the image layer when a match was found. */
+  photo?: string;
 }
 
 export interface CricketTeamRef {
@@ -133,6 +135,18 @@ export interface CricketPlayer {
   alternateNames?: string[];
   /** Provider profile photo (playerImg). May be absent — UI falls back. */
   photo?: string;
+  /**
+   * Real player photograph resolved by the image-provider layer (e.g.
+   * Sportmonks image_path). Kept separate from `photo` (the data provider's
+   * own image) so the two sources never overwrite each other.
+   */
+  imageUrl?: string;
+  /** Image provider that supplied imageUrl (e.g. "sportmonks"). */
+  imageProvider?: string;
+  /** Stable player id inside the image provider's own database. */
+  imageProviderId?: string;
+  /** ISO timestamp of the last verified image match. */
+  imageLastUpdated?: string;
   teams?: string[];
   /** Stable provider id (CricAPI UUID). Same as `id` for this provider. */
   providerId?: string;

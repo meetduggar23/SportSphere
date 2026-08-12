@@ -20,11 +20,19 @@ export function useCricketPlayer(id: string | undefined) {
   };
 }
 
+export interface CricketPlayerRefEnvelope {
+  id: string;
+  name: string;
+  country?: string;
+  /** Real photo attached by the image provider layer when a match exists. */
+  photo?: string;
+}
+
 /** Player search (CricketData.org) — response envelope from the players route. */
 export function useCricketPlayers(search: string) {
   const path = `/api/cricket/players${search ? `?search=${encodeURIComponent(search)}` : "?offset=0"}`;
   return useCricketData<{
-    players: { id: string; name: string; country?: string }[];
+    players: CricketPlayerRefEnvelope[];
     total: number;
     offset: number;
     hasMore: boolean;
@@ -35,7 +43,7 @@ export function useCricketPlayers(search: string) {
 export function useCricketPlayersTeam(teamId: string | undefined) {
   const path = teamId ? `/api/cricket/players?team=${encodeURIComponent(teamId)}` : "";
   return useCricketData<{
-    players: { id: string; name: string; country?: string }[];
+    players: CricketPlayerRefEnvelope[];
     total: number;
     offset: number;
     hasMore: boolean;

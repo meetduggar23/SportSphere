@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { CricketPlayerRef } from "@/sports/cricket/types/cricketTypes";
+import { CricketPlayerAvatar } from "@/sports/cricket/components/CricketPlayerAvatar";
 
 interface CricketPlayerTableProps {
   players: CricketPlayerRef[];
@@ -27,8 +28,14 @@ export function CricketPlayerTable({ players, roles }: CricketPlayerTableProps) 
               <td className="px-4 py-2.5">
                 <Link
                   href={`/sports/cricket/players/${p.id}`}
-                  className="text-sm font-semibold text-score-text hover:text-score-accent transition-colors"
+                  className="flex items-center gap-2.5 text-sm font-semibold text-score-text hover:text-score-accent transition-colors"
                 >
+                  <CricketPlayerAvatar
+                    name={p.name}
+                    src={p.photo}
+                    className="h-8 w-8"
+                    sizes="32px"
+                  />
                   {p.name}
                 </Link>
               </td>

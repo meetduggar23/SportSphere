@@ -14,7 +14,7 @@ import { cachedFetch } from "@/lib/requestCache";
  *   so repeated identical searches never burn API quota.
  */
 export interface PlayerSearchEnvelope {
-  players: { id: string; name: string; country?: string }[];
+  players: { id: string; name: string; country?: string; photo?: string }[];
   total: number;
   offset: number;
   hasMore: boolean;
@@ -30,7 +30,7 @@ const DEBOUNCE_MS = 300;
 interface PageResult {
   seq: number;
   status: "ready" | "unavailable";
-  players?: { id: string; name: string; country?: string }[];
+  players?: { id: string; name: string; country?: string; photo?: string }[];
   total?: number;
   hasMore?: boolean;
   source?: string;
@@ -43,7 +43,7 @@ export function useCricketPlayerSearch(initialQuery = "") {
   const [query, setQuery] = useState(initialQuery);
   const [debounced, setDebounced] = useState(initialQuery.trim());
   const [offset, setOffset] = useState(0);
-  const [players, setPlayers] = useState<{ id: string; name: string; country?: string }[]>([]);
+  const [players, setPlayers] = useState<{ id: string; name: string; country?: string; photo?: string }[]>([]);
   const [status, setStatus] = useState<"loading" | "ready" | "unavailable">(
     initialQuery.trim() ? "loading" : "ready"
   );

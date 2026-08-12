@@ -66,6 +66,41 @@ export {
 export { queryRecords, getRecordCatalog, findRecordDefinition } from "./services/cricketRecords";
 export { getPlayerCareerStats } from "./services/cricketStats";
 
+/* ---- Player image provider layer (Sportmonks; independent of CricketData) ---- */
+export {
+  PLAYER_IMAGE_API,
+  getSportmonksApiToken,
+} from "./config/cricketConfig";
+export {
+  getCricketPlayerImageProvider,
+  SportmonksPlayerImageProvider,
+} from "./services/playerImageProvider";
+export type {
+  CricketPlayerImageProvider,
+  PlayerImage,
+  PlayerImageSubject,
+} from "./services/playerImageProvider";
+export {
+  getPlayerImage,
+  findImageProviderPlayer,
+  mapPlayerIdentity,
+  normalizePlayerIdentity,
+  cachePlayerImage,
+  enrichPlayerWithImage,
+  enrichPlayerRefsWithImages,
+  PLAYER_IMAGE_MAPPINGS,
+  PLAYER_IMAGE_CACHE_TTL_MS,
+} from "./services/playerImageService";
+export {
+  searchSportmonksPlayers,
+  getSportmonksPlayerById,
+} from "./services/sportmonksApi";
+export type {
+  RawSportmonksPlayer,
+  RawSportmonksCountry,
+} from "./services/sportmonksApi";
+export { CricketPlayerAvatar } from "./components/CricketPlayerAvatar";
+
 /* ---- Types ---- */
 export type {
   CricketFormatDef,

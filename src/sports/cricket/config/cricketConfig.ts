@@ -44,6 +44,46 @@ export function getCricketApiKey(): string | undefined {
   return undefined;
 }
 
+/* ---- Player image provider ---- */
+
+/**
+ * PLAYER_IMAGE_API — connection settings for the separate PLAYER IMAGE
+ * provider layer (Sportmonks Cricket API). This layer ONLY supplies player
+ * photographs; CricketData.org stays the source of all player information.
+ *
+ * Sportmonks player images are hosted on their CDN (cdn.sportmonks.com) and
+ * the player resource exposes them via the `image_path` field.
+ *
+ * LICENSE NOTE: Sportmonks explicitly states player photos are copyrighted by
+ * their legal owners and that the application owner must arrange the
+ * appropriate IP rights before displaying them publicly. API access alone is
+ * NOT a license to redistribute player photographs.
+ *
+ * The token is read from the server environment only (SPORTMONKS_API_TOKEN)
+ * and never shipped to the browser.
+ */
+export const PLAYER_IMAGE_API = {
+  baseUrl: "https://cricket.sportmonks.com/api/v2.0",
+  /** Env var holding the Sportmonks API token (server-side only). */
+  envKeys: ["SPORTMONKS_API_TOKEN"] as const,
+  provider: "Sportmonks",
+  sourceName: "Sportmonks Cricket",
+  sourceUrl: "https://www.sportmonks.com/cricket-api/",
+  /** CDN host that serves player photos (the only approved image domain). */
+  imageHost: "cdn.sportmonks.com",
+  /** Server-side upstream cache (seconds) — images are stable, cache long. */
+  revalidateSeconds: 86_400,
+} as const;
+
+/** Resolve the configured Sportmonks API token (server-side only). */
+export function getSportmonksApiToken(): string | undefined {
+  for (const key of PLAYER_IMAGE_API.envKeys) {
+    const value = process.env[key];
+    if (value) return value;
+  }
+  return undefined;
+}
+
 /* ---- Formats ---- */
 
 export const CRICKET_FORMATS: CricketFormatDef[] = [

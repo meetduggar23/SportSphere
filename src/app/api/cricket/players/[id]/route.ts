@@ -1,4 +1,5 @@
 import { getCricketPlayerProvider } from "@/sports/cricket/services/playerProvider";
+import { enrichPlayerWithImage } from "@/sports/cricket/services/playerImageService";
 import { cricketEnvelope } from "@/sports/cricket/services/serverResponse";
 
 /**
@@ -7,6 +8,11 @@ import { cricketEnvelope } from "@/sports/cricket/services/serverResponse";
  * REAL career statistics parsed from the provider's stats[] payload (per
  * format). Statistics that the provider doesn't supply stay absent; the UI
  * renders "Statistics unavailable" for those formats.
+ *
+ * Player image: CricketData supplies information only. The separate image
+ * provider layer (Sportmonks) resolves a REAL photograph and attaches it as
+ * imageUrl/imageProviderId. Unavailable or unmatched → image fields stay
+ * absent and the UI falls back to the initials avatar.
  */
 export async function GET(
   _request: Request,
@@ -17,6 +23,7 @@ export async function GET(
 
   return cricketEnvelope(async () => {
     const { player, stats } = await provider.getPlayer(id);
+    const playerWithImage = await enrichPlayerWithImage(player);
 
     // Map the provider's career stats (keyed by format) into the PlayerStats
     // result shape the profile UI consumes — one result per supported format,
@@ -49,6 +56,6 @@ export async function GET(
       };
     });
 
-    return { player, stats: results };
+    return { player: playerWithImage, stats: results };
   });
 }

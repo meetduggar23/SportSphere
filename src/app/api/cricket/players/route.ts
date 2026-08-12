@@ -1,6 +1,7 @@
 import { NextRequest } from "next/server";
 import { getCricketPlayersForTeam } from "@/sports/cricket/services/cricketApi";
 import { getCricketPlayerProvider } from "@/sports/cricket/services/playerProvider";
+import { enrichPlayerRefsWithImages } from "@/sports/cricket/services/playerImageService";
 import { cricketEnvelope } from "@/sports/cricket/services/serverResponse";
 
 /**
@@ -11,6 +12,11 @@ import { cricketEnvelope } from "@/sports/cricket/services/serverResponse";
  * team:   players of one national side, filtered by the player's country
  *         field (never another country's players).
  * Without search: first page of the global player directory.
+ *
+ * Player photos: resolved per player through the image provider layer and
+ * attached as `photo` on each ref. The image layer is fully optional and
+ * cached — an unavailable image provider leaves refs photo-less (initials
+ * fallback) and never breaks the list.
  */
 export async function GET(request: NextRequest) {
   const search = request.nextUrl.searchParams.get("search") ?? "";
@@ -24,12 +30,14 @@ export async function GET(request: NextRequest) {
     // Team roster path keeps its country-filtered behaviour (uses player info).
     if (teamId) {
       const refs: { id: string; name: string; country?: string }[] = await getCricketPlayersForTeam(teamId);
-      return { players: refs, total: refs.length, offset: 0, hasMore: false };
+      const withPhotos = await enrichPlayerRefsWithImages(refs);
+      return { players: withPhotos, total: withPhotos.length, offset: 0, hasMore: false };
     }
 
     const result = await provider.searchPlayers(search, offset);
+    const withPhotos = await enrichPlayerRefsWithImages(result.players);
     return {
-      players: result.players,
+      players: withPhotos,
       total: result.total,
       offset: result.offset,
       hasMore: result.hasMore,

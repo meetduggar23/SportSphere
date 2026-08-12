@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { CricketPlayerRef } from "@/sports/cricket/types/cricketTypes";
+import { CricketPlayerAvatar } from "@/sports/cricket/components/CricketPlayerAvatar";
 
 interface CricketPlayerCardProps {
   player: CricketPlayerRef;
@@ -9,21 +10,23 @@ interface CricketPlayerCardProps {
 
 /**
  * One cricket player in search/directory results. The search API returns
- * id/name/country only — role and photo come from the profile page, so cards
- * stay honest and never invent details.
+ * id/name/country only — role comes from the profile page, so cards stay
+ * honest and never invent details. A real photo is shown when the image
+ * provider resolved one; otherwise the initials avatar renders.
  */
 export function CricketPlayerCard({ player }: CricketPlayerCardProps) {
-  const initials = (player.name ?? "?").slice(0, 2).toUpperCase();
-
   return (
     <Link
       href={`/sports/cricket/players/${player.id}`}
       className="group flex items-center justify-between bg-score-surface border border-score-border p-4 hover:bg-score-elevated transition-colors rounded-md"
     >
       <div className="flex min-w-0 items-center gap-3">
-        <span className="flex h-10 w-10 shrink-0 items-center justify-center bg-score-elevated text-sm font-bold text-score-muted rounded-md">
-          {initials}
-        </span>
+        <CricketPlayerAvatar
+          name={player.name}
+          src={player.photo}
+          className="h-10 w-10"
+          sizes="40px"
+        />
         <div className="min-w-0">
           <p className="truncate text-sm font-semibold text-score-text">{player.name}</p>
           {player.country && <p className="text-xs text-score-muted">{player.country}</p>}
