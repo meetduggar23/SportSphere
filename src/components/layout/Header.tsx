@@ -103,8 +103,23 @@ export function Header() {
             <button
               onClick={toggleTheme}
               className="flex h-9 w-9 items-center justify-center text-foreground/75 transition-colors hover:bg-blue/40 hover:text-foreground rounded-md"
-              aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
-              title={isDark ? "Switch to light mode" : "Switch to dark mode"}
+              // The stored theme is client-only, so server HTML and the first
+              // hydration render must show a stable label — the theme-specific
+              // one appears only after mount (same guard as the icon below).
+              aria-label={
+                mounted
+                  ? isDark
+                    ? "Switch to light mode"
+                    : "Switch to dark mode"
+                  : "Toggle theme"
+              }
+              title={
+                mounted
+                  ? isDark
+                    ? "Switch to light mode"
+                    : "Switch to dark mode"
+                  : "Toggle theme"
+              }
             >
               {mounted ? (
                 isDark ? (
