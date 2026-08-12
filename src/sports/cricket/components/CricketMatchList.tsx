@@ -18,7 +18,7 @@ export function CricketMatchList({
 }: CricketMatchListProps) {
   if (status === "loading") {
     return (
-      <p className="  border border-border-navy bg-card/50 px-5 py-10 text-center text-sm text-muted rounded-md">
+      <p className="border border-score-border bg-score-surface px-5 py-10 text-center text-sm text-score-muted rounded-md">
         Loading matches…
       </p>
     );
@@ -26,7 +26,7 @@ export function CricketMatchList({
 
   if (status === "unavailable") {
     return (
-      <p className="  border border-border-navy bg-card/50 px-5 py-10 text-center text-sm text-muted rounded-md">
+      <p className="border border-score-border bg-score-surface px-5 py-10 text-center text-sm text-score-muted rounded-md">
         Statistics currently unavailable. Live cricket data requires the
         CRICAPI_API_KEY to be configured.
       </p>
@@ -35,7 +35,7 @@ export function CricketMatchList({
 
   if (matches.length === 0) {
     return (
-      <p className="  border border-border-navy bg-card/50 px-5 py-10 text-center text-sm text-muted rounded-md">
+      <p className="border border-score-border bg-score-surface px-5 py-10 text-center text-sm text-score-muted rounded-md">
         {emptyMessage}
       </p>
     );

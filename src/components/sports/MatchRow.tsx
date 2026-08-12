@@ -19,8 +19,8 @@ export function MatchRow({ match, className }: MatchRowProps) {
     <Link
       href={matchHref(match)}
       className={cn(
-        "group flex items-center gap-4 px-5 py-3.5 panel panel-hover",
-        isLive && "ring-1 ring-border-live/40",
+        "group flex items-center gap-4 px-5 py-3.5 bg-score-surface border border-score-border hover:bg-score-elevated transition-colors",
+        isLive && "ring-1 ring-score-border",
         className
       )}
     >
@@ -37,35 +37,25 @@ export function MatchRow({ match, className }: MatchRowProps) {
         />
         <div className="flex items-center gap-2.5">
           <TeamLogo logo={match.homeTeam.logo} name={match.homeTeam.name} size="sm" />
-          <span className="truncate text-sm font-semibold text-foreground-soft">{match.homeTeam.name}</span>
-          <span className="meta">vs</span>
-          <span className="truncate text-sm font-semibold text-foreground-soft">{match.awayTeam.name}</span>
+          <span className="truncate text-sm font-semibold text-score-text">{match.homeTeam.name}</span>
+          <span className="meta text-score-muted">vs</span>
+          <span className="truncate text-sm font-semibold text-score-text">{match.awayTeam.name}</span>
           <TeamLogo logo={match.awayTeam.logo} name={match.awayTeam.name} size="sm" />
         </div>
       </div>
 
       <div className="flex shrink-0 items-center gap-3">
         <div className="flex items-center gap-1.5">
-          <span
-            className={cn(
-              "display text-xl tabular-nums",
-              isLive ? "text-berry" : "text-foreground"
-            )}
-          >
+          <span className={cn("display text-xl tabular-nums text-score-text")}>
             {match.homeScore}
           </span>
-          <span className="text-muted">—</span>
-          <span
-            className={cn(
-              "display text-xl tabular-nums",
-              isLive ? "text-berry" : "text-foreground"
-            )}
-          >
+          <span className="text-score-muted">—</span>
+          <span className={cn("display text-xl tabular-nums text-score-text")}>
             {match.awayScore}
           </span>
         </div>
         <MatchStatus status={match.status} minute={match.minute} period={match.period} className="w-20 text-right" />
-        <ChevronRight className="h-4 w-4 text-faint transition-transform group-hover:translate-x-0.5 group-hover:text-foreground" />
+        <ChevronRight className="h-4 w-4 text-score-muted transition-transform group-hover:translate-x-0.5 group-hover:text-score-text" />
       </div>
     </Link>
   );

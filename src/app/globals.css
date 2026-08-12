@@ -225,6 +225,33 @@
 }
 
 /*
+  ---- Scorecard-only dark palette (broadcast scoreboard system) ----
+  Applied ONLY inside scorecard / match-card components via the score-* tokens
+  below. The global SportsSphere theme is intentionally untouched — these are
+  dedicated dark surfaces for match cards, scoreboards and scorecard tables.
+
+    #06131F  score-bg       deepest scorecard background (featured match, match
+                            detail, scoreboard deep area)
+    #0A1D2B  score-surface  normal match cards, secondary scorecard sections,
+                            team info / metadata areas
+    #0E2638  score-elevated hover / selected / small elevated sections (sparingly)
+    #6EACDA  score-accent   LIVE indicator, active states, small highlights,
+                            important links, subtle borders, match status
+    #F2F0D8  score-text     scores, team names, important match info, headings
+    #91A8B8  score-muted    competition, venue, date, time, secondary metadata
+    border   rgba(110,172,218,0.12)  extremely subtle sky borders
+*/
+:root {
+  --score-bg: #06131f;
+  --score-surface: #0a1d2b;
+  --score-elevated: #0e2638;
+  --score-accent: #6eacda;
+  --score-text: #f2f0d8;
+  --score-muted: #91a8b8;
+  --score-border: rgba(110, 172, 218, 0.12);
+}
+
+/*
   ---- Animatable palette (premium theme cross-fade) ----
   The four core palette variables are registered as <color> custom
   properties so they can be interpolated. When the theme switches, every
@@ -333,6 +360,14 @@
   --color-brand-purple: var(--sport-deep);
   --color-brand-navy: var(--sport-navy);
   --color-brand-blue: var(--blue);
+  /* Scorecard-only palette (broadcast scoreboard system) */
+  --color-score-bg: var(--score-bg);
+  --color-score-surface: var(--score-surface);
+  --color-score-elevated: var(--score-elevated);
+  --color-score-accent: var(--score-accent);
+  --color-score-text: var(--score-text);
+  --color-score-muted: var(--score-muted);
+  --color-score-border: var(--score-border);
   /* Official light-theme tokens */
   --color-accent: var(--sport-accent);
   --color-steel: var(--sport-accent);

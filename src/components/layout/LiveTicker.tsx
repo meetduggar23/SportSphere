@@ -125,16 +125,16 @@ export function LiveTicker() {
                     <Link
                       key={`${dup}-${m.id}`}
                       href={m.href}
-                      className="group flex items-center gap-2.5 px-5 py-1 text-xs transition-colors hover:bg-blue/40"
+                      className="group flex items-center gap-2.5 px-5 py-1 text-xs transition-colors hover:bg-score-elevated/80"
                     >
-                      <span className="label shrink-0 text-secondary">{sportShortLabels[m.sport]}</span>
-                      <span className="font-semibold text-foreground-soft">{m.homeShort}</span>
-                      <span className="tabular-nums text-muted-strong">{m.homeScore}</span>
-                      <span className="text-muted">—</span>
-                      <span className="tabular-nums text-muted-strong">{m.awayScore}</span>
-                      <span className="font-semibold text-foreground-soft">{m.awayShort}</span>
+                      <span className="label shrink-0 text-score-muted">{sportShortLabels[m.sport]}</span>
+                      <span className="font-semibold text-score-text">{m.homeShort}</span>
+                      <span className="tabular-nums text-score-muted">{m.homeScore}</span>
+                      <span className="text-score-muted">—</span>
+                      <span className="tabular-nums text-score-muted">{m.awayScore}</span>
+                      <span className="font-semibold text-score-text">{m.awayShort}</span>
                       {m.minute && (
-                        <span className="ml-0.5 bg-blue px-1.5 py-px text-[10px] font-bold text-muted-strong">
+                        <span className="ml-0.5 bg-score-accent px-1.5 py-px text-[10px] font-bold text-score-bg">
                           {m.minute}
                         </span>
                       )}

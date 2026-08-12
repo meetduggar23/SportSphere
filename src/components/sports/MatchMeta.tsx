@@ -36,13 +36,13 @@ export function MatchStatus({
     return (
       <span
         className={cn(
-          "inline-flex shrink-0 items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-secondary",
+          "inline-flex shrink-0 items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-score-accent",
           className
         )}
       >
         <span className="relative flex h-1.5 w-1.5">
-          <span className="absolute inline-flex h-full w-full bg-secondary animate-ping-ring" />
-          <span className="relative inline-flex h-1.5 w-1.5 bg-secondary" />
+          <span className="absolute inline-flex h-full w-full bg-score-accent animate-ping-ring" />
+          <span className="relative inline-flex h-1.5 w-1.5 bg-score-accent" />
         </span>
         Live{minute ? ` ${minute}` : period ? ` ${period}` : ""}
       </span>
@@ -52,7 +52,7 @@ export function MatchStatus({
     return (
       <span
         className={cn(
-          "shrink-0 text-[10px] font-bold uppercase tracking-wider text-muted-strong",
+          "shrink-0 text-[10px] font-bold uppercase tracking-wider text-score-muted",
           className
         )}
       >
@@ -63,7 +63,7 @@ export function MatchStatus({
   return (
     <span
       className={cn(
-        "shrink-0 text-[10px] font-bold uppercase tracking-wider text-muted",
+        "shrink-0 text-[10px] font-bold uppercase tracking-wider text-score-muted",
         className
       )}
     >
@@ -106,8 +106,8 @@ export function MatchMeta({
 
   return (
     <div className={cn("flex min-w-0 items-center gap-2", className)}>
-      <span className="label shrink-0 text-secondary">{sportShortLabels[sport]}</span>
-      {names.length > 0 && <span className="label truncate text-muted-strong">{names[0]}</span>}
+      <span className="label shrink-0 text-score-muted">{sportShortLabels[sport]}</span>
+      {names.length > 0 && <span className="label truncate text-score-muted">{names[0]}</span>}
       {showStatus && (
         <MatchStatus status={status} minute={minute} period={period} className="ml-auto" />
       )}

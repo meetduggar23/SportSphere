@@ -92,20 +92,20 @@ export default function MatchPage({ params }: { params: Promise<{ id: string }> 
           <DemoBadge label="Demo match data" />
         </div>
 
-<div className="arena-card overflow-hidden mb-6">
-          <div className="px-6 py-4 border-b border-border flex items-center justify-between gap-4 flex-wrap">
+<div className="bg-score-bg border border-score-border overflow-hidden mb-6">
+          <div className="px-6 py-4 border-b border-score-border flex items-center justify-between gap-4 flex-wrap">
             <div className="flex items-center gap-2 text-xs">
-              <span className="label text-secondary">{sportShortLabels[match.sport]}</span>
+              <span className="label text-score-muted">{sportShortLabels[match.sport]}</span>
               {uniqueMeta([match.competition, match.league]).map((name) => (
                 <span key={name} className="flex items-center gap-2">
-                  <span className="text-muted">•</span>
-                  <span className="text-muted">{name}</span>
+                  <span className="text-score-muted">•</span>
+                  <span className="text-score-muted">{name}</span>
                 </span>
               ))}
               {match.date && (
                 <>
-                  <span className="text-muted">•</span>
-                  <span className="text-muted">{match.date}</span>
+                  <span className="text-score-muted">•</span>
+                  <span className="text-score-muted">{match.date}</span>
                 </>
               )}
             </div>
@@ -122,18 +122,18 @@ export default function MatchPage({ params }: { params: Promise<{ id: string }> 
             <div className="flex items-center justify-between gap-4">
               <Link href={`/team/${match.homeTeam.id}`} className="flex flex-col items-center gap-3 flex-1 group">
                 <TeamLogo logo={match.homeTeam.logo} name={match.homeTeam.name} size="xl" />
-                <span className="font-bold text-center group-hover:text-foreground transition-colors">
+                <span className="font-bold text-center text-score-text transition-colors">
                   {match.homeTeam.name}
                 </span>
               </Link>
 
               <div className="flex flex-col items-center px-4">
                 <div className="flex items-center gap-4">
-                  <span className={cn("text-5xl font-extrabold", isLive && "text-berry")}>
+                  <span className="text-5xl font-extrabold text-score-text">
                     {match.homeScore}
                   </span>
-                  <span className="text-2xl text-muted">:</span>
-                  <span className={cn("text-5xl font-extrabold", isLive && "text-berry")}>
+                  <span className="text-2xl text-score-muted">:</span>
+                  <span className="text-5xl font-extrabold text-score-text">
                     {match.awayScore}
                   </span>
                 </div>
@@ -148,35 +148,35 @@ export default function MatchPage({ params }: { params: Promise<{ id: string }> 
 
               <Link href={`/team/${match.awayTeam.id}`} className="flex flex-col items-center gap-3 flex-1 group">
                 <TeamLogo logo={match.awayTeam.logo} name={match.awayTeam.name} size="xl" />
-                <span className="font-bold text-center group-hover:text-foreground transition-colors">
+                <span className="font-bold text-center text-score-text transition-colors">
                   {match.awayTeam.name}
                 </span>
               </Link>
             </div>
 
             {match.details && (
-              <p className="text-center text-sm text-muted mt-6">{match.details}</p>
+              <p className="text-center text-sm text-score-muted mt-6">{match.details}</p>
             )}
           </div>
 
-          <div className="px-6 py-4 border-t border-border grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-            <div className="flex items-center gap-2 justify-center text-sm text-muted">
+          <div className="px-6 py-4 border-t border-score-border grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+            <div className="flex items-center gap-2 justify-center text-sm text-score-muted">
               <MapPin className="h-4 w-4 shrink-0" /> {match.venue ?? "TBD"}
             </div>
             {hasDetailData ? (
               <>
-                <div className="flex items-center gap-2 justify-center text-sm text-muted">
+                <div className="flex items-center gap-2 justify-center text-sm text-score-muted">
                   <CloudSun className="h-4 w-4 shrink-0" /> 22°C • Clear
                 </div>
-                <div className="flex items-center gap-2 justify-center text-sm text-muted">
+                <div className="flex items-center gap-2 justify-center text-sm text-score-muted">
                   <Users className="h-4 w-4 shrink-0" /> 74,000 Attendance
                 </div>
-                <div className="flex items-center gap-2 justify-center text-sm text-muted">
+                <div className="flex items-center gap-2 justify-center text-sm text-score-muted">
                   <Gauge className="h-4 w-4 shrink-0" /> Ref: A. Taylor
                 </div>
               </>
             ) : (
-              <div className="col-span-2 md:col-span-3 flex items-center justify-center text-xs text-muted">
+              <div className="col-span-2 md:col-span-3 flex items-center justify-center text-xs text-score-muted">
                 Weather, attendance and referee details are not available for this fixture.
               </div>
             )}
@@ -185,7 +185,7 @@ export default function MatchPage({ params }: { params: Promise<{ id: string }> 
 
         <div className="flex gap-6">
           <div className="flex-1 min-w-0 space-y-6">
-<div className="flex gap-1 overflow-x-auto  border border-border/60 bg-blue/10 p-1.5">
+<div className="flex gap-1 overflow-x-auto border border-score-border bg-score-surface p-1.5">
               {tabs.map((tab) => (
                 <button
                   key={tab.value}
@@ -193,8 +193,8 @@ export default function MatchPage({ params }: { params: Promise<{ id: string }> 
                   className={cn(
                     "px-4 py-2 text-sm font-semibold  transition-all whitespace-nowrap",
                     activeTab === tab.value
-                      ? "bg-blue/50 text-foreground"
-                      : "text-muted hover:text-foreground"
+                      ? "bg-score-elevated text-score-text"
+                      : "text-score-muted hover:text-score-text"
                   )}
                 >
                   {tab.label}
@@ -202,7 +202,7 @@ export default function MatchPage({ params }: { params: Promise<{ id: string }> 
               ))}
             </div>
 
-            <div className="arena-card p-4">
+            <div className="bg-score-surface border border-score-border p-4">
               {hasDetailData ? (
                 <>
                   {activeTab === "timeline" && (
@@ -309,9 +309,9 @@ export default function MatchPage({ params }: { params: Promise<{ id: string }> 
                   ].map((v) => (
 <div
                       key={v.title}
-                      className="arena-card arena-card-hover flex items-center gap-3 p-4 cursor-pointer"
+                      className="bg-score-surface border border-score-border arena-card-hover flex items-center gap-3 p-4 cursor-pointer hover:bg-score-elevated transition-colors"
                     >
-                      <div className="w-12 h-12  bg-secondary/10 text-secondary flex items-center justify-center text-xl shrink-0 rounded-md">
+                      <div className="w-12 h-12  bg-score-elevated text-score-accent flex items-center justify-center text-xl shrink-0 rounded-md">
                         {v.icon}
                       </div>
                       <div className="flex-1 min-w-0">
@@ -325,25 +325,25 @@ export default function MatchPage({ params }: { params: Promise<{ id: string }> 
             )}
           </div>          <aside className="hidden lg:block w-80 shrink-0 space-y-6">
             {hasDetailData && (
-              <div className="arena-card p-4">
-                <h3 className="heading flex items-center gap-2 mb-3 text-base text-foreground">
-                  <Sparkles className="h-4 w-4 text-secondary" /> AI Match Summary
+              <div className="bg-score-surface border border-score-border p-4">
+                <h3 className="heading flex items-center gap-2 mb-3 text-base text-score-text">
+                  <Sparkles className="h-4 w-4 text-score-accent" /> AI Match Summary
                 </h3>
-                <p className="text-sm text-muted leading-relaxed">
+                <p className="text-sm text-score-muted leading-relaxed">
                   {match.homeTeam.name} have been dominant, controlling 58% of possession with an xG of 2.1.
                   Rodrygo&apos;s 74th minute strike has swung the momentum. Key battle: Bellingham vs Kimmich
                   in midfield. Expect Bayern to push high in the final 15 minutes.
                 </p>
-                <button className="w-full mt-3 py-2 text-sm font-medium bg-secondary/10 text-secondary  hover:bg-secondary/20 transition-colors rounded-md">
+                <button className="w-full mt-3 py-2 text-sm font-medium bg-score-accent/15 text-score-accent hover:bg-score-accent/25 transition-colors rounded-md">
                   Ask AI about this match
                 </button>
               </div>
             )}
 
 {hasDetailData && (
-            <div className="arena-card p-4">
-              <h3 className="heading flex items-center gap-2 mb-3 text-base text-foreground">
-                <History className="h-4 w-4 text-secondary" /> Head to Head
+            <div className="bg-score-surface border border-score-border p-4">
+              <h3 className="heading flex items-center gap-2 mb-3 text-base text-score-text">
+                <History className="h-4 w-4 text-score-accent" /> Head to Head
               </h3>
               <div className="space-y-2 text-sm">
                 {[
@@ -363,19 +363,19 @@ export default function MatchPage({ params }: { params: Promise<{ id: string }> 
             </div>
             )}
 
-<div className="arena-card p-4">
-              <h3 className="heading flex items-center gap-2 mb-3 text-base text-foreground">
-                <MessageCircle className="h-4 w-4 text-secondary" /> Trending Players
+<div className="bg-score-surface border border-score-border p-4">
+              <h3 className="heading flex items-center gap-2 mb-3 text-base text-score-text">
+                <MessageCircle className="h-4 w-4 text-score-accent" /> Trending Players
               </h3>
               <div className="space-y-3">
                 {topPlayers.slice(0, 4).map((p) => (
                   <Link key={p.id} href={`/player/${p.id}`} className="flex items-center gap-3 group">
                     <TeamLogo logo={p.teamLogo} name={p.team} size="sm" />
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium truncate group-hover:text-foreground transition-colors">{p.name}</p>
-                      <p className="text-xs text-muted">{p.team}</p>
+                      <p className="text-sm font-medium truncate text-score-text transition-colors">{p.name}</p>
+                      <p className="text-xs text-score-muted">{p.team}</p>
                     </div>
-                    <span className="text-xs font-bold">{p.rating}★</span>
+                    <span className="text-xs font-bold text-score-text">{p.rating}★</span>
                   </Link>
                 ))}
               </div>

@@ -35,7 +35,7 @@ export function CricketMatchPage({ id }: CricketMatchPageProps) {
         />
 
         {status === "loading" && (
-          <p className="  border border-border-navy bg-card/50 px-5 py-10 text-center text-sm text-muted rounded-md">
+          <p className="border border-score-border bg-score-surface px-5 py-10 text-center text-sm text-score-muted rounded-md">
             Loading scorecard…
           </p>
         )}
