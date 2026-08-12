@@ -70,3 +70,9 @@ src/
 ## License
 
 Private project. All rights reserved.
+
+---
+
+<p align="center">
+  Made with ❤️ by <b>Meet</b>
+</p>
