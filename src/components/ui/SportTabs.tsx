@@ -12,10 +12,7 @@ interface SportTabsProps {
 export function SportTabs({ tabs, active, onChange, className }: SportTabsProps) {
   return (
     <div
-      className={cn(
-        "flex gap-1 overflow-x-auto  border border-border/60 bg-blue/10 p-1.5 no-scrollbar backdrop-blur rounded-lg",
-        className
-      )}
+      className={cn("no-scrollbar flex items-center gap-1 overflow-x-auto", className)}
       role="tablist"
     >
       {tabs.map((tab) => {
@@ -26,26 +23,26 @@ export function SportTabs({ tabs, active, onChange, className }: SportTabsProps)
             role="tab"
             aria-selected={isActive}
             onClick={() => onChange(tab.value)}
-className={cn(
-              "relative flex items-center whitespace-nowrap  px-4 py-2 text-sm font-semibold transition-all duration-200 rounded-md",
+            className={cn(
+              "relative flex shrink-0 items-center whitespace-nowrap px-3 py-2 text-sm font-semibold transition-colors duration-200",
               isActive
-                ? "bg-blue/50 text-foreground"
-                : "text-muted hover:bg-blue/30 hover:text-foreground"
+                ? "text-foreground"
+                : "text-muted hover:bg-blue/20 hover:text-foreground rounded-sm"
             )}
           >
             {tab.label}
             {tab.count !== undefined && (
               <span
                 className={cn(
-                  "ml-1.5  px-1.5 py-0.5 text-[10px] font-bold tabular-nums rounded-full",
-                  isActive ? "bg-secondary/15 text-secondary" : "bg-muted/10 text-muted"
+                  "ml-1.5 text-[10px] font-bold tabular-nums",
+                  isActive ? "text-secondary" : "text-muted"
                 )}
               >
                 {tab.count}
               </span>
             )}
             {isActive && (
-              <span className="absolute -bottom-[7px] left-1/2 h-0.5 w-6 -translate-x-1/2  bg-primary" />
+              <span className="absolute inset-x-2 bottom-0 h-0.5 bg-primary" />
             )}
           </button>
         );

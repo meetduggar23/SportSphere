@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
-import { Match, sportIcons } from "@/types";
+import { Match } from "@/types";
 import { TeamLogo } from "@/components/ui/TeamLogo";
 import { cn } from "@/lib/utils";
 
@@ -26,9 +26,6 @@ export function MatchRow({ match, className }: MatchRowProps) {
     >
       <div className="flex min-w-0 flex-1 flex-col gap-1.5">
         <div className="flex items-center gap-2">
-          <span className="flex h-6 w-6 items-center justify-center  bg-blue/50 text-muted-strong rounded-sm">
-            <span className="text-xs">{sportIcons[match.sport]}</span>
-          </span>
           <span className="label truncate">{match.league}</span>
           {isLive && (
             <span className="inline-flex items-center gap-1  bg-primary px-2 py-0.5 text-[9px] font-bold text-navy rounded-full">

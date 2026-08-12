@@ -65,7 +65,9 @@ function fixtureToMatch(fx: Fixture): Match {
     homeScore: "-",
     awayScore: "-",
     date: fx.dateTime,
-    competition: fx.league,
+    // No separate competition field — league already carries the name, so the
+    // UI can never render "U19 LEAGUE • U19 LEAGUE" duplicated labels.
+    competition: undefined,
   };
 }
 

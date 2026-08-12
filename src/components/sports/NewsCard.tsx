@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Clock, Eye } from "lucide-react";
-import { News, sportIcons } from "@/types";
+import { News } from "@/types";
 import { cn } from "@/lib/utils";
 
 interface NewsCardProps {
@@ -66,7 +66,6 @@ export function NewsCard({ news, variant = "default", className }: NewsCardProps
 <div className="absolute inset-x-0 bottom-0 p-5">
               <div className="mb-2.5 flex items-center gap-2">
                 <CategoryChip category={news.category} />
-                <span className="text-white/80">{sportIcons[news.sport]}</span>
               </div>
               <h3 className="heading text-xl text-white md:text-2xl line-clamp-2">
                 {news.title}
@@ -109,7 +108,6 @@ export function NewsCard({ news, variant = "default", className }: NewsCardProps
             )}
 <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
               <CategoryChip category={news.category} />
-              <span className="text-sm text-white/80">{sportIcons[news.sport]}</span>
             </div>
           </div>
           <div className="p-5">

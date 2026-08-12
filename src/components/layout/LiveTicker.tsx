@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { sportIcons, Sport } from "@/types";
+import { Sport } from "@/types";
 
 interface TickerItem {
   id: string;
@@ -100,15 +100,17 @@ export function LiveTicker() {
   return (
     <div className="relative z-40 border-b border-border bg-background/85 backdrop-blur-xl">
       <div className="mx-auto flex max-w-[1440px] items-center">
-        <div className="flex shrink-0 items-center gap-2 border-r border-border px-4 py-1">
-          <span className="inline-flex items-center gap-1.5 bg-primary px-2 py-0.5 rounded-full">
-            <span className="relative flex h-1 w-1">
-              <span className="absolute inline-flex h-full w-full bg-navy animate-ping-ring" />
-              <span className="relative inline-flex h-1 w-1 bg-navy" />
+        {items.length > 0 && (
+          <div className="flex shrink-0 items-center gap-2 border-r border-border px-4 py-1">
+            <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-secondary">
+              <span className="relative flex h-1.5 w-1.5">
+                <span className="absolute inline-flex h-full w-full bg-secondary animate-ping-ring" />
+                <span className="relative inline-flex h-1.5 w-1.5 bg-secondary" />
+              </span>
+              Live
             </span>
-            <span className="label text-navy">Live</span>
-          </span>
-        </div>
+          </div>
+        )}
 
         <div className="ticker-track relative flex-1 overflow-hidden">
           {!loaded ? (
@@ -125,7 +127,6 @@ export function LiveTicker() {
                       href={m.href}
                       className="group flex items-center gap-2.5 px-5 py-1 text-xs transition-colors hover:bg-blue/40"
                     >
-                      <span className="text-muted">{sportIcons[m.sport]}</span>
                       <span className="font-semibold text-foreground-soft">{m.homeShort}</span>
                       <span className="tabular-nums text-muted-strong">{m.homeScore}</span>
                       <span className="text-muted">—</span>

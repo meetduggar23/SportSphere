@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Radio, Trophy } from "lucide-react";
+import { Radio, Trophy, Newspaper, CalendarDays, Flag } from "lucide-react";
 import { AppShell } from "@/components/layout/AppShell";
 import { DemoBadge } from "@/components/ui/DemoBadge";
 import { SectionHeader } from "@/components/ui/SectionHeader";
@@ -14,7 +14,7 @@ import { MatchRow } from "@/components/sports/MatchRow";
 import { StandingsTable } from "@/components/sports/StandingsTable";
 import { TrendingSidebar } from "@/components/dashboard/TrendingSidebar";
 import { useHomeFeed, homeSports, getFeaturedLiveEvent } from "@/lib/homeFeed";
-import { sportIcons, sportLabels, TrendingItem, Sport, Match } from "@/types";
+import { sportLabels, TrendingItem, Sport, Match } from "@/types";
 import { topNews } from "@/data/mock";
 
 const shortLabels: Record<Sport, string> = {
@@ -32,6 +32,16 @@ const shortLabels: Record<Sport, string> = {
   afl: "AFL",
   nba: "NBA",
 };
+
+function timeAgo(ts: number): string {
+  const s = Math.floor((Date.now() - ts) / 1000);
+  if (s < 10) return "just now";
+  if (s < 60) return `${s}s ago`;
+  const m = Math.floor(s / 60);
+  if (m < 60) return `${m}m ago`;
+  const h = Math.floor(m / 60);
+  return `${h}h ago`;
+}
 
 export default function Home() {
   const feed = useHomeFeed();
@@ -77,7 +87,7 @@ export default function Home() {
       rank: i + 1,
       title: `${m.homeTeam.name} vs ${m.awayTeam.name}`,
       subtitle: `${m.league} • ${sportLabels[m.sport]}`,
-      logos: [sportIcons[m.sport]],
+      logos: [],
       trend: "up" as const,
     }));
   }, [live, upcoming, results]);
@@ -102,49 +112,57 @@ export default function Home() {
 
   return (
     <AppShell>
-      <div className="mx-auto max-w-[1440px] px-4 py-6 lg:px-6 lg:py-8">
-        {/* Kickoff strip — fully dynamic, no single-sport hero */}
-        <div className="mb-10 flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
-          <div>
+      <div className="mx-auto max-w-[1440px] px-4 py-4 lg:px-6 lg:py-5">
+        {/* Compact hero — kicker, headline, one-line pitch, live status inline */}
+        <section className="mb-5 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+          <div className="min-w-0 max-w-2xl">
             <p className="kicker mb-1.5 text-muted-strong">Sports Desk / Live Sports</p>
-            <h1 className="display text-4xl md:text-6xl">
+            <h1 className="display text-3xl md:text-5xl">
               The world of sports, <span className="text-secondary">live</span>
             </h1>
-            <p className="mt-3 max-w-xl text-muted-strong">
+            <p className="mt-2 max-w-xl text-sm leading-relaxed text-muted-strong md:text-[15px]">
               Every sport, one feed. Live scores, upcoming events and results from across the
               entire SportsSphere — whatever is happening right now, right here.
             </p>
+            {status === "ready" && (
+              <p className="mt-2 text-xs text-muted">
+                Live providers • Updated {lastUpdated ? timeAgo(lastUpdated) : "just now"}
+              </p>
+            )}
           </div>
-          <div className="flex items-center gap-2">
-            <span className="inline-flex items-center gap-2  border border-border bg-blue/15 px-3.5 py-1.5 text-xs text-muted-strong">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full  bg-secondary animate-ping-ring" />
-                <span className="relative inline-flex h-2 w-2  bg-secondary" />
-              </span>
-              {status === "loading"
-                ? "Checking live events…"
-                : liveCount > 0
-                  ? `${liveCount} ${liveCount === 1 ? "event" : "events"} live now`
-                  : "No live events right now"}
+
+          {/* Live status — connected to the hero, right aligned, no card */}
+          <div className="flex shrink-0 items-center gap-2 text-sm font-semibold text-muted-strong">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full bg-secondary animate-ping-ring" />
+              <span className="relative inline-flex h-2 w-2 bg-secondary" />
             </span>
+            {status === "loading"
+              ? "Checking live events…"
+              : liveCount > 0
+                ? `${liveCount} ${liveCount === 1 ? "event" : "events"} live now`
+                : "No live events right now"}
           </div>
-        </div>
+        </section>
 
-        <DataStatus
-          status={status}
-          dataSource={status === "ready" ? "Live providers" : undefined}
-          lastUpdated={lastUpdated}
-          error={error}
-          onRetry={retry}
-        />
+        {status === "unavailable" && (
+          <DataStatus
+            status={status}
+            dataSource="Live providers"
+            lastUpdated={lastUpdated}
+            error={error}
+            onRetry={retry}
+          />
+        )}
 
-        {/* Sport filter — All Sports by default, never football-biased */}
-        <div className="mb-10">
+        {/* Sport filter — compact text strip, directly above Live Now */}
+        <div className="mb-5">
           <SportTabs tabs={filterTabs} active={filter} onChange={setFilter} />
         </div>
 
-        <div className="grid grid-cols-1 gap-10 xl:grid-cols-[1fr_320px]">
-          <div className="min-w-0 space-y-12">
+        {/* Main grid — Live Now (left) + Trending (right) start at the same height */}
+        <div className="grid grid-cols-1 gap-8 xl:grid-cols-[minmax(0,1fr)_300px]">
+          <div className="min-w-0 space-y-9">
             {/* 1. Live Now — dynamically populated from all currently live sports */}
             <section>
               <SectionHeader
@@ -156,16 +174,16 @@ export default function Home() {
               />
 
               {status === "loading" ? (
-                <div className="flex items-center justify-center py-16 text-muted">
+                <div className="flex items-center justify-center py-12 text-sm text-muted">
                   Loading live events across all sports…
                 </div>
               ) : featured ? (
                 <>
-                  <div className="mb-5">
+                  <div className="mb-4">
                     <FeaturedEvent match={featured} />
                   </div>
                   {otherLive.length > 0 && (
-                    <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                       {otherLive.map((match) => (
                         <LiveMatchCard key={`${match.sport}:${match.id}`} match={match} />
                       ))}
@@ -173,10 +191,10 @@ export default function Home() {
                   )}
                 </>
               ) : (
-                <div className="arena-card text-center py-16">
-                  <p className="text-4xl mb-4">📡</p>
-                  <p className="heading text-xl text-foreground">No live events right now</p>
-                  <p className="mt-2 text-sm text-muted">
+                <div className="arena-card text-center py-12">
+                  <Radio className="mx-auto mb-3 h-8 w-8 text-muted" />
+                  <p className="heading text-lg text-foreground">No live events right now</p>
+                  <p className="mt-1 text-sm text-muted">
                     {filter === "all"
                       ? "Nothing is live at this moment. Upcoming events across all sports are below."
                       : `No live ${shortLabels[filter as Sport]} events at this moment. Upcoming events are below.`}
@@ -189,15 +207,15 @@ export default function Home() {
             <section>
               <SectionHeader title="Upcoming" kicker="Fixtures" href="/calendar" linkLabel="Calendar" />
               {scoped.upcoming.length > 0 ? (
-                <div className="space-y-3">
+                <div className="space-y-2.5">
                   {scoped.upcoming.slice(0, 5).map((m) => (
                     <MatchRow key={`${m.sport}:${m.id}`} match={m} />
                   ))}
                 </div>
               ) : (
-                <div className="arena-card text-center py-12">
-                  <p className="text-3xl mb-3">🗓️</p>
-                  <p className="font-medium text-muted">No upcoming events available</p>
+                <div className="arena-card text-center py-10">
+                  <CalendarDays className="mx-auto mb-3 h-7 w-7 text-muted" />
+                  <p className="text-sm font-medium text-muted">No upcoming events available</p>
                 </div>
               )}
             </section>
@@ -206,15 +224,15 @@ export default function Home() {
             <section>
               <SectionHeader title="Latest Results" kicker="Full time" href="/live" linkLabel="Scores" />
               {scoped.results.length > 0 ? (
-                <div className="space-y-3">
+                <div className="space-y-2.5">
                   {scoped.results.slice(0, 5).map((m) => (
                     <MatchRow key={`${m.sport}:${m.id}`} match={m} />
                   ))}
                 </div>
               ) : (
-                <div className="arena-card text-center py-12">
-                  <p className="text-3xl mb-3">🏁</p>
-                  <p className="font-medium text-muted">No completed events available</p>
+                <div className="arena-card text-center py-10">
+                  <Flag className="mx-auto mb-3 h-7 w-7 text-muted" />
+                  <p className="text-sm font-medium text-muted">No completed events available</p>
                 </div>
               )}
             </section>
@@ -226,9 +244,9 @@ export default function Home() {
                 kicker="Latest"
                 href="/news"
                 linkLabel="All News"
-                icon={<span className="text-lg">📰</span>}
+                icon={<Newspaper className="h-5 w-5" />}
               />
-              <div className="mb-3 -mt-2 flex items-center gap-2">
+              <div className="mb-3 -mt-1 flex items-center gap-2">
                 <DemoBadge label="Demo content — no news provider connected" />
               </div>
               <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
@@ -261,14 +279,14 @@ export default function Home() {
             )}
           </div>
 
-          {/* Editorial rail */}
+          {/* Right rail — starts level with Live Now */}
           <aside className="hidden xl:block">
-            <div className="sticky top-28 space-y-5">
+            <div className="sticky top-24 space-y-5">
               <TrendingSidebar
                 items={trendingItems}
                 title={live.length > 0 ? "Trending Live" : "Trending Upcoming"}
               />
-              <div className="overflow-hidden  arena-card p-5">
+              <div className="overflow-hidden arena-card p-5">
                 <p className="kicker mb-2 text-muted-strong">All Sports</p>
                 <h3 className="heading text-lg text-foreground">One feed, every sport</h3>
                 <p className="mt-2 text-sm text-muted leading-relaxed">
@@ -283,14 +301,14 @@ export default function Home() {
                   ))}
                 </div>
               </div>
-              <div className="overflow-hidden  arena-card p-5">
+              <div className="overflow-hidden arena-card p-5">
                 <p className="kicker mb-2 text-muted-strong">SportsSphere</p>
                 <h3 className="heading text-lg text-foreground flex items-center gap-2">
                   <Trophy className="h-4 w-4 text-secondary" /> Live providers
                 </h3>
                 <p className="mt-2 text-sm text-muted leading-relaxed">
                   {status === "ready"
-                    ? `Updated ${lastUpdated ? new Date(lastUpdated).toLocaleTimeString() : "just now"}.`
+                    ? `Updated ${lastUpdated ? timeAgo(lastUpdated) : "just now"}.`
                     : "Live data is temporarily unavailable."}
                 </p>
               </div>

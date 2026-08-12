@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { MapPin, Clock } from "lucide-react";
-import { Match, sportIcons } from "@/types";
+import { Match } from "@/types";
 import { TeamLogo } from "@/components/ui/TeamLogo";
 import { cn } from "@/lib/utils";
 
@@ -32,9 +32,6 @@ export function LiveMatchCard({ match, className }: LiveMatchCardProps) {
       {/* Header */}
       <div className="flex items-center justify-between gap-2 px-5 pt-4">
         <div className="flex min-w-0 items-center gap-2">
-          <span className="flex h-7 w-7 shrink-0 items-center justify-center  bg-blue/50 text-muted-strong rounded-sm">
-            <span className="text-sm">{sportIcons[match.sport]}</span>
-          </span>
           <span className="label truncate">{match.league}</span>
         </div>
         {isLive && (
