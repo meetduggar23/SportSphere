@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { Fixture, sportShortLabels } from "@/types";
 import { TeamLogo } from "@/components/ui/TeamLogo";
+import { matchHref } from "@/lib/utils";
 
 interface FixtureListProps {
   fixtures: Fixture[];
@@ -31,7 +32,7 @@ export function FixtureList({ fixtures, title = "Upcoming Fixtures", href = "/ca
         {fixtures.map((fixture) => (
           <Link
             key={fixture.id}
-            href={`/match/${fixture.id}`}
+            href={matchHref({ sport: fixture.sport, id: fixture.id })}
             className="group flex items-center gap-4 px-6 py-4 transition-colors hover:bg-blue/30"
           >
             <div className="hidden flex-col items-center sm:flex">

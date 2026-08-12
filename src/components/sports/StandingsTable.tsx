@@ -73,8 +73,10 @@ export function StandingsTable({
           </thead>
           <tbody>
             {standings.slice(0, compact ? 6 : undefined).map((row) => (
-<tr
-                key={row.position}
+              // team id is deduped upstream; position alone is not unique
+              // across merged provider groups, so pair both.
+              <tr
+                key={`${row.team.id}-${row.position}`}
                 className="border-b border-border-navy transition-colors last:border-0 hover:bg-blue/30"
               >
                 <td className="px-6 py-3.5">

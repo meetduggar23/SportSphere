@@ -5,7 +5,7 @@ import { MapPin, Clock } from "lucide-react";
 import { Match } from "@/types";
 import { TeamLogo } from "@/components/ui/TeamLogo";
 import { MatchMeta } from "@/components/sports/MatchMeta";
-import { cn } from "@/lib/utils";
+import { cn, matchHref } from "@/lib/utils";
 
 interface LiveMatchCardProps {
   match: Match;
@@ -18,7 +18,7 @@ export function LiveMatchCard({ match, className }: LiveMatchCardProps) {
 
   return (
     <Link
-      href={`/match/${match.id}`}
+      href={matchHref(match)}
       className={cn(
         "group relative flex flex-col overflow-hidden arena-card arena-card-hover",
         isLive && "ring-1 ring-border-live/50",

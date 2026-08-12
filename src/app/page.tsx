@@ -67,7 +67,10 @@ export default function Home() {
         : upcoming
       : results;
     return source.slice(0, 6).map((m, i) => ({
-      id: m.id,
+      // Namespace by sport — match ids are only unique per sport (football
+      // #512323 can collide with another sport's #512323), and the trending
+      // list renders these as React keys.
+      id: `${m.sport}:${m.id}`,
       rank: i + 1,
       title: `${m.homeTeam.name} vs ${m.awayTeam.name}`,
       subtitle: `${m.league} • ${sportLabels[m.sport]}`,

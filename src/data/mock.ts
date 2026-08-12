@@ -395,7 +395,7 @@ export const topNews: News[] = [
     id: "n3",
     title: "Norris leads as Verstappen closes in at Imola",
     excerpt: "Lando Norris leads the Emilia Romagna GP as Max Verstappen applies late pressure.",
-    image: "https://images.unsplash.com/photo-1541889413-fce7e29015db?w=400&h=250&fit=crop",
+    image: "https://images.unsplash.com/photo-1508609349937-5ec4ae374ebf?w=400&h=250&fit=crop",
     sport: "f1",
     category: "F1",
     timeAgo: "1h ago",
@@ -469,7 +469,7 @@ export const transfers: Transfer[] = [
   { id: "x1", playerName: "Kylian Mbappé", playerPhoto: "https://images.unsplash.com/photo-1596854407944-bf87f6fdd49e?w=200&h=200&fit=crop", fromTeam: "PSG", fromTeamLogo: "🔵", toTeam: "Real Madrid", toTeamLogo: "⚪", fee: "Free Transfer", date: "July 2024", status: "rumored", sport: "football" },
   { id: "x2", playerName: "Alphonso Davies", playerPhoto: "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=200&h=200&fit=crop", fromTeam: "Bayern Munich", fromTeamLogo: "🔴", toTeam: "Real Madrid", toTeamLogo: "⚪", fee: "€50M", date: "June 2024", status: "rumored", sport: "football" },
   { id: "x3", playerName: "Dani Olmo", playerPhoto: "https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=200&h=200&fit=crop", fromTeam: "RB Leipzig", fromTeamLogo: "⚪", toTeam: "Barcelona", toTeamLogo: "🔵", fee: "€60M", date: "May 2024", status: "confirmed", sport: "football" },
-  { id: "x4", playerName: "Leny Yoro", playerPhoto: "https://images.unsplash.com/photo-1541889413-fce7e29015db?w=200&h=200&fit=crop", fromTeam: "Lille", fromTeamLogo: "🔴", toTeam: "Man United", toTeamLogo: "🔴", fee: "€70M", date: "June 2024", status: "completed", sport: "football" },
+  { id: "x4", playerName: "Leny Yoro", playerPhoto: "https://images.unsplash.com/photo-1508609349937-5ec4ae374ebf?w=200&h=200&fit=crop", fromTeam: "Lille", fromTeamLogo: "🔴", toTeam: "Man United", toTeamLogo: "🔴", fee: "€70M", date: "June 2024", status: "completed", sport: "football" },
 ];
 
 export const predictions: Prediction[] = [
@@ -518,7 +518,7 @@ export const videos: VideoItem[] = [
   { id: "v1", title: "All Goals: Real Madrid 2-1 Bayern Munich | UCL Semi-Final", thumbnail: "https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=400&h=250&fit=crop", duration: "12:34", views: "2.1M", sport: "football", category: "Highlights", date: "Today" },
   { id: "v2", title: "Kohli's Masterclass: 143 vs Australia | Day 2 Highlights", thumbnail: "https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=400&h=250&fit=crop", duration: "08:12", views: "1.8M", sport: "cricket", category: "Highlights", date: "Today" },
   { id: "v3", title: "Lakers vs Warriors: Full Game 5 Highlights", thumbnail: "https://images.unsplash.com/photo-1546519638-68e109498ffc?w=400&h=250&fit=crop", duration: "15:47", views: "1.2M", sport: "basketball", category: "Game Recaps", date: "Yesterday" },
-  { id: "v4", title: "Verstappen's Imola Qualifying Lap | Onboard", thumbnail: "https://images.unsplash.com/photo-1541889413-fce7e29015db?w=400&h=250&fit=crop", duration: "05:23", views: "890K", sport: "f1", category: "Onboard", date: "Yesterday" },
+  { id: "v4", title: "Verstappen's Imola Qualifying Lap | Onboard", thumbnail: "https://images.unsplash.com/photo-1508609349937-5ec4ae374ebf?w=400&h=250&fit=crop", duration: "05:23", views: "890K", sport: "f1", category: "Onboard", date: "Yesterday" },
 ];
 
 export const matchTimeline: TimelineEvent[] = [

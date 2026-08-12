@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { matchHref } from "@/lib/utils";
 import { Sport } from "@/types";
 import { getProvider } from "@/lib/providers/registry";
 import { sportIds } from "@/sports/registry";
@@ -60,7 +61,7 @@ async function collect(): Promise<TickerResponse> {
       items.push({
         id: key,
         sport,
-        href: `/match/${match.id}`,
+        href: matchHref(match),
         homeShort: match.homeTeam.shortName,
         awayShort: match.awayTeam.shortName,
         homeScore: match.homeScore,

@@ -5,7 +5,7 @@ import { ChevronRight } from "lucide-react";
 import { Match } from "@/types";
 import { TeamLogo } from "@/components/ui/TeamLogo";
 import { MatchMeta, MatchStatus } from "@/components/sports/MatchMeta";
-import { cn } from "@/lib/utils";
+import { cn, matchHref } from "@/lib/utils";
 
 interface MatchRowProps {
   match: Match;
@@ -17,7 +17,7 @@ export function MatchRow({ match, className }: MatchRowProps) {
 
   return (
     <Link
-      href={`/match/${match.id}`}
+      href={matchHref(match)}
       className={cn(
         "group flex items-center gap-4 px-5 py-3.5 panel panel-hover",
         isLive && "ring-1 ring-border-live/40",

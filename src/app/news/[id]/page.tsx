@@ -12,9 +12,31 @@ import { cn } from "@/lib/utils";
 
 export default function NewsDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
-  const news = topNews.find((n) => n.id === id) ?? topNews[0];
+  const news = topNews.find((n) => n.id === id);
   const [liked, setLiked] = useState(false);
   const [bookmarked, setBookmarked] = useState(false);
+
+  // Unknown ids must not silently render another article under the wrong
+  // headline — same honest empty state the match/team/player pages use.
+  if (!news) {
+    return (
+      <AppShell>
+        <div className="max-w-7xl mx-auto px-4 py-20 text-center">
+          <h1 className="text-xl font-bold">Article not found</h1>
+          <p className="text-sm text-muted mt-2 max-w-sm mx-auto">
+            We don&apos;t have an article for this id yet. Try browsing the news list.
+          </p>
+          <Link
+            href="/news"
+            className="inline-flex items-center gap-1.5 text-sm font-semibold text-secondary mt-6 hover:underline"
+          >
+            <ArrowLeft className="h-4 w-4" /> Back to News
+          </Link>
+        </div>
+      </AppShell>
+    );
+  }
+
   const related = topNews.filter((n) => n.id !== news.id).slice(0, 3);
 
   return (

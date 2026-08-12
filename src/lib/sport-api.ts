@@ -77,16 +77,22 @@ interface ApiStandingRow {
 
 /* ---- Helpers ---- */
 
-async function fetchSport(apiId: string, type: string): Promise<unknown[]> {
+async function fetchSport(sport: Sport, type: string): Promise<unknown[]> {
   // Browsers can use a relative URL; the server cannot resolve one, so it
   // self-fetches against an absolute base (NEXT_PUBLIC_SITE_URL, Vercel's
   // auto-injected VERCEL_URL, or localhost as a last resort).
+  //
+  // IMPORTANT: the URL segment must be the canonical Sport id ("nfl", "f1",
+  // "nba"…), NOT the API-SPORTS product key ("american-football",
+  // "formula-1"…). The /api/sport/[sport] route is keyed by Sport id — a
+  // mismatch makes the route answer 404 "Unknown sport" and silently blanks
+  // the whole page (this was a live bug for NFL and F1).
   const vercelUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "";
   const base =
     typeof window === "undefined"
       ? process.env.NEXT_PUBLIC_SITE_URL ?? vercelUrl ?? "http://localhost:3000"
       : "";
-  const url = `${base}/api/sport/${apiId}?type=${type}`;
+  const url = `${base}/api/sport/${sport}?type=${type}`;
   // Client-side dedup + TTL: homepage, live page and ticker all poll the same
   // sport endpoints — one network call per window instead of many. Live data
   // gets a shorter TTL so scores stay fresh; fixtures/standings are static
@@ -350,7 +356,7 @@ function toStanding(s: ApiStandingRow, cfg: SportApiConfig): Standing {
  * season as real finished results — never fabricated scores.
  */
 async function recentSeasonGames(cfg: SportApiConfig, count = 12): Promise<Match[]> {
-  const raw = await fetchSport(cfg.apiId, "fixtures");
+  const raw = await fetchSport(cfg.sport, "fixtures");
   return (raw as ApiGame[])
     .filter((g) => gameStatus(g)?.short === "FT" || gameStatus(g)?.short === "AET")
     .sort((a, b) => gameTimestamp(b) - gameTimestamp(a))
@@ -361,7 +367,7 @@ async function recentSeasonGames(cfg: SportApiConfig, count = 12): Promise<Match
 export async function getSportMatches(sport: Sport): Promise<Match[]> {
   const cfg = sportApiConfigs[sport];
   if (!cfg) return [];
-  const raw = await fetchSport(cfg.apiId, "matches");
+  const raw = await fetchSport(cfg.sport, "matches");
   if (cfg.kind === "mma") {
     return (raw as ApiFight[])
       .slice(0, 24)
@@ -378,7 +384,7 @@ export async function getSportMatches(sport: Sport): Promise<Match[]> {
 export async function getSportFixtures(sport: Sport): Promise<Fixture[]> {
   const cfg = sportApiConfigs[sport];
   if (!cfg) return [];
-  const raw = await fetchSport(cfg.apiId, "fixtures");
+  const raw = await fetchSport(cfg.sport, "fixtures");
   if (cfg.kind === "f1") {
     return (raw as ApiRace[])
       .filter(
@@ -410,7 +416,7 @@ export async function getSportFixtures(sport: Sport): Promise<Fixture[]> {
 export async function getSportStandings(sport: Sport): Promise<Standing[]> {
   const cfg = sportApiConfigs[sport];
   if (!cfg || cfg.kind !== "team") return [];
-  const raw = await fetchSport(cfg.apiId, "standings");
+  const raw = await fetchSport(cfg.sport, "standings");
   return flattenStandings(raw)
     .slice(0, 20)
     .map((s) => toStanding(s, cfg));

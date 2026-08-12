@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { ArrowRight, MapPin, CalendarDays } from "lucide-react";
 import { TeamLogo } from "@/components/ui/TeamLogo";
+import { matchHref } from "@/lib/utils";
 import { Match, sportShortLabels } from "@/types";
 import { uniqueMeta } from "@/components/sports/MatchMeta";
 
@@ -83,7 +84,7 @@ export function FeaturedEvent({ match }: FeaturedEventProps) {
 
         <div className="mt-6 flex flex-wrap items-center justify-center gap-2.5">
           <Link
-            href={`/match/${match.id}`}
+            href={matchHref(match)}
             className="group inline-flex items-center gap-2 bg-primary px-6 py-2.5 text-sm font-bold text-navy transition-colors hover:bg-primary-hover rounded-md"
           >
             Match Centre
