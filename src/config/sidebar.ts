@@ -67,10 +67,11 @@ export const sportSidebars: Record<string, SidebarSection> = {
     items: [
       { label: "Overview", href: "/sports/cricket", icon: "overview" },
       { label: "Live Scores", href: "/live", icon: "live" },
-      { label: "Schedules", href: "/calendar", icon: "schedules" },
+      { label: "Records", href: "/sports/cricket/records", icon: "stats" },
+      { label: "India", href: "/sports/cricket/india", icon: "teams" },
+      { label: "IPL", href: "/sports/cricket/ipl", icon: "leagues" },
+      { label: "Players", href: "/sports/cricket/players", icon: "players" },
       { label: "Series", href: "/competitions", icon: "series" },
-      { label: "Teams", href: "/teams", icon: "teams" },
-      { label: "Players", href: "/players", icon: "players" },
     ],
   },
   football: {

@@ -1,45 +1,87 @@
 "use client";
 
 import Link from "next/link";
+import { BarChart3, Flag, Trophy, Users, ArrowRight } from "lucide-react";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { TeamLogo } from "@/components/ui/TeamLogo";
-import { iplTeams } from "@/data/mock";
+import { CricketMatchList } from "@/sports/cricket/components/CricketMatchList";
+import { useCricketMatches } from "@/sports/cricket/hooks/useCricketMatches";
+
+const hubLinks = [
+  {
+    href: "/sports/cricket/records",
+    title: "Records",
+    description: "All-time batting, bowling, fielding and team records",
+    icon: BarChart3,
+  },
+  {
+    href: "/sports/cricket/india",
+    title: "India Cricket",
+    description: "Tests, ODIs and T20Is for the national side",
+    icon: Flag,
+  },
+  {
+    href: "/sports/cricket/ipl",
+    title: "IPL",
+    description: "The Indian Premier League as its own competition",
+    icon: Trophy,
+  },
+  {
+    href: "/sports/cricket/players",
+    title: "Players",
+    description: "Search player profiles and career statistics",
+    icon: Users,
+  },
+];
 
 /**
- * CRICKET-SPECIFIC EXTRA
- * IPL team identities shown for reference. Only the cricket page renders this.
+ * CRICKET-SPECIFIC EXTRA — the cricket hub on the overview page.
+ * Navigates to the dedicated cricket sections and previews live matches
+ * (real CricAPI data when CRICAPI_API_KEY is configured).
  */
 export function CricketExtra() {
+  const { matches, status } = useCricketMatches({ status: ["live", "finished"], limit: 6 });
+
   return (
-    <section className="mb-8">
-      <SectionHeader title="IPL Teams" />
-      <p className="mb-4 text-xs text-muted">
-        Team identities shown for reference. Live cricket data is not connected yet.
-      </p>
-      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
-        {iplTeams.map((t) => (
-          <Link
-            key={t.id}
-            href={`/team/${t.id}`}
-            className="group overflow-hidden  border border-border bg-card shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-pop"
-          >
-            <div className="flex flex-col items-center gap-3 p-5">
-              <TeamLogo logo={t.logo} name={t.name} size="lg" />
-              <div className="text-center">
-                <p className="font-display text-sm font-bold truncate group-hover:text-foreground transition-colors">
-                  {t.name}
-                </p>
-                <p className="text-xs text-muted mt-0.5">{t.city}</p>
-                {t.achievements?.[0] && (
-                  <p className="mt-2 min-h-[26px] text-[10px] font-semibold text-secondary leading-snug line-clamp-2">
-                    {t.achievements[0]}
-                  </p>
-                )}
-              </div>
-            </div>
-          </Link>
-        ))}
-      </div>
-    </section>
+    <div className="mb-8 space-y-8">
+      <section>
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {hubLinks.map((item) => {
+            const Icon = item.icon;
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="group arena-card arena-card-hover flex flex-col gap-3 p-5"
+              >
+                <span className="flex h-10 w-10 items-center justify-center  bg-blue/40 text-secondary rounded-md transition-transform duration-200 group-hover:scale-110">
+                  <Icon className="h-5 w-5" />
+                </span>
+                <span>
+                  <span className="flex items-center gap-1.5 font-display text-base font-bold text-foreground">
+                    {item.title}
+                    <ArrowRight className="h-3.5 w-3.5 text-muted transition-transform duration-200 group-hover:translate-x-0.5" />
+                  </span>
+                  <span className="mt-0.5 block text-xs text-muted">{item.description}</span>
+                </span>
+              </Link>
+            );
+          })}
+        </div>
+      </section>
+
+      <section>
+        <SectionHeader
+          title="Live & Latest"
+          href="/sports/cricket/ipl"
+          linkLabel="IPL hub"
+          kicker="CricAPI live feed"
+        />
+        <CricketMatchList
+          matches={matches}
+          status={status}
+          emptyMessage="No live or recent cricket matches right now."
+        />
+      </section>
+    </div>
   );
 }
