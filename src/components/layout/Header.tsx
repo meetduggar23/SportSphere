@@ -66,11 +66,15 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50">
       <div className="border-b border-border bg-background/92 backdrop-blur-xl">
-        {/* Primary row — nav + search + controls in one compact strip */}
-        <div className="mx-auto flex h-14 max-w-[1440px] items-center gap-1.5 px-4 lg:px-6">
-          <Logo className="mr-2 shrink-0" />
+        {/* Primary row — logo far-left, primary nav centered, controls far-right */}
+        <div className="relative mx-auto flex h-14 max-w-[1440px] items-center px-4 lg:px-6">
+          {/* Logo — totally left corner */}
+          <div className="absolute left-4 flex items-center lg:left-6">
+            <Logo className="shrink-0" />
+          </div>
 
-          <nav className="hidden h-full items-center gap-0.5 lg:flex">
+          {/* Primary nav — perfectly centered, dark text */}
+          <nav className="absolute left-1/2 hidden h-full -translate-x-1/2 items-center gap-0.5 lg:flex">
             {primaryNav.map((item) => {
               const active =
                 pathname === item.href ||
@@ -81,14 +85,14 @@ export function Header() {
                   key={item.label}
                   href={item.href}
                   className={cn(
-                    "relative flex h-full items-center gap-1.5 px-3 text-[13px] font-semibold transition-colors",
+                    "relative flex h-full items-center gap-1.5 px-3 text-[13px] font-bold transition-colors",
                     active
                       ? "text-foreground"
-                      : "text-muted hover:bg-blue/40 hover:text-foreground"
+                      : "text-foreground/75 hover:bg-blue/40 hover:text-foreground"
                   )}
                 >
                   <Icon
-                    className={cn("h-4 w-4", active ? "text-secondary" : "text-muted")}
+                    className={cn("h-4 w-4", active ? "text-secondary" : "text-foreground/60")}
                     strokeWidth={active ? 2.4 : 2}
                   />
                   {item.label}
@@ -100,42 +104,43 @@ export function Header() {
             })}
           </nav>
 
-          <div className="flex-1" />
-
-          <button
-            ref={searchBtnRef}
-            onClick={() => setSearchOpen(true)}
-            className="flex h-9 w-9 items-center justify-center text-muted transition-colors hover:bg-blue/40 hover:text-foreground rounded-md"
-            aria-label="Search"
-            title="Search players, teams, leagues"
-          >
-            <Search className="h-[18px] w-[18px]" />
-          </button>
-
-          <button
-            onClick={toggleTheme}
-            className="flex h-9 w-9 items-center justify-center text-muted transition-colors hover:bg-blue/40 hover:text-foreground rounded-md"
-            aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
-            title={isDark ? "Switch to light mode" : "Switch to dark mode"}
-          >
-            {mounted ? (
-              isDark ? (
-                <Moon key="moon" className="h-[18px] w-[18px] animate-theme-spin" />
+          {/* Controls — theme + menu + search pinned to the right corner */}
+          <div className="ml-auto flex items-center gap-1.5">
+            <button
+              onClick={toggleTheme}
+              className="flex h-9 w-9 items-center justify-center text-foreground/75 transition-colors hover:bg-blue/40 hover:text-foreground rounded-md"
+              aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+              title={isDark ? "Switch to light mode" : "Switch to dark mode"}
+            >
+              {mounted ? (
+                isDark ? (
+                  <Moon key="moon" className="h-[18px] w-[18px] animate-theme-spin" />
+                ) : (
+                  <Sun key="sun" className="h-[18px] w-[18px] animate-theme-spin" />
+                )
               ) : (
-                <Sun key="sun" className="h-[18px] w-[18px] animate-theme-spin" />
-              )
-            ) : (
-              <span className="h-[18px] w-[18px]" aria-hidden />
-            )}
-          </button>
+                <span className="h-[18px] w-[18px]" aria-hidden />
+              )}
+            </button>
 
-          <button
-            className="flex h-9 w-9 items-center justify-center text-muted transition-colors hover:bg-blue/40 hover:text-foreground rounded-md lg:hidden"
-            onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label="Toggle menu"
-          >
-            {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </button>
+            <button
+              className="flex h-9 w-9 items-center justify-center text-foreground/75 transition-colors hover:bg-blue/40 hover:text-foreground rounded-md lg:hidden"
+              onClick={() => setMobileOpen(!mobileOpen)}
+              aria-label="Toggle menu"
+            >
+              {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </button>
+
+            <button
+              ref={searchBtnRef}
+              onClick={() => setSearchOpen(true)}
+              className="flex h-9 w-9 items-center justify-center text-foreground/75 transition-colors hover:bg-blue/40 hover:text-foreground rounded-md"
+              aria-label="Search"
+              title="Search players, teams, leagues"
+            >
+              <Search className="h-[18px] w-[18px]" />
+            </button>
+          </div>
         </div>
 
         {/* Sports strip — every sport directly visible, horizontally scrollable */}
