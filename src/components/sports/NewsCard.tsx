@@ -62,14 +62,18 @@ export function NewsCard({ news, variant = "default", className }: NewsCardProps
                 </span>
                 BREAKING
               </span>
-            )}
-<div className="absolute inset-x-0 bottom-0 p-5">
+            )}            <div className="absolute inset-x-0 bottom-0 p-5">
               <div className="mb-2.5 flex items-center gap-2">
                 <CategoryChip category={news.category} />
               </div>
               <h3 className="heading text-xl text-white md:text-2xl line-clamp-2">
                 {news.title}
               </h3>
+              {news.excerpt && (
+                <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-white/85">
+                  {news.excerpt}
+                </p>
+              )}
               <div className="mt-3 flex items-center gap-4 text-xs text-white/75">
                 {news.author && <span>{news.author}</span>}
                 <span className="inline-flex items-center gap-1">
@@ -114,7 +118,12 @@ export function NewsCard({ news, variant = "default", className }: NewsCardProps
             <h3 className="text-[15px] font-bold leading-snug text-foreground line-clamp-2 transition-colors group-hover:text-foreground-soft">
               {news.title}
             </h3>
-            <p className="meta mt-2 flex items-center justify-between">
+            {news.excerpt && (
+              <p className="mt-1.5 line-clamp-3 text-[13px] leading-relaxed text-muted">
+                {news.excerpt}
+              </p>
+            )}
+            <p className="meta mt-3 flex items-center justify-between">
               <span className="inline-flex items-center gap-1">
                 <Clock className="h-3 w-3" /> {news.timeAgo}
               </span>
@@ -144,6 +153,11 @@ export function NewsCard({ news, variant = "default", className }: NewsCardProps
             <h3 className="mt-1.5 line-clamp-2 text-sm font-semibold leading-snug text-foreground transition-colors group-hover:text-foreground-soft">
               {news.title}
             </h3>
+            {news.excerpt && (
+              <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-muted">
+                {news.excerpt}
+              </p>
+            )}
             <p className="meta mt-1.5 inline-flex items-center gap-1">
               <Clock className="h-3 w-3" /> {news.timeAgo}
             </p>

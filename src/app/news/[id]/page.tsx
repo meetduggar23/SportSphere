@@ -179,7 +179,13 @@ export default function NewsDetailPage({ params }: { params: Promise<{ id: strin
             </div>
 
             <div className="space-y-4 text-[15px] leading-relaxed text-foreground/90">
-              <p>{news.excerpt}</p>
+              {news.excerpt ? (
+                <p>{news.excerpt}</p>
+              ) : (
+                <p className="text-muted">
+                  No summary is available for this article from its publisher.
+                </p>
+              )}
               {news.url && (
                 <p className="text-sm text-muted">
                   This article was aggregated from {news.source ?? "its publisher"}.
