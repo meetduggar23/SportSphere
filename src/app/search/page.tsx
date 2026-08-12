@@ -6,6 +6,7 @@ import { Search as SearchIcon, Users, Trophy, Newspaper, CalendarDays, Clock } f
 import { AppShell } from "@/components/layout/AppShell";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { teams, topPlayers, topNews, tournaments, allMatches, recentSearches } from "@/data/mock";
+import { sportShortLabels } from "@/types";
 import { cn } from "@/lib/utils";
 
 function normalize(s: string) {
@@ -33,7 +34,7 @@ function SearchContent({ initialQuery }: { initialQuery: string }) {
     : [];
 
   const results = [
-    ...matchedMatches.map((m) => ({ type: "Match", label: `${m.homeTeam.name} vs ${m.awayTeam.name}`, sub: m.league, href: `/match/${m.id}` })),
+    ...matchedMatches.map((m) => ({ type: "Match", label: `${m.homeTeam.name} vs ${m.awayTeam.name}`, sub: `${sportShortLabels[m.sport]} • ${m.league}`, href: `/match/${m.id}` })),
     ...matchedPlayers.map((p) => ({ type: "Player", label: p.name, sub: `${p.team} • ${p.position}`, href: `/player/${p.id}` })),
     ...matchedTeams.map((t) => ({ type: "Team", label: t.name, sub: t.country, href: `/team/${t.id}` })),
     ...matchedTournaments.map((t) => ({ type: "Competition", label: t.name, sub: t.season, href: `/competitions` })),

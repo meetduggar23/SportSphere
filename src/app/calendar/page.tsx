@@ -14,13 +14,13 @@ const today = 5;
 
 const eventsByDay: Record<number, { time: string; title: string; sport: string }[]> = {
   5: [
-    { time: "9:00 PM", title: "Man City vs Arsenal", sport: "⚽" },
-    { time: "10:30 PM", title: "Lakers vs Warriors", sport: "🏀" },
+    { time: "9:00 PM", title: "Man City vs Arsenal", sport: "Football" },
+    { time: "10:30 PM", title: "Lakers vs Warriors", sport: "Basketball" },
   ],
-  6: [{ time: "7:30 PM", title: "MI vs CSK", sport: "🏏" }],
-  7: [{ time: "3:00 PM", title: "F1 Emilia Romagna GP", sport: "🏎️" }],
-  12: [{ time: "10:15 PM", title: "El Clásico", sport: "⚽" }],
-  15: [{ time: "6:00 PM", title: "IHF World Championship Final", sport: "🤾" }],
+  6: [{ time: "7:30 PM", title: "MI vs CSK", sport: "Cricket" }],
+  7: [{ time: "3:00 PM", title: "F1 Emilia Romagna GP", sport: "Formula 1" }],
+  12: [{ time: "10:15 PM", title: "El Clásico", sport: "Football" }],
+  15: [{ time: "6:00 PM", title: "IHF World Championship Final", sport: "Handball" }],
 };
 
 export default function CalendarPage() {
@@ -82,8 +82,8 @@ export default function CalendarPage() {
               {eventsByDay[selectedDay] ? (
                 <div className="space-y-3">
                   {eventsByDay[selectedDay].map((e) => (
-                    <div key={e.title} className="flex items-center gap-4 bg-muted/10  p-4 rounded-md">
-                      <span className="text-xl">{e.sport}</span>
+                    <div key={e.title} className="flex items-center gap-4 bg-muted/10 p-4 rounded-md">
+                      <span className="label shrink-0 text-secondary">{e.sport}</span>
                       <div className="flex-1">
                         <p className="text-sm font-semibold">{e.title}</p>
                       </div>

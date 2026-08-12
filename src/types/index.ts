@@ -29,6 +29,23 @@ export const sportLabels: Record<Sport, string> = {
   nba: "NBA",
 };
 
+/** Compact scorecard-safe sport names — used on match cards and rows. */
+export const sportShortLabels: Record<Sport, string> = {
+  football: "Football",
+  cricket: "Cricket",
+  basketball: "Basketball",
+  f1: "Formula 1",
+  nfl: "NFL",
+  baseball: "Baseball",
+  hockey: "Hockey",
+  mma: "MMA",
+  rugby: "Rugby",
+  volleyball: "Volleyball",
+  handball: "Handball",
+  afl: "AFL",
+  nba: "NBA",
+};
+
 export const sportIcons: Record<Sport, string> = {
   football: "⚽",
   cricket: "🏏",

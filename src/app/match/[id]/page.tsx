@@ -17,6 +17,8 @@ import { DemoBadge } from "@/components/ui/DemoBadge";
 import { LiveBadge } from "@/components/ui/LiveBadge";
 import { TeamLogo } from "@/components/ui/TeamLogo";
 import { SectionHeader } from "@/components/ui/SectionHeader";
+import { sportShortLabels } from "@/types";
+import { uniqueMeta } from "@/components/sports/MatchMeta";
 import { MatchTimeline } from "@/components/sports/MatchTimeline";
 import { MatchStatsCompare } from "@/components/sports/MatchStatsCompare";
 import { LiveChat } from "@/components/sports/LiveChat";
@@ -90,14 +92,18 @@ export default function MatchPage({ params }: { params: Promise<{ id: string }> 
 
 <div className="arena-card overflow-hidden mb-6">
           <div className="px-6 py-4 border-b border-border flex items-center justify-between gap-4 flex-wrap">
-            <div className="flex items-center gap-2 text-xs text-muted">
-              <span>{match.league}</span>
-              <span>•</span>
-              <span>{match.competition}</span>
+            <div className="flex items-center gap-2 text-xs">
+              <span className="label text-secondary">{sportShortLabels[match.sport]}</span>
+              {uniqueMeta([match.competition, match.league]).map((name) => (
+                <span key={name} className="flex items-center gap-2">
+                  <span className="text-muted">•</span>
+                  <span className="text-muted">{name}</span>
+                </span>
+              ))}
               {match.date && (
                 <>
-                  <span>•</span>
-                  <span>{match.date}</span>
+                  <span className="text-muted">•</span>
+                  <span className="text-muted">{match.date}</span>
                 </>
               )}
             </div>

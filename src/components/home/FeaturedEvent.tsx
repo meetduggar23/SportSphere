@@ -3,28 +3,11 @@
 import Link from "next/link";
 import { ArrowRight, MapPin, CalendarDays } from "lucide-react";
 import { TeamLogo } from "@/components/ui/TeamLogo";
-import { LiveBadge } from "@/components/ui/LiveBadge";
-import { Match } from "@/types";
+import { Match, sportShortLabels } from "@/types";
+import { uniqueMeta } from "@/components/sports/MatchMeta";
 
 interface FeaturedEventProps {
   match: Match;
-}
-
-/**
- * Dedupe competition vs league labels — some providers return the same string
- * in both fields ("U19 LEAGUE • U19 LEAGUE"), so only render each once.
- */
-function uniqueMeta(values: (string | undefined)[]): string[] {
-  const seen = new Set<string>();
-  const out: string[] = [];
-  for (const v of values) {
-    if (!v) continue;
-    const key = v.trim().toLowerCase();
-    if (seen.has(key)) continue;
-    seen.add(key);
-    out.push(v.trim());
-  }
-  return out;
 }
 
 export function FeaturedEvent({ match }: FeaturedEventProps) {
@@ -43,14 +26,27 @@ export function FeaturedEvent({ match }: FeaturedEventProps) {
       />
 
       <div className="relative px-5 py-6 md:px-10 md:py-8">
-        {/* Eyebrow */}
+        {/* Eyebrow — SPORT · competition · live status */}
         <div className="mb-6 flex flex-wrap items-center justify-center gap-x-3 gap-y-1.5">
-          {meta.map((m) => (
-            <span key={m} className="kicker text-muted-strong">
-              {m}
-            </span>
-          ))}
-          {isLive && <LiveBadge label={match.minute} />}
+          <span className="kicker text-secondary">{sportShortLabels[match.sport]}</span>
+          {meta.length > 0 && (
+            <>
+              <span className="h-1 w-1 bg-border-strong" />
+              <span className="kicker text-muted-strong">{meta.join(" · ")}</span>
+            </>
+          )}
+          {isLive && (
+            <>
+              <span className="h-1 w-1 bg-border-strong" />
+              <span className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-secondary">
+                <span className="relative flex h-1.5 w-1.5">
+                  <span className="absolute inline-flex h-full w-full bg-secondary animate-ping-ring" />
+                  <span className="relative inline-flex h-1.5 w-1.5 bg-secondary" />
+                </span>
+                Live {match.minute}
+              </span>
+            </>
+          )}
         </div>
 
         {/* Broadcast scoreboard — teams + score, no nested cards */}

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { Match } from "@/types";
 import { TeamLogo } from "@/components/ui/TeamLogo";
+import { MatchMeta, MatchStatus } from "@/components/sports/MatchMeta";
 import { cn } from "@/lib/utils";
 
 interface MatchRowProps {
@@ -16,27 +17,25 @@ export function MatchRow({ match, className }: MatchRowProps) {
   const isUpcoming = match.status === "upcoming";
 
   return (
-<Link
+    <Link
       href={`/match/${match.id}`}
       className={cn(
-        "group flex items-center gap-4  px-5 py-3.5 panel panel-hover",
+        "group flex items-center gap-4 px-5 py-3.5 panel panel-hover",
         isLive && "ring-1 ring-border-live/40",
         className
       )}
     >
       <div className="flex min-w-0 flex-1 flex-col gap-1.5">
-        <div className="flex items-center gap-2">
-          <span className="label truncate">{match.league}</span>
-          {isLive && (
-            <span className="inline-flex items-center gap-1  bg-primary px-2 py-0.5 text-[9px] font-bold text-navy rounded-full">
-              <span className="relative flex h-1 w-1">
-                <span className="absolute inline-flex h-full w-full  bg-navy animate-ping-ring" />
-                <span className="relative inline-flex h-1 w-1  bg-navy" />
-              </span>
-              LIVE
-            </span>
-          )}
-        </div>
+        {/* Sport · competition — status sits next to the score on the right */}
+        <MatchMeta
+          sport={match.sport}
+          league={match.league}
+          competition={match.competition}
+          status={match.status}
+          minute={match.minute}
+          period={match.period}
+          showStatus={false}
+        />
         <div className="flex items-center gap-2.5">
           <TeamLogo logo={match.homeTeam.logo} name={match.homeTeam.name} size="sm" />
           <span className="truncate text-sm font-semibold text-foreground-soft">{match.homeTeam.name}</span>
@@ -66,9 +65,7 @@ export function MatchRow({ match, className }: MatchRowProps) {
             {match.awayScore}
           </span>
         </div>
-        <span className="meta w-14 text-right">
-          {isUpcoming ? match.minute : isLive ? match.minute : match.minute ?? "FT"}
-        </span>
+        <MatchStatus status={match.status} minute={match.minute} period={match.period} className="w-20 text-right" />
         <ChevronRight className="h-4 w-4 text-faint transition-transform group-hover:translate-x-0.5 group-hover:text-foreground" />
       </div>
     </Link>

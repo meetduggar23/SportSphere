@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
-import { Fixture, sportIcons } from "@/types";
+import { Fixture, sportShortLabels } from "@/types";
 import { TeamLogo } from "@/components/ui/TeamLogo";
 
 interface FixtureListProps {
@@ -41,15 +41,15 @@ export function FixtureList({ fixtures, title = "Upcoming Fixtures", href = "/ca
 
             <div className="min-w-0 flex-1">
               <div className="mb-1.5 flex items-center gap-2">
-                <span className="text-xs">{sportIcons[fixture.sport]}</span>
-                <span className="label truncate">{fixture.league}</span>
+                <span className="label text-secondary">{sportShortLabels[fixture.sport]}</span>
+                <span className="label truncate text-muted-strong">{fixture.league}</span>
                 {fixture.isLive && (
-                  <span className="flex items-center gap-1  bg-primary px-2 py-0.5 text-[10px] font-bold text-navy rounded-full">
+                  <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-secondary">
                     <span className="relative flex h-1 w-1">
-                      <span className="absolute inline-flex h-full w-full  bg-navy animate-ping-ring" />
-                      <span className="relative inline-flex h-1 w-1  bg-navy" />
+                      <span className="absolute inline-flex h-full w-full bg-secondary animate-ping-ring" />
+                      <span className="relative inline-flex h-1 w-1 bg-secondary" />
                     </span>
-                    LIVE
+                    Live
                   </span>
                 )}
               </div>

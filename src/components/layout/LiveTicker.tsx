@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { Sport } from "@/types";
+import { Sport, sportShortLabels } from "@/types";
 
 interface TickerItem {
   id: string;
@@ -127,6 +127,7 @@ export function LiveTicker() {
                       href={m.href}
                       className="group flex items-center gap-2.5 px-5 py-1 text-xs transition-colors hover:bg-blue/40"
                     >
+                      <span className="label shrink-0 text-secondary">{sportShortLabels[m.sport]}</span>
                       <span className="font-semibold text-foreground-soft">{m.homeShort}</span>
                       <span className="tabular-nums text-muted-strong">{m.homeScore}</span>
                       <span className="text-muted">—</span>

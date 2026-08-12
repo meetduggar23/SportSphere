@@ -4,6 +4,7 @@ import Link from "next/link";
 import { MapPin, Clock } from "lucide-react";
 import { Match } from "@/types";
 import { TeamLogo } from "@/components/ui/TeamLogo";
+import { MatchMeta } from "@/components/sports/MatchMeta";
 import { cn } from "@/lib/utils";
 
 interface LiveMatchCardProps {
@@ -16,38 +17,27 @@ export function LiveMatchCard({ match, className }: LiveMatchCardProps) {
   const isUpcoming = match.status === "upcoming";
 
   return (
-<Link
+    <Link
       href={`/match/${match.id}`}
       className={cn(
-        "group relative flex flex-col overflow-hidden  arena-card arena-card-hover",
+        "group relative flex flex-col overflow-hidden arena-card arena-card-hover",
         isLive && "ring-1 ring-border-live/50",
         className
       )}
     >
       {/* Live top accent bar */}
-      {isLive && (
-        <div className="absolute inset-x-0 top-0 h-0.5 bg-live-gradient" />
-      )}
+      {isLive && <div className="absolute inset-x-0 top-0 h-0.5 bg-live-gradient" />}
 
-      {/* Header */}
-      <div className="flex items-center justify-between gap-2 px-5 pt-4">
-        <div className="flex min-w-0 items-center gap-2">
-          <span className="label truncate">{match.league}</span>
-        </div>
-        {isLive && (
-          <span className="inline-flex shrink-0 items-center gap-1.5  bg-primary px-2.5 py-1 text-[10px] font-bold text-navy rounded-full">
-            <span className="relative flex h-1.5 w-1.5">
-              <span className="absolute inline-flex h-full w-full  bg-navy animate-ping-ring" />
-              <span className="relative inline-flex h-1.5 w-1.5  bg-navy" />
-            </span>
-            {match.minute}
-          </span>
-        )}
-        {isUpcoming && (
-          <span className="shrink-0 text-xs font-bold text-muted tabular-nums">
-            {match.minute}
-          </span>
-        )}
+      {/* Header — sport · competition · status */}
+      <div className="px-5 pt-4">
+        <MatchMeta
+          sport={match.sport}
+          league={match.league}
+          competition={match.competition}
+          status={match.status}
+          minute={match.minute}
+          period={match.period}
+        />
       </div>
 
       {/* Scoreboard */}
@@ -84,7 +74,7 @@ export function LiveMatchCard({ match, className }: LiveMatchCardProps) {
         </div>
       </div>
 
-      {/* Footer */}
+      {/* Footer — venue + kickoff/competition (the header already shows live time) */}
       <div className="mt-auto flex items-center justify-between border-t border-border-navy bg-blue/10 px-5 py-3">
         <span className="flex items-center gap-1.5 meta">
           <MapPin className="h-3 w-3" /> {match.venue ?? "TBD"}
