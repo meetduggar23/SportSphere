@@ -14,24 +14,8 @@ import { MatchRow } from "@/components/sports/MatchRow";
 import { StandingsTable } from "@/components/sports/StandingsTable";
 import { TrendingSidebar } from "@/components/dashboard/TrendingSidebar";
 import { useHomeFeed, homeSports, getFeaturedLiveEvent } from "@/lib/homeFeed";
-import { sportLabels, TrendingItem, Sport, Match } from "@/types";
+import { sportLabels, sportShortLabels as shortLabels, TrendingItem, Sport, Match } from "@/types";
 import { topNews } from "@/data/mock";
-
-const shortLabels: Record<Sport, string> = {
-  football: "Football",
-  cricket: "Cricket",
-  basketball: "Basketball",
-  f1: "Formula 1",
-  nfl: "NFL",
-  baseball: "Baseball",
-  hockey: "Hockey",
-  mma: "MMA",
-  rugby: "Rugby",
-  volleyball: "Volleyball",
-  handball: "Handball",
-  afl: "AFL",
-  nba: "NBA",
-};
 
 function timeAgo(ts: number): string {
   const s = Math.floor((Date.now() - ts) / 1000);

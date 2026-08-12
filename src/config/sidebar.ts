@@ -13,6 +13,7 @@ import {
   BarChart3,
   type LucideIcon,
 } from "lucide-react";
+import { SPORTS } from "@/sports/registry";
 
 export const sidebarIcons = {
   overview: LayoutDashboard,
@@ -64,7 +65,7 @@ export const sportSidebars: Record<string, SidebarSection> = {
   cricket: {
     label: "Cricket",
     items: [
-      { label: "Overview", href: "/cricket", icon: "overview" },
+      { label: "Overview", href: "/sports/cricket", icon: "overview" },
       { label: "Live Scores", href: "/live", icon: "live" },
       { label: "Schedules", href: "/calendar", icon: "schedules" },
       { label: "Series", href: "/competitions", icon: "series" },
@@ -75,7 +76,7 @@ export const sportSidebars: Record<string, SidebarSection> = {
   football: {
     label: "Football",
     items: [
-      { label: "Overview", href: "/football", icon: "overview" },
+      { label: "Overview", href: "/sports/football", icon: "overview" },
       { label: "Live Scores", href: "/live", icon: "live" },
       { label: "Fixtures", href: "/calendar", icon: "fixtures" },
       { label: "Leagues", href: "/competitions", icon: "leagues" },
@@ -87,7 +88,7 @@ export const sportSidebars: Record<string, SidebarSection> = {
   basketball: {
     label: "Basketball",
     items: [
-      { label: "Overview", href: "/basketball", icon: "overview" },
+      { label: "Overview", href: "/sports/basketball", icon: "overview" },
       { label: "Live Scores", href: "/live", icon: "live" },
       { label: "Schedule", href: "/calendar", icon: "schedule" },
       { label: "Leagues", href: "/competitions", icon: "leagues" },
@@ -98,7 +99,7 @@ export const sportSidebars: Record<string, SidebarSection> = {
   nba: {
     label: "NBA",
     items: [
-      { label: "Overview", href: "/nba", icon: "overview" },
+      { label: "Overview", href: "/sports/nba", icon: "overview" },
       { label: "Live Scores", href: "/live", icon: "live" },
       { label: "Schedule", href: "/calendar", icon: "schedule" },
       { label: "Teams", href: "/teams", icon: "teams" },
@@ -108,7 +109,7 @@ export const sportSidebars: Record<string, SidebarSection> = {
   nfl: {
     label: "NFL",
     items: [
-      { label: "Overview", href: "/nfl", icon: "overview" },
+      { label: "Overview", href: "/sports/nfl", icon: "overview" },
       { label: "Live Scores", href: "/live", icon: "live" },
       { label: "Schedule", href: "/calendar", icon: "schedule" },
       { label: "Teams", href: "/teams", icon: "teams" },
@@ -118,7 +119,7 @@ export const sportSidebars: Record<string, SidebarSection> = {
   hockey: {
     label: "Hockey",
     items: [
-      { label: "Overview", href: "/hockey", icon: "overview" },
+      { label: "Overview", href: "/sports/hockey", icon: "overview" },
       { label: "Live Scores", href: "/live", icon: "live" },
       { label: "Schedule", href: "/calendar", icon: "schedule" },
       { label: "Teams", href: "/teams", icon: "teams" },
@@ -128,7 +129,7 @@ export const sportSidebars: Record<string, SidebarSection> = {
   rugby: {
     label: "Rugby",
     items: [
-      { label: "Overview", href: "/rugby", icon: "overview" },
+      { label: "Overview", href: "/sports/rugby", icon: "overview" },
       { label: "Live Scores", href: "/live", icon: "live" },
       { label: "Fixtures", href: "/calendar", icon: "fixtures" },
       { label: "Teams", href: "/teams", icon: "teams" },
@@ -138,7 +139,7 @@ export const sportSidebars: Record<string, SidebarSection> = {
   baseball: {
     label: "Baseball",
     items: [
-      { label: "Overview", href: "/baseball", icon: "overview" },
+      { label: "Overview", href: "/sports/baseball", icon: "overview" },
       { label: "Live Scores", href: "/live", icon: "live" },
       { label: "Schedule", href: "/calendar", icon: "schedule" },
       { label: "Teams", href: "/teams", icon: "teams" },
@@ -148,7 +149,7 @@ export const sportSidebars: Record<string, SidebarSection> = {
   volleyball: {
     label: "Volleyball",
     items: [
-      { label: "Overview", href: "/volleyball", icon: "overview" },
+      { label: "Overview", href: "/sports/volleyball", icon: "overview" },
       { label: "Live Scores", href: "/live", icon: "live" },
       { label: "Fixtures", href: "/calendar", icon: "fixtures" },
       { label: "Teams", href: "/teams", icon: "teams" },
@@ -158,7 +159,7 @@ export const sportSidebars: Record<string, SidebarSection> = {
   handball: {
     label: "Handball",
     items: [
-      { label: "Overview", href: "/handball", icon: "overview" },
+      { label: "Overview", href: "/sports/handball", icon: "overview" },
       { label: "Live Scores", href: "/live", icon: "live" },
       { label: "Fixtures", href: "/calendar", icon: "fixtures" },
       { label: "Teams", href: "/teams", icon: "teams" },
@@ -168,7 +169,7 @@ export const sportSidebars: Record<string, SidebarSection> = {
   afl: {
     label: "AFL",
     items: [
-      { label: "Overview", href: "/afl", icon: "overview" },
+      { label: "Overview", href: "/sports/afl", icon: "overview" },
       { label: "Live Scores", href: "/live", icon: "live" },
       { label: "Fixtures", href: "/calendar", icon: "fixtures" },
       { label: "Teams", href: "/teams", icon: "teams" },
@@ -178,7 +179,7 @@ export const sportSidebars: Record<string, SidebarSection> = {
   mma: {
     label: "MMA",
     items: [
-      { label: "Overview", href: "/mma", icon: "overview" },
+      { label: "Overview", href: "/sports/mma", icon: "overview" },
       { label: "Upcoming Fights", href: "/calendar", icon: "fights" },
       { label: "Fighters", href: "/players", icon: "fighters" },
       { label: "Rankings", href: "/teams", icon: "rankings" },
@@ -188,7 +189,7 @@ export const sportSidebars: Record<string, SidebarSection> = {
   "formula-1": {
     label: "Formula 1",
     items: [
-      { label: "Overview", href: "/f1", icon: "overview" },
+      { label: "Overview", href: "/sports/formula-1", icon: "overview" },
       { label: "Live Timing", href: "/live", icon: "live" },
       { label: "Race Calendar", href: "/calendar", icon: "races" },
       { label: "Drivers", href: "/players", icon: "drivers" },
@@ -197,18 +198,5 @@ export const sportSidebars: Record<string, SidebarSection> = {
   },
 };
 
-export const allSportsSidebarOrder = [
-  "cricket",
-  "football",
-  "basketball",
-  "baseball",
-  "hockey",
-  "volleyball",
-  "rugby",
-  "formula-1",
-  "mma",
-  "nfl",
-  "nba",
-  "handball",
-  "afl",
-];
+/** Canonical sidebar order — sourced from the registry (single source of truth). */
+export const allSportsSidebarOrder: string[] = SPORTS.map((s) => s.slug);

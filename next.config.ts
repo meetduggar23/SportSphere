@@ -13,6 +13,24 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "media.api-sports.io" },
     ],
   },
+  // Legacy top-level sport routes → canonical /sports/<slug> module routes.
+  async redirects() {
+    return [
+      { source: "/cricket", destination: "/sports/cricket", permanent: true },
+      { source: "/football", destination: "/sports/football", permanent: true },
+      { source: "/basketball", destination: "/sports/basketball", permanent: true },
+      { source: "/baseball", destination: "/sports/baseball", permanent: true },
+      { source: "/hockey", destination: "/sports/hockey", permanent: true },
+      { source: "/volleyball", destination: "/sports/volleyball", permanent: true },
+      { source: "/rugby", destination: "/sports/rugby", permanent: true },
+      { source: "/f1", destination: "/sports/formula-1", permanent: true },
+      { source: "/mma", destination: "/sports/mma", permanent: true },
+      { source: "/nfl", destination: "/sports/nfl", permanent: true },
+      { source: "/nba", destination: "/sports/nba", permanent: true },
+      { source: "/handball", destination: "/sports/handball", permanent: true },
+      { source: "/afl", destination: "/sports/afl", permanent: true },
+    ];
+  },
 };
 
 export default nextConfig;

@@ -1,23 +1,10 @@
 import { NextResponse } from "next/server";
 import { Sport } from "@/types";
 import { getProvider } from "@/lib/providers/registry";
+import { sportIds } from "@/sports/registry";
 
-/** All supported sports, in canonical editorial order. */
-const SPORTS: Sport[] = [
-  "cricket",
-  "football",
-  "basketball",
-  "baseball",
-  "hockey",
-  "volleyball",
-  "rugby",
-  "f1",
-  "mma",
-  "nfl",
-  "nba",
-  "handball",
-  "afl",
-];
+/** All supported sports, in canonical editorial order (from the registry). */
+const SPORTS: Sport[] = sportIds();
 
 /**
  * Always run at request time — never prerendered at build (which would fire

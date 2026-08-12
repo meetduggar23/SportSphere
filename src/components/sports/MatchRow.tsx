@@ -14,7 +14,6 @@ interface MatchRowProps {
 
 export function MatchRow({ match, className }: MatchRowProps) {
   const isLive = match.status === "live";
-  const isUpcoming = match.status === "upcoming";
 
   return (
     <Link

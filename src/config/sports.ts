@@ -1,8 +1,17 @@
-import { allSportsSidebarOrder } from "@/config/sidebar";
-import { Sport } from "@/types";
+import { SPORTS } from "@/sports/registry";
+import type { Sport } from "@/types";
 
+/**
+ * Sport display config — derived from the sport registry (the single source
+ * of truth). Keeping this export shape stable means every existing consumer
+ * (Header, SearchOverlay, All Sports page, etc.) keeps working while the data
+ * lives in exactly one place: @/sports/registry.
+ */
 export interface SportConfig {
+  /** Nav/display id — equals the registry slug ("formula-1"). */
   id: string;
+  /** Canonical Sport id ("f1"). */
+  sport: Sport;
   name: string;
   shortName: string;
   description: string;
@@ -13,146 +22,25 @@ export interface SportConfig {
   apiId?: number;
 }
 
-export const sportsConfig: SportConfig[] = [
-  {
-    id: "cricket",
-    name: "Cricket",
-    shortName: "Cricket",
-    description: "Tests, T20, IPL & more",
-    href: "/cricket",
-gradient: "from-brand-navy/25 to-brand/10",
-    category: "primary",
-    enabled: true,
-  },
-  {
-    id: "football",
-    name: "Football (Soccer)",
-    shortName: "Football",
-    description: "Leagues, live scores, transfers",
-    href: "/football",
-    gradient: "from-brand/25 to-brand-maroon/10",
-    category: "primary",
-    enabled: true,
-    apiId: 39,
-  },
-  {
-    id: "basketball",
-    name: "Basketball",
-    shortName: "Basketball",
-    description: "Playoffs, EuroLeague & more",
-    href: "/basketball",
-    gradient: "from-brand-purple/25 to-brand-maroon/10",
-    category: "primary",
-    enabled: true,
-  },
-  {
-    id: "nfl",
-    name: "NFL",
-    shortName: "NFL",
-    description: "Super Bowl, AFC & NFC",
-    href: "/nfl",
-    gradient: "from-brand-navy/25 to-brand-purple/10",
-    category: "primary",
-    enabled: true,
-  },
-  {
-    id: "hockey",
-    name: "Hockey",
-    shortName: "Hockey",
-    description: "NHL, Stanley Cup",
-    href: "/hockey",
-    gradient: "from-brand-maroon/25 to-brand-navy/10",
-    category: "primary",
-    enabled: true,
-  },
-  {
-    id: "formula-1",
-    name: "Formula 1",
-    shortName: "F1",
-    description: "Races, standings, drivers",
-    href: "/f1",
-    gradient: "from-brand/25 to-brand-purple/10",
-    category: "primary",
-    enabled: true,
-  },
-  {
-    id: "rugby",
-    name: "Rugby",
-    shortName: "Rugby",
-    description: "Six Nations, World Cup",
-    href: "/rugby",
-    gradient: "from-brand-purple/25 to-brand-navy/10",
-    category: "secondary",
-    enabled: true,
-  },
-  {
-    id: "baseball",
-    name: "Baseball",
-    shortName: "Baseball",
-    description: "MLB, World Series",
-    href: "/baseball",
-    gradient: "from-brand-maroon/25 to-brand/10",
-    category: "secondary",
-    enabled: true,
-  },
-  {
-    id: "volleyball",
-    name: "Volleyball",
-    shortName: "Volleyball",
-    description: "VNL, Olympics",
-    href: "/volleyball",
-    gradient: "from-brand/25 to-brand-navy/10",
-    category: "secondary",
-    enabled: true,
-  },
-  {
-    id: "mma",
-    name: "MMA",
-    shortName: "MMA",
-    description: "UFC, fight nights, rankings",
-    href: "/mma",
-    gradient: "from-brand/25 to-brand-maroon/10",
-    category: "secondary",
-    enabled: true,
-  },
-  {
-    id: "handball",
-    name: "Handball",
-    shortName: "Handball",
-    description: "World Championships, club leagues",
-    href: "/handball",
-    gradient: "from-brand-navy/25 to-brand-maroon/10",
-    category: "secondary",
-    enabled: true,
-  },
-  {
-    id: "afl",
-    name: "Australian Rules Football",
-    shortName: "AFL",
-    description: "AFL, Grand Final",
-    href: "/afl",
-    gradient: "from-brand-maroon/25 to-brand-purple/10",
-    category: "secondary",
-    enabled: true,
-  },
-  {
-    id: "nba",
-    name: "NBA",
-    shortName: "NBA",
-    description: "Finals, playoffs, draft",
-    href: "/nba",
-    gradient: "from-brand-maroon/25 to-brand/10",
-    category: "secondary",
-    enabled: true,
-  },
-];
+export const sportsConfig: SportConfig[] = SPORTS.map((s) => ({
+  id: s.slug,
+  sport: s.id,
+  name: s.name,
+  shortName: s.shortName,
+  description: s.description,
+  href: s.route,
+  gradient: s.gradient,
+  category: s.category,
+  enabled: s.enabled,
+  apiId: s.apiId,
+}));
 
 export const primarySports = sportsConfig.filter((s) => s.category === "primary");
 export const secondarySports = sportsConfig.filter((s) => s.category === "secondary");
 export const allSports = sportsConfig;
 
 export function getSportConfig(id: string): SportConfig | undefined {
-  return sportsConfig.find((s) => s.id === id);
+  return sportsConfig.find((s) => s.id === id || s.sport === id);
 }
 
 export interface SportAccent {
@@ -204,9 +92,7 @@ export function getSportAccent(id: string): SportAccent {
  * All supported sports in the canonical editorial order (cricket-first,
  * never football-biased) — used by the top navigation and sports surfaces.
  */
-export const orderedSports: SportConfig[] = allSportsSidebarOrder
-  .map((id) => sportsConfig.find((s) => s.id === id))
-  .filter((s): s is SportConfig => Boolean(s));
+export const orderedSports: SportConfig[] = sportsConfig;
 
 /** Display label for a sport id, special-casing "formula-1". */
 export function sportLabel(id: string, shortName: string): string {

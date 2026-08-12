@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Radio, Trophy, Newspaper, Wand2, Sparkles } from "lucide-react";
+import { SPORTS } from "@/sports/registry";
 
 const socials = [
   {
@@ -33,15 +34,10 @@ const socials = [
 const footerLinks = [
   {
     title: "Sports",
-    links: [
-      { label: "Football", href: "/football" },
-      { label: "Cricket", href: "/cricket" },
-      { label: "Basketball", href: "/basketball" },
-      { label: "NFL", href: "/nfl" },
-      { label: "Hockey", href: "/hockey" },
-      { label: "Formula 1", href: "/f1" },
-      { label: "NBA", href: "/nba" },
-    ],
+    links: SPORTS.filter((s) => s.enabled).map((s) => ({
+      label: s.shortName,
+      href: s.route,
+    })),
   },
   {
     title: "Platform",

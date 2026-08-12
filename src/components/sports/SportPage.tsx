@@ -28,6 +28,9 @@ interface SportPageProps {
   extra?: React.ReactNode;
   /** Loading / unavailable banner + last-updated label */
   dataStatus?: React.ReactNode;
+  /** Optional overrides (registry-driven); defaults to sportLabels. */
+  title?: string;
+  subtitle?: string;
 }
 
 const tabs = ["Live", "Fixtures", "Standings", "News", "Top Players"];
@@ -44,6 +47,8 @@ export function SportPage({
   hero,
   extra,
   dataStatus,
+  title,
+  subtitle,
 }: SportPageProps) {
   const [activeTab, setActiveTab] = useState("Live");
   const accent = getSportAccent(sport);
@@ -58,9 +63,9 @@ export function SportPage({
       <div className="mx-auto max-w-[1440px] px-4 py-8 lg:px-6 lg:py-10" style={accentStyle}>
         <PageHeader
           icon={icon}
-          title={sportLabels[sport]}
+          title={title ?? sportLabels[sport]}
           kicker="SportSphere Coverage"
-          subtitle={`Everything ${sportLabels[sport]}. Live scores, fixtures, standings, and more`}
+          subtitle={subtitle ?? `Everything ${sportLabels[sport]}. Live scores, fixtures, standings, and more`}
         />
 
         {dataStatus}

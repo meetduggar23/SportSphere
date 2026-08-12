@@ -4,27 +4,15 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { Match, Fixture, Standing, Sport } from "@/types";
 import type { ProviderSnapshot } from "@/lib/providers/types";
 import { getProvider } from "@/lib/providers/registry";
+import { sportIds } from "@/sports/registry";
 
 /**
- * All 13 supported sports — deliberately ordered as a neutral editorial list,
- * NOT football-first. The home feed is sport-agnostic: whatever is actually
+ * All 13 supported sports — sourced from the sport registry (single source
+ * of truth), deliberately ordered as a neutral editorial list, NOT
+ * football-first. The home feed is sport-agnostic: whatever is actually
  * live/upcoming/finished across these sports is what gets shown.
  */
-export const homeSports: Sport[] = [
-  "cricket",
-  "football",
-  "basketball",
-  "baseball",
-  "hockey",
-  "volleyball",
-  "rugby",
-  "f1",
-  "mma",
-  "nfl",
-  "nba",
-  "handball",
-  "afl",
-];
+export const homeSports: Sport[] = sportIds();
 
 export type HomeFeedStatus = "loading" | "ready" | "unavailable";
 
