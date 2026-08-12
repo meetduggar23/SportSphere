@@ -42,6 +42,7 @@ export function SearchBar() {
       const rec = new (SpeechRecognition as any)();
       rec.lang = "en-US";
       rec.onresult = (e: { results: ArrayLike<ArrayLike<{ transcript: string }>> }) => {
+        if (!e.results?.[0]?.[0]?.transcript) return;
         const transcript = e.results[0][0].transcript;
         setQuery(transcript);
         submit(transcript);
@@ -71,16 +72,18 @@ export function SearchBar() {
           className="flex-1 bg-transparent text-sm outline-none placeholder:text-muted min-w-0"
         />
         {query && (
-          <button onClick={() => setQuery("")} className="text-muted hover:text-foreground">
+          <button type="button" onClick={() => setQuery("")} className="text-muted hover:text-foreground" aria-label="Clear search">
             <X className="h-3.5 w-3.5" />
           </button>
         )}
         <button
+          type="button"
           onClick={startVoiceSearch}
           className={`p-0.5  transition-colors ${
             listening ? "text-secondary animate-pulse" : "text-muted hover:text-secondary"
           }`}
           title="Voice search"
+          aria-label="Voice search"
         >
           <Mic className="h-4 w-4" />
         </button>

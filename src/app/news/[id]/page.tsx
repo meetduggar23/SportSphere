@@ -1,43 +1,123 @@
 "use client";
 
-import { use, useState } from "react";
+import { use, useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowLeft, Share2, Bookmark, MessageCircle, Eye, ThumbsUp } from "lucide-react";
+import { ArrowLeft, ExternalLink, Loader2, RefreshCw } from "lucide-react";
 import { AppShell } from "@/components/layout/AppShell";
-import { DemoBadge } from "@/components/ui/DemoBadge";
-import { topNews } from "@/data/mock";
 import { NewsCard } from "@/components/sports/NewsCard";
-import { cn } from "@/lib/utils";
+import { cachedFetch } from "@/lib/requestCache";
+import type { News } from "@/types";
+
+type DetailStatus = "loading" | "ready" | "unavailable";
+
+interface DetailResult {
+  status: DetailStatus;
+  news: News | null;
+  related: News[];
+}
 
 export default function NewsDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
-  const news = topNews.find((n) => n.id === id);
-  const [liked, setLiked] = useState(false);
-  const [bookmarked, setBookmarked] = useState(false);
+  const [state, setState] = useState<DetailResult>({
+    status: "loading",
+    news: null,
+    related: [],
+  });
+  const { status, news, related } = state;
 
-  // Unknown ids must not silently render another article under the wrong
-  // headline — same honest empty state the match/team/player pages use.
-  if (!news) {
+  // Returns the next state; setState runs only inside promise callbacks.
+  const load = useCallback(async (): Promise<DetailResult> => {
+    // The shared list call goes through the same request cache as the news
+    // page so both never duplicate the upstream fetch within the TTL.
+    const [articleRes, listPayload] = await Promise.all([
+      fetch(`/api/news?id=${encodeURIComponent(id)}`),
+      cachedFetch<{ data?: News[] }>("/api/news", async () => {
+        const r = await fetch("/api/news");
+        if (!r.ok) throw new Error(`News API error: ${r.status}`);
+        return r.json();
+      }),
+    ]);
+    const articlePayload = await articleRes.json();
+
+    if (!articleRes.ok) {
+      throw new Error(articlePayload.error || "Failed to load article");
+    }
+
+    const article = articlePayload.data?.[0] ?? null;
+    return {
+      status: article ? "ready" : "unavailable",
+      news: article,
+      related: (Array.isArray(listPayload.data) ? listPayload.data : [])
+        .filter((n: News) => n.id !== id)
+        .slice(0, 3),
+    };
+  }, [id]);
+
+  const apply = useCallback((next: DetailResult) => {
+    setState(next);
+  }, []);
+
+  const retry = useCallback(() => {
+    setState((s) => ({ ...s, status: "loading" }));
+    load()
+      .then(apply)
+      .catch((e) => {
+        console.error("News detail failed:", e);
+        apply({ status: "unavailable", news: null, related: [] });
+      });
+  }, [load, apply]);
+
+  useEffect(() => {
+    load()
+      .then(apply)
+      .catch((e) => {
+        console.error("News detail failed:", e);
+        apply({ status: "unavailable", news: null, related: [] });
+      });
+  }, [load, apply]);
+
+  if (status === "loading") {
     return (
       <AppShell>
-        <div className="max-w-7xl mx-auto px-4 py-20 text-center">
-          <h1 className="text-xl font-bold">Article not found</h1>
-          <p className="text-sm text-muted mt-2 max-w-sm mx-auto">
-            We don&apos;t have an article for this id yet. Try browsing the news list.
-          </p>
-          <Link
-            href="/news"
-            className="inline-flex items-center gap-1.5 text-sm font-semibold text-secondary mt-6 hover:underline"
-          >
-            <ArrowLeft className="h-4 w-4" /> Back to News
-          </Link>
+        <div className="max-w-4xl mx-auto">
+          <div className="flex items-center gap-3 text-sm text-muted py-20 justify-center">
+            <Loader2 className="h-4 w-4 animate-spin text-secondary" />
+            Loading article…
+          </div>
         </div>
       </AppShell>
     );
   }
 
-  const related = topNews.filter((n) => n.id !== news.id).slice(0, 3);
+  if (status === "unavailable" || !news) {
+    return (
+      <AppShell>
+        <div className="max-w-7xl mx-auto px-4 py-20 text-center">
+          <h1 className="text-xl font-bold">Article not found</h1>
+          <p className="text-sm text-muted mt-2 max-w-sm mx-auto">
+            We couldn&apos;t load this article. It may have been removed by the
+            publisher or is no longer in the sports feed.
+          </p>
+          <div className="mt-6 flex items-center justify-center gap-3">
+            <Link
+              href="/news"
+              className="inline-flex items-center gap-1.5 text-sm font-semibold text-secondary hover:underline"
+            >
+              <ArrowLeft className="h-4 w-4" /> Back to News
+            </Link>
+            <button
+              type="button"
+              onClick={retry}
+              className="inline-flex items-center gap-1.5 border border-border-strong px-3 py-1.5 text-sm font-semibold transition-colors hover:bg-muted/10 rounded-md"
+            >
+              <RefreshCw className="h-3.5 w-3.5" /> Retry
+            </button>
+          </div>
+        </div>
+      </AppShell>
+    );
+  }
 
   return (
     <AppShell>
@@ -49,11 +129,7 @@ export default function NewsDetailPage({ params }: { params: Promise<{ id: strin
           <ArrowLeft className="h-4 w-4" /> Back to News
         </Link>
 
-        <div className="mb-4">
-          <DemoBadge label="Demo article" />
-        </div>
-
-<article className="arena-card overflow-hidden">
+        <article className="arena-card overflow-hidden">
           <div className="relative h-64 md:h-80">
             <Image
               src={news.image}
@@ -63,9 +139,9 @@ export default function NewsDetailPage({ params }: { params: Promise<{ id: strin
               sizes="(max-width: 896px) 100vw, 896px"
               className="object-cover"
             />
-<div className="absolute inset-0 bg-gradient-to-t from-navy/80 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-navy/80 to-transparent" />
             <div className="absolute bottom-4 left-6 right-6">
-              <span className="text-[11px] font-bold px-2.5 py-1  bg-primary text-navy rounded-full">
+              <span className="text-[11px] font-bold px-2.5 py-1 bg-primary text-navy rounded-full">
                 {news.category}
               </span>
               <h1 className="text-xl md:text-2xl font-extrabold text-white mt-3 leading-snug">
@@ -77,86 +153,53 @@ export default function NewsDetailPage({ params }: { params: Promise<{ id: strin
           <div className="p-6">
             <div className="flex items-center justify-between pb-5 border-b border-border mb-5">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10  bg-secondary/10 text-secondary flex items-center justify-center font-bold rounded-full">
-                  {news.author?.[0] ?? "S"}
+                <div className="w-10 h-10 bg-secondary/10 text-secondary flex items-center justify-center font-bold rounded-full">
+                  {news.source?.[0] ?? news.author?.[0] ?? "S"}
                 </div>
                 <div>
-                  <p className="text-sm font-semibold">{news.author ?? "SportSphere Desk"}</p>
+                  <p className="text-sm font-semibold">
+                    {news.author ?? news.source ?? "SportSphere Desk"}
+                  </p>
                   <p className="text-xs text-muted">
-                    {news.timeAgo} • {news.views ?? "1.2M"} views
+                    {news.timeAgo}
+                    {news.source ? ` • ${news.source}` : ""}
                   </p>
                 </div>
               </div>
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={() => setLiked(!liked)}
-                  className={cn(
-                    "p-2.5  border transition-colors rounded-md",                    liked ? "bg-primary text-navy border-primary" : "border-border hover:bg-muted/10"
-                  )}
-                  aria-label="Like"
+              {news.url && (
+                <a
+                  href={news.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 bg-primary px-4 py-2 text-sm font-bold text-navy transition-colors hover:bg-primary-hover rounded-md"
                 >
-                  <ThumbsUp className="h-4 w-4" />
-                </button>
-                <button
-                  onClick={() => setBookmarked(!bookmarked)}
-                  className={cn(
-                    "p-2.5  border transition-colors rounded-md",                    bookmarked ? "bg-primary text-navy border-primary" : "border-border hover:bg-muted/10"
-                  )}
-                  aria-label="Bookmark"
-                >
-                  <Bookmark className={cn("h-4 w-4", bookmarked && "fill-current")} />
-                </button>
-                <button className="p-2.5  border border-border hover:bg-muted/10 transition-colors rounded-md" aria-label="Share">
-                  <Share2 className="h-4 w-4" />
-                </button>
-              </div>
+                  Read full story <ExternalLink className="h-3.5 w-3.5" />
+                </a>
+              )}
             </div>
 
             <div className="space-y-4 text-[15px] leading-relaxed text-foreground/90">
-              <p>
-                In a night that will be remembered for generations, {news.title.toLowerCase()} delivered
-                drama, skill, and moments of pure sporting brilliance. The atmosphere was electric from
-                the first whistle, with both sides trading early chances.
-              </p>
-              <p>
-                The breakthrough came against the run of play, stunning the home crowd into silence.
-                However, the response was immediate and emphatic, as the match swung back and forth
-                in a second half filled with end-to-end action.
-              </p>
-              <p>
-                Post-match analysis from SportSphere AI highlighted the tactical battle in midfield
-                as the deciding factor. Expected goals data showed a remarkably open game, with
-                combined xG exceeding 4.5.
-              </p>
-              <blockquote className="border-l-4 border-secondary pl-4 italic text-muted my-6">
-                &quot;This is why we love this sport. Moments like these transcend the game itself.&quot;
-              </blockquote>
-              <p>
-                The result has significant implications for the season ahead, reshaping the
-                narrative around both teams as they head into a crucial stretch of fixtures.
-                Fans can expect more drama in the weeks to come.
-              </p>
-            </div>
-
-            <div className="mt-8 pt-5 border-t border-border flex items-center justify-between text-sm text-muted">
-              <span className="flex items-center gap-1.5">
-                <MessageCircle className="h-4 w-4" /> 2.4K Comments
-              </span>
-              <span className="flex items-center gap-1.5">
-                <Eye className="h-4 w-4" /> {news.views ?? "1.2M"} Reads
-              </span>
+              <p>{news.excerpt}</p>
+              {news.url && (
+                <p className="text-sm text-muted">
+                  This article was aggregated from {news.source ?? "its publisher"}.
+                  Head over to the original story for the complete report and updates.
+                </p>
+              )}
             </div>
           </div>
         </article>
 
-        <div className="mt-10">
-          <h2 className="font-bold text-lg mb-4">Related News</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            {related.map((n) => (
-              <NewsCard key={n.id} news={n} />
-            ))}
+        {related.length > 0 && (
+          <div className="mt-10">
+            <h2 className="font-bold text-lg mb-4">More Sports News</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {related.map((n) => (
+                <NewsCard key={n.id} news={n} />
+              ))}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </AppShell>
   );

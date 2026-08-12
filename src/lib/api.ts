@@ -179,9 +179,19 @@ export async function getLiveMatches(): Promise<Match[]> {
   return data.map(toMatch);
 }
 
-export async function getFixtures(league = "39", season = "2024", next = "15"): Promise<Fixture[]> {
-  const data = await fetchAPI("fixtures", { league, season, next });
-  return data.map(toFixture);
+export async function getFixtures(league = "39", season = "2024", limit = 15): Promise<Fixture[]> {
+  // Free API-SPORTS plan rejects the `next` parameter ("Free plans do not have
+  // access to the Next parameter"), which silently blanked all fixtures.
+  // Fetch the season sheet and filter chronologically client-side instead.
+  const data = await fetchAPI("fixtures", { league, season });
+  const now = Date.now();
+  return (data as APIFixture[])
+    .filter((f) => new Date(f.fixture.date).getTime() >= now - 6 * 3600 * 1000)
+    .sort(
+      (a, b) => new Date(a.fixture.date).getTime() - new Date(b.fixture.date).getTime()
+    )
+    .slice(0, limit)
+    .map(toFixture);
 }
 
 export async function getStandings(league = "39", season = "2024"): Promise<Standing[]> {

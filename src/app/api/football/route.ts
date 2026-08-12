@@ -69,8 +69,8 @@ export async function GET(request: Request) {
       case "fixtures": {
         const league = searchParams.get("league") || "39";
         const season = searchParams.get("season") || "2024";
-        const next = searchParams.get("next") || "10";
-        const data = await fetchAPI("/fixtures", { league, season, next });
+        // Free plan rejects the `next` param — fetch the full season sheet.
+        const data = await fetchAPI("/fixtures", { league, season });
         return json(data);
       }
       case "teams": {

@@ -3,7 +3,6 @@
 import { useMemo, useState } from "react";
 import { Radio, Trophy, Newspaper, CalendarDays, Flag } from "lucide-react";
 import { AppShell } from "@/components/layout/AppShell";
-import { DemoBadge } from "@/components/ui/DemoBadge";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { DataStatus } from "@/components/ui/DataStatus";
 import { SportTabs } from "@/components/ui/SportTabs";
@@ -14,8 +13,9 @@ import { MatchRow } from "@/components/sports/MatchRow";
 import { StandingsTable } from "@/components/sports/StandingsTable";
 import { TrendingSidebar } from "@/components/dashboard/TrendingSidebar";
 import { useHomeFeed, homeSports, getFeaturedLiveEvent } from "@/lib/homeFeed";
+import { useNews } from "@/lib/useNews";
+import { matchHref } from "@/lib/utils";
 import { sportLabels, sportShortLabels as shortLabels, TrendingItem, Sport, Match } from "@/types";
-import { topNews } from "@/data/mock";
 
 function timeAgo(ts: number): string {
   const s = Math.floor((Date.now() - ts) / 1000);
@@ -29,6 +29,7 @@ function timeAgo(ts: number): string {
 
 export default function Home() {
   const feed = useHomeFeed();
+  const news = useNews();
   const { live, upcoming, results, standings, status, lastUpdated, error, retry } = feed;
   const [filter, setFilter] = useState<string>("all");
 
@@ -76,6 +77,7 @@ export default function Home() {
       subtitle: `${m.league} • ${sportLabels[m.sport]}`,
       logos: [],
       trend: "up" as const,
+      href: matchHref(m),
     }));
   }, [live, upcoming, results]);
 
@@ -224,7 +226,7 @@ export default function Home() {
               )}
             </section>
 
-            {/* 4. News — no news provider connected, labeled as demo */}
+            {/* 4. News — live sports feed from NewsData.io */}
             <section>
               <SectionHeader
                 title="News"
@@ -233,18 +235,37 @@ export default function Home() {
                 linkLabel="All News"
                 icon={<Newspaper className="h-5 w-5" />}
               />
-              <div className="mb-3 -mt-1 flex items-center gap-2">
-                <DemoBadge label="Demo content — no news provider connected" />
-              </div>
-              <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
-                <NewsCard news={topNews[0]} variant="featured" className="lg:col-span-2" />
-                <div className="flex flex-col gap-4">
-                  {topNews.slice(1, 3).map((news) => (
-                    <NewsCard key={news.id} news={news} variant="compact" />
-                  ))}
-                  <NewsCard news={topNews[3]} variant="default" />
+              {news.status === "loading" && (
+                <div className="flex items-center justify-center py-10 text-sm text-muted">
+                  Loading latest sports news…
                 </div>
-              </div>
+              )}
+              {news.status === "unavailable" && (
+                <div className="arena-card text-center py-10">
+                  <Newspaper className="mx-auto mb-3 h-7 w-7 text-muted" />
+                  <p className="text-sm font-medium text-muted">
+                    Sports news is temporarily unavailable.
+                  </p>
+                </div>
+              )}
+              {news.status === "ready" && news.articles.length > 0 && (
+                <>
+                  <div className="mb-3 -mt-1 flex items-center gap-2">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-muted">
+                      {news.dataSource} • Updated {news.lastUpdated ? timeAgo(news.lastUpdated) : "just now"}
+                    </span>
+                  </div>
+                  <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
+                    <NewsCard news={news.articles[0]} variant="featured" className="lg:col-span-2" />
+                    <div className="flex flex-col gap-4">
+                      {news.articles.slice(1, 3).map((n) => (
+                        <NewsCard key={n.id} news={n} variant="compact" />
+                      ))}
+                      {news.articles[3] && <NewsCard news={news.articles[3]} variant="default" />}
+                    </div>
+                  </div>
+                </>
+              )}
             </section>
 
             {/* 5. Standings — important/current competitions, grouped by sport */}

@@ -14,7 +14,7 @@ export function createFootballProvider(): SportProvider {
       snapshot("API-Football", async () => validateMatches(await getLiveMatches())),
     getFixtures: () =>
       snapshot("API-Football", async () =>
-        validateFixtures(await getFixtures("39", "2024", "15"))
+        validateFixtures(await getFixtures("39", "2024", 15))
       ),
     getStandings: () =>
       snapshot("API-Football", async () =>

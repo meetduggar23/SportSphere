@@ -25,6 +25,11 @@ export function AIPrediction({ prediction }: AIPredictionProps) {
     setVotes((prev) => ({ ...prev, [key]: prev[key] + 1 }));
   };
 
+  // Normalize to percentage of total votes so bars never exceed 100% and
+  // always represent a true share after a vote lands.
+  const voteTotal = votes.home + votes.draw + votes.away;
+  const pct = (v: number) => (voteTotal === 0 ? 0 : Math.round((v / voteTotal) * 100));
+
 const bars: { key: "home" | "draw" | "away"; label: string; bar: string; chip: string }[] = [
     {
       key: "home",
@@ -85,12 +90,12 @@ const bars: { key: "home" | "draw" | "away"; label: string; bar: string; chip: s
         <div className="mb-5 grid grid-cols-3 gap-3">
           {bars.map((bar) => (
             <div key={bar.key} className="text-center">
-              <p className="display text-lg tabular-nums">{votes[bar.key]}%</p>
+              <p className="display text-lg tabular-nums">{pct(votes[bar.key])}%</p>
               <p className="label mt-0.5">{bar.label}</p>
               <div className="mt-2 h-1.5 overflow-hidden  bg-muted/15">
                 <div
                   className={cn("h-full  transition-all duration-500", bar.bar)}
-                  style={{ width: `${votes[bar.key]}%` }}
+                  style={{ width: `${pct(votes[bar.key])}%` }}
                 />
               </div>
             </div>

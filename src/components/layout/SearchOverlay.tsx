@@ -54,6 +54,7 @@ export function SearchOverlay({ onClose }: SearchOverlayProps) {
       const rec = new (SpeechRecognition as any)();
       rec.lang = "en-US";
       rec.onresult = (e: { results: ArrayLike<ArrayLike<{ transcript: string }>> }) => {
+        if (!e.results?.[0]?.[0]?.transcript) return;
         const transcript = e.results[0][0].transcript;
         setQuery(transcript);
         submit(transcript);
@@ -88,11 +89,14 @@ export function SearchOverlay({ onClose }: SearchOverlayProps) {
                 listening ? "animate-pulse text-secondary" : "text-muted hover:text-secondary"
               }`}
               title="Voice search"
+              aria-label="Voice search"
+              type="button"
             >
               <Mic className="h-4 w-4" />
             </button>
             {query && (
               <button
+                type="button"
                 onClick={() => {
                   setQuery("");
                   inputRef.current?.focus();
@@ -104,6 +108,7 @@ export function SearchOverlay({ onClose }: SearchOverlayProps) {
               </button>
             )}
             <button
+              type="button"
               onClick={() => submit(query)}
               className="flex h-9 items-center gap-2 bg-primary px-4 text-sm font-bold text-navy transition-colors hover:bg-primary-hover rounded-md"
               aria-label="Submit search"

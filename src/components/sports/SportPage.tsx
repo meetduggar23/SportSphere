@@ -2,6 +2,7 @@
 
 import { useState, CSSProperties } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { AppShell } from "@/components/layout/AppShell";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { SportTabs } from "@/components/ui/SportTabs";
@@ -202,7 +203,7 @@ export function SportPage({
                 <ul className="p-2">
                   {competitions.map((c) => (
                     <li key={c}>
-                      <a
+                      <Link
                         href="/competitions"
                         className="group flex items-center justify-between  px-3.5 py-2.5 text-sm text-muted transition-colors hover:bg-blue/40 hover:text-foreground"
                       >
@@ -210,7 +211,7 @@ export function SportPage({
                         <span
                           className="h-1.5 w-1.5  bg-border-strong opacity-0 transition-opacity group-hover:opacity-100"
                         />
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>

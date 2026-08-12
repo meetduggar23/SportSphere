@@ -24,6 +24,9 @@ interface StatsCardProps {
 
 export function StatsCard({ card }: StatsCardProps) {
   const Icon = iconMap[card.icon];
+  // card.color, when provided, must be a complete Tailwind gradient string
+  // ("from-x to-y"); otherwise fall back to the icon's default palette.
+  const color = card.color || iconColors[card.icon] || "from-sand to-gold/60";
 
   return (
     <div className="group relative overflow-hidden  arena-card arena-card-hover p-5">
@@ -32,7 +35,7 @@ export function StatsCard({ card }: StatsCardProps) {
         <div
           className={cn(
             "shrink-0  bg-gradient-to-br p-3 text-navy shadow-card",
-            iconColors[card.icon] ?? "from-sand to-gold/60"
+            color
           )}
         >
           {Icon && <Icon className="h-5 w-5" />}

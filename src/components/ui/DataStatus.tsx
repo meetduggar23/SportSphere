@@ -1,10 +1,11 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { DatabaseZap, Loader2, RefreshCw } from "lucide-react";
 import type { SportDataStatus } from "@/lib/useSportData";
 
-function timeAgo(ts: number): string {
-  const s = Math.floor((Date.now() - ts) / 1000);
+function timeAgo(ts: number, now: number): string {
+  const s = Math.floor((now - ts) / 1000);
   if (s < 10) return "just now";
   if (s < 60) return `${s}s ago`;
   const m = Math.floor(s / 60);
@@ -55,6 +56,7 @@ export function DataStatus({
           </div>
           {onRetry && (
             <button
+              type="button"
               onClick={onRetry}
               className="inline-flex shrink-0 items-center gap-1.5  border border-border-strong px-4 py-2 text-sm font-semibold transition-colors hover:bg-muted/10 rounded-md"
             >
@@ -67,10 +69,16 @@ export function DataStatus({
   }
 
   // ready
+  const [now, setNow] = useState(() => Date.now());
+  useEffect(() => {
+    if (!lastUpdated) return;
+    const id = setInterval(() => setNow(Date.now()), 30_000);
+    return () => clearInterval(id);
+  }, [lastUpdated]);
   if (lastUpdated) {
     return (
       <p className="mb-6 -mt-2 text-xs text-muted">
-        {dataSource ? `${dataSource} • ` : ""}Updated {timeAgo(lastUpdated)}
+        {dataSource ? `${dataSource} • ` : ""}Updated {timeAgo(lastUpdated, now)}
       </p>
     );
   }

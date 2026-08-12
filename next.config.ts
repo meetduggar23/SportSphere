@@ -16,6 +16,11 @@ const nextConfig: NextConfig = {
       // Approved player-image provider CDN (Sportmonks). Only this host is
       // allowed — arbitrary remote image domains are never added.
       { protocol: "https", hostname: "cdn.sportmonks.com" },
+      // News articles are aggregated from many publishers; their CDNs are
+      // unknown ahead of time, so any https image host is permitted here.
+      // Images are only ever fetched by next/image from URLs that came back
+      // from the NewsData.io API (https-only), not from user input.
+      { protocol: "https", hostname: "**" },
     ],
   },
   // Legacy top-level sport routes → canonical /sports/<slug> module routes.

@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import type { SportProvider } from "@/lib/providers/types";
+import type { SportProvider, ProviderSnapshot } from "@/lib/providers/types";
 import { Match, Fixture, Standing, Player, Sport } from "@/types";
 import { getProvider } from "@/lib/providers/registry";
 
@@ -41,7 +41,10 @@ export function useSportData(sport: Sport) {
   const load = useCallback(async () => {
     const provider: SportProvider = getProvider(sport);
 
-    const [m, f, st, p] = await Promise.all([
+    // allSettled: one rejected provider call must never leave the sport page
+    // stuck on "loading live data…" forever (a provider that throws escapes
+    // the snapshot contract and would otherwise reject the Promise.all).
+    const [m, f, st, p] = await Promise.allSettled([
       provider.getMatches(),
       provider.getFixtures(),
       provider.getStandings(),
@@ -49,27 +52,34 @@ export function useSportData(sport: Sport) {
     ]);
     if (!mounted.current) return;
 
-    const ready = [m, f, st, p].some((x) => x.status === "ready");
+    const value = (r: PromiseSettledResult<ProviderSnapshot<Match[] | Fixture[] | Standing[] | Player[]>>) =>
+      r.status === "fulfilled" ? r.value : undefined;
+    const mm = value(m);
+    const ff = value(f);
+    const ss = value(st);
+    const pp = value(p);
+
+    const ready = [mm, ff, ss, pp].some((x) => x?.status === "ready");
     setState({
-      matches: m.status === "ready" ? m.data : [],
-      fixtures: f.status === "ready" ? f.data : [],
-      standings: st.status === "ready" ? st.data : [],
-      players: p.status === "ready" ? p.data : [],
+      matches: mm?.status === "ready" ? (mm.data as Match[]) : [],
+      fixtures: ff?.status === "ready" ? (ff.data as Fixture[]) : [],
+      standings: ss?.status === "ready" ? (ss.data as Standing[]) : [],
+      players: pp?.status === "ready" ? (pp.data as Player[]) : [],
       status: ready ? "ready" : "unavailable",
       dataSource:
-        m.dataSource ||
-        f.dataSource ||
-        st.dataSource ||
-        p.dataSource ||
+        mm?.dataSource ||
+        ff?.dataSource ||
+        ss?.dataSource ||
+        pp?.dataSource ||
         provider.dataSource,
       lastUpdated:
         Math.max(
-          m.lastUpdated ?? 0,
-          f.lastUpdated ?? 0,
-          st.lastUpdated ?? 0,
-          p.lastUpdated ?? 0
+          mm?.lastUpdated ?? 0,
+          ff?.lastUpdated ?? 0,
+          ss?.lastUpdated ?? 0,
+          pp?.lastUpdated ?? 0
         ) || null,
-      error: [m.error, f.error, st.error, p.error].find((e) => e),
+      error: [mm?.error, ff?.error, ss?.error, pp?.error].find((e) => e),
     });
   }, [sport]);
 

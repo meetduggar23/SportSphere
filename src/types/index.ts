@@ -112,12 +112,17 @@ export interface News {
   title: string;
   excerpt: string;
   image: string;
-  sport: Sport;
+  /** Inferred sport (real news may not map cleanly to one of the app sports). */
+  sport?: Sport;
   category: string;
   timeAgo: string;
   isBreaking?: boolean;
   author?: string;
   views?: string;
+  /** Original publisher URL for real articles. */
+  url?: string;
+  /** Publisher name (e.g. "The Daily Star"). */
+  source?: string;
 }
 
 export interface Standing {
@@ -153,6 +158,7 @@ export interface TrendingItem {
   subtitle: string;
   logos: string[];
   trend: "up" | "down" | "steady";
+  href?: string;
 }
 
 export interface StatsCard {

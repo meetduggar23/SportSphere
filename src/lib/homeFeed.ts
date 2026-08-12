@@ -41,7 +41,10 @@ const initial: Omit<HomeFeed, "retry"> = {
   lastUpdated: null,
 };
 
-function fixtureToMatch(fx: Fixture): Match {
+function fixtureToMatch(fx: Fixture): Match | undefined {
+  // Single-entrant sports (F1) or sparse providers may omit awayTeam.
+  // Rendering "X vs X" would be wrong — skip instead.
+  if (!fx.awayTeam) return undefined;
   return {
     id: fx.id,
     sport: fx.sport,
@@ -49,7 +52,7 @@ function fixtureToMatch(fx: Fixture): Match {
     status: "upcoming",
     minute: fx.time,
     homeTeam: fx.homeTeam,
-    awayTeam: fx.awayTeam ?? fx.homeTeam,
+    awayTeam: fx.awayTeam,
     homeScore: "-",
     awayScore: "-",
     date: fx.dateTime,
@@ -105,8 +108,10 @@ function buildFeed(slices: SportSlice[]): Omit<HomeFeed, "retry"> {
       for (const fx of fixtures.data) {
         const key = `${sport}:${fx.id}`;
         if (seenUpcoming.has(key)) continue;
+        const match = fixtureToMatch(fx);
+        if (!match) continue;
         seenUpcoming.add(key);
-        upcoming.push(fixtureToMatch(fx));
+        upcoming.push(match);
       }
     }
     if (stRows.status === "ready") {
