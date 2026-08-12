@@ -41,7 +41,7 @@ export {
   IPL_TEAMS,
   IPL_TEAM_NAMES,
   IPL_SEASONS,
-  INDIA_TEAM,
+  KNOWN_TEAMS,
 } from "./config/cricketConfig";
 
 /* ---- Services ---- */
@@ -56,6 +56,9 @@ export {
   getCricketPlayer,
   getCricketScorecard,
   getCricketSquads,
+  getCricketTeams,
+  getCricketTeam,
+  getCricketPlayersForTeam,
   toAppMatch,
   toAppFixture,
   toAppStanding,
@@ -73,6 +76,8 @@ export type {
   RecordDefinition,
   CricketPlayer,
   CricketPlayerRef,
+  CricketTeam,
+  CricketTeamType,
   CricketTeamRef,
   CricketCareerStats,
   CricketRecord,
@@ -86,3 +91,4 @@ export type {
   CricketRecordQuery,
   CricketRecordsResult,
 } from "./types/cricketTypes";
+export { CricketCountrySelector } from "./components/CricketCountrySelector";

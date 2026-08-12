@@ -6,15 +6,16 @@ import type {
 } from "@/sports/cricket/types/cricketTypes";
 
 /**
- * /sports/cricket/records?format=test&category=batting
- * Validates query params against the config; defaults apply on invalid input.
+ * /sports/cricket/records?format=test&category=batting&team=india
+ * Validates format/category against the config (defaults apply on invalid
+ * input); the team param is a free filter string passed through as-is.
  */
 export default async function CricketRecordsRoute({
   searchParams,
 }: {
-  searchParams: Promise<{ format?: string; category?: string }>;
+  searchParams: Promise<{ format?: string; category?: string; team?: string }>;
 }) {
-  const { format, category } = await searchParams;
+  const { format, category, team } = await searchParams;
   const validFormat = CRICKET_FORMATS.find((f) => f.id === format)?.id as
     | CricketFormatId
     | undefined;
@@ -22,5 +23,5 @@ export default async function CricketRecordsRoute({
     | CricketRecordCategory
     | undefined;
 
-  return <CricketRecordsPage format={validFormat} category={validCategory} />;
+  return <CricketRecordsPage format={validFormat} category={validCategory} team={team} />;
 }

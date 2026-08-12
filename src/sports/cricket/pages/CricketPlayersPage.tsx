@@ -35,7 +35,7 @@ export function CricketPlayersPage() {
             <input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search players — e.g. Virat Kohli"
+              placeholder="Search players — Kohli, Babar Azam, Steve Smith…"
               className="w-full  border border-border bg-card/60 py-2.5 pl-10 pr-3 text-sm text-foreground placeholder:text-muted outline-none rounded-md focus:border-secondary"
             />
           </div>

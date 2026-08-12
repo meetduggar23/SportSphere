@@ -13,6 +13,27 @@
 
 export type CricketFormatId = "test" | "odi" | "t20i" | "t20" | "ipl";
 
+/** Kind of cricket team — national side, franchise league, or other club. */
+export type CricketTeamType = "national" | "franchise" | "club";
+
+/**
+ * A cricket country/team identity (never statistics). Same generic model for
+ * every country — India, Australia, England, Pakistan and all others — so no
+ * country ever needs its own duplicated implementation.
+ */
+export interface CricketTeam {
+  /** Stable slug id (e.g. "india", "australia", "mumbai-indians"). */
+  id: string;
+  name: string;
+  shortName?: string;
+  country?: string;
+  /** ISO 3166-1 alpha-2 code where one exists ("" for multi-nation sides). */
+  countryCode?: string;
+  logo?: string;
+  type: CricketTeamType;
+  gender?: "men" | "women";
+}
+
 export type CricketRecordCategory =
   | "batting"
   | "bowling"

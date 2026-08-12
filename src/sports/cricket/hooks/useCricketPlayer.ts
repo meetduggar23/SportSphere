@@ -25,3 +25,9 @@ export function useCricketPlayers(search: string) {
   const path = `/api/cricket/players${search ? `?search=${encodeURIComponent(search)}` : ""}`;
   return useCricketData<{ id: string; name: string; country?: string }[]>(path);
 }
+
+/** Players of one national side (filtered by country — never another team's). */
+export function useCricketPlayersTeam(teamId: string | undefined) {
+  const path = teamId ? `/api/cricket/players?team=${encodeURIComponent(teamId)}` : "";
+  return useCricketData<{ id: string; name: string; country?: string }[]>(path);
+}

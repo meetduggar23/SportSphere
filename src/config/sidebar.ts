@@ -68,7 +68,7 @@ export const sportSidebars: Record<string, SidebarSection> = {
       { label: "Overview", href: "/sports/cricket", icon: "overview" },
       { label: "Live Scores", href: "/live", icon: "live" },
       { label: "Records", href: "/sports/cricket/records", icon: "stats" },
-      { label: "India", href: "/sports/cricket/india", icon: "teams" },
+      { label: "Countries", href: "/sports/cricket/teams", icon: "teams" },
       { label: "IPL", href: "/sports/cricket/ipl", icon: "leagues" },
       { label: "Players", href: "/sports/cricket/players", icon: "players" },
       { label: "Series", href: "/competitions", icon: "series" },

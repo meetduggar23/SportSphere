@@ -10,6 +10,8 @@ import type { CricketFormatId, CricketRecordCategory } from "@/sports/cricket/ty
 interface CricketRecordsPageProps {
   format?: CricketFormatId;
   category?: CricketRecordCategory;
+  /** Preselected country/team (e.g. from ?team=india). */
+  team?: string;
 }
 
 /**
@@ -17,7 +19,11 @@ interface CricketRecordsPageProps {
  *   [Test] [ODI] [T20I] [IPL] → [Batting] [Bowling] … → [Record] → table
  * Modeled on the Cricinfo records system; data-driven from RECORD_DEFINITIONS.
  */
-export function CricketRecordsPage({ format = "test", category = "batting" }: CricketRecordsPageProps) {
+export function CricketRecordsPage({
+  format = "test",
+  category = "batting",
+  team,
+}: CricketRecordsPageProps) {
   return (
     <AppShell>
       <div className="mx-auto max-w-[1200px] px-4 py-8 lg:px-6 lg:py-10">
@@ -28,7 +34,7 @@ export function CricketRecordsPage({ format = "test", category = "batting" }: Cr
           subtitle={`All-time records for ${cricketFormat(format).label} • ${recordCategory(category).label}. Select a format, category and record to explore.`}
         />
 
-        <CricketRecords defaultFormat={format} defaultCategory={category} />
+        <CricketRecords defaultFormat={format} defaultCategory={category} defaultTeam={team} />
       </div>
     </AppShell>
   );

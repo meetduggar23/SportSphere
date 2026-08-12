@@ -8,6 +8,7 @@ import { CricketFilterBar } from "@/sports/cricket/components/CricketFilterBar";
 import { RecordsUnavailable } from "@/sports/cricket/components/RecordsUnavailable";
 import { CricketSourceFooter } from "@/sports/cricket/components/CricketSourceFooter";
 import { useCricketRecords } from "@/sports/cricket/hooks/useCricketRecords";
+import { useCricketTeams } from "@/sports/cricket/hooks/useCricketTeams";
 import { getRecordCatalog } from "@/sports/cricket/services/cricketRecords";
 import { cricketFormat, IPL_TEAMS, recordCategory } from "@/sports/cricket/config/cricketConfig";
 import { cn } from "@/lib/utils";
@@ -19,6 +20,8 @@ import type {
 interface CricketRecordsProps {
   defaultFormat?: CricketFormatId;
   defaultCategory?: CricketRecordCategory;
+  /** Preselected country/team filter (e.g. from ?team=india). */
+  defaultTeam?: string;
   className?: string;
 }
 
@@ -37,13 +40,14 @@ const PAGE_SIZE = 10;
 export function CricketRecords({
   defaultFormat = "test",
   defaultCategory = "batting",
+  defaultTeam,
   className,
 }: CricketRecordsProps) {
   const [format, setFormat] = useState<CricketFormatId>(defaultFormat);
   const [category, setCategory] = useState<CricketRecordCategory>(defaultCategory);
   const [recordType, setRecordType] = useState<string | undefined>(undefined);
   const [season, setSeason] = useState<string | undefined>(undefined);
-  const [team, setTeam] = useState<string | undefined>(undefined);
+  const [team, setTeam] = useState<string | undefined>(defaultTeam);
   const [search, setSearch] = useState<string | undefined>(undefined);
   const [page, setPage] = useState(1);
 
@@ -80,10 +84,15 @@ export function CricketRecords({
 
   const formatDef = cricketFormat(format);
   const totalPages = data && data.total > 0 ? Math.ceil(data.total / PAGE_SIZE) : 0;
-  const teams = useMemo(
-    () => (format === "ipl" ? IPL_TEAMS.map((t) => t.name).sort() : []),
-    [format]
-  );
+
+  // Country filter options come from the global teams list (any nation), plus
+  // IPL franchise names when the IPL format is selected.
+  const { data: countries } = useCricketTeams();
+  const teams = useMemo(() => {
+    const names = new Set((countries ?? []).map((t) => t.name));
+    if (format === "ipl") IPL_TEAMS.forEach((t) => names.add(t.name));
+    return [...names].sort((a, b) => a.localeCompare(b));
+  }, [countries, format]);
 
   return (
     <div className={cn("space-y-5", className)}>

@@ -1,4 +1,4 @@
-import { CRICKET_API } from "@/sports/cricket/config/cricketConfig";
+import { CRICKET_API, IPL_TEAM_NAMES, KNOWN_TEAMS } from "@/sports/cricket/config/cricketConfig";
 import type {
   BattingLine,
   BowlingLine,
@@ -10,7 +10,9 @@ import type {
   CricketScorecard,
   CricketScorecardInnings,
   CricketSeries,
+  CricketTeam,
   CricketTeamRef,
+  CricketTeamType,
 } from "@/sports/cricket/types/cricketTypes";
 import {
   classifyFormat,
@@ -21,6 +23,7 @@ import {
   normalizeName,
   nowIso,
   teamInitials,
+  teamSlug,
 } from "@/sports/cricket/utils/cricketFormat";
 import type { Fixture, Match, Standing } from "@/types";
 
@@ -407,6 +410,65 @@ export async function getCricketSquads(id: string): Promise<CricketPlayerRef[]> 
     }
   }
   return dedupeBy(refs, (p) => p.id || p.name);
+}
+
+/* ---- Teams / countries (global) ---- */
+
+/**
+ * Supported cricket countries & teams. The factual identity seed (KNOWN_TEAMS)
+ * is merged with every team observed in provider match data, so any country
+ * the provider supports appears here — India is never special-cased.
+ */
+export async function getCricketTeams(): Promise<CricketTeam[]> {
+  const [current, scheduled] = await Promise.all([
+    getCricketCurrentMatches().catch(() => [] as CricketMatch[]),
+    getCricketMatches().catch(() => [] as CricketMatch[]),
+  ]);
+
+  const seen = new Map<string, CricketTeam>();
+  for (const t of KNOWN_TEAMS) seen.set(normalizeName(t.name), t);
+
+  for (const m of [...current, ...scheduled]) {
+    for (const name of m.teams) {
+      const key = normalizeName(name);
+      if (!key || seen.has(key)) continue;
+      const type: CricketTeamType = IPL_TEAM_NAMES.has(key) ? "franchise" : "club";
+      seen.set(key, { id: teamSlug(name), name, type, country: "" });
+    }
+  }
+
+  return [...seen.values()].sort((a, b) => a.name.localeCompare(b.name));
+}
+
+/** Resolve a single country/team by its stable slug id. */
+export async function getCricketTeam(teamId: string): Promise<CricketTeam | undefined> {
+  const teams = await getCricketTeams();
+  return teams.find((t) => t.id === teamId);
+}
+
+/**
+ * Players for a national side (directory filtered by the player's country
+ * field — never a name guess and never another country's players). Franchises
+ * and clubs return an empty list: the provider exposes no club rosters.
+ */
+export async function getCricketPlayersForTeam(teamId: string): Promise<CricketPlayerRef[]> {
+  const team = await getCricketTeam(teamId);
+  if (!team || team.type !== "national") return [];
+
+  const country = normalizeName(team.country || team.name);
+  const directory = await listCricketPlayers().catch(() => [] as CricketPlayerRef[]);
+  const byCountry = directory.filter(
+    (p) => p.country && normalizeName(p.country) === country
+  );
+  if (byCountry.length > 0) return dedupeBy(byCountry, (p) => p.id || p.name);
+
+  // The directory page didn't cover this side — try a targeted name search
+  // (still filtered by country, never another team's players).
+  const searched = await searchCricketPlayers(team.name).catch(() => [] as CricketPlayerRef[]);
+  return dedupeBy(
+    searched.filter((p) => p.country && normalizeName(p.country) === country),
+    (p) => p.id || p.name
+  );
 }
 
 /* ---- App-type mappers (SportProvider integration) ---- */

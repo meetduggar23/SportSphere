@@ -119,6 +119,17 @@ export function idFromName(name: string): string {
   return `c-${normalizeName(name).replace(/[^a-z0-9]+/g, "-")}`;
 }
 
+/**
+ * Stable URL slug for a team identity, e.g. "India" → "india",
+ * "Papua New Guinea" → "papua-new-guinea". Kept separate from idFromName so
+ * team routes read naturally (/sports/cricket/team/india).
+ */
+export function teamSlug(name: string): string {
+  return normalizeName(name)
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
 /** Dedupe a list by a key function, preserving first occurrence order. */
 export function dedupeBy<T>(items: T[], key: (item: T) => string): T[] {
   const seen = new Set<string>();

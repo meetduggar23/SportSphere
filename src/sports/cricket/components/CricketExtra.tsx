@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { BarChart3, Flag, Trophy, Users, ArrowRight } from "lucide-react";
+import { BarChart3, Globe, Trophy, Users, ArrowRight } from "lucide-react";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { CricketMatchList } from "@/sports/cricket/components/CricketMatchList";
 import { useCricketMatches } from "@/sports/cricket/hooks/useCricketMatches";
@@ -14,10 +14,10 @@ const hubLinks = [
     icon: BarChart3,
   },
   {
-    href: "/sports/cricket/india",
-    title: "India Cricket",
-    description: "Tests, ODIs and T20Is for the national side",
-    icon: Flag,
+    href: "/sports/cricket/teams",
+    title: "Countries",
+    description: "Every supported cricket nation and team",
+    icon: Globe,
   },
   {
     href: "/sports/cricket/ipl",

@@ -2,6 +2,8 @@ import type {
   CricketFormatDef,
   CricketFormatId,
   CricketRecordCategoryDef,
+  CricketTeam,
+  CricketTeamType,
   RecordDefinition,
 } from "@/sports/cricket/types/cricketTypes";
 import { iplTeams } from "@/data/mock";
@@ -834,14 +836,84 @@ export const IPL_SERIES_MARKERS = ["indian premier league", "ipl"];
 
 export const IPL_SEASONS = ["2026", "2025", "2024", "2023", "2022"];
 
-/** India national side metadata. */
-export const INDIA_TEAM = {
-  id: "ind",
-  name: "India",
-  shortName: "IND",
-  /** Team name variants used to filter CricAPI matches. */
-  nameVariants: ["india", "ind"],
-} as const;
+/* ---- Known teams / countries (identity seed) ---- */
+
+/**
+ * Stable URL slug for a team identity (mirrors utils/teamSlug — duplicated
+ * here to avoid a config → utils → config import cycle).
+ */
+function teamSlugLocal(name: string): string {
+  return name
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+function teamSeed(
+  name: string,
+  shortName: string,
+  type: CricketTeamType,
+  country: string,
+  countryCode?: string,
+  logo?: string
+): CricketTeam {
+  return {
+    id: teamSlugLocal(name),
+    name,
+    shortName,
+    type,
+    country,
+    countryCode,
+    logo,
+  };
+}
+
+/**
+ * KNOWN_TEAMS — factual identity seed for every supported cricket country and
+ * team. Names, codes and kinds only, NEVER statistics. CricAPI has no teams
+ * endpoint, so this seed guarantees stable ids and a populated Countries
+ * index; the provider-derived team list from match data is merged on top of
+ * it at request time (see getCricketTeams). Any country supported by the
+ * provider but absent here still appears in the merged list.
+ */
+export const KNOWN_TEAMS: CricketTeam[] = [
+  // ---- ICC full members (national sides) ----
+  teamSeed("India", "IND", "national", "India", "IN", "/logos/cricket/india.png"),
+  teamSeed("Australia", "AUS", "national", "Australia", "AU", "/logos/cricket/australia.png"),
+  teamSeed("England", "ENG", "national", "England", "GB", "/logos/cricket/england.png"),
+  teamSeed("South Africa", "SA", "national", "South Africa", "ZA"),
+  teamSeed("New Zealand", "NZ", "national", "New Zealand", "NZ"),
+  teamSeed("Pakistan", "PAK", "national", "Pakistan", "PK"),
+  teamSeed("Sri Lanka", "SL", "national", "Sri Lanka", "LK"),
+  teamSeed("Bangladesh", "BAN", "national", "Bangladesh", "BD"),
+  teamSeed("Afghanistan", "AFG", "national", "Afghanistan", "AF"),
+  teamSeed("West Indies", "WI", "national", "West Indies"),
+  teamSeed("Zimbabwe", "ZIM", "national", "Zimbabwe", "ZW"),
+  teamSeed("Ireland", "IRE", "national", "Ireland", "IE"),
+  // ---- ICC associate members (national sides) ----
+  teamSeed("Scotland", "SCOT", "national", "Scotland", "GB"),
+  teamSeed("Netherlands", "NED", "national", "Netherlands", "NL"),
+  teamSeed("Nepal", "NEP", "national", "Nepal", "NP"),
+  teamSeed("UAE", "UAE", "national", "United Arab Emirates", "AE"),
+  teamSeed("Namibia", "NAM", "national", "Namibia", "NA"),
+  teamSeed("USA", "USA", "national", "United States", "US"),
+  teamSeed("Oman", "OMA", "national", "Oman", "OM"),
+  teamSeed("Canada", "CAN", "national", "Canada", "CA"),
+  teamSeed("Hong Kong", "HKG", "national", "Hong Kong", "HK"),
+  teamSeed("Papua New Guinea", "PNG", "national", "Papua New Guinea", "PG"),
+  // ---- IPL franchises (league competition — never national cricket) ----
+  teamSeed("Mumbai Indians", "MI", "franchise", "India", "IN", "/logos/ipl/mi.jpg"),
+  teamSeed("Chennai Super Kings", "CSK", "franchise", "India", "IN", "/logos/ipl/csk.jpg"),
+  teamSeed("Royal Challengers Bengaluru", "RCB", "franchise", "India", "IN", "/logos/ipl/rcb.jpg"),
+  teamSeed("Kolkata Knight Riders", "KKR", "franchise", "India", "IN", "/logos/ipl/kkr.png"),
+  teamSeed("Rajasthan Royals", "RR", "franchise", "India", "IN", "/logos/ipl/rr.jpg"),
+  teamSeed("Gujarat Titans", "GT", "franchise", "India", "IN", "/logos/ipl/gt.jpg"),
+  teamSeed("Sunrisers Hyderabad", "SRH", "franchise", "India", "IN", "/logos/ipl/srh.jpg"),
+  teamSeed("Punjab Kings", "PBKS", "franchise", "India", "IN", "/logos/ipl/pbks.jpg"),
+  teamSeed("Delhi Capitals", "DC", "franchise", "India", "IN", "/logos/ipl/dc.jpg"),
+  teamSeed("Lucknow Super Giants", "LSG", "franchise", "India", "IN", "/logos/ipl/lsg.jpg"),
+];
 
 /* ---- CricAPI format classification ---- */
 
